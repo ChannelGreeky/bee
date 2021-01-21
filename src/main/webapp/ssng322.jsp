@@ -7,7 +7,6 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<h1>adsfsdfasdfas</h1>
-	<span>dsfasdfsadfas</span>
+
 </body>
 </html>
