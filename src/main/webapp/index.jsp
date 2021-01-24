@@ -8,5 +8,9 @@
 </head>
 <body>
 
+	<h1>마이페이지</h1>
+	<a href="/myinfo.do">1. 내 정보</a>
+
+
 </body>
 </html>
