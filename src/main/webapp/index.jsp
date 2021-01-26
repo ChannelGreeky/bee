@@ -10,7 +10,9 @@
 
 	<h1>마이페이지</h1>
 	<a href="/myinfo.do">1. 내 정보</a>
-
-
+	<a href="/uploadFile.do">파일업로드</a>
+	<a href="/uploadImage.do">이미지업로드</a>
+	<a href="/header.do">헤더확인용</a>
+	<a href="/header_user.do">사용자헤더확인용</a>
 </body>
 </html>
