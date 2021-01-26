@@ -6,11 +6,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 public class MemberController {
 	
-	
-	@RequestMapping(value="myinfo.do")
-	public String myinfo(){
-		return "mypage/myinfo";
-	}
+
 	
 	@RequestMapping(value="uploadFile.do")
 	public String uploadFile(){
@@ -32,4 +28,56 @@ public class MemberController {
 	public String header_user(){
 		return "include/header_user";
 	}
+		
+		
+		
+		//마이페이지
+		@RequestMapping(value="myinfo.do")
+		public String myinfo(){
+			return "my/info";
+		}
+		
+		@RequestMapping(value="/myboard.do")
+		public String myboard(){
+			return "my/board";
+		}
+		
+		@RequestMapping(value="/mycomment.do")
+		public String mycomment(){
+			return "my/comment";
+		}
+		
+		@RequestMapping(value="/myheart.do")
+		public String myheart(){
+			return "my/heart";
+		}
+		
+		@RequestMapping(value="/mybeesJoinQnas.do")
+		public String mybeesJoinQnas(){
+			return "my/beesJoinQnas";
+		}
+		
+		@RequestMapping(value="/mybeesInvitation.do")
+		public String mybeesInvitation(){
+			return "my/beesInvitation";
+		}
+		
+		@RequestMapping(value="/myQnaHistory.do")
+		public String myQnaHistory(){
+			return "my/qnaHistory";
+		}
+		
+		
+		@RequestMapping(value="/myask.do")
+		public String myask(){
+			return "my/ask";
+		}
+		
+		@RequestMapping(value="/mynotice.do")
+		public String mynotice(){
+			return "my/notice";
+		}
+		
+		//마이페이지
+		
 }
