@@ -6,7 +6,10 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
     <style>
-    #header>.inner{
+  #head_color{
+   border-bottom: 1px solid #FFF3D8;
+   } 
+    #head_color>.inner{
 	position: relative;
             max-width: 1034px;
             min-width:490px;
@@ -19,7 +22,7 @@
 }
 .beeLogo{
  width: 70px;
- height: 36px;
+ height: 33px;
  overflow: hidden;
  margin-top:10px;
 	display : inline-block;
@@ -107,7 +110,7 @@ outline:none;
 
 #navi{
 position: relative;
-border-top: 1px solid #FFF3D8;
+
 width:100%;
 max-width:1034px;
 height:40px;
@@ -178,7 +181,8 @@ text-decoration: underline;
 	<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap" rel="stylesheet">
 
 	<div id="wrap" style="transform: none;">
-   <div id="header" >  
+   <div id="header" >
+   <header id="head_color">    
        <div class="inner">
            <span>
             <a href="#" class="beeLogo">
@@ -276,7 +280,7 @@ text-decoration: underline;
                </li> <!-- setting>-->
              </ul>  
           </div>  <!-- inner -->
-      
+      </header>
  
 
        <div id="navi" style="display: block;">		

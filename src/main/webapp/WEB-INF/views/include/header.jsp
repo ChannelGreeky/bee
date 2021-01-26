@@ -6,7 +6,11 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
     <style>
-    #header>.inner{
+   #head_color{
+   background-color:#F7D078;
+  
+   }
+    #head_color>.inner{
 	position: relative;
             max-width: 1034px;
             min-width:490px;
@@ -19,13 +23,14 @@
 }
 .beeLogo{
  width: 70px;
- height: 36px;
+ height: 33px;
  overflow: hidden;
  margin-top:10px;
 	display : inline-block;
 	background-repeat: no-repeat;
 	background-position: -246px -285px;
 }
+
 .inner>form{
 display:inline-block;
 }    
@@ -146,8 +151,33 @@ font-weight: bold;
 text-decoration: underline;
 }
 
-  
- 
+.setting_box a {
+cursor:pointer;
+}
+.setting_box ul{
+display:none;
+}
+.setting_box li{
+text-align:right;
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     </style>
 </head>
 <body>
@@ -178,11 +208,12 @@ text-decoration: underline;
 	<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap" rel="stylesheet">
 
 	<div id="wrap" style="transform: none;">
-   <div id="header" >  
+   <div id="header" >
+   	<header id="head_color">  
        <div class="inner">
            <span>
             <a href="#" class="beeLogo">
-	       		<img src="resources/image/beeLogo.png" alt="로고이미지"/>	
+	       		<img src="resources/image/beeWhiteLogo.png" alt="로고이미지" />	
  	  		</a>
             </span>
             <form action>
@@ -192,7 +223,7 @@ text-decoration: underline;
                      
                       <input type="text" id="input_searchBox" autocomplete="off">
                       <!--   <span><i class="fas fa-search"></i></span> -->
-                    <!--   <input type="button" class="img-button" placeholder="&#xf002;"> -->
+                   <!--   <input type="submit" class="img-button" value="&#xf002;"> --> 
                     </div>
                </fieldset>
             </form>
@@ -211,12 +242,77 @@ text-decoration: underline;
    						 Popover on bottom
  					 </button>-->
             	</li>
+            	
+            	
+            	
+           		 <li class="setting">
+            		<button type="button" class="top_right_btn" id="set_btn">
+            			<i class="fas fa-user-circle top_right_img"></i>
+            		</button>	
+            		 <div class="setting_box">
+	                    <ul>
+	                        <li>
+	                        	<a href="#">내 정보</a>
+	                        </li>
+			   				<li>
+	                            <a href="#">내가 쓴 글</a>
+	                        </li>
+			  				<li>
+	                            <a href="#">좋아요 목록</a>
+	                        </li>
+	 		  				<li>
+	                            <a href="#">내 정보</a>
+	                        </li>
+	                        <li>
+	                            <a href="#">비즈가입 초대 확인</a>
+	                        </li>
+							<li>
+	                            <a href="#">문의사항</a>
+	                        </li>
+							<li>
+	                            <a href="#">공지사항</a>
+	                        </li>
+	                        <li>
+	                        	<a href="#">로그아웃</a>
+	                        </li>
+	                     </ul>
+                      </div>
+            	</li>
+            	
+            	
+     <script>
+     
+     $(document).ready(function(){
+    	 $("#set_btn").click(function(){
+    		 var showmenu=$(this).next("ul");
+    		 if(submenu.is(":visible")){
+    			 alert("hello");
+    			 submenu.slideUp();
+    		 }else{
+    			 submenu.slideDown();
+    		 }
+    	
+    	 });
+     });
+     
+     
+     
+     
+     </script>       	
+            	
+            	
+            	
+            	
+            	
+            	
+            	
+      <!--      	
             	<li class="setting">
             		<button type="button" class="top_right_btn" >
             			<i class="fas fa-user-circle top_right_img"></i>
             		</button>
             	</li>
-            
+       -->       
        <!--   
             <ul class="top_right-menu">
 	  			<li class="chat">
@@ -283,7 +379,7 @@ text-decoration: underline;
                </li> <!-- setting>-->
              </ul>  
           </div>  <!-- inner -->
-      
+      </header>
  
 
        <div id="navi" style="display: block;">		
