@@ -7,6 +7,21 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class MemberController {
 	
 
+	@RequestMapping("/beesSchedule.do")
+	public String insertBeesSchedule() {
+	return "board/schedule";	
+	}
+	
+	@RequestMapping("/beesMember.do")
+	public String selectBeesSMember() {
+		
+		return "board/beesMember";	
+	}
+	
+	@RequestMapping("/inviteMember.do")
+	public String selectMemberInvite() {
+		return "board/beesInvite";
+	}
 	
 	@RequestMapping(value="uploadFile.do")
 	public String uploadFile(){

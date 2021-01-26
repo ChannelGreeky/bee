@@ -13,6 +13,8 @@
 	<a href="/header.do">헤더확인용</a>
 	<a href="/header_user.do">사용자헤더확인용</a>
 	
+	<h3><a href="/beesSchedule.do">일정</a></h3>
+	<h3><a href="/beesMember.do">멤버</a></h3>
 		
 	<h1>마이페이지</h1>
 	<a href="/myinfo.do">1. 내 정보(모달, 생년월일 select, input text css, btn css)</a><br>
