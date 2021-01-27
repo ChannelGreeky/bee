@@ -8,6 +8,7 @@
 <style>
 *{
 box-sizing:border-box;
+list-style:none;
 }
 .main_content{
 width:540px;
@@ -25,6 +26,23 @@ margin-bottom:15px;
 margin-top:15px;
 margin-bottom:15px;
 heigth:20%;
+
+
+}
+.main_navi ul{
+display:flex;
+margin:0;
+padding:0;
+}
+.main_navi ul li{
+flex:1; border:1px solid gray;
+}
+.main_navi ul li a{
+display:block;
+text-align:center;
+height:40px;
+line-height:40px;
+
 
 }
 .main_body{
@@ -55,46 +73,6 @@ border-radius:30px;
 #input_searchBox:focus{
 outline:none;
 }
-.navi_menu{
-list-style:none;
-
-padding:0;
-display:flex;
-text-align:center;
-height:100%;
-align-items:center;
-position:relative;
-
-margin:0 auto;
-}
-
-.navi_menu_item{
-margin-right:45px;
-display:list-item;
-position:relative;
-line-height:30px;
-float:left;
-margin-left:50px;
-text-align:center;
-flex:0 0 auto;
-}
-.navi_menu_item>a{
-text-decoration: none;
-line-height:34px;
-display:block;
-width:100%;
-height:100%;
-color:black;
-} 
-.navi_menu_item>a:hover{
-text-decoration: none;
-color:black;
-font-weight: bold;
-}
-.navi_menu_item>a:active {
-text-decoration: underline;
-}
-
 
 
 
@@ -129,38 +107,37 @@ text-decoration: underline;
 
 
 
-	<div class="main_content">
-	<div class="main_head">
-		<H3>첨부 모아보기</H3>
+	<div class="main_content">    <!-- id="tab_wrap" -->
+		<div class="main_head">      <!-- class="tab_title" -->
+			<H3>첨부 모아보기</H3>
+			
+			
+		</div>
+		<div class="main_navi">
+			<ul >
+				<li ><a href="#">파일</a></li>      <!-- class="notice_on" -->
+				<li ><a href="#">투표</a></li>     <!-- class="gallery_off" -->
+				
+			</ul>
 		
 		
-	</div>
-	<div class="main_navi">
-		<ul class="navi_menu">
-			<li class="navi_menu_item"><a href="#"  >파일</li>
-			<li class="navi_menu_item"><a href="#"  >투표</li>
-			<li class="navi_menu_item"><a href="#"  >To-Do</li>
-		</ul>
+		</div>
+		<div class="main_body">          <!-- class="contents_box" -->
+			<input type="text" id="input_searchBox" autocomplete="off">
+					<div class="row">
+			            <div class="col-md-12"> 
+							
+			            </div>
+			        </div>
 	
+		</div> <!-- main_body -->
+	</div> <!-- main_content -->
 	
-	</div>
-	<div class="main_body">
-		<input type="text" id="input_searchBox" autocomplete="off">
-				<div class="row">
-		            <div class="col-md-12"> 
-						
-		            </div>
-		        </div>
-
-	</div> <!-- main_body -->
+<script>
 
 
 
-</div> <!-- main_content -->
-	
-
-
-
+</script>
 
 
 

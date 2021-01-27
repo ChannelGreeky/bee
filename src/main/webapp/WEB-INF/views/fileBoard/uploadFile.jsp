@@ -33,55 +33,203 @@
 	<link rel="preconnect" href="https://fonts.gstatic.com">
 	<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap" rel="stylesheet">
 
-	
+<style>
+
+* { 
+color: #50401B; 
+text-decoration: none; 
+list-style: none; 
+box-sizing: border-box; 
+} 
+.head{
+font-size:1.5rem;
+height:10%;
+line-height:54px;
+}
+#main_content { 
+width:540px;
+height:540px;
+border:1px solid black;
+padding: 20px 20px 20px 20px;
+margin:0;
+min-width:540px;
+} 
+.main_head{ 
+position: absolute;
+font-size: 0; 
+z-index: 2; 
+cursor: pointer; 
+height:10%;
+margin:0 auto;
+} 
+*.file_on{ 
+
+display: inline-block; 
+width: 250px;
+height: 30px; 
+line-height: 30px; 
+text-align: center; 
+font-size: 1rem; 
+background: white; 
+border: 1px solid gray; 
+border-bottom: none; 
+background: white; 
+z-index: 3; 
+} 
+.main_body{ 
+position: absolute; 
+margin-top: 29px; 
+height: 50%; 
+width:500px;
+border: 1px solid; 
+z-index: 1; 
+}
+*.file_off{ 
+display: inline-block; 
+width: 250px; height: 30px; 
+line-height: 30px; 
+text-align: center; 
+font-size: 1rem; 
+background: #F7D078; 
+border: 1px solid gray;
+ z-index: 3; 
+ } 
+*.vote_off{ 
+display: inline-block; 
+width: 250px; 
+height: 30px; 
+line-height: 30px; 
+text-align: center; 
+font-size: 1rem; 
+background: #F7D078; 
+border-top: 1px solid gray; 
+border-right: 1px solid gray; 
+border-bottom: 1px solid gray; 
+} 
+*.vote_on{ 
+display: inline-block; 
+width: 250px; 
+height: 30px; 
+line-height: 30px; 
+text-align: center; 
+font-size: 1rem; 
+background: white; 
+border-top: 1px solid gray; 
+border-right: 1px solid gray; 
+border-bottom: none;
+ } 
+ 
+*.file_cont{ 
+display: block; 
+position: fixed; 
+padding: 10px; 
+width: 355px; 
+
+} 
+*.file_cont>li{ 
+line-height: 27px; 
+font-size: 0.9rem; 
+} 
+*.file_cont>li>a{ 
+float: left; 
+color:#50401B;
+} 
+*.vote_cont{ 
+display: none; /*활성시 flex*/ 
+justify-content: space-between;
+ padding: 10px; 
+ width: 355px; 
+ height: 125px; 
+ font-size: 0;
+  } 
+*.vote_cont>li{ 
+display: inline-block; 
+overflow: hidden;
+ width: 100px; 
+ height: 100px; 
+ }
+
+
+#input_searchBox{
+
+background-image:url('../../../resources/image/search.png');
+background-position:400px 6px;
+background-repeat:no-repeat;
+background-size:17px 17px;
+border:1px solid black;
+width:90%;
+height:8%;
+margin: 20px 25px 20px 25px;
+padding:3px 25px 3px 15px;
+border-radius:30px;
+}
+#input_searchBox:focus{
+outline:none;
+}
+
+</style>	
 
 </head>
 <body>
-<script>
-$(function(){
-	$("#uploadButton").click(function(){
-		$('div.modal').modal();
-	});
-});
-</script>
-<!-- 모달창에서 보여야 할 부분,  -->
-<!-- Button trigger modal -->
-<button type="button" class="btn btn-primary" id="uploadFile">
-  Launch static backdrop modal
-</button>
-
-<!-- Modal -->
-<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="staticBackdropLabel">Modal title</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body">
-        ...
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Understood</button>
-      </div>
-    </div>
-  </div>
-</div>
 
 
-<!-- 
-<form method="post" action="/uploadFile.do" enctype="multipart/form-data">
-	<p>전체 파일</p>
-	<input type="button"  value="파일 올리기" onClick="fn_addFile()" data-toggle="modal" data-target="#myModal"/><br> 
-  
-	<div id="d_file">
-  </div>
-	<input type="reset"  value="취소"/> <input type="submit"  value="첨부하기"/>
-</form>-->
-<script>
+	<div id="main_content"> 
+		<div class="head">첨부 모아보기</div>
+			<div class="main_head"> 
+				<div class="file_on">파일</div> 
+				<div class="vote_off">투표</div> 
+			</div> 
+			<div class="main_body">
+				<input type="text" id="input_searchBox" autocomplete="off">
+					<ul class="file_cont">
+						<li><a href="#">파일내용</a></li>
+					</ul>
+					<ul class="vote_cont">
+					    <li><a href="#">투표내용</a></li>			
+					</ul>
+			</div>
+		</div>
+	</div>
+       
+ 
+ 
 
-</script>
+		
+
+		
+ 
+       
+       <script>
+     //투표 버튼 클릭
+     $('.vote_off').click(function(){
+    	 $('.file_cont').hide(); //파일 내용숨기기
+     
+     $('.vote_cont').css({'display' : 'flex',});   //투표내용 나타내기
+     
+     
+     $(this).attr('class','vote_on');  //투표 버튼 css변경
+      
+     $('.file_on').attr('class','file_off');  //파일버튼 css변경
+   
+     }); 
+     
+     
+     //파일 버튼 클릭
+     $('.file_on').click(function(){    //파일클릭시
+    	 $('.file_cont').show();          //파일내용 보여줘
+     
+     $('.vote_cont').hide();       //투표내용 숨겨
+     
+     $(this).attr('class','file_on');     //파일버튼 css변경
+      
+     $('.vote_on').attr('class','vote_off');   //투표 버튼 변경
+    
+     });
+       
+       
+       
+       
+       </script>
 </body>
 </html>
 

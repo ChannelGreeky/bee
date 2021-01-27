@@ -28,11 +28,18 @@ public class MemberController {
 		return "fileBoard/allFile";
 	}
 	
+	@RequestMapping(value="fileExample.do")
+	public String fileExample(){
+		return "fileBoard/uploadFile";
+	}
 	@RequestMapping(value="uploadImage.do")
 	public String uploadImage(){
 		return "imageBoard/allImage";
 	}
-	
+	@RequestMapping(value="headerbody.do")
+	public String headerBody(){
+		return "include/headerbody";
+	}
 	@RequestMapping(value="header.do")
 	public String header(){
 		return "include/header";

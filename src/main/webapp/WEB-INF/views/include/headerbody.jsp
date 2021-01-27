@@ -75,26 +75,18 @@ margin:0;
 padding:0;
 }
 li{
-list-style-type:none;
-}
-a{
-color:black;
-text-decoration:none;
+display:list-item;
 }
 .top_right-menu{
-right:30px;
+right:15px;
 position:absolute;
 top:14px;
-text-align:center;
-line-height:1;
-width:200px;
-display:flex;
 }
 #header .top_right-menu>li{
 position:relative;
 line-height:20px;
 float:left;
-flex:1;
+margin-left:30px;
 }
 
 .top_right_btn{
@@ -117,55 +109,7 @@ color:white;
 .top_right_btn:focus{
 outline:none;
 }
-.menu-sub{
-background-color:#F7D078;
-white-space:nowrap;     
-position:absolute;
-right:0;
-top:20px;
-transform:translate(10%, 2.2em);
-opacity:0;
-pointer-events:none;
-transition: all .6s;
-box-shadow:0.2em 0.2em 10px #111;
-}
-.menu-sub:before{
-content:' ';
-position:absolute;
-right:0;
-top:-20px;
-left:0;
-height:20px;
 
-
-}
-.menu-sub a{
-color:#50401B;
-}
-.menu-sub:after{
-content:' ';
-position:absolute;
-top:-20px;
-left:50%;
-transform:translateX(-50%);
-height:0;
-width:0;
-border-width:10px;
-border-style:solid;
-border-color:transparent transparent #F7D078 transparent;
-
-}
-.menu-item{
-position:relative;
-}
-.menu-item a{
-padding:0.7em;
-display:block;
-}
-.menu-item:hover .menu-sub{
-opacity: 1;
-pointer-events:auto;
-}
 #navi{
 position: relative;
 
@@ -207,7 +151,16 @@ font-weight: bold;
 text-decoration: underline;
 }
 
+.setting_box a {
+cursor:pointer;
+}
+.setting_box ul{
+display:none;
+}
+.setting_box li{
+text-align:right;
 
+}
 
 
 
@@ -277,7 +230,7 @@ text-decoration: underline;
             
             
             <ul class="top_right-menu">
-	  			<li class="menu-item">
+	  			<li class="chat">
 	  				 <button type="button" class="top_right_btn">  
 	  					<i class="far fa-comment-dots top_right_img"></i>
                     </button>
@@ -292,12 +245,12 @@ text-decoration: underline;
             	
             	
             	
-           		 <li class="menu-item">
+           		 <li class="setting">
             		<button type="button" class="top_right_btn" id="set_btn">
             			<i class="fas fa-user-circle top_right_img"></i>
             		</button>	
-            		 
-	                    <ul class="menu-sub">
+            		 <div class="setting_box">
+	                    <ul>
 	                        <li>
 	                        	<a href="#">내 정보</a>
 	                        </li>
@@ -323,11 +276,30 @@ text-decoration: underline;
 	                        	<a href="#">로그아웃</a>
 	                        </li>
 	                     </ul>
-                      
+                      </div>
             	</li>
             	
             	
+     <script>
      
+     $(document).ready(function(){
+    	 $("#set_btn").click(function(){
+    		 var showmenu=$(this).next("ul");
+    		 if(submenu.is(":visible")){
+    			 alert("hello");
+    			 submenu.slideUp();
+    		 }else{
+    			 submenu.slideDown();
+    		 }
+    	
+    	 });
+     });
+     
+     
+     
+     
+     </script>       	
+            	
             	
             	
             	
