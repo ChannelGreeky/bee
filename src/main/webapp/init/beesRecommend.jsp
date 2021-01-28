@@ -26,7 +26,7 @@
 			</div>
 			<div class="col-3 p-0">
 			
-				<div id="sub-content" class="container m-0 p-2">
+				<div id="sub-content" class="container p-2 w-75 m-auto">
 				
 					<div class="row m-0">
 						<div class="col-12">
@@ -44,7 +44,7 @@
 					<div class="row m-0">
 						<div class="d-none d-md-block col-md-3 p-1">
 							<a href="#">
-								<div class="m-auto beesImage" style="width:40px; height:40px;
+								<div class="m-auto beesImage" style="width:30px; height:30px;
 								background: url('/resources/image/test.jpg') no-repeat;
 								background-size: cover;">
 								</div>
@@ -59,7 +59,7 @@
 					<div class="row m-0">
 						<div class="d-none d-md-block col-md-3 p-1">
 							<a href="#">
-								<div class="m-auto beesImage" style="width:40px; height:40px;
+								<div class="m-auto beesImage" style="width:30px; height:30px;
 								background: url('/resources/image/test.jpg') no-repeat;
 								background-size: cover;">
 								</div>
@@ -73,7 +73,7 @@
 					<div class="row m-0">
 						<div class="d-none d-md-block col-md-3 p-1">
 							<a href="#">
-								<div class="m-auto beesImage" style="width:40px; height:40px;
+								<div class="m-auto beesImage" style="width:30px; height:30px;
 								background: url('/resources/image/test.jpg') no-repeat;
 								background-size: cover;">
 								</div>
@@ -87,7 +87,7 @@
 					<div class="row m-0">
 						<div class="d-none d-md-block col-md-3 p-1">
 							<a href="#">
-								<div class="m-auto beesImage" style="width:40px; height:40px;
+								<div class="m-auto beesImage" style="width:30px; height:30px;
 								background: url('/resources/image/test.jpg') no-repeat;
 								background-size: cover;">
 								</div>
