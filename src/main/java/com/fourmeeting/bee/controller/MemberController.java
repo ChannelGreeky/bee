@@ -44,13 +44,11 @@ public class MemberController {
 	public String header(){
 		return "include/header";
 	}
-	
-	
-		@RequestMapping(value="header_user.do")
+	@RequestMapping(value="header_user.do")
 	public String header_user(){
 		return "include/header_user";
 	}
-		
+
 		
 		
 		//마이페이지
