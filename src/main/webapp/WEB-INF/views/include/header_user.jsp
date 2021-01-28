@@ -12,7 +12,7 @@
     #head_color>.inner{
 	position: relative;
             max-width: 1034px;
-            min-width:490px;
+            min-width:580px;
             height: 50px;
             margin:0 auto;
            
@@ -283,47 +283,26 @@ text-decoration: underline;
       </header>
  
 
-       <div id="navi" style="display: block;">		
+     
+  <div id="navi" style="display: block;">		
 	<ul class="navi_menu">
 	    <li class="navi_menu_item">
-     	       <a href="#" >
-		<span>
-			전체글
-		</span>
-	       </a>
+     	       <a href="#" >전체글</a>
 	    </li>	
 	    <li class="navi_menu_item">
-     	       <a href="#"  >
-		<span>
-			사진첩
-		</span>
-	       </a>
+     	       <a href="#"  >사진첩</a>
 	    </li>	
 	    <li class="navi_menu_item">
-     	       <a href="#"  >
-		<span>
-			일정
-		</span>
-	       </a>
+     	       <a href="#"  >일정</a>
 	    </li>	
-                <li class="navi_menu_item">
-     	       <a href="#" >
-		<span>
-			첨부
-		</span>
-	       </a>
+        <li class="navi_menu_item">
+     	       <a href="#" >첨부</a>
 	    </li>	
 	    <li class="navi_menu_item">
-     	       <a href="#" >
-		<span>
-			멤버
-		</span>
-	       </a>
+     	       <a href="#" >멤버</a>
 	    </li>	
 	</ul>
          </div>  <!-- navi -->
-
-
 
 
 

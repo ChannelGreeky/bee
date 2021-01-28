@@ -103,7 +103,7 @@ margin:3px;
 		<span>전체사진</span> 
 			<span>                                                                 
 		    	<input type="file" id="upImgFiles" onChange="uploadImgs();" name="subImg" accept="image/*" multiple >
-		    	<button type="button" id="btn-upload"> + </button> 
+		    	<button type="button" id="btn-upload"> <i class="fas fa-plus"></i> </button> 
 		    </span>
 				<div class="row" id="spaceImage">
 		            <div class="col-md-12"> 

@@ -13,7 +13,7 @@
     #head_color>.inner{
 	position: relative;
             max-width: 1034px;
-            min-width:490px;
+            min-width:580px;
             height: 50px;
             margin:0 auto;
             background-color:#F7D078;
@@ -125,9 +125,10 @@ right:0;
 top:20px;
 transform:translate(10%, 2.2em);
 opacity:0;
-pointer-events:none;
+display:none;
 transition: all .6s;
 box-shadow:0.2em 0.2em 10px #111;
+
 }
 .menu-sub:before{
 content:' ';
@@ -164,7 +165,7 @@ display:block;
 }
 .menu-item:hover .menu-sub{
 opacity: 1;
-pointer-events:auto;
+display:block;
 }
 #navi{
 position: relative;
@@ -259,7 +260,7 @@ text-decoration: underline;
    	<header id="head_color">  
        <div class="inner">
            <span>
-            <a href="#" class="beeLogo">
+            <a href="/index.jsp" class="beeLogo">
 	       		<img src="resources/image/beeWhiteLogo.png" alt="로고이미지" />	
  	  		</a>
             </span>
@@ -281,13 +282,6 @@ text-decoration: underline;
 	  				 <button type="button" class="top_right_btn">  
 	  					<i class="far fa-comment-dots top_right_img"></i>
                     </button>
-                    
-                 <!--    <button type="button" class="btn btn-default" data-container="body" data-toggle="popover" data-placement="bottom" 
-                    data-content="Vivamus
-					sagittis lacus vel augue laoreet rutrum faucibus.">
-					<i class="far fa-comment-dots top_right_img"></i>
-   						 Popover on bottom
- 					 </button>-->
             	</li>
             	
             	
@@ -299,7 +293,7 @@ text-decoration: underline;
             		 
 	                    <ul class="menu-sub">
 	                        <li>
-	                        	<a href="#">내 정보</a>
+	                        	<a href="/index.jsp">내 정보</a>
 	                        </li>
 			   				<li>
 	                            <a href="#">내가 쓴 글</a>
@@ -325,86 +319,6 @@ text-decoration: underline;
 	                     </ul>
                       
             	</li>
-            	
-            	
-     
-            	
-            	
-            	
-            	
-            	
-            	
-      <!--      	
-            	<li class="setting">
-            		<button type="button" class="top_right_btn" >
-            			<i class="fas fa-user-circle top_right_img"></i>
-            		</button>
-            	</li>
-       -->       
-       <!--   
-            <ul class="top_right-menu">
-	  			<li class="chat">
-	      			<button type="button" class="chat_btn">  
-                    </button>
-                    <article >
-						<header>
-                           <h1>채팅</h1>
-                        </header>
-                        <div>
-		     				<ul>
-								<li> <a href="#">채팅목록</a></li>
-		     				</ul>
-						</div>
-                    </article>
-	   			</li>
-
- 
-               <li class="setting">
-                   <button type="button" class="" >
-                      <span class="uProfile">
-                          <span class="profileInner">
-                                 <img src="" width="30" height="30" alt class="">
-                           </span>
-                       </span>
-                    </button>
-                <article class="" id="">
-                   <div class="">
-                       <ul>
-                           <li>
-                               <a href="#">내 정보</a>
-                           </li>
-		   <li>
-                               <a href="#">내가 쓴 글</a>
-                           </li>
-		  <li>
-                               <a href="#">좋아요 목록</a>
-                           </li>
- 		  <li>
-                               <a href="#">내 정보</a>
-                           </li>
-
-   		  <li>
-                             <div class="sub">
-                                <ul>
-                                   <li>
-                                      <a href="#">비즈가입 초대 확인</a>
-                                   </li>
-			<li>
-                                      <a href="#">문의사항</a>
-                                   </li>
-			<li>
-                                      <a href="#">공지사항</a>
-                                   </li>
-                                 </ul>
-                               </div>
-                            </li>
-                            <li>
-                                <a href="#">로그아웃</a>
-                            </li>
-                         </ul>
-                      </div>
-                  </article>
-               </li> <!-- setting>-->
              </ul>  
           </div>  <!-- inner -->
       </header>
@@ -413,39 +327,19 @@ text-decoration: underline;
        <div id="navi" style="display: block;">		
 	<ul class="navi_menu">
 	    <li class="navi_menu_item">
-     	       <a href="#" >
-		<span>
-			전체글
-		</span>
-	       </a>
+     	       <a href="#" >전체글</a>
 	    </li>	
 	    <li class="navi_menu_item">
-     	       <a href="#"  >
-		<span>
-			사진첩
-		</span>
-	       </a>
+     	       <a href="#"  >사진첩</a>
 	    </li>	
 	    <li class="navi_menu_item">
-     	       <a href="#"  >
-		<span>
-			일정
-		</span>
-	       </a>
+     	       <a href="#"  >일정</a>
 	    </li>	
-                <li class="navi_menu_item">
-     	       <a href="#" >
-		<span>
-			첨부
-		</span>
-	       </a>
+        <li class="navi_menu_item">
+     	       <a href="#" >첨부</a>
 	    </li>	
 	    <li class="navi_menu_item">
-     	       <a href="#" >
-		<span>
-			멤버
-		</span>
-	       </a>
+     	       <a href="#" >멤버</a>
 	    </li>	
 	</ul>
          </div>  <!-- navi -->

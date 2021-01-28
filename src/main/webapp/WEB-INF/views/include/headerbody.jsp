@@ -13,14 +13,22 @@
     #head_color>.inner{
 	position: relative;
             max-width: 1034px;
-            min-width:490px;
+            min-width:580px;
             height: 50px;
             margin:0 auto;
             background-color:#F7D078;
 }
 * {
+	 
+    font-family: 'Noto Sans KR', sans-serif;	
 	box-sizing: border-box;
+	margin:0;
+	padding:0;
+	list-style: none; 
+	color: #50401B; 
+	text-decoration: none; 
 }
+
 .beeLogo{
  width: 70px;
  height: 33px;
@@ -70,23 +78,31 @@ padding:3px 25px 3px 3px;
 outline:none;
 }
 ul{
-list-style:none;
+
 margin:0;
 padding:0;
 }
 li{
-display:list-item;
+list-style-type:none;
+}
+a{
+color:black;
+text-decoration:none;
 }
 .top_right-menu{
-right:15px;
+right:30px;
 position:absolute;
 top:14px;
+text-align:center;
+line-height:1;
+width:200px;
+display:flex;
 }
 #header .top_right-menu>li{
 position:relative;
 line-height:20px;
 float:left;
-margin-left:30px;
+flex:1;
 }
 
 .top_right_btn{
@@ -109,7 +125,55 @@ color:white;
 .top_right_btn:focus{
 outline:none;
 }
+.menu-sub{
+background-color:#F7D078;
+white-space:nowrap;     
+position:absolute;
+right:0;
+top:20px;
+transform:translate(10%, 2.2em);
+opacity:0;
+pointer-events:none;
+transition: all .6s;
+box-shadow:0.2em 0.2em 10px #111;
+}
+.menu-sub:before{
+content:' ';
+position:absolute;
+right:0;
+top:-20px;
+left:0;
+height:20px;
 
+
+}
+.menu-sub a{
+color:#50401B;
+}
+.menu-sub:after{
+content:' ';
+position:absolute;
+top:-20px;
+left:50%;
+transform:translateX(-50%);
+height:0;
+width:0;
+border-width:10px;
+border-style:solid;
+border-color:transparent transparent #F7D078 transparent;
+
+}
+.menu-item{
+position:relative;
+}
+.menu-item a{
+padding:0.7em;
+display:block;
+}
+.menu-item:hover .menu-sub{
+opacity: 1;
+pointer-events:auto;
+}
 #navi{
 position: relative;
 
@@ -151,15 +215,19 @@ font-weight: bold;
 text-decoration: underline;
 }
 
-.setting_box a {
-cursor:pointer;
+
+
+
+#main-content{
+min-height:600px;
+margin:0px;
+padding:0px;
+border:1px solid black;
 }
-.setting_box ul{
-display:none;
-}
-.setting_box li{
-text-align:right;
 
+.content_body div{
+border:1px solid black;
+height:70%;
 }
 
 
@@ -170,9 +238,152 @@ text-align:right;
 
 
 
+.head{
+font-size:1.5rem;
+height:10%;
+line-height:54px;
+}
+#main_content { 
+width:540px;
+height:540px;
+border:1px solid black;
+padding: 20px 20px 20px 20px;
+margin:0;
+min-width:540px;
+} 
+.main_head{ 
+position: absolute;
+font-size: 0; 
+z-index: 2; 
+cursor: pointer; 
+height:10%;
+margin:0 auto;
+} 
+*.file_on{ 
+
+display: inline-block; 
+width: 250px;
+height: 30px; 
+line-height: 30px; 
+text-align: center; 
+font-size: 1rem; 
+background: white; 
+border: 1px solid gray; 
+border-bottom: none; 
+background: white; 
+z-index: 3; 
+} 
+.main_body{ 
+position: absolute; 
+margin-top: 29px; 
+height: 50%; 
+width:500px;
+border: 1px solid; 
+z-index: 1; 
+}
+*.file_off{ 
+display: inline-block; 
+width: 250px; height: 30px; 
+line-height: 30px; 
+text-align: center; 
+font-size: 1rem; 
+background: #F7D078; 
+border: 1px solid gray;
+ z-index: 3; 
+ } 
+*.vote_off{ 
+display: inline-block; 
+width: 250px; 
+height: 30px; 
+line-height: 30px; 
+text-align: center; 
+font-size: 1rem; 
+background: #F7D078; 
+border-top: 1px solid gray; 
+border-right: 1px solid gray; 
+border-bottom: 1px solid gray; 
+} 
+*.vote_on{ 
+display: inline-block; 
+width: 250px; 
+height: 30px; 
+line-height: 30px; 
+text-align: center; 
+font-size: 1rem; 
+background: white; 
+border-top: 1px solid gray; 
+border-right: 1px solid gray; 
+border-bottom: none;
+ } 
+ 
+*.file_cont{ 
+display: block; 
+position: fixed; 
+padding: 10px; 
+width: 355px; 
+
+} 
+*.file_cont>li{ 
+line-height: 27px; 
+font-size: 0.9rem; 
+} 
+*.file_cont>li>a{ 
+float: left; 
+color:#50401B;
+} 
+*.vote_cont{ 
+display: none; /*활성시 flex*/ 
+justify-content: space-between;
+ padding: 10px; 
+ width: 355px; 
+ height: 125px; 
+ font-size: 0;
+  } 
+*.vote_cont>li{ 
+display: inline-block; 
+overflow: hidden;
+ width: 100px; 
+ height: 100px; 
+ }
 
 
+#input_search{
 
+background-image:url('../../../resources/image/search.png');
+background-position:400px 6px;
+background-repeat:no-repeat;
+background-size:17px 17px;
+border:1px solid black;
+width:90%;
+height:8%;
+margin: 20px 25px 20px 25px;
+padding:3px 25px 3px 15px;
+border-radius:30px;
+}
+#input_searchBox:focus{
+outline:none;
+}
+
+
+div{
+border:1px solid black;}
+
+#sub-content div{
+margin:0;
+padding:0;
+
+}
+.bees_profil{
+width:90%;
+height:50%;
+margin:0 auto;
+}
+.bees_profil img{
+
+
+max-width:100%;
+height:auto;
+}
 
 
 
@@ -207,7 +418,7 @@ text-align:right;
 	<link rel="preconnect" href="https://fonts.gstatic.com">
 	<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap" rel="stylesheet">
 
-	<div id="wrap" style="transform: none;">
+	
    <div id="header" >
    	<header id="head_color">  
        <div class="inner">
@@ -230,7 +441,7 @@ text-align:right;
             
             
             <ul class="top_right-menu">
-	  			<li class="chat">
+	  			<li class="menu-item">
 	  				 <button type="button" class="top_right_btn">  
 	  					<i class="far fa-comment-dots top_right_img"></i>
                     </button>
@@ -245,12 +456,12 @@ text-align:right;
             	
             	
             	
-           		 <li class="setting">
+           		 <li class="menu-item">
             		<button type="button" class="top_right_btn" id="set_btn">
             			<i class="fas fa-user-circle top_right_img"></i>
             		</button>	
-            		 <div class="setting_box">
-	                    <ul>
+            		 
+	                    <ul class="menu-sub">
 	                        <li>
 	                        	<a href="#">내 정보</a>
 	                        </li>
@@ -276,30 +487,11 @@ text-align:right;
 	                        	<a href="#">로그아웃</a>
 	                        </li>
 	                     </ul>
-                      </div>
+                      
             	</li>
             	
             	
-     <script>
      
-     $(document).ready(function(){
-    	 $("#set_btn").click(function(){
-    		 var showmenu=$(this).next("ul");
-    		 if(submenu.is(":visible")){
-    			 alert("hello");
-    			 submenu.slideUp();
-    		 }else{
-    			 submenu.slideDown();
-    		 }
-    	
-    	 });
-     });
-     
-     
-     
-     
-     </script>       	
-            	
             	
             	
             	
@@ -331,52 +523,7 @@ text-align:right;
 	   			</li>
 
  
-               <li class="setting">
-                   <button type="button" class="" >
-                      <span class="uProfile">
-                          <span class="profileInner">
-                                 <img src="" width="30" height="30" alt class="">
-                           </span>
-                       </span>
-                    </button>
-                <article class="" id="">
-                   <div class="">
-                       <ul>
-                           <li>
-                               <a href="#">내 정보</a>
-                           </li>
-		   <li>
-                               <a href="#">내가 쓴 글</a>
-                           </li>
-		  <li>
-                               <a href="#">좋아요 목록</a>
-                           </li>
- 		  <li>
-                               <a href="#">내 정보</a>
-                           </li>
-
-   		  <li>
-                             <div class="sub">
-                                <ul>
-                                   <li>
-                                      <a href="#">비즈가입 초대 확인</a>
-                                   </li>
-			<li>
-                                      <a href="#">문의사항</a>
-                                   </li>
-			<li>
-                                      <a href="#">공지사항</a>
-                                   </li>
-                                 </ul>
-                               </div>
-                            </li>
-                            <li>
-                                <a href="#">로그아웃</a>
-                            </li>
-                         </ul>
-                      </div>
-                  </article>
-               </li> <!-- setting>-->
+              -->
              </ul>  
           </div>  <!-- inner -->
       </header>
@@ -385,39 +532,19 @@ text-align:right;
        <div id="navi" style="display: block;">		
 	<ul class="navi_menu">
 	    <li class="navi_menu_item">
-     	       <a href="#" >
-		<span>
-			전체글
-		</span>
-	       </a>
+     	       <a href="#" >전체글</a>
 	    </li>	
 	    <li class="navi_menu_item">
-     	       <a href="#"  >
-		<span>
-			사진첩
-		</span>
-	       </a>
+     	       <a href="#"  >사진첩</a>
 	    </li>	
 	    <li class="navi_menu_item">
-     	       <a href="#"  >
-		<span>
-			일정
-		</span>
-	       </a>
+     	       <a href="#"  >일정</a>
 	    </li>	
-                <li class="navi_menu_item">
-     	       <a href="#" >
-		<span>
-			첨부
-		</span>
-	       </a>
+        <li class="navi_menu_item">
+     	       <a href="#" >첨부</a>
 	    </li>	
 	    <li class="navi_menu_item">
-     	       <a href="#" >
-		<span>
-			멤버
-		</span>
-	       </a>
+     	       <a href="#" >멤버</a>
 	    </li>	
 	</ul>
          </div>  <!-- navi -->
@@ -426,10 +553,105 @@ text-align:right;
 
 
 
+
 </div> <!-- header -->
-
-
-
+<div class="container pt-3">
+		<div class="row">
+			<div class="col-md-1 d-md-block d-none">
+			</div>
+			<div class="col-3 p-0">
+				<div id="sub-content" class="container m-0 p-2">
+					<!-- 좌측 서브 Content 공간 -->
+					
+					<div class="row m-0">
+						<div class="bees_profil col-12">
+							<img src="/resources/image/building.jpg"></a>
+						</div>
+					
+						<div class="col-12">
+							<span>비즈이름</span>
+						</div>
+					
+						<div class="col-12">
+							멤버<span>6</span><span>초대</span>
+						</div>
+	
+						<div class="col-12">
+							<span>비즈와 게시글이 공개되지 않습니다. 초대를 통해서만 가입할 수 있습니다.</span>
+						</div>
+					
+						<div class="col-12">
+							<hr class="my-1">
+						</div>
+					
+						<div class="col-1">
+							톱니바퀴
+						</div>
+						<div class="col-11">
+							비즈설정
+						</div>
+					</div>
+					
+					
+						
+						
+					
+					
+					<div class="row m-0">
+						<div class="col-3 py-2">
+							채팅 
+						</div>	
+						<div class="col-auto py-2">
+							
+						</div>	
+						<div class="col-4 py-2">
+							새채팅
+						</div>	
+					
+						<div class="col-12">	
+							<hr class="my-1">
+						</div>
+					
+						<div class="col-2 py-2">
+						<a class="makeBeesBtn btn w-10 py-2" href="#"></a>
+							
+						</div>
+						<div class="col-10">
+						홍길동
+						</div>
+					</div>
+					
+					
+				</div>
+			</div>
+			<div class="col-7 p-0">
+				<div id="main-content" class="container m-0 p-2">
+				
+					<!-- 우측 메인 Content 공간 -->
+					
+						<div class="head">첨부 모아보기</div>
+			<div class="main_head"> 
+				<div class="file_on">파일</div> 
+				<div class="vote_off">투표</div> 
+			</div> 
+			<div class="main_body">
+				<input type="text" id="input_search" autocomplete="off">
+					<ul class="file_cont">
+						<li><a href="#">파일내용</a></li>
+					</ul>
+					<ul class="vote_cont">
+					    <li><a href="#">투표내용</a></li>			
+					</ul>
+			</div>
+		
+	</div>
+					
+				</div>
+			</div>
+			<div class="col-md-1 d-md-block d-none">
+			</div>
+		</div>
+	</div>
 
 
 
@@ -437,7 +659,37 @@ text-align:right;
 
 </div>  <!-- wrap -->
 
-
+<script>
+     //투표 버튼 클릭
+     $('.vote_off').click(function(){
+    	 $('.file_cont').hide(); //파일 내용숨기기
+     
+     $('.vote_cont').css({'display' : 'flex',});   //투표내용 나타내기
+     
+     
+     $(this).attr('class','vote_on');  //투표 버튼 css변경
+      
+     $('.file_on').attr('class','file_off');  //파일버튼 css변경
+   
+     }); 
+     
+     
+     //파일 버튼 클릭
+     $('.file_on').click(function(){    //파일클릭시
+    	 $('.file_cont').show();          //파일내용 보여줘
+     
+     $('.vote_cont').hide();       //투표내용 숨겨
+     
+     $(this).attr('class','file_on');     //파일버튼 css변경
+      
+     $('.vote_on').attr('class','vote_off');   //투표 버튼 변경
+    
+     });
+       
+       
+       
+       
+       </script>
 
 
 </body>
