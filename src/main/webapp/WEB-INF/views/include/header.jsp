@@ -117,18 +117,17 @@ color:white;
 .top_right_btn:focus{
 outline:none;
 }
-.menu-sub{
+.menu-sub{     
+z-index : 9;
 background-color:#F7D078;
-white-space:nowrap;     
+box-shadow:0.2em 0.2em 10px #111;
+top:20px;    
 position:absolute;
 right:0;
-top:20px;
+white-space:nowrap;
 transform:translate(10%, 2.2em);
-opacity:0;
 display:none;
-transition: all .6s;
-box-shadow:0.2em 0.2em 10px #111;
-
+transition: all .8s;
 }
 .menu-sub:before{
 content:' ';
@@ -138,10 +137,11 @@ top:-20px;
 left:0;
 height:20px;
 
-
 }
 .menu-sub a{
 color:#50401B;
+text-decoration:none;
+width:100%;
 }
 .menu-sub:after{
 content:' ';
@@ -158,18 +158,26 @@ border-color:transparent transparent #F7D078 transparent;
 }
 .menu-item{
 position:relative;
+height : 35px;
 }
 .menu-item a{
 padding:0.7em;
 display:block;
 }
-.menu-item:hover .menu-sub{
-opacity: 1;
+.menu-item:hover .menu-sub{  
+opacity: 1;  
+display:block;
+ transition-duration: 2s;
+
+}
+.menu-sub:hover{
+opacity: 1;  
 display:block;
 }
+
 #navi{
 position: relative;
-
+z-index : 8;
 width:100%;
 max-width:1034px;
 height:40px;
@@ -296,7 +304,7 @@ text-decoration: underline;
 	                        	<a href="/index.jsp">내 정보</a>
 	                        </li>
 			   				<li>
-	                            <a href="#">내가 쓴 글</a>
+	                            <a href="/index.jsp">내가 쓴 글</a>
 	                        </li>
 			  				<li>
 	                            <a href="#">좋아요 목록</a>

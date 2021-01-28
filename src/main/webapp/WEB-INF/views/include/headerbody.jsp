@@ -244,11 +244,11 @@ height:10%;
 line-height:54px;
 }
 #main_content { 
-width:540px;
+width:86%;
 height:540px;
 border:1px solid black;
 padding: 20px 20px 20px 20px;
-margin:0;
+margin:0 auto;
 min-width:540px;
 } 
 .main_head{ 
