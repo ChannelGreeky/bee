@@ -67,13 +67,14 @@
     }
     
     .myBees, .recommend {
+    	font-size:0.9em;
 		text-decoration: none;
 		color: #50401B;
 		font-weight:bold;
 		vertical-align:middle;
 	}
 	
-	.myBees:hover, .recommend {
+	.myBees:hover, .recommend:hover {
 		color: #50401B;
 		font-weight:bold;
 		vertical-align:middle;
@@ -147,7 +148,7 @@
 			<div class="col-1">
 			</div>
 			<div class="col-3 p-0">
-				<div id="sub-content" class="container m-0 p-2">
+				<div id="sub-content" class="container m-auto p-2 w-75">
 					<!-- 좌측 서브 Content 공간 -->
 					<!-- 아래 코드는 비즈검색결과 예시 (지우고 작업) 
 					<div class="row m-0">
@@ -165,7 +166,7 @@
 					<div class="row m-0">
 						<div class="d-none d-md-block col-md-3 p-1">
 							<a href="#">
-								<div class="m-auto beesImage" style="width:40px; height:40px;
+								<div class="m-auto beesImage" style="width:30px; height:30px;
 								background: url('/resources/image/test.jpg') no-repeat;
 								background-size: cover;">
 								</div>

@@ -58,13 +58,14 @@
     }
     
     .myBees, .recommend {
+    	font-size:0.9em;
 		text-decoration: none;
 		color: #50401B;
 		font-weight:bold;
 		vertical-align:middle;
 	}
 	
-	.myBees:hover, .recommend {
+	.myBees:hover, .recommend:hover {
 		color: #50401B;
 		font-weight:bold;
 		vertical-align:middle;
