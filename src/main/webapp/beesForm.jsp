@@ -84,9 +84,7 @@
 <div class="col-7 p-0">
 <div id="bees-contents" class="container m-0 p-2">
 
-    
-    <div style="background-color: white; width:100%; height:1080px"></div>
-
+<div style="background-color: white; width:100%; height:1080px"></div>
 
 
 </div>
@@ -94,8 +92,6 @@
 <div class="col-1"></div>
 </div>
 </div>
-
-
 
 
 </body>
