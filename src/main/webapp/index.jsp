@@ -8,12 +8,14 @@
 </head>
 <body>
 
-	<a href="/uploadFile.do">파일업로드</a>
+	<a href="/uploadFile.do">사진첩</a>
+	<a href="/allImage.do">사진첩만 있는 소스</a>
 	<a href="/fileExample.do">파일실험</a>
-	<a href="/uploadImage.do">이미지업로드</a>
+	<a href="/uploadImage.do">사진첩</a>
 	<a href="/header.do">헤더확인용</a>
 	<a href="/header_user.do">사용자헤더확인용</a>
 	<a href="/headerbody.do">헤더바디합친거확인용</a>
+	<a href="/noticeBoard.do">관리자공지사항</a>
 	
 	<h3><a href="/beesSchedule.do">일정</a></h3>
 	<h3><a href="/beesMember.do">멤버</a></h3>

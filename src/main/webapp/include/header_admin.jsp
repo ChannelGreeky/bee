@@ -27,14 +27,12 @@ margin:0;
  width: 80px;
  height: 80px;
  overflow: hidden;
-vertical-align:middle;
+
 display : inline-block;
 padding-top:15px;
 
 }
-.inner form{
-display:inline-block;
-}    
+  
 
 .inner img{
 width:100%;
@@ -43,37 +41,20 @@ object-fit:cover;
 
 
 }
-   
-.searchBox{
-position:absolute;
-left:100px;
-top:29px;
-width:200px;
-height:35px;
-padding: 0 13px 0 13px;
+ .admin_menu a{
+ color:#50401B;
 
-border-radius:30px;
-background-color:#FFF3D8;
-margin:0 10px;
-}
-#input_searchBox{
+ }  
 
-background-color:#FFF3D8;
+.admin_menu>li{
 
-border:none;
-width:83%;
-height:100%;
-margin:0 0 0 5px;
-padding:3px;
-}
-#input_searchBox:focus{
-outline:none;
-}
-#btn_search{
-width:20px;
-height:20px;
-border:none;
-background-color:#FFF3D8;
+position:relative;
+line-height:90px;
+float:left;
+text-align:center;
+width:25%;
+
+
 }
 ul{
 list-style:none;
@@ -127,6 +108,7 @@ white-space:nowrap;
 transform:translate(10%, 2.2em);
 display:none;
 transition: all .8s;
+text-align:center;
 }
 .menu-sub:before{
 content:' ';
@@ -179,42 +161,68 @@ display:block;
 
 }
 
-.navi{
-position: relative;
-text-align:center;
-margin:0 auto;
-z-index : 8;
+#search_btn{
+width:40px;
+height:35px;
+background-color:white;
+border:none;
+border-radius:30px;
+float:right;
+margin:0 10px;
 }
-.navi_menu{
-display:flex;
-text-align:center;
-height:100%;
-align-items:center;
-position:relative;
-width:50%;
-margin:0 auto;
+#search_btn img{
+width:80%;
+height:80%;
+
 }
-.navi_menu_item{
-margin-right:45px;
-text-align:center;
-flex:0 0 auto;
+.search_bar{
+background-color:#F7D078;
+margin-top:15px;
+height:70px;
 }
-.navi_menu_item>a{
-text-decoration: none;
-line-height:34px;
-display:block;
-width:100%;
-height:100%;
+#search_title{
+font-size: 1.5rem;
 color:#50401B;
-} 
-.navi_menu_item>a:hover{
-
-color:#B9CCA1;
-font-weight: bold;
-font-size:1rem;
+font-weight:bold;
 }
+#main-content div{
+box-sizing: border-box;
+border:0;
+padding:0;
+display:inline-block;
+float:left;
+
+}
+#main-content form{
+width:100%;
+
+}
+.search_bar input{
+display:inline-block;
+border-radius:30px;
+height:38px;
+text-align:center;
+margin:0 10px;
+width:90%;
 
 
+}
+#main-content select{
+border-radius:30px;
+height:38px;
+text-align:center;
+display:inline-block;
+margin:0 5px;
+width:90%;
+
+}
+#main-content div{
+display:inline-block;
+
+}
+#write_btn{
+border-radius:30px;
+}
 
     </style>
 </head>
@@ -251,42 +259,36 @@ font-size:1rem;
    
        <div class="col-6 inner p-0">
        	<div class="row h-100 w-100 p-0" >
-           <div class="col-8 col-md-9 p-0">
+           <div class="col-2 col-md-2 p-0 d-xs-none">
            <span class="beeLogo">
             <a href="#" >
 	       		<img src="resources/image/beeLogo.png" alt="로고이미지"/>	
  	  		</a>
             </span>
-            <form action>
-               <fieldset>
-                    <div class="searchBox">
-                      <input type="text" id="input_searchBox" autocomplete="off">
-                      <button type="submit" id="btn_search">
-                      <img src="/resources/image/search.png" style="width:20px; height:20px"/>
-                      </button>
-                    </div>
-               </fieldset>
-            </form>
+           
             </div>
-         
-            <div class="col-4 col-md-3 p-0">
+         	<div class="col-md-8 p-0">
+         		<ul class="admin_menu">
+         			<li><a href="#">회원관리</a></li>
+         			<li><a href="#">모임관리</a></li>
+         			<li><a href="#">공지사항</a></li>
+         			<li><a href="#">1:1문의</a></li>
+         		</ul>
+         	
+         	
+         	
+         	
+         	</div>
+            <div class="col-2 col-md-2 p-0">
             
             
             
             
             
             <ul class="top_right-menu">
-	  			<li class="menu-item">
-	  				<button type="button" class="top_right_btn">  
-	  					<i class="far fa-comment-dots top_right_img"></i>
-                    </button>
-                    <ul class="menu-sub">
-	                        <li>
-	                        	채팅목록
-	                        </li>
-	                 </ul>
-            	</li>
+	  			
             	<li class="menu-item">
+            	
             		<button type="button" class="top_right_btn" id="set_btn">
             			<img src="/resources/image/profile.png" style="border-radius:30px;">
             		</button>
@@ -318,7 +320,6 @@ font-size:1rem;
 	                        </li>
 	                     </ul>
             		
-            		
             	</li>
              </ul>
              </div>  <!-- div col-3 -->
@@ -327,34 +328,55 @@ font-size:1rem;
           <div class="col-md-3 p-0 .d-sm-none"></div>
       </div>
  
-<div class="row navi">
-  <div class="col-md-3 p-0 h-100 w-100"></div>
-   
-       <div class="col-md-6  p-0 navi" >   
 
-	<ul class="navi_menu">
-	    <li class="navi_menu_item">
-     	       <a href="#" >전체글</a>
-	    </li>	
-	    <li class="navi_menu_item">
-     	       <a href="#"  >사진첩</a>
-	    </li>	
-	    <li class="navi_menu_item">
-     	       <a href="#"  >일정</a>
-	    </li>	
-        <li class="navi_menu_item">
-     	       <a href="#" >첨부</a>
-	    </li>	
-	    <li class="navi_menu_item">
-     	       <a href="#" >멤버</a>
-	    </li>	
-	</ul>
-         </div>  <!-- navi -->
 
-  <div class="col-md-3 p-0 w-100"></div>
-</div>
-<div class="content"></div>
-</div> <!-- container-fluid -->
+<div class="container pt-3">
+		<div class="row">
+			<div class="col-1 p-0"></div>
+			
+				
+			<div class="col-10 p-0">
+					<div id="main-content" class="container m-0 p-2">
+						<div class="row ">
+							<div class="col-md-12 member_manage">
+								<span id="search_title">회원관리</span>
+								<button type="button" style="background-color:#F7D078; id="write_btn">글작성</button>
+							</div>
+						</div>
+						<div class="row w-100">
+						<form method="" >
+							<div class="col-md-2 w-100 p-0 search_bar">
+								<input type="date" >
+								</div>
+								<div class="col-md-2 w-100 p-0 search_bar">
+								 <input type="date"> 
+								 </div>
+								<div class="col-md-2 w-100 p-0 search_bar"> 
+								<select>
+									<option>닉네임</option>
+									<option>카테고리</option>
+									<option>글제목</option>
+									
+								</select>
+							</div>	
+					
+							<div class="col-md-6 w-100 p-0 search_bar">
+								<input type="text" style="width:82%; right:10px;">
+								<button type="submit" id="search_btn" ><img src="resources/image/search.png"/></button>
+							</div>
+						</form>
+						
+					</div>
+				</div>
+			</div>
+			<div class="col-1 p-0"></div>
+		</div>
+
+
+
+
+</div> <!-- container -->
+
 
 
 

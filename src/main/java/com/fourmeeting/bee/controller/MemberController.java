@@ -34,22 +34,17 @@ public class MemberController {
 	}
 	@RequestMapping(value="uploadImage.do")
 	public String uploadImage(){
+		return "imageBoard/uploadImage";
+	}
+	@RequestMapping(value="allImage.do")
+	public String allImage(){
 		return "imageBoard/allImage";
 	}
-	@RequestMapping(value="headerbody.do")
-	public String headerBody(){
-		return "include/headerbody";
-	}
-	@RequestMapping(value="header.do")
-	public String header(){
-		return "include/header";
-	}
-	@RequestMapping(value="header_user.do")
-	public String header_user(){
-		return "include/header_user";
-	}
 
-		
+		@RequestMapping(value="noticeBoard.do")
+	public String noticeBoard(){
+		return "adminBoard/noticeBoard";
+	}	
 		
 		//마이페이지
 		@RequestMapping(value="myinfo.do")

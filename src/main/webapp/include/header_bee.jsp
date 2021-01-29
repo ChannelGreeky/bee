@@ -363,9 +363,6 @@ font-size:1rem;
 
  <div class="col-md-3 p-0 w-100"></div>
 </div>
-<div class="content"></div>
-</div> <!-- container-fluid -->
-
 
 
 
