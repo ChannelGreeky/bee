@@ -8,13 +8,10 @@
 </head>
 <body>
 
-	<a href="/uploadFile.do">사진첩</a>
-	<a href="/allImage.do">사진첩만 있는 소스</a>
+	
 	<a href="/fileExample.do">파일실험</a>
 	<a href="/uploadImage.do">사진첩</a>
-	<a href="/header.do">헤더확인용</a>
-	<a href="/header_user.do">사용자헤더확인용</a>
-	<a href="/headerbody.do">헤더바디합친거확인용</a>
+    <a href="">http://127.0.0.1/include/header_user.jsp</a>
 	<a href="/noticeBoard.do">관리자공지사항</a>
 	
 	<h3><a href="/beesSchedule.do">일정</a></h3>

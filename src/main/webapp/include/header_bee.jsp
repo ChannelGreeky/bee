@@ -116,7 +116,7 @@ outline:none;
 }
 .menu-sub{     
 z-index : 9;
-background-color:#F7D078;
+background-color:white;
 box-shadow:0.2em 0.2em 10px #111;
 top:20px;    
 position:absolute;
@@ -150,7 +150,7 @@ height:0;
 width:0;
 border-width:10px;
 border-style:solid;
-border-color:transparent transparent #F7D078 transparent;
+border-color:transparent transparent white transparent;
 
 }
 .menu-item{
