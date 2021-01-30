@@ -38,30 +38,29 @@
 	
 	<style>
 		
-		
 		/*커서 없애버려...*/
 		
 		body{
 			font-family: 'Noto Sans KR', sans-serif;
+			 background-color: #f9f9f9; 
 		}
 		
 		div{
-		 border: 1px black solid;
+		   /* border: 1px black solid;   */
 		}
 		
-		.container-fluid{
+		.container{
 			width: 100%;
 			height: 100%;
-			background-color: #f9f9f9;
 		}
-		
+		 
 		/* 내 정보 네비바 */
 		.mypage_navi_div{
 			padding: 0;
 		}
 		
 		#mypage_navi_ul{
-			width: 60%;
+			width: 75%;
 			height: 300px;
 			list-style-type: none;
 			margin: 20px auto;
@@ -91,15 +90,28 @@
 		
 		/* 내 정보 피드 */
 		.myInfo_div{
-			width: 100%;
 			height: 800px;
-			margin: 20px auto;
+			margin: 20px 0;
 		}
 		
 		.myInfo_table{
 			width: 100%;
 			color : #50401B;
 			border: 1px solid #ededed;
+		}
+		
+		#member_profile{
+			border-radius: 70%;
+			background-color: #F7D078;
+			width: 40px;
+			height: 40px;
+			margin-bottom: 5px;
+			margin-top: 5px;
+			float: left;
+		}
+		
+		#member_name{
+			padding: 15px 75px;
 		}
 		
 		.border_Y{
@@ -114,15 +126,40 @@
 		.myInfo_table tr td{
 			padding: 20px 20px;
 			background-color: white;
+			/* font-size: 0.8rem; */
 		}
 		
 		.myInfo_table tr td:last-child{
 			text-align: right;
+			padding-right: 20px;
 		}
 		
-				
+		.myInfo_table tr td:first-child{
+			/* font-size: 0.9rem; */
+		}
+		
 		input, select:focus{
 			outline: none;
+		}
+		
+		.myInfo_modify_btn, .myInfo_profile_btn, .myInfo_del_yn{
+			color: #50401B;
+			background-color: white;
+			border: 1px solid #50401B;
+			border-radius: 8px;
+			line-height: 17px;
+			width: 45px;
+			height: 30px;
+		}
+		
+		.myInfo_hidden_btn{
+			color: #50401B;
+			background-color: #F7D078;
+			border: 0;
+			border-radius: 8px;
+			line-height: 17px;
+			width: 45px;
+			height: 30px;
 		}
 
 		
@@ -148,7 +185,7 @@
 				
 				if($(this).val()=='변경'){
 					
-					$(this).val('취소');
+					$(this).val('취소').css('color','white').css('background-color','#50401B');
 					$(this).prev().attr('type','button');
 					
 					switch($(this).attr('id')){
@@ -161,12 +198,8 @@
 					
 				} else if($(this).val()=='취소'){
 					
-					$(this).val('변경');
+					$(this).val('변경').css('color','#50401B').css('background-color','white');
 					$(this).prev().attr('type','hidden');
-					
-					if($(this).attr('id')=='birth'){
-						$(this).parent().prev().css('color','#50401B');
-					}
 					
 					switch($(this).attr('id')){
 						case 'memberBirth' : $(this).parent().prev().text('1992년 05월 20일'); break
@@ -180,24 +213,38 @@
 			});
 			
 			
+			//탈퇴 버튼 누르면?
+			$(".myInfo_del_yn").click(function(){
+				
+				var result = confirm("정말 탈퇴 하시겠습니까?");
+				if(result){
+					//탈퇴 로직 구현
+					
+				} 
+				
+			});
+			
 		});
 	
 	</script>
-	
 		
-		<div class="container-fluid">
+
+		
+		
+		
+		<div class="container pt-3">
 			<div class="row">
 				
 				<!-- 여백 -->
-				<div class="col-lg-3 col-md-0"></div>
+				<div class="col-1"></div>
 				
 				<!-- mypage 사이드 네비 -->				
-				<div class="col-2 mypage_navi_div">
+				<div class="col-3 p-0 mypage_navi_div">
 					<ul id="mypage_navi_ul">
 						<li class="navi_li"><a href="/myinfo.do" id="myInfo">내 정보<i class="fas fa-angle-right"></i></a></li>
 						<li class="navi_li"><a href="/myboard.do" id="myHistory">내가 쓴 글<i class="fas fa-angle-right"></i></a></li>
 						<li class="navi_li"><a href='/myheart.do' id="myHeart">좋아요 누른 목록<i class="fas fa-angle-right"></i></a></li>
-						<li class="navi_li"><a href='/mybeesJoinQnas.do' id="myApprove">비즈 가입ㆍ초대 확인<i class="fas fa-angle-right"></i></a></li>
+						<li class="navi_li"><a href='/mybeesJoinQnas.do' id="myApprove">비즈 가입 확인<i class="fas fa-angle-right"></i></a></li>
 						<li class="navi_li"><a href='/myQnaHistory.do' id="myQuestion">문의사항<i class="fas fa-angle-right"></i></a></li>
 						<li class="navi_li"><a href='/mynotice.do' id="myNotice">공지사항<i class="fas fa-angle-right"></i></a></li>
 					</ul>
@@ -205,16 +252,18 @@
 				<!-- mypage 사이드 네비 -->
 				
 				<!-- mypage 피드(내정보) -->
-				<div class="col-4 myInfo_div">
+				<div class="col-7 p-0 myInfo_div">
 					<table class="myInfo_table">
 						<tr class="border_Y">
 							<th colspan="4">내 정보</th>
 						</tr>
 						<tr class="border_Y">
 							<td><b>사용중인 프로필</b></td>
-							<td colspan="2">프로필+김철수</td>
+							<td colspan="2">
+								<div id="member_profile"></div><div id="member_name">홍길동</div>
+							</td>
 							<td>
-								<input type="button" value="관리"  onclick="location.href='#'"/>
+								<input type="button" value="관리"  onclick="location.href='#'" class="myInfo_profile_btn"/>
 							</td>
 						</tr>
 						<tr class="border_Y">
@@ -222,7 +271,7 @@
 							<td>생일</td>
 							<td>1992년 05월 20일</td>
 							<td>
-								<input type="hidden" value="확인" onclick="location.href='#'"/> <!-- ajax로 변경하는 페이지.. 이케이케.. -->
+								<input type="hidden" value="확인" onclick="location.href='#'" class="myInfo_hidden_btn"/> <!-- ajax로 변경하는 페이지.. 이케이케.. -->
 								<input type="button" value="변경" class="myInfo_modify_btn" id="memberBirth"/>
 							</td>
 						</tr>
@@ -232,7 +281,7 @@
 							<td>여자</td>
 							<!-- <td><select name="memberGender"><option value="F">여자</option><option value="M">남자</option></select></td> -->
 							<td>
-								<input type="hidden" value="확인" onclick="location.href='#'"/>
+								<input type="hidden" value="확인" onclick="location.href='#'" class="myInfo_hidden_btn"/>
 								<input type="button" value="변경" class="myInfo_modify_btn"  id="memberGender"/>
 							</td>
 						</tr>
@@ -241,7 +290,7 @@
 							<td>휴대폰번호</td>
 							<td>+82 10 33** 07**</td>
 							<td>
-								<input type="hidden" value="확인" onclick="location.href='#'"/> <!-- 휴대폰 번호 인증 -->
+								<input type="hidden" value="확인" onclick="location.href='#'" class="myInfo_hidden_btn"/> <!-- 휴대폰 번호 인증 -->
 								<input type="button" value="변경" class="myInfo_modify_btn" id="memberPhone"/>
 							</td>
 						</tr>
@@ -250,7 +299,7 @@
 							<td>이메일</td>
 							<td>kh****@naver.com</td>
 							<td>
-								<input type="hidden" value="확인" onclick="location.href='#'"/> <!-- 이메일 중복확인 -->
+								<input type="hidden" value="확인" onclick="location.href='#'" class="myInfo_hidden_btn"/> <!-- 이메일 중복확인 -->
 								<input type="button" value="변경" class="myInfo_modify_btn" id="memberEmail"/>
 							</td>
 						</tr>
@@ -259,21 +308,21 @@
 							<td>비밀번호</td>
 							<td></td>
 							<td>
-								<input type="hidden" value="확인" onclick="location.href='#'"/>
+								<input type="hidden" value="확인" onclick="location.href='#'" class="myInfo_hidden_btn"/>
 								<input type="button" value="변경" class="myInfo_modify_btn" id="memberPw"/>
 							</td>
 						</tr>
 						<tr class="border_Y">
 							<td><b>회원 탈퇴</b></td>
 							<td colspan="2"></td>
-							<td><input type="button" value="탈퇴"  onclick="location.href='#'"/></td>
+							<td><input type="button" value="탈퇴"  onclick="location.href='#'" class="myInfo_del_yn"/></td>
 						</tr>
 					</table>
 				</div>
 				<!-- mypage 피드(내정보) -->
 				
 				<!-- 여백 -->
-				<div class="col-lg-3 col-md-0"></div>
+				<div class="col-1"></div>
 			</div>
 		</div>
 

@@ -27,7 +27,7 @@
 		<div class="row">
 			<div id="loginForm" class="container col-6">
 				<div class="row">
-					<div class="col-12 p-0">
+					<div class="col-12 px-4">
 						<form>
 							<div class="container">
 								<div class="row border-0 my-3">

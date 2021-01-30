@@ -43,16 +43,16 @@
 		
 		body{
 			font-family: 'Noto Sans KR', sans-serif;
+			background-color: #f9f9f9;
 		}
 		
 		div{
-		 border: 1px black solid;
+		/*  border: 1px black solid; */
 		}
 		
-		.container-fluid{
+		.container{
 			width: 100%;
 			height: 100%;
-			background-color: #f9f9f9;
 		}
 		
 		/* 내 정보 네비바 */
@@ -61,7 +61,7 @@
 		}
 		
 		#mypage_navi_ul{
-			width: 60%;
+			width: 75%;
 			height: 300px;
 			list-style-type: none;
 			margin: 20px auto;
@@ -88,11 +88,9 @@
 			top: 20%;
 		}
 		
-		
-		/* 내가 쓴 글 피드 */
+		/* 테이블 메뉴 */
 		.myhistroy_div{
 			width: 100%;
-			height: 800px;
 			margin: 20px auto;
 		}
 		
@@ -102,13 +100,6 @@
 			position: relative;
 		}
 		
-		.myhistroy_table tr th > select{
-			color : #50401B;
-			position: absolute;
-			right: 5%;
-			top: 17%;
-		}
-			
 		.myhistroy_categories td{
 			width: 50%;
 			padding: 10px 0px;
@@ -133,11 +124,95 @@
 			border: 1px solid #ededed;
 			background-color: white;
 		}
-
 		
-
 		
-
+		/* 나의 문의 내역 */
+		.myhistroy_qnas_div{
+			width: 100%;
+			color : #50401B;
+			background-color: white;
+			padding: 30px 20px;
+		}
+		
+		.myhistroy_qnas_div hr{
+			margin: 70px 0 0 0;
+		}
+		
+		.myhistroy_qnas_div table{
+			width: 100%;
+		}
+		
+		.myhistroy_qnas_answer_div{
+			border: 1px solid #ededed;
+			margin: 5px auto;
+		}
+		
+		.qnas_profile{
+			border-radius: 70%;
+			background-color: #F7D078;
+			width: 40px;
+			height: 40px;
+		}
+		
+		.admin_profile{
+			border-radius: 70%;
+			background-color: white;
+			border: 3px solid #F7D078;
+			width: 50px;
+			height: 50px;
+		}
+		
+		.myhistroy_q_table tr td, .myhistroy_a_table tr td {
+		}
+		
+		.myhistroy_qnas_answer_div{
+			border-radius: 30px 30px 30px 0px;
+			width: 100%;
+			height: auto;
+			background-color: #FFF3D8;
+			padding: 20px;
+			margin-top: 20px;
+			border: 0;
+			/* box-shadow : 1px 1px 1px 1px #ededed; */
+		}
+		
+		.qnas_writer_name{
+			font-size: 0.9rem;
+			font-weight: 500;
+		}
+		
+		.admin_name{
+			font-weight: 500;
+			padding: 0;
+			padding-left: 5px;
+			font-size: 1.1rem;
+		}
+		
+		.qnas_q_timestamp{
+			font-size: 0.7rem;
+			color : gray;
+			padding: 0;
+			
+		}
+		
+		.qnas_a_timestamp{
+			font-size: 0.8rem;
+			color : gray;
+			padding-left: 5px;
+			transform: translate(0, -3px);
+		}
+		
+		.qnas_q{
+			padding: 25px 20px;
+		}
+		
+		.qnas_a{
+			padding: 20px 55px;
+		}
+		
+		.myhistroy_qnas_div:last-child{
+			margin-bottom: 150px;
+		}
 		
 	</style>
 	
@@ -148,25 +223,27 @@
 			//사이드 네비 초기값
 			$(".navi_li").eq(4).css('background','#F7D078').css('font-weight','700');
 			
+			$(".qnas_profile").parent().css('width','45px').css('padding-left','10px').css('padding-right','5px');
+			$(".admin_profile").parent().css('width','45px');
 			
 		});
 	
 	</script>
 	
 		
-		<div class="container-fluid">
+		<div class="container pt-3">
 			<div class="row">
 				
 				<!-- 여백 -->
-				<div class="col-lg-3 col-md-0"></div>
+				<div class="col-1"></div>
 				
 				<!-- mypage 사이드 네비 -->				
-				<div class="col-2 mypage_navi_div">
+				<div class="col-3 p-0 mypage_navi_div">
 					<ul id="mypage_navi_ul">
 						<li class="navi_li"><a href="/myinfo.do" id="myInfo">내 정보<i class="fas fa-angle-right"></i></a></li>
 						<li class="navi_li"><a href="/myboard.do" id="myHistory">내가 쓴 글<i class="fas fa-angle-right"></i></a></li>
 						<li class="navi_li"><a href='/myheart.do' id="myHeart">좋아요 누른 목록<i class="fas fa-angle-right"></i></a></li>
-						<li class="navi_li"><a href='/mybeesJoinQnas.do' id="myApprove">비즈 가입ㆍ초대 확인<i class="fas fa-angle-right"></i></a></li>
+						<li class="navi_li"><a href='/mybeesJoinQnas.do' id="myApprove">비즈 가입 확인<i class="fas fa-angle-right"></i></a></li>
 						<li class="navi_li"><a href='/myQnaHistory.do' id="myQuestion">문의사항<i class="fas fa-angle-right"></i></a></li>
 						<li class="navi_li"><a href='/mynotice.do' id="myNotice">공지사항<i class="fas fa-angle-right"></i></a></li>
 					</ul>
@@ -174,7 +251,9 @@
 				<!-- mypage 사이드 네비 -->
 				
 				<!-- mypage 피드(내가 쓴 글_게시글) -->
-				<div class="col-4 myhistroy_div">
+				<div class="col-7 p-0 myhistroy_div">
+				
+					<!-- 테이블 메뉴 -->
 					<table class="myhistroy_table">
 						<tr>
 							<th colspan="2">문의사항</th>
@@ -189,14 +268,92 @@
 						</tr>
 					</table>
 					
+					<!-- 내용 div -->
+					<div class="myhistroy_qnas_div">
+						<!-- 질문칸 -->
+						<table class="myhistroy_q_table">
+							<tr>
+								<td rowspan="2"><div class="qnas_profile"></div></td>
+								<td class="qnas_writer_name">홍길동</td>
+								<td rowspan="2">:</td>
+							</tr>
+							<tr>
+								<td class="qnas_q_timestamp">2021년 01월 29일 오전 3:33</td>
+							</tr>
+							<tr>
+								<td colspan="3" class="qnas_q">
+									여기에 상담 내용이 들어가야 하는데
+									다음칸으로 이케이케 넘어가는건 어케 해야할까
+								</td>
+							</tr>
+						</table>
+						<!-- 답변칸 -->
+						<div class="myhistroy_qnas_answer_div">
+							<table class="myhistroy_a_table">
+								<tr>
+									<td rowspan="2"><div class="admin_profile"></div></td>
+									<td class="admin_name">관리자</td>
+								</tr>
+								<tr>
+									<td class="qnas_a_timestamp">2021년 01월 29일 오전 3:33</td>
+								</tr>
+								<tr>
+									<td colspan="3" class="qnas_a">
+										여기에 상담 내용이 들어가야 하는데
+										다음칸으로 이케이케 넘어가는건 어케 해야할까
+									</td>
+								</tr>
+							</table>
+						</div>
+						<hr>
+					</div>
 					
+					<!-- 내용 div -->
+					<div class="myhistroy_qnas_div">
+						<!-- 질문칸 -->
+						<table class="myhistroy_q_table">
+							<tr>
+								<td rowspan="2"><div class="qnas_profile"></div></td>
+								<td class="qnas_writer_name">홍길동</td>
+								<td rowspan="2">:</td>
+							</tr>
+							<tr>
+								<td class="qnas_q_timestamp">2021년 01월 29일 오전 3:33</td>
+							</tr>
+							<tr>
+								<td colspan="3" class="qnas_q">
+									여기에 상담 내용이 들어가야 하는데
+									다음칸으로 이케이케 넘어가는건 어케 해야할까
+								</td>
+							</tr>
+						</table>
+						<!-- 답변칸 -->
+						<div class="myhistroy_qnas_answer_div">
+							<table class="myhistroy_a_table">
+								<tr>
+									<td rowspan="2"><div class="admin_profile"></div></td>
+									<td class="admin_name">관리자</td>
+								</tr>
+								<tr>
+									<td class="qnas_a_timestamp">2021년 01월 29일 오전 3:33</td>
+								</tr>
+								<tr>
+									<td colspan="3" class="qnas_a">
+										여기에 상담 내용이 들어가야 하는데
+										다음칸으로 이케이케 넘어가는건 어케 해야할까
+									</td>
+								</tr>
+							</table>
+						</div>
+						<hr>
+					</div>
 					
 					
 				</div>
 				<!-- mypage 피드(내가 쓴 글) -->
 				
 				<!-- 여백 -->
-				<div class="col-lg-3 col-md-0"></div>
+				<div class="col-1"></div>
 			</div>
 		</div>
 

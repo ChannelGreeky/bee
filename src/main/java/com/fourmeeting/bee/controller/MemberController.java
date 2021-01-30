@@ -46,7 +46,7 @@ public class MemberController {
 		return "adminBoard/noticeBoard";
 	}	
 		
-		//마이페이지
+		//------ 마이페이지 ------- //
 		@RequestMapping(value="myinfo.do")
 		public String myinfo(){
 			return "my/info";
@@ -71,12 +71,7 @@ public class MemberController {
 		public String mybeesJoinQnas(){
 			return "my/beesJoinQnas";
 		}
-		
-		@RequestMapping(value="/mybeesInvitation.do")
-		public String mybeesInvitation(){
-			return "my/beesInvitation";
-		}
-		
+
 		@RequestMapping(value="/myQnaHistory.do")
 		public String myQnaHistory(){
 			return "my/qnaHistory";
@@ -94,5 +89,30 @@ public class MemberController {
 		}
 		
 		//마이페이지
+		
+		//------ 관리자페이지(테이블) ------- //
+		
+		@RequestMapping(value="/memberManagement.do")
+		public String memberManagement(){
+			return "admin/memberManagement";
+		}
+		
+		@RequestMapping(value="/beesManagement.do")
+		public String beesManagement(){
+			return "admin/beesManagement";
+		}
+		
+		@RequestMapping(value="/adminNotice.do")
+		public String adminNotice(){
+			return "admin/adminNotice";
+		}
+		
+		@RequestMapping(value="/adminQuestion.do")
+		public String adminQuestion(){
+			return "admin/adminQuestion";
+		}
+		
+		//관리자페이지
+		
 		
 }

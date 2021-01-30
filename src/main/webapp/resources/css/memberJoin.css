@@ -30,7 +30,7 @@ input:read-only {
 
 input[type=text], input[type=password] {
 	width: 100%;
-	padding: 12px 20px;
+	padding: 10px 15px;
 	display: block;
 	border: 1px solid #50401B;
 	border-radius: 20px;
@@ -151,6 +151,7 @@ input[type=checkbox]:checked + label[for=etc] {
 
 
 input[type=submit] {
+	font-size:0.9em;
 	font-weight: bold;
 	text-decoration: none;
 	color: white;
@@ -176,10 +177,11 @@ input[type=submit]:hover {
 }
 
 .btn {
+	font-size:0.9em;
 	font-weight: bold;
 	text-decoration: none;
 	color: white;
-	padding: 12px 20px;
+	padding: 10px 15px;
 	margin: 8px auto;
 	display: inline-block;
 	border: 1px solid #50401B;
@@ -191,7 +193,7 @@ input[type=submit]:hover {
 	font-weight: bold;
 	text-decoration: none;
 	color: #50401B;
-	padding: 12px 20px;
+	padding: 10px 15px;
 	margin: 8px auto;
 	display: inline-block;
 	border: 1px solid #50401B;

@@ -43,16 +43,16 @@
 		
 		body{
 			font-family: 'Noto Sans KR', sans-serif;
+			background-color: #f9f9f9;
 		}
 		
 		div{
-		 border: 1px black solid;
+		 /* border: 1px black solid; */
 		}
 		
-		.container-fluid{
+		.container{
 			width: 100%;
 			height: 100%;
-			background-color: #f9f9f9;
 		}
 		
 		/* 내 정보 네비바 */
@@ -61,7 +61,7 @@
 		}
 		
 		#mypage_navi_ul{
-			width: 60%;
+			width: 75%;
 			height: 300px;
 			list-style-type: none;
 			margin: 20px auto;
@@ -204,19 +204,19 @@
 	</script>
 	
 		
-		<div class="container-fluid">
+		<div class="container pt-3">
 			<div class="row">
 				
 				<!-- 여백 -->
-				<div class="col-lg-3 col-md-0"></div>
+				<div class="col-1"></div>
 				
 				<!-- mypage 사이드 네비 -->				
-				<div class="col-2 mypage_navi_div">
+				<div class="col-3 p-0 mypage_navi_div">
 					<ul id="mypage_navi_ul">
 						<li class="navi_li"><a href="/myinfo.do" id="myInfo">내 정보<i class="fas fa-angle-right"></i></a></li>
 						<li class="navi_li"><a href="/myboard.do" id="myHistory">내가 쓴 글<i class="fas fa-angle-right"></i></a></li>
 						<li class="navi_li"><a href='/myheart.do' id="myHeart">좋아요 누른 목록<i class="fas fa-angle-right"></i></a></li>
-						<li class="navi_li"><a href='/mybeesJoinQnas.do' id="myApprove">비즈 가입ㆍ초대 확인<i class="fas fa-angle-right"></i></a></li>
+						<li class="navi_li"><a href='/mybeesJoinQnas.do' id="myApprove">비즈 가입 확인<i class="fas fa-angle-right"></i></a></li>
 						<li class="navi_li"><a href='/myQnaHistory.do' id="myQuestion">문의사항<i class="fas fa-angle-right"></i></a></li>
 						<li class="navi_li"><a href='/mynotice.do' id="myNotice">공지사항<i class="fas fa-angle-right"></i></a></li>
 					</ul>
@@ -224,7 +224,7 @@
 				<!-- mypage 사이드 네비 -->
 				
 				<!-- mypage 피드(내가 쓴 글_게시글) -->
-				<div class="col-4 myhistroy_div">
+				<div class="col-7 p-0 myhistroy_div">
 					<table class="myhistroy_table">
 						<tr>
 							<th>내가 쓴 글</th>
@@ -299,7 +299,7 @@
 				<!-- mypage 피드(내가 쓴 글_게시글) -->
 				
 				<!-- 여백 -->
-				<div class="col-lg-3 col-md-0"></div>
+				<div class="col-1"></div>
 			</div>
 		</div>
 
