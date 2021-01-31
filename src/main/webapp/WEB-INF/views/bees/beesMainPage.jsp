@@ -23,6 +23,11 @@
 	<link rel="stylesheet" type="text/css" href="/resources/css/beesModifyModal.css">
 	<script type="text/javascript" src="/resources/js/beesModifyModal.js"></script>
 	<link rel="stylesheet" type="text/css" href="/common/common.css">
+	
+	
+	<div id="header">
+		<%@include file="/include/header_bee.jsp" %>
+	</div>	
 	<div class="container pt-3">
 		<div class="row">
 			<div class="col-1"></div>
@@ -359,6 +364,52 @@
 								</td>
 							</tr>
 							<tr>
+								<td rowspan="2"></td>
+								<td class="recomment-cont">
+									<svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="currentColor" class="bi bi-arrow-return-right" viewBox="0 0 16 16">
+  									<path fill-rule="evenodd" d="M1.5 1.5A.5.5 0 0 0 1 2v4.8a2.5 2.5 0 0 0 2.5 2.5h9.793l-3.347 3.346a.5.5 0 0 0 .708.708l4.2-4.2a.5.5 0 0 0 0-.708l-4-4a.5.5 0 0 0-.708.708L13.293 8.3H3.5A1.5 1.5 0 0 1 2 6.8V2a.5.5 0 0 0-.5-.5z" />
+									</svg>
+									<span class="recomment-writer-name" style="margin-right:10px;">장발장</span><span class="recomment-text" style="margin-right:40px;">무궁화 삼천리 화려강산 대한사람 대한으로 길이 보존하세
+									무궁화 삼천리 화려강산 대한사람 대한으로 길이 보존하세
+									무궁화 삼천리 화려강산 대한사람 대한으로 길이 보존하세
+									무궁화 삼천리 화려강산 대한사람 대한으로 길이 보존하세
+									무궁화 삼천리 화려강산 대한사람 대한으로 길이 보존하세
+									</span>
+								</td>
+							</tr>
+							<tr>
+								<td class="recomment-date">
+									2021년 1월 24일 <span class="recomment-btn">답글쓰기</span> <span class="recomment-modify-btn">수정하기</span> <span class="recomment-del-btn">삭제하기</span>
+								</td>
+							</tr>
+							<tr class="recomment-write-box">
+								<!--attr로 display 속성 없애기-->
+								<td>
+									<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="#6D6042" class="bi bi-plus-circle" viewBox="0 0 16 16">
+            <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z" />
+            <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z" />
+        </svg>
+									<input class="recomment-input-text" type="text" placeholder="답글을 남겨주세요">
+									<input class="recomment-submit-btn" type="submit" value="보내기">
+									<button class="recomment-reset-btn" type="button">취소</button>
+								</td>
+							</tr>
+							<!-- 대댓글 수정하기 -->
+							<tr class="recomment-textarea">
+							<td></td>
+								<td>
+									<textarea class="recomment-cont-modify">무궁화 삼천리 화려강산 대한사람 대한으로 길이 보존하세무궁화 삼천리 화려강산 대한사람 대한으로 길이 보존하세무궁화 삼천리 화려강산 대한사람 대한으로 길이 보존하세무궁화 삼천리 화려강산 대한사람 대한으로 길이 보존하세무궁화 삼천리 화려강산 대한사람 대한으로 길이 보존하세</textarea>
+								</td>
+							</tr>
+							<tr class="recomment-textarea-btn">
+							<td></td>
+								<td>
+									<input class="recomment-modify-reset-btn" type="reset" value="취소">
+									<input class="recomment-modify-submit-btn" type="submit" value="저장">
+								</td>
+							</tr>
+							<tr>
+							<!--  -->
 								<td rowspan="3" class="comment-writer">
 									<div class="comment-writer-profile"></div>
 								</td>
@@ -369,7 +420,7 @@
 							</tr>
 							<tr>
 								<td class="comment-date">
-									2021년 1월 24일 <span class="recomment-btn">답글쓰기</span> <span class="comment-modify-btn">수정하기</span> <span class="comment-del-btn">삭제하기</span>
+									2021년 1월 24일 <span class="recomment-btn">답글쓰기</span><span class="comment-modify-btn">수정하기</span> <span class="comment-del-btn">삭제하기</span>
 								</td>
 							</tr>
 							<tr class="recomment-write-box">
@@ -696,6 +747,8 @@
 		</form>
 	</div>
 	<!--상세일정 모달부분-->
+	<div id="footer">
 	<%@include file="/common/footer.jsp"%>
+	</div>
 </body>
 </html>

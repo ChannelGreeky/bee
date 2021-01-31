@@ -87,6 +87,30 @@ $(function() {
 						'display', 'table-row');
 
 			})
+			
+	$('.recomment-modify-btn').click(
+			function() {
+
+				$(this).parent().parent().prev().css('display', 'none');
+				$(this).parent().parent().css('display', 'none');
+				$(this).parent().parent().next().next().css('display',
+						'table-row');
+				$(this).parent().parent().next().next().next().css('display',
+						'table-row');
+
+			});
+
+	$('.recomment-modify-reset-btn').click(
+			function() {
+
+				$(this).parent().parent().prev().css('display', 'none');
+				$(this).parent().parent().css('display', 'none')
+				$(this).parent().parent().prev().prev().prev().css('display',
+						'table-row');
+				$(this).parent().parent().prev().prev().prev().prev().css(
+						'display', 'table-row');
+
+			})
 
 	$('.feed-navi-block').children().mouseover(function() {
 

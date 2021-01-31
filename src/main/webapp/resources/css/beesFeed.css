@@ -451,11 +451,15 @@
 	background-size: cover;
 }
 
+.comment-textarea>td{
+	padding-right:50px;
+}
+
 .comment-writer-name {
 	text-align: left;
 	vertical-align: top;
 	color: #6d6042;
-	font-weight: 300;
+	font-weight: 500;
 	font-size: 0.8rem;
 	width: 100%;
 }
@@ -520,6 +524,32 @@
 	height: 25px;
 }
 
+.recomment-cont {
+	text-align: left;
+	color: #6d6042;
+	font-weight: 300;
+	font-size: 0.8rem;
+	padding-right: 50px;
+}
+.recomment-writer-name {
+	text-align: left;
+	vertical-align: top;
+	color: #6d6042;
+	font-weight: 500;
+	font-size: 0.8rem;
+	width: 100%;
+	
+}
+.recomment-date {
+	text-align: left;
+	color: #6d6042;
+	font-weight: 300;
+	font-size: 0.6rem;
+	padding-bottom: 10px;
+}
+
+
+
 .comment-table * {
 	margin: 0;
 }
@@ -532,7 +562,53 @@
 	display: none;
 }
 
-.comment-textarea>td {
+.recomment-textarea {
+	display: none;
+}
+
+
+.recomment-textarea>td {
+	padding: 5px 50px 0px 0px;
+	text-align: left;
+	color: #6d6042;
+	font-weight: 300;
+	font-size: 0.8rem;
+}
+
+.recomment-cont-modify {
+	padding-left: 10px;
+	border-radius: 15px;
+	border: 1px solid lightgray;
+	width: 100%;
+	resize: none;
+	font-weight: 300;
+	font-size: 0.8rem;
+	overflow:auto;
+}
+
+.recomment-textarea-btn {
+	display: none;
+}
+
+.recomment-textarea-btn>td {
+	font-weight: 300;
+	font-size: 0.8rem;
+}
+
+.recomment-modify-reset-btn {
+	font-weight: 200;
+	border: 0px solid white;
+	background-color: white;
+}
+
+.recomment-modify-submit-btn {
+	color: #f7d078;
+	font-weight: 400;
+	border: 0px solid white;
+	background-color: white;
+}
+
+.recomment-textarea>td {
 	padding: 5px 50px 0px 0px;
 	text-align: left;
 	color: #6d6042;
@@ -548,6 +624,7 @@
 	resize: none;
 	font-weight: 300;
 	font-size: 0.8rem;
+	overflow:auto;
 }
 
 .comment-textarea-btn {
