@@ -422,6 +422,7 @@
 
 .comment-box-btn {
 	text-align: center;
+	cursor:pointer;
 }
 
 .comment-table {
@@ -511,6 +512,7 @@
 	color: white;
 	font-weight: 300;
 	height: 25px;
+	cursor:pointer;
 }
 
 .recomment-reset-btn {
@@ -522,6 +524,7 @@
 	color: #6d6042;
 	font-weight: 300;
 	height: 25px;
+	cursor:pointer;
 }
 
 .recomment-cont {
@@ -588,17 +591,36 @@
 
 .recomment-textarea-btn {
 	display: none;
+	cursor:pointer;
 }
 
 .recomment-textarea-btn>td {
 	font-weight: 300;
 	font-size: 0.8rem;
+	cursor:pointer;
+}
+
+.comment-modify-btn{
+	cursor:pointer;
+}
+
+.comment-del-btn{
+	cursor:pointer;
+}
+
+.recomment-modify-btn{
+	cursor:pointer;
+}
+
+.recomment-del-btn{
+	cursor:pointer;
 }
 
 .recomment-modify-reset-btn {
 	font-weight: 200;
 	border: 0px solid white;
 	background-color: white;
+	cursor:pointer;
 }
 
 .recomment-modify-submit-btn {
@@ -606,6 +628,7 @@
 	font-weight: 400;
 	border: 0px solid white;
 	background-color: white;
+	cursor:pointer;
 }
 
 .recomment-textarea>td {
@@ -629,6 +652,7 @@
 
 .comment-textarea-btn {
 	display: none;
+	cursor:pointer;
 }
 
 .comment-textarea-btn>td {
@@ -640,6 +664,7 @@
 	font-weight: 200;
 	border: 0px solid white;
 	background-color: white;
+	cursor:pointer;
 }
 
 .comment-modify-submit-btn {
@@ -647,6 +672,7 @@
 	font-weight: 400;
 	border: 0px solid white;
 	background-color: white;
+	cursor:pointer;
 }
 
 .comment-input-box {
@@ -669,6 +695,7 @@
 	color: white;
 	font-weight: 300;
 	font-size: 0.9rem;
+	cursor:pointer;
 }
 
 #feed-add-btn {
