@@ -114,5 +114,56 @@ public class MemberController {
 		
 		//관리자페이지
 		
+		@RequestMapping(value="/feedSearchResult.do")
+		public String feedSearchResult() {
+			
+			return "/search/feedSearchResult";
+			
+		}
+
+		@RequestMapping(value="/bestFeedPage.do")
+		public String bestFeedPage() {
+			
+			return "/main/bestFeedPage";
+			
+		}
+		
+		@RequestMapping(value="/myBeesPage.do")
+		public String myBeesPage() {
+			
+			return "/main/myBeesPage";
+			
+		}
+		
+		@RequestMapping(value="/beesMainPage.do")
+		public String beesMainPage() {
+			
+			return "/bees/beesMainPage";
+			
+		}
+		
+		@RequestMapping(value="/beesChatPopUp.do")
+		public String beesChatPopUp() {
+			
+			return "/bees/beesChatPopUp";
+			
+		}
+		
+		
+		@RequestMapping(value="/myPageBoard.do")
+		public String myPageBoard() {
+			return "/myPage/board";
+		}
+		
+		@RequestMapping(value="/myPageHeart.do")
+		public String myPageHeart() {
+			return "/myPage/heart";
+		}
+		
+		@RequestMapping(value="/beesSearchResult.do")
+		public String beesSearchResult() {
+			return "/search/beesSearchResult";
+		}
+		
 		
 }
