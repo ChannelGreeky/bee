@@ -39,7 +39,7 @@
 	<br><hr>
 	
 	
-	<h1>마이페이지</h1>
+	<h1>페이지</h1>
 	<a href="/feedSearchResult.do">피드 서치 페이지</a><br>
 	<a href="/bestFeedPage.do">인기글</a><br>
 	<a href="/myBeesPage.do">내 비즈 소식</a><br>
