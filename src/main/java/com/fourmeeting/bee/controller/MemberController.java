@@ -25,13 +25,13 @@ public class MemberController {
 	
 	@RequestMapping(value="uploadFile.do")
 	public String uploadFile(){
-		return "fileBoard/fileBoard";
+		return "bees/fileBoard";
 	}
 	
 
 	@RequestMapping(value="uploadImage.do")
 	public String uploadImage(){
-		return "imageBoard/uploadImage";
+		return "bees/uploadImage";
 	}
 	@RequestMapping(value="allImage.do")
 	public String allImage(){
@@ -40,7 +40,7 @@ public class MemberController {
 
 		@RequestMapping(value="noticeBoard.do")
 	public String noticeBoard(){
-		return "adminBoard/noticeBoard";
+		return "admin/noticeBoard";
 	}	
 		
 		//------ 마이페이지 ------- //

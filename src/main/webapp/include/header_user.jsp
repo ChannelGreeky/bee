@@ -8,7 +8,7 @@
     <style>
 .header{
    border-bottom: 1px solid #FFF3D8;
-
+background-color:white;
  
    } 
 .inner{
@@ -184,6 +184,7 @@ position: relative;
 text-align:center;
 margin:0 auto;
 z-index : 8;
+background-color:white;
 }
 .navi_menu{
 display:flex;

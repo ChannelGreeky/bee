@@ -174,8 +174,7 @@ border-left:1px solid black;
 </head>
 <body>
 
-<!--제이쿼리 CDN-->
-<script src="https://code.jquery.com/jquery-3.5.1.js" integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" crossorigin="anonymous"></script>
+
 
 <!--구글 노토 산스 -->
 <link rel="preconnect" href="https://fonts.gstatic.com">
@@ -185,8 +184,7 @@ border-left:1px solid black;
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js" integrity="sha384-q2kxQ16AaE6UbzuKqyBE9/u/KzioAlnx2maXQHiDX9d4/zp8Ok3f+M7DPm+Ib6IU" crossorigin="anonymous"></script>
 
-<!--폰트어썸 CDN-->
-<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css" rel="stylesheet">
+
 
 <!-- 외부 css + js-->
 <!--비즈 전체페이지 + 사이드 프로필 + 메인 컨텐츠 크기-->
