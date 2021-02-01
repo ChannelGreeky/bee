@@ -9,13 +9,8 @@
 	<%@ include file="/common/cdnLib.jsp"%>
 	<link rel="stylesheet" type="text/css" href="/resources/css/feedSearchResult.css">
 	<script type="text/javascript" src="/resources/js/feedSearchResult.js"></script>
-	<div id="header">
-		<div class="nav m-auto">
-			<ul>
-				<a href="#"><li>비즈 검색 결과</li></a>
-				<a href="#"><li style="color: #B9CCA1">게시글</li></a>
-			</ul>
-		</div>
+	<div>
+		<%@include file="/include/header_user.jsp" %>
 	</div>
 	<div class="container pt-3">
 		<div class="row">

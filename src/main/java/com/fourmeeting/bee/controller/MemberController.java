@@ -114,52 +114,52 @@ public class MemberController {
 		@RequestMapping(value="/feedSearchResult.do")
 		public String feedSearchResult() {
 			
-			return "/search/feedSearchResult";
+			return "/user/search/feedSearchResult";
 			
 		}
 
 		@RequestMapping(value="/bestFeedPage.do")
 		public String bestFeedPage() {
 			
-			return "/main/bestFeedPage";
+			return "/user/main/bestFeedPage";
 			
 		}
 		
 		@RequestMapping(value="/myBeesPage.do")
 		public String myBeesPage() {
 			
-			return "/main/myBeesPage";
+			return "/user/main/myBeesPage";
 			
 		}
 		
 		@RequestMapping(value="/beesMainPage.do")
 		public String beesMainPage() {
 			
-			return "/bees/beesMainPage";
+			return "/bees/main/beesMainPage";
 			
 		}
 		
 		@RequestMapping(value="/beesChatPopUp.do")
 		public String beesChatPopUp() {
 			
-			return "/bees/beesChatPopUp";
+			return "/bees/main/beesChatPopUp";
 			
 		}
 		
 		
 		@RequestMapping(value="/myPageBoard.do")
 		public String myPageBoard() {
-			return "/myPage/board";
+			return "/user/myPage/board";
 		}
 		
 		@RequestMapping(value="/myPageHeart.do")
 		public String myPageHeart() {
-			return "/myPage/heart";
+			return "/user/myPage/heart";
 		}
 		
 		@RequestMapping(value="/beesSearchResult.do")
 		public String beesSearchResult() {
-			return "/search/beesSearchResult";
+			return "/user/search/beesSearchResult";
 		}
 		
 		

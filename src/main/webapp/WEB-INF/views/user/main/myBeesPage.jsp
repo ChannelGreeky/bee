@@ -13,7 +13,9 @@
 	<link rel="stylesheet" type="text/css" href="/resources/css/beesModifyModal.css">
 	<script type="text/javascript" src="/resources/js/beesModifyModal.js"></script>
 
-
+	<div>
+	<%@include file="/include/header_user.jsp" %>
+	</div>
 	<div class="container pt-3">
 		<div class="row">
 			<div class="col-1"></div>
@@ -562,7 +564,9 @@
 		</form>
 	</div>
 	<!--상세일정 모달부분-->
+	<div>
 	<%@include file="/common/footer.jsp"%>
+	</div>
 	<script>
 		$(function() {
 

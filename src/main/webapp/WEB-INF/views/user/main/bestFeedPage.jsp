@@ -9,14 +9,8 @@
 	<%@ include file="/common/cdnLib.jsp"%>
 	<link rel="stylesheet" type="text/css" href="/resources/css/bestFeedPage.css">
 	<script type="text/javascript" src="/resources/js/bestFeedPage.js"></script>
-	<div id="header">
-		<div class="nav m-auto">
-			<ul>
-				<a href="#"><li id="rad1">내 비즈 소식</li></a>
-				<a href="#"><li style="color: #B9CCA1">인기글</li></a>
-				<a href="#"><li>추천비즈</li></a>
-			</ul>
-		</div>
+	<div>
+	<%@include file="/include/header_user.jsp" %>
 	</div>
 	<div class="container pt-3">
 		<div class="row">
@@ -115,6 +109,8 @@
 			<div class="col-1"></div>
 		</div>
 	</div>
+	<div>
 	<%@include file="/common/footer.jsp"%>
+	</div>
 </body>
 </html>
