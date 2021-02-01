@@ -177,6 +177,7 @@ position: relative;
 z-index : 8;
 text-align:center;
 margin:0 auto;
+background-color:white;
 }
 .navi_menu{
 display:flex;
