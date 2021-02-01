@@ -96,7 +96,6 @@ div {
 	font-size: 1.6rem;
 	font-weight: 300;
 }
-
 .bees-feed {
 	background-color: white;
 	width: 100%;
@@ -106,7 +105,7 @@ div {
 	box-shadow: 1px 1px 2px rgb(230, 230, 230);
 }
 
-.bees-name-tag {
+.bees-name-tag{
 	margin-top: 10px;
 	width: 100%;
 	height: 40px;
@@ -521,6 +520,7 @@ div {
 
 .comment-box-btn {
 	text-align: center;
+	cursor:pointer;
 }
 
 .comment-table {
@@ -550,11 +550,15 @@ div {
 	background-size: cover;
 }
 
+.comment-textarea>td{
+	padding-right:50px;
+}
+
 .comment-writer-name {
 	text-align: left;
 	vertical-align: top;
 	color: #6d6042;
-	font-weight: 300;
+	font-weight: 500;
 	font-size: 0.8rem;
 	width: 100%;
 }
@@ -588,13 +592,27 @@ div {
 	padding: 10px 20px 20px 0px;
 }
 
+.recomment-input-box{
+	width:60%; 
+	border: 1px solid #6d6042; 
+	border-radius: 999px; 
+	display:inline-block; 
+	font-size:0.7rem;
+	text-align:right;
+	padding-right:10px;
+	color:lightgray;
+}
+
+
 .recomment-input-text {
-	border-radius: 999px;
-	width: 60%;
-	border: 1px solid #6d6042;
+	border:0px solid white;
+	width: 85%;
 	height: 25px;
 	font-size: 0.8rem;
-	padding: 0 20px 0 20px;
+	padding: 0 10px 0 10px;
+	border-radius:999px;
+	color: #6d6042;
+	font-weight: 200;
 }
 
 .recomment-submit-btn {
@@ -606,6 +624,7 @@ div {
 	color: white;
 	font-weight: 300;
 	height: 25px;
+	cursor:pointer;
 }
 
 .recomment-reset-btn {
@@ -617,7 +636,34 @@ div {
 	color: #6d6042;
 	font-weight: 300;
 	height: 25px;
+	cursor:pointer;
 }
+
+.recomment-cont {
+	text-align: left;
+	color: #6d6042;
+	font-weight: 300;
+	font-size: 0.8rem;
+	padding-right: 50px;
+}
+.recomment-writer-name {
+	text-align: left;
+	vertical-align: top;
+	color: #6d6042;
+	font-weight: 500;
+	font-size: 0.8rem;
+	width: 100%;
+	
+}
+.recomment-date {
+	text-align: left;
+	color: #6d6042;
+	font-weight: 300;
+	font-size: 0.6rem;
+	padding-bottom: 10px;
+}
+
+
 
 .comment-table * {
 	margin: 0;
@@ -631,7 +677,73 @@ div {
 	display: none;
 }
 
-.comment-textarea>td {
+.recomment-textarea {
+	display: none;
+}
+
+
+.recomment-textarea>td {
+	padding: 5px 50px 0px 0px;
+	text-align: left;
+	color: #6d6042;
+	font-weight: 300;
+	font-size: 0.8rem;
+}
+
+.recomment-cont-modify {
+	padding-left: 10px;
+	border-radius: 15px;
+	border: 1px solid lightgray;
+	width: 100%;
+	resize: none;
+	font-weight: 300;
+	font-size: 0.8rem;
+	overflow:auto;
+}
+
+.recomment-textarea-btn {
+	display: none;
+	cursor:pointer;
+}
+
+.recomment-textarea-btn>td {
+	font-weight: 300;
+	font-size: 0.8rem;
+	cursor:pointer;
+}
+
+.comment-modify-btn{
+	cursor:pointer;
+}
+
+.comment-del-btn{
+	cursor:pointer;
+}
+
+.recomment-modify-btn{
+	cursor:pointer;
+}
+
+.recomment-del-btn{
+	cursor:pointer;
+}
+
+.recomment-modify-reset-btn {
+	font-weight: 200;
+	border: 0px solid white;
+	background-color: white;
+	cursor:pointer;
+}
+
+.recomment-modify-submit-btn {
+	color: #f7d078;
+	font-weight: 400;
+	border: 0px solid white;
+	background-color: white;
+	cursor:pointer;
+}
+
+.recomment-textarea>td {
 	padding: 5px 50px 0px 0px;
 	text-align: left;
 	color: #6d6042;
@@ -644,13 +756,16 @@ div {
 	border-radius: 15px;
 	border: 1px solid lightgray;
 	width: 100%;
+	height:80%;
 	resize: none;
 	font-weight: 300;
 	font-size: 0.8rem;
+	overflow:auto;
 }
 
 .comment-textarea-btn {
 	display: none;
+	cursor:pointer;
 }
 
 .comment-textarea-btn>td {
@@ -662,6 +777,7 @@ div {
 	font-weight: 200;
 	border: 0px solid white;
 	background-color: white;
+	cursor:pointer;
 }
 
 .comment-modify-submit-btn {
@@ -669,18 +785,57 @@ div {
 	font-weight: 400;
 	border: 0px solid white;
 	background-color: white;
+	cursor:pointer;
 }
 
+.comment-modify-count{
+	display:inline-block; 
+	float:right; 
+	padding-right:60px; 
+	font-size:0.7rem; 
+	color:lightgray;
+}
+
+.recomment-modify-count{
+	display:inline-block; 
+	float:right; 
+	padding-right:60px; 
+	font-size:0.7rem; 
+	color:lightgray;
+	
+}
+
+.comment-write-box{
+	padding: 10px 40px 20px 45px;
+}
+
+.comment-write-box>div{
+	width:84%; 
+	height:100%; 
+	color:lightgray; 
+	font-size:0.7rem; 
+	border-radius:999px; 
+	border:1px solid lightgray; 
+	display:inline-block;
+	text-align:right;
+	padding-right:10px;
+}
+
+
 .comment-input-box {
-	padding: 0 20px 0 20px;
-	border-radius: 999px;
-	width: 84%;
+	padding: 0 10px 0 5px;
+	margin-left:15px;
+	width: 87%;
 	height: 35px;
-	border: 0.5px solid lightgray;
 	color: #6d6042;
 	font-weight: 200;
+	border-radius:999px;
+	background-color:transperant;
+	border:0px solid white;
 	font-size: 0.9rem;
+	
 }
+
 
 .comment-submit-btn {
 	width: 15%;
@@ -691,6 +846,7 @@ div {
 	color: white;
 	font-weight: 300;
 	font-size: 0.9rem;
+	cursor:pointer;
 }
 
 #feed-add-btn {

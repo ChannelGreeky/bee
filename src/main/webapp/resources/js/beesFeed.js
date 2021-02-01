@@ -73,6 +73,8 @@ $(function() {
 						'table-row');
 				$(this).parent().parent().next().next().next().css('display',
 						'table-row');
+				var text = $(this).parent().parent().next().next().children().children().val();
+				$(this).parent().parent().next().next().next().children().find('p').html(text.length+"/200");
 
 			});
 
@@ -90,13 +92,16 @@ $(function() {
 			
 	$('.recomment-modify-btn').click(
 			function() {
-
+				
 				$(this).parent().parent().prev().css('display', 'none');
 				$(this).parent().parent().css('display', 'none');
 				$(this).parent().parent().next().next().css('display',
 						'table-row');
 				$(this).parent().parent().next().next().next().css('display',
 						'table-row');
+				
+				var text = $(this).parent().parent().next().next().children().eq(1).children().val();
+				$(this).parent().parent().next().next().next().children().eq(1).children().eq(2).html(text.length+"/200");
 
 			});
 
@@ -209,6 +214,54 @@ $(function() {
 		$('#feed-modal-bg').css('display', 'none');
 		$('#sche-detail-modal').css('display', 'none');
 
+	})
+	
+	$('.comment-input-box').keyup(function(){
+		
+		var text = $(this).val();
+		$(this).next().html(text.length+"/200");
+		
+		if(text.length>200){
+			$(this).val(text.substring(0,200));
+			$(this).next().css('color','red');
+		}
+	})
+	
+	$('.recomment-input-text').keyup(function(){
+		
+		var text = $(this).val();
+		$(this).next().html(text.length+"/200");
+		
+		if(text.length>200){
+			$(this).val(text.substring(0,200));
+			$(this).next().css('color','red');
+		}
+	})
+	
+	
+	
+	$('.recomment-cont-modify').keyup(function(){
+		
+		
+		var text = $(this).val();
+		$(this).parent().parent().next().children().eq(1).children().eq(2).html(text.length+"/200");
+		
+		if(text.length>200){
+			$(this).val(text.substring(0,200));
+			$(this).parent().parent().next().children().eq(1).children().eq(2).css('color','red');
+		}
+	})
+	
+	$('.comment-cont-modify').keyup(function(){
+		
+		
+		var text = $(this).val();
+		$(this).parent().parent().next().children().children().eq(2).html(text.length+"/200");
+		
+		if(text.length>200){
+			$(this).val(text.substring(0,200));
+			$(this).parent().parent().next().children().children().eq(2).css('color','red');
+		}
 	})
 
 })
