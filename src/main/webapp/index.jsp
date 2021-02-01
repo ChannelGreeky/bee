@@ -9,11 +9,11 @@
 <body>
 
 	
-	<a href="/fileExample.do">파일실험</a>
+	<a href="/allImage.do">모달연습</a>
 	<a href="/uploadImage.do">사진첩</a>
   
 	<a href="/noticeBoard.do">관리자공지사항</a>
-	<a href="/uploadFile.do">연습</a>
+	<a href="/uploadFile.do">파일 모아보기</a>
 	<h3><a href="/beesSchedule.do">일정</a></h3>
 	<h3><a href="/beesMember.do">멤버</a></h3>
 		

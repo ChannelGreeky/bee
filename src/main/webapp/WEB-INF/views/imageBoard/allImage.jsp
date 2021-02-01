@@ -1,52 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-     <%@ include file="/include/header_bee.jsp"  %>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+    <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
-<style>
-*{
-box-sizing:border-box;
-}
-.main_content{
-width:540px;
-border:1px solid black;
-padding: 15px 15px 15px 15px;
-margin:0;
-}
-.main_head{
-border-bottom:1px solid gray;
-margin-bottom:15px;
-}
-
-
-H3{
-margin-top:0;
-margin-bottom:15px;
-}
-#upImgFiles{
-display:none;
-}
-#btn-upload{
-float:right;
-margin-right:10px;
-background-color:white;
-border:none;
-}
-#btn-upload:focus{
-outline:none;
-}
-#spaceImage{
-margin-top:15px;
-
-}
-#imageviews{
-margin:3px;
-}
-</style>
-</head>
+ </head>
 <body>
 <!-- 반응형 웹에 필요한 소스 -->
 	<meta name="viewport"
@@ -74,99 +33,44 @@ margin:3px;
 	<link rel="preconnect" href="https://fonts.gstatic.com">
 	<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap" rel="stylesheet">
 
+   
+
+  <!-- Button trigger modal -->
+<button type="button" style="background-color:#F7D078; border-radius:30px;" id="write_btn" class="btn btn-primary" data-toggle="modal" data-target="#myModal" >글작성</button>
+								
 
 
+<!-- Modal -->
+<div class="modal fade" id="myModal" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="staticBackdropLabel">공지사항 작성</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true"><i class="fas fa-times"></i></span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div id="title" style="border-bottom:1px solid #E4E4E4; border-top:1px solid #E4E4E4;">
+        <input type="text" id="myInput" placeholder="제목을 입력해주세요."/></div>
+        
+        <div class="write_area">
+           
+            <textarea class="form-control" id="recipient-name"></textarea>
+          </div>
+          
+        
+      </div>
+      </div>
+      <div class="modal-footer" style="height:10%; width:100%;padding-right:15px;">
+      <hr class="line">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal" style="float:right;background-color:#E4E4E4;color:#50401B;border:none;border-radius:10px;">취소</button>
+        <button type="button" class="btn btn-primary" style="float:right; background-color:#FFF3D8;color:#50401B;border:none;border-radius:10px;">작성완료</button>
+      </div>
+    </div>
+  </div>
+</div>
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<div class="main_content">
-	<div class="main_head">
-		<H3>사진첩</H3>
-		
-		
-	</div>
-	
-	<div class="main_body">
-		<span>전체사진</span> 
-			<span>                                                                 
-		    	<input type="file" id="upImgFiles" onChange="uploadImgs();" name="subImg" accept="image/*" multiple >
-		    	<button type="button" id="btn-upload"> <i class="fas fa-plus"></i> </button> 
-		    </span>
-				<div class="row" id="spaceImage">
-		            <div class="col-md-12"> 
-						<div id="imageviews"></div>
-		            </div>
-		        </div>
-
-	</div> <!-- main_body -->
-
-
-
-</div> <!-- main_content -->
-
-
-  
-                              
-                              <script>
-                              
-                              $(function(){
-                            	  $('#btn-upload').click(function(e){
-                            		  e.preventDefault();
-                            		  $('#upImgFiles').click();
-                            	  });
-                            	  
-                            	  
-                              });
-                              
-                              function uploadImgs() {
-                                  // @breif 업로드 파일 읽기
-                                  var fileList = document.getElementById( "upImgFiles" ).files;
-                                       
-                                 // @breif 업로드 파일 읽기
-                                 function readAndPreview( fileList ) {
-                                    // @breif 이미지 확장자 검사
-                                    if ( /\.(jpe?g|png|gif)$/i.test( fileList.name ) ) {
-                                       var reader = new FileReader();
-                                       reader.addEventListener( "load", function() {
-                                          var image = new Image();
-                                          image.width = "160";
-                                          image.height = "160";
-                                          image.title = fileList.name;
-                                          image.src = this.result;
-
-                                          // @details 이미지 확장자 검사
-                                          document.getElementById( "imageviews" ).appendChild( image );
-                                       }, false );
-
-                                       // @details readAsDataURL( )을 통해 파일의 URL을 읽어온다.
-
-                                       if( fileList ) {
-                                          reader.readAsDataURL( fileList );
-                                       }
-                                    }
-                                 }
-
-                               if( fileList ) {
-                            // @details readAndPreview() 함수를 forEach문을통한 반복 수행
-                                   [].forEach.call( fileList, readAndPreview );
-                                }
-                               }  
-                           
-                             
-                             </script>
 </body>
 </html>

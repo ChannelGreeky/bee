@@ -7,54 +7,39 @@
 <title>Insert title here</title>
     <style>
 .header{
-   border-bottom: 1px solid #FFF3D8;
-
- 
-   } 
+border-bottom: 1px solid #FFF3D8;
+} 
 .inner{
 position: relative;
 max-width: 1034px;
 min-width:500px;
 height: 80px;
-margin:0;
-         
-          
+margin:0;          
 }
 * {
-	box-sizing: border-box;
+box-sizing: border-box;
 }
 .beeLogo{
- width: 80px;
- height: 80px;
- overflow: hidden;
-
+width: 80px;
+height: 80px;
+overflow: hidden;
 display : inline-block;
 padding-top:15px;
-
 }
-  
-
 .inner img{
 width:100%;
 height:100%;
 object-fit:cover;
-
-
 }
- .admin_menu a{
- color:#50401B;
-
- }  
-
+.admin_menu a{
+color:#50401B;
+}  
 .admin_menu>li{
-
 position:relative;
 line-height:90px;
 float:left;
 text-align:center;
 width:25%;
-
-
 }
 ul{
 list-style:none;
@@ -75,7 +60,6 @@ line-height:20px;
 float:left;
 margin-left:30px;
 }
-
 .top_right_btn{
 width: 30px;
 height:30px;
@@ -84,16 +68,13 @@ display:inline-block;
 padding:0;
 background-color:white;
 border:none;
-
 }
 .top_right_img:before{
 font-size:26px;
 margin:0;
 padding:0;
 color:#FEE6B1;
-
 }
-
 .top_right_btn:focus{
 outline:none;
 }
@@ -117,7 +98,6 @@ right:0;
 top:-20px;
 left:0;
 height:20px;
-
 }
 .menu-sub a{
 color:#50401B;
@@ -135,7 +115,6 @@ width:0;
 border-width:10px;
 border-style:solid;
 border-color:transparent transparent #F7D078 transparent;
-
 }
 .menu-item{
 position:relative;
@@ -145,25 +124,18 @@ height : 35px;
 padding:0.7em;
 display:block;
 }
-
 .menu-item:hover .menu-sub{  
 opacity: 1;  
 display:block;
- transition-duration: 2s;
- color:#B9CCA1;
-
+transition-duration: 2s;
+color:#B9CCA1;
 font-size:1rem;
-
 }
 .menu-sub:hover{
 opacity: 1;  
 display:block;
-
 }
-
-
-
-    </style>
+</style>
 </head>
 <body>
 <!-- 반응형 웹에 필요한 소스 -->
