@@ -161,68 +161,7 @@ display:block;
 
 }
 
-#search_btn{
-width:40px;
-height:35px;
-background-color:white;
-border:none;
-border-radius:30px;
-float:right;
-margin:0 10px;
-}
-#search_btn img{
-width:80%;
-height:80%;
 
-}
-.search_bar{
-background-color:#F7D078;
-margin-top:15px;
-height:70px;
-}
-#search_title{
-font-size: 1.5rem;
-color:#50401B;
-font-weight:bold;
-}
-#main-content div{
-box-sizing: border-box;
-border:0;
-padding:0;
-display:inline-block;
-float:left;
-
-}
-#main-content form{
-width:100%;
-
-}
-.search_bar input{
-display:inline-block;
-border-radius:30px;
-height:38px;
-text-align:center;
-margin:0 10px;
-width:90%;
-
-
-}
-#main-content select{
-border-radius:30px;
-height:38px;
-text-align:center;
-display:inline-block;
-margin:0 5px;
-width:90%;
-
-}
-#main-content div{
-display:inline-block;
-
-}
-#write_btn{
-border-radius:30px;
-}
 
     </style>
 </head>
@@ -330,52 +269,6 @@ border-radius:30px;
  
 
 
-<div class="container pt-3">
-		<div class="row">
-			<div class="col-1 p-0"></div>
-			
-				
-			<div class="col-10 p-0">
-					<div id="main-content" class="container m-0 p-2">
-						<div class="row ">
-							<div class="col-md-12 member_manage">
-								<span id="search_title">회원관리</span>
-								<button type="button" style="background-color:#F7D078; id="write_btn">글작성</button>
-							</div>
-						</div>
-						<div class="row w-100">
-						<form method="" >
-							<div class="col-md-2 w-100 p-0 search_bar">
-								<input type="date" >
-								</div>
-								<div class="col-md-2 w-100 p-0 search_bar">
-								 <input type="date"> 
-								 </div>
-								<div class="col-md-2 w-100 p-0 search_bar"> 
-								<select>
-									<option>닉네임</option>
-									<option>카테고리</option>
-									<option>글제목</option>
-									
-								</select>
-							</div>	
-					
-							<div class="col-md-6 w-100 p-0 search_bar">
-								<input type="text" style="width:82%; right:10px;">
-								<button type="submit" id="search_btn" ><img src="resources/image/search.png"/></button>
-							</div>
-						</form>
-						
-					</div>
-				</div>
-			</div>
-			<div class="col-1 p-0"></div>
-		</div>
-
-
-
-
-</div> <!-- container -->
 
 
 

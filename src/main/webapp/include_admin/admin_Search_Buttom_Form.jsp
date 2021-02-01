@@ -99,74 +99,6 @@ outline:none;
 width:100%;
 
 }
-#myModal{
-width:100%;
-height:100%;
-
-}
-.modal-header{
-width:100%;
-height:15%;
-text-align:center;
-}
-#staticBackdropLabel{
-display:inline-block;
-
-padding-top:5px;
-padding-bottom:5px;
-}
-.modal-content{
-margin-left:450px;
-margin-top:100px;
-}
-.write_area{
-width:100%;
-height:300px;
-margin:0;
-padding:0;
-
-}
-.modal-body{
-width:100%;
-height:80%;
-}
-.modal-body span{
-padding-left:20px;
-}
-#recipient-name{
-padding:0;
-margin:20px;
-display:block;
-height:90%;
-width:95%;
-resize:none;
-}
-.btn-close{
-float:right;
-margin-right:10px;
-margin-top:5px;
-background-color:white;
-border:none;
-}
-.btn-close:focus{
-outline:none;
-}
-#title{
-height:48x;
-width:100%;
-
-
-line-height:48px;
-
-}
-#title span{
-padding-left:20px;
-
-}
-.line{
-margin:0;
-padding:0;
-}
 
 </style>
 
@@ -212,45 +144,7 @@ padding:0;
 							<div class="col-md-12 admin_header">
 								<span id="search_title">공지사항</span>
 								<!-- Button trigger modal -->
-								<button type="button" style="background-color:#F7D078; border-radius:30px;" id="write_btn" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#myModal" >글작성</button>
-								
-								<!-- Modal -->
-
-<div class="modal fade" id="myModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-  <div class="modal-dialog modal-lg">
-    <div class="modal-content">
-      <div class="modal-header" >
-        <h5 class="modal-title" id="staticBackdropLabel">공지사항 작성</h5>
-     
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"><i class="fas fa-times"></i></button>
-      
-      </div>
-      <form>
-      <div class="modal-body" >
-      	 
-        <div id="title" style="border-bottom:1px solid #E4E4E4; border-top:1px solid #E4E4E4;"><span>제목을 입력해주세요.</span></div>
-        
-        <div class="write_area">
-           
-            <textarea class="form-control" id="recipient-name"></textarea>
-          </div>
-          
-        
-      </div>
-      <div class="modal-footer" style="height:10%; width:100%;padding-right:15px;">
-      <hr class="line">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" style="float:right;background-color:#E4E4E4;color:#50401B;border:none;border-radius:10px;">취소</button>
-        <button type="submit" class="btn btn-primary" style="float:right; background-color:#FFF3D8;color:#50401B;border:none;border-radius:10px;">작성완료</button>
-      </div>
-      
-    </div> <!-- modal-content -->
-  </div> <!-- modal-dialog -->
-</div><!-- Modal-fade -->
-
-
-								
-								
-											
+								<button type="button" style="background-color:#F7D078; border-radius:30px;" id="write_btn" >글작성</button>			
 							</div>
 						</div>
 						<div class="row w-100">
@@ -287,32 +181,7 @@ padding:0;
 
 </div> <!-- container -->
 
-<script>
 
-$(document).ready(function(){
-	  $("#write_btn").click(function(){
-	    $("#myModal").modal("show");
-	  });
-});	  
-	  
-var myModal = document.getElementById('myModal');
-var myInput = document.getElementById('myInput')
-myModal.onclick=function(){
-$('#write_btn').click(function(e){
-
-});
-
-
-myModal.addEventListener('shown.bs.modal', function () {
-  myInput.focus()
-})
-var myModal = new bootstrap.Modal(document.getElementById('myModal'), {
-  keyboard: false
-})
-myModal.show();
-myModal.hide()
-}
-</script>
 
 
 

@@ -25,7 +25,7 @@ public class MemberController {
 	
 	@RequestMapping(value="uploadFile.do")
 	public String uploadFile(){
-		return "fileBoard/allFile";
+		return "fileBoard/fileBoard";
 	}
 	
 	@RequestMapping(value="fileExample.do")
