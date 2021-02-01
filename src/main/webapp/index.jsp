@@ -34,5 +34,17 @@
 	<a href="/adminNotice.do">3. 공지사항</a><br>
 	<a href="/adminQuestion.do">4. 1:1문의사항</a><br>
 	<br><hr>
+	
+	
+	<h1>페이지</h1>
+	<a href="/feedSearchResult.do">피드 서치 페이지</a><br>
+	<a href="/bestFeedPage.do">인기글</a><br>
+	<a href="/myBeesPage.do">내 비즈 소식</a><br>
+	<a href="/beesMainPage.do">비즈 메인 페이지</a><br>
+	<a href="/myPageBoard.do">내가 쓴 게시글</a><br>
+	<a href="/myPageHeart.do">내가 좋아요 누른 페이지</a><br>
+	<a href="/beesSearchResult.do">비즈서치페이지</a>
+	
+	
 </body>
 </html>
