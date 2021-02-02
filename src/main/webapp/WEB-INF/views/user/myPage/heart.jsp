@@ -39,15 +39,9 @@
 	<style>
 		
 		
-		/*커서 없애버려...*/
-		
 		body{
 			font-family: 'Noto Sans KR', sans-serif;
 			background-color: #f9f9f9;
-		}
-		
-		div{
-		 /* border: 1px black solid; */
 		}
 		
 		.container{

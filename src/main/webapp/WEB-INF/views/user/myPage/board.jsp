@@ -19,17 +19,12 @@
 	<!-- 노토산스 폰트 -->
 	<link rel="preconnect" href="https://fonts.gstatic.com">
 	<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap" rel="stylesheet">
-	<style>
 
-/*커서 없애버려...*/
+<style>
+
 body {
 	font-family: 'Noto Sans KR', sans-serif;
 	background-color: #f9f9f9;
-}
-
-div {
-	/* border: 1px black solid; */
-	
 }
 
 .container {

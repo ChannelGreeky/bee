@@ -46,43 +46,43 @@ public class MemberController {
 		//------ 마이페이지 ------- //
 		@RequestMapping(value="myinfo.do")
 		public String myinfo(){
-			return "my/info";
+			return "user/mypage/info";
 		}
 		
 		@RequestMapping(value="/myboard.do")
 		public String myboard(){
-			return "my/board";
+			return "user/mypage/board";
 		}
 		
 		@RequestMapping(value="/mycomment.do")
 		public String mycomment(){
-			return "my/comment";
+			return "user/mypage/comment";
 		}
 		
 		@RequestMapping(value="/myheart.do")
 		public String myheart(){
-			return "my/heart";
+			return "user/mypage/heart";
 		}
 		
 		@RequestMapping(value="/mybeesJoinQnas.do")
 		public String mybeesJoinQnas(){
-			return "my/beesJoinQnas";
+			return "user/mypage/beesJoinQnas";
 		}
 
 		@RequestMapping(value="/myQnaHistory.do")
 		public String myQnaHistory(){
-			return "my/qnaHistory";
+			return "user/mypage/qnaHistory";
 		}
 		
 		
 		@RequestMapping(value="/myask.do")
 		public String myask(){
-			return "my/ask";
+			return "user/mypage/ask";
 		}
 		
 		@RequestMapping(value="/mynotice.do")
 		public String mynotice(){
-			return "my/notice";
+			return "user/mypage/notice";
 		}
 		
 		//마이페이지
