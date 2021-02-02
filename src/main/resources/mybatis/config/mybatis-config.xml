@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN" "http://mybatis.org/dtd/mybatis-3-config.dtd" >
+<configuration>
+<typeAliases>
+<typeAlias type="com.fourmeeting.bee.bees.model.vo.Bees" alias="bees"></typeAlias>
+<typeAlias type="com.fourmeeting.bee.bees.model.vo.Setting" alias="setting"></typeAlias>
+<typeAlias type="com.fourmeeting.bee.beesuser.model.vo.BeesUser" alias="beesuser"></typeAlias>
+</typeAliases>
+</configuration>
