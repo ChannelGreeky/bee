@@ -1,4 +1,4 @@
-package com.fourmeeting.bee.Answer.model.vo;
+package com.fourmeeting.bee.answer.model.vo;
 
 import java.sql.Timestamp;
 
