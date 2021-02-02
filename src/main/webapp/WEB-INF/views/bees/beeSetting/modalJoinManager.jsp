@@ -1,15 +1,99 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+	pageEncoding="UTF-8"%>
+<!DOCTYPE html>
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+ <script
+	src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js"
+	integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx"
+	crossorigin="anonymous"></script>	
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+	integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+	crossorigin="anonymous"></script>	
+<link rel="preconnect" href="https://fonts.gstatic.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap" rel="stylesheet"> 
 <title>Insert title here</title>
 </head>
-<!--구글 노토 산스 -->
-<link rel="preconnect" href="https://fonts.gstatic.com">
-<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap" rel="stylesheet">
+<body>
+<script src="https://code.jquery.com/jquery-3.5.1.js" integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" crossorigin="anonymous"></script>
+
+
 <style>
+* {
+	box-sizing: border-box;
+}
+#myModalLabel {
+    font-size: 19px;
+    color: #6D6042;
+    margin: auto;
+    font-weight: normal;
+}
+.modal-header .close {
+    padding: 1rem 1rem;
+    margin: -1rem -1rem -1rem auto;
+}
+button.close {
+    padding: 0;
+    background-color: transparent;
+    border: 0; 
+}
+.modal-body >span {
+    font-size: 1rem;
+    color: #6D6042;
+    font-weight: bold;
+    text-align: center;
+}
+.modal-footer {
+    display: flex;
+    flex-wrap: wrap;
+    text-align: center;
+    margin: auto;
+    flex-shrink: 0;
+    align-items: center;
+    justify-content: flex-end;
+    padding: .75rem;
+    border-top: 0px ;
+    border-bottom-right-radius: calc(.3rem - 1px);
+    border-bottom-left-radius: calc(.3rem - 1px);
+}
+.modal-body {
+    position: relative;
+    flex: 1 1 auto;
+    padding: 0rem 2rem;
+    border-bottom: 1px solid #dee2e6;
+}
+#url{
+width : 100%;
+background-color :#F9F9F9;
+border : 1px solid #E8E8E8;
+font-size : 14px;
+color : #6D6042;
+margin-top : 5%;
+margin-bottom : 5%;
+}
+
+#closeBtn{
+color : #F7D078;
+}
+
+#withDraw{
+background-color : #50401B;
+border-radius : 50px;
+border : none;
+margin-right: 41%;
+}
+.subTxtbeesWithdraw {
+    display: block;
+    margin-top: 6px;
+    font-size: 0.8rem;
+    font-weight: 400;
+    color: #666;
+}
+.subTxt.beesWithdraw{
+text-align: inherit;
+}
 /* 기본 */
 #content.midContent {
     -webkit-box-flex: 0;
@@ -41,9 +125,9 @@ body {
 }
 body, h1, h2, h3, h4, h5, h6 {
     margin: 0;
-    font-size: 14px;
+    font-size: 1rem;
     font-weight: 400;
-    color: #50401B;
+    color: #6D6042;
 }
 html {
     -ms-text-size-adjust: 100%;
@@ -93,12 +177,6 @@ div {
 .uHeaderWrap .header .title {
     font-size: 18px;
     font-weight: 600;
-    color: #50401B;
-}
-body, h1, h2, h3, h4, h5, h6 {
-    margin: 0;
-    font-size: 14px;
-    font-weight: 400;
     color: #50401B;
 }
 h1 {
@@ -217,7 +295,6 @@ button, input, optgroup, select, textarea {
 }
 /* leaveMemberList */
 .sSettingBand .leaveMemberList {
-    margin-top: 20px;
     padding: 0 22px;
 }
 /* summaryWrap _summaryWrap */
@@ -243,18 +320,9 @@ h2 {
     margin-inline-end: 0px;
     font-weight: bold;
 }
-body, h1, h2, h3, h4, h5, h6 {
-    margin: 0;
-    font-size: 14px;
-    font-weight: 400;
-    color: #50401B;
-}
 /* sf_color _memberCountText */
 .skin9 .sf_afterColor:after, .skin9 .sf_bAfterColor:after, .skin9 .sf_bBeforeColor:before, .skin9 .sf_beforeColor:before, .skin9 .sf_color {
     color: #50401B!important;
-}
-.sSettingBand .leaveMemberList .listWrap {
-    margin-top: 3px;
 }
 ol, ul {
     list-style: none;
@@ -277,9 +345,8 @@ ul {
 }
 
 .cMemberList .uFlexItem {
-    min-height: 88px;
+    min-height: 40px;
     border-top: 1px solid #f5f5f5;
-    padding: 15px 0;
 }
 .uFlexItem {
     display: -webkit-box;
@@ -307,11 +374,6 @@ a {
 a {
     background-color: transparent;
     -webkit-text-decoration-skip: objects;
-}
-a:-webkit-any-link {
-    color: -webkit-link;
-    cursor: pointer;
-    text-decoration: underline;
 }
 .uFlexItem .body {
     -webkit-box-flex: 1;
@@ -473,33 +535,213 @@ button {
 .profileInner img {
     border-radius: 50%; 
 }
+/* uCheck  -checkbox  */
+.lyWrap .modalContentWrap .flexList .etc>* {
+    vertical-align: middle;
+}
+.uCheck {
+    position: relative;
+    display: inline-block;
+    vertical-align: top;
+}
+/* checkInput _chkMember */
+.uCheck .checkInput {
+    z-index: 10;
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 20px;
+    height: 20px;
+    opacity: 0;
+    cursor: pointer;
+}
+[type=checkbox], [type=radio] {
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    padding: 0;
+}
+.uCheck.-checkbox .checkLabel {
+    min-width: 20px;
+    min-height: 20px;
+}
 
-</style>
-<body>
-<main id="content" role="main" class="midContent" data-uiselector="contentRegion"><div data-viewname="DBandMemberWithdrawalListView" class="sSettingBand gContentCardShadow">
-<div class="uHeaderWrap -h50">
-    <header class="header">
-        <h1 class="title">멤버 탈퇴, 차단 설정</h1>
-    </header>
-</div>
-<div class="uTabNav">
-    <button type="button" class="btn _moveToWithdrawalMemberPage sf_color">멤버 목록</button>
-    <button type="button" class="btn _moveToBlockMemberPage sf_color -on">차단 목록</button>
-</div>
-<div class="leaveMemberList">   
+.uCheck .checkLabel {
+    position: relative;
+    display: block;
+    padding-left: 20px;
+    cursor: pointer;
+}
+.uCheck.-checkbox .checkLabel .shape {
+    width: 20px;
+    height: 20px;
+    margin-top: -10px;
+}
+
+.uCheck .checkLabel .shape {
+    position: absolute;
+    display: inline-block;
+    left: 0;
+    top: 50%;
+}
+.uCheck.-checkbox .checkLabel .shape:after, .uCheck.-checkbox .checkLabel .shape:before {
+    width: 20px;
+    height: 20px;
+    overflow: hidden;
+    display: inline-block;
+    background-repeat: no-repeat;
+    content: '';
+    background-image: url(https://ssl.pstatic.net/cmstatic/webclient/dres/20210105172030/images/spr_icons_f.png);
+    background-position: -280px -137px;
+}
+.uCheck.-checkbox .checkInput:checked+.checkLabel .shape:after {
+    opacity: 1;
+}
+
+.uCheck.-checkbox .checkLabel .shape:after {
+    left: 0;
+    top: 0;
+    opacity: 0;
+    background-position: -280px -159px;
+}
+.uCheck .checkLabel .shape:after {
+    position: absolute;
+    border-radius: 50%;
+    background-color: #F7D078;
+}
+.uCheck .checkLabel .shape:after, .uCheck .checkLabel .shape:before {
+    display: block;
+    -webkit-transition: all .2s ease;
+    -o-transition: all .2s ease;
+    transition: all .2s ease;
+    content: '';
+}
+*, :after, :before {
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+}
+.uButton.-confirm2.beesModalCancle{
+	border: 1px solid #50401B;
+    background-color: #FFFFFF;
+    color: #50401B;
+}
+.uButton.-confirm2.beesModalDo{
+	border: 0px;
+    background-color: #50401B;
+    color: #FFFFFF;
+}
+.uButton.-sizeS {
+    min-width: 60px;
+    height: 25px;
+    padding: 0 10px;
+    font-size: 0.8rem;
+    border-radius: 25px;
+}
+</style> 
+
+<!-- modal -->
+<div class="modal fade" id="myModalJoinManager" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header"> 
+      <h4 class="modal-title" id="myModalLabel">멤버 선택</h4>      
+      </div>
+      <div class="modal-body">
+ <div class="leaveMemberList">   
     <div class="listWrap">
         <ul class="cMemberList"><li data-viewname="DBandBlockMemberItemView" class="uFlexItem">
 <span class="body">
     <span class="text -ellipsis">안녕풍경</span>
 </span>
 <span class="etc">
-    <button type="button" class="_btnReleaseBlockMember uButton -sizeS -cancel">차단해제</button>
+    <span class="uCheck  -checkbox ">
+            <input type="checkbox" class="checkInput _chkMember" value="67080144" >
+            <!-- checked="checked" -->
+            <span class="checkLabel">
+                <span class="shape"></span>
+            </span>
+     </span>
+</span></li></ul>
+        <p class="uEmpty _collectionEmptyMsgEl" style="height: 545px; display: none;">
+            <span class="gColorGr3 _collectionEmptyMsg"></span>
+        </p>
+    </div> 
+    <div class="listWrap">
+        <ul class="cMemberList"><li data-viewname="DBandBlockMemberItemView" class="uFlexItem">
+<span class="body">
+    <span class="text -ellipsis">다시만나</span>
+</span>
+<span class="etc">
+   <span class="uCheck  -checkbox ">
+            <input type="checkbox" class="checkInput _chkMember" value="67080144" >
+            <span class="checkLabel">
+                <span class="shape"></span>
+            </span>
+     </span>
 </span></li></ul>
         <p class="uEmpty _collectionEmptyMsgEl" style="height: 545px; display: none;">
             <span class="gColorGr3 _collectionEmptyMsg"></span>
         </p>
     </div>
-    
-</div></div></main>
+    <div class="listWrap">
+        <ul class="cMemberList"><li data-viewname="DBandBlockMemberItemView" class="uFlexItem">
+<span class="body">
+    <span class="text -ellipsis">우리우리</span>
+</span>
+<span class="etc">
+    <span class="uCheck  -checkbox ">
+            <input type="checkbox" class="checkInput _chkMember" value="67080144" >
+            <span class="checkLabel">
+                <span class="shape"></span>
+            </span>
+     </span>
+</span></li></ul>
+        <p class="uEmpty _collectionEmptyMsgEl" style="height: 545px; display: none;">
+            <span class="gColorGr3 _collectionEmptyMsg"></span>
+        </p>
+    </div>
+    <div class="listWrap">
+        <ul class="cMemberList"><li data-viewname="DBandBlockMemberItemView" class="uFlexItem">
+<span class="body">
+    <span class="text -ellipsis">풍경조아</span>
+</span>
+<span class="etc">
+    <span class="uCheck  -checkbox ">
+            <input type="checkbox" class="checkInput _chkMember" value="67080144" >
+            <span class="checkLabel">
+                <span class="shape"></span>
+            </span>
+     </span>
+</span></li></ul>
+        <p class="uEmpty _collectionEmptyMsgEl" style="height: 545px; display: none;">
+            <span class="gColorGr3 _collectionEmptyMsg"></span>
+        </p>
+    </div>
+    <div class="listWrap">
+        <ul class="cMemberList"><li data-viewname="DBandBlockMemberItemView" class="uFlexItem">
+<span class="body">
+    <span class="text -ellipsis">메이플</span>
+</span>
+<span class="etc">
+    <span class="uCheck  -checkbox ">
+            <input type="checkbox" class="checkInput _chkMember" value="67080144" >
+            <span class="checkLabel">
+                <span class="shape"></span>
+            </span>
+     </span>
+</span></li></ul>
+        <p class="uEmpty _collectionEmptyMsgEl" style="height: 545px; display: none;">
+            <span class="gColorGr3 _collectionEmptyMsg"></span>
+        </p>
+    </div>
+</div>
+      </div>   
+      <div class="modal-footer">
+         <button type="button" onclick="location.href='/beeSettingSubJoinManager.do'" class="uButton -sizeS -confirm2 beesModalCancle">취소</button> 
+         <button type="button" class="uButton -sizeS -confirm2 beesModalDo">선택</button>
+      </div> 
+    </div>
+  </div>
+</div>
+
 </body>
 </html>

@@ -33,6 +33,116 @@ figcaption, figure, main {
 main {
     display: block;
 }
+article, aside, footer, header, nav, section {
+    display: block;
+}
+header {
+    display: block;
+}
+body, h1, h2, h3, h4, h5, h6 {
+    margin: 0;
+    font-size: 1rem;
+    font-weight: 400;
+    color: #6D6042;
+}
+body {
+    background: #F7F7F7;
+    line-height: 1.43;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    width: 100%;
+}
+h1 {
+    font-size: 2em;
+    margin: .67em 0;
+}
+h1 {
+    display: block;
+    font-size: 2em;
+    margin-block-start: 0.67em;
+    margin-block-end: 0.67em;
+    margin-inline-start: 0px;
+    margin-inline-end: 0px;
+    font-weight: bold;
+}
+button, dd, dl, dt, fieldset, ol, p, ul {
+    margin: 0;
+    padding: 0;
+}
+button, select {
+    text-transform: none;
+}
+button, input {
+    overflow: visible;
+}
+button, input, optgroup, select, textarea {
+    margin: 0;
+}
+button {
+    appearance: auto;
+    -webkit-writing-mode: horizontal-tb !important;
+    text-rendering: auto;
+    color: -internal-light-dark(black, white);
+    letter-spacing: normal;
+    word-spacing: normal;
+    text-transform: none;
+    text-indent: 0px;
+    text-shadow: none;
+    display: inline-block;
+    text-align: center;
+    align-items: flex-start;
+    cursor: default;
+    background-color: -internal-light-dark(rgb(239, 239, 239), rgb(59, 59, 59));
+    box-sizing: border-box;
+    margin: 0em;
+    font: 400 13.3333px Arial;
+    padding: 1px 6px;
+    border-width: 2px;
+    border-style: outset;
+    border-color: -internal-light-dark(rgb(118, 118, 118), rgb(133, 133, 133));
+    border-image: initial;
+}
+button {
+    border: 0;
+    background-color: transparent;
+    border-radius: 0;
+    cursor: pointer;
+}
+select {
+    -webkit-writing-mode: horizontal-tb !important;
+    text-rendering: auto;
+    color: -internal-light-dark(black, white);
+    letter-spacing: normal;
+    word-spacing: normal;
+    text-transform: none;
+    text-indent: 0px;
+    text-shadow: none;
+    display: inline-block;
+    text-align: start;
+    appearance: menulist;
+    box-sizing: border-box;
+    align-items: center;
+    white-space: pre;
+    -webkit-rtl-ordering: logical;
+    background-color: -internal-light-dark(rgb(255, 255, 255), rgb(59, 59, 59));
+    cursor: default;
+    margin: 0em;
+    font: 400 13.3333px Arial;
+    border-radius: 0px;
+    border-width: 1px;
+    border-style: solid;
+    border-color: -internal-light-dark(rgb(118, 118, 118), rgb(133, 133, 133));
+    border-image: initial;
+}
+option {
+    font-weight: normal;
+    display: block;
+    white-space: pre;
+    min-height: 1.2em;
+    padding: 0px 2px 1px;
+}
+
+
 .sSettingBand {
     position: relative;
 }
@@ -67,12 +177,7 @@ main {
     justify-content: space-between;
     word-break: break-word;
 }
-article, aside, footer, header, nav, section {
-    display: block;
-}
-header {
-    display: block;
-}
+
 .uHeaderWrap.-h50 .header .title {
     font-size: 16px;
 }
@@ -82,25 +187,7 @@ header {
     font-weight: 600;
     color: #50401B;
 }
-body, h1, h2, h3, h4, h5, h6 {
-    margin: 0;
-    font-size: 14px;
-    font-weight: 400;
-    color: #50401B;
-}
-h1 {
-    font-size: 2em;
-    margin: .67em 0;
-}
-h1 {
-    display: block;
-    font-size: 2em;
-    margin-block-start: 0.67em;
-    margin-block-end: 0.67em;
-    margin-inline-start: 0px;
-    margin-inline-end: 0px;
-    font-weight: bold;
-}
+
 .sSettingBand .sSettingList {
     padding: 0 22px;
 }
@@ -127,7 +214,7 @@ ul {
     display: flex;
     position: relative;
     width: 100%;
-    min-height: 75px;
+    min-height: 65px;
     border-top: 1px solid #f0f2f4;
     text-align: left;
     -webkit-box-align: center;
@@ -230,42 +317,11 @@ button, input, optgroup, select, textarea {
 select:not(:-internal-list-box) {
     overflow: visible !important;
 }
-select {
-    -webkit-writing-mode: horizontal-tb !important;
-    text-rendering: auto;
-    color: -internal-light-dark(black, white);
-    letter-spacing: normal;
-    word-spacing: normal;
-    text-transform: none;
-    text-indent: 0px;
-    text-shadow: none;
-    display: inline-block;
-    text-align: start;
-    appearance: menulist;
-    box-sizing: border-box;
-    align-items: center;
-    white-space: pre;
-    -webkit-rtl-ordering: logical;
-    background-color: -internal-light-dark(rgb(255, 255, 255), rgb(59, 59, 59));
-    cursor: default;
-    margin: 0em;
-    font: 400 13.3333px Arial;
-    border-radius: 0px;
-    border-width: 1px;
-    border-style: solid;
-    border-color: -internal-light-dark(rgb(118, 118, 118), rgb(133, 133, 133));
-    border-image: initial;
-}
-option {
-    font-weight: normal;
-    display: block;
-    white-space: pre;
-    min-height: 1.2em;
-    padding: 0px 2px 1px;
-}
+
 /* sSettingTitle -hideTxt */
 .sSettingBand .sSettingTitle.-hideTxt {
-    min-height: 16px;
+    min-height: 20px;
+    margin: 0px;
 }
 .sSettingBand .sSettingTitle {
     font-size: 13px;
@@ -287,12 +343,6 @@ h2 {
     margin-inline-start: 0px;
     margin-inline-end: 0px;
     font-weight: bold;
-}
-body, h1, h2, h3, h4, h5, h6 {
-    margin: 0;
-    font-size: 14px;
-    font-weight: 400;
-    color: #50401B;
 }
 .gSrOnly {
     overflow: hidden!important;
@@ -328,11 +378,12 @@ button, dd, dl, dt, fieldset, ol, p, ul {
     background: #50401B;
 }
 .uButton.-sizeL {
-    min-width: 109px;
-    height: 40px;
-    padding: 0 30px;
-    font-size: 14px;
-    font-weight: 600;
+    min-width: 100px;
+    height: 35px;
+    padding: 0 10px;
+    font-size: 0.8rem;
+    border-radius: 25px;
+    font-weight: 400;
 }
 button.uButton {
     line-height: 1;
@@ -357,56 +408,27 @@ button.uButton {
 [tabindex], a[role=button], button, input, textarea {
     outline: 0;
 }
-button, dd, dl, dt, fieldset, ol, p, ul {
-    margin: 0;
-    padding: 0;
-}
-button, select {
-    text-transform: none;
-}
-button, input {
-    overflow: visible;
-}
-button, input, optgroup, select, textarea {
-    margin: 0;
-}
-button {
-    appearance: auto;
-    -webkit-writing-mode: horizontal-tb !important;
-    text-rendering: auto;
-    color: -internal-light-dark(black, white);
-    letter-spacing: normal;
-    word-spacing: normal;
-    text-transform: none;
-    text-indent: 0px;
-    text-shadow: none;
-    display: inline-block;
-    text-align: center;
-    align-items: flex-start;
-    cursor: default;
-    background-color: -internal-light-dark(rgb(239, 239, 239), rgb(59, 59, 59));
-    box-sizing: border-box;
-    margin: 0em;
-    font: 400 13.3333px Arial;
-    padding: 1px 6px;
-    border-width: 2px;
-    border-style: outset;
-    border-color: -internal-light-dark(rgb(118, 118, 118), rgb(133, 133, 133));
-    border-image: initial;
-}
-button {
-    border: 0;
-    background-color: transparent;
-    border-radius: 0;
-    cursor: pointer;
-}
 .sSettingBand .sSettingItem.-tLineNone, .sSettingBand .sSettingItem:first-child {
     border-top-width: 0;
+}
+.sSettingBand .sSettingItem .label {
+    display: block;
+    word-wrap: break-word;
+    word-break: break-all;
+    font-size: 14px;
+    font-weight: 400;
+    color: #6D6042;
+}
+.header.beeHeaderColor{
+   background-color: white;
+}
+li{
+   list-style: none;
 }
 </style>
 <body>
 <main id="content" role="main" class="midContent" data-uiselector="contentRegion"><div data-viewname="DGroupBandMemberPermissionView" class="sSettingBand gContentCardShadow"><div class="uHeaderWrap -h50">
-    <header class="header">
+    <header class="header beeHeaderColor">
         <h1 class="title">멤버들의 권한 설정</h1>
     </header>
 </div>
@@ -646,7 +668,6 @@ button {
         </div>
     </li>
 </ul>
-
 <div class="btnFooter -lrSpace">
     <button type="button" class="uButton -sizeL -confirm _btnConfirm">저장</button>
 </div></div></main>

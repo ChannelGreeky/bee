@@ -34,16 +34,17 @@ main {
     display: block;
 }
 body {
-    background: #eef0f3;
+    background: #F7F7F7;
     line-height: 1.43;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+    width: 100%;
 }
 body, h1, h2, h3, h4, h5, h6 {
     margin: 0;
-    font-size: 14px;
+    font-size: 1rem;
     font-weight: 400;
-    color: #50401B;
+    color: #6D6042;
 }
 html {
     -ms-text-size-adjust: 100%;
@@ -93,12 +94,6 @@ div {
 .uHeaderWrap .header .title {
     font-size: 18px;
     font-weight: 600;
-    color: #50401B;
-}
-body, h1, h2, h3, h4, h5, h6 {
-    margin: 0;
-    font-size: 14px;
-    font-weight: 400;
     color: #50401B;
 }
 h1 {
@@ -175,13 +170,19 @@ button {
 }
 
 .skin9 .sf_afterColor:after, .skin9 .sf_beforeColor:before, .skin9 .sf_color, .skin9.sf_afterColor:after, .skin9.sf_beforeColor:before, .skin9.sf_color {
-    color: #5471d8!important;
+    color: #50401B!important;
 }
 [type=reset], [type=submit], button, html [type=button] {
     -webkit-appearance: button;
 }
 [tabindex], a[role=button], button, input, textarea {
     outline: 0;
+}
+button {
+    border: 0;
+    background-color: transparent;
+    border-radius: 0;
+    cursor: pointer;
 }
 button, dd, dl, dt, fieldset, ol, p, ul {
     margin: 0;
@@ -197,7 +198,7 @@ button, input, optgroup, select, textarea {
     margin: 0;
 }
 .skin9 .sf_afterColor:after, .skin9 .sf_bAfterColor:after, .skin9 .sf_bBeforeColor:before, .skin9 .sf_beforeColor:before, .skin9 .sf_color {
-    color: #5471d8!important;
+    color: #50401B!important;
 }
 .uTabNav:after {
     position: absolute;
@@ -237,17 +238,10 @@ h2 {
     margin-inline-end: 0px;
     font-weight: bold;
 }
-body, h1, h2, h3, h4, h5, h6 {
-    margin: 0;
-    font-size: 14px;
-    font-weight: 400;
-    color: #50401B;
-}
 /* sf_color _memberCountText */
 .skin9 .sf_afterColor:after, .skin9 .sf_bAfterColor:after, .skin9 .sf_bBeforeColor:before, .skin9 .sf_beforeColor:before, .skin9 .sf_color {
-    color: #5471d8!important;
+    color: #50401B!important;
 }
-/* listWrap */
 .sSettingBand .leaveMemberList .listWrap {
     margin-top: 3px;
 }
@@ -267,7 +261,6 @@ ul {
     margin-inline-end: 0px;
     padding-inline-start: 40px;
 }
-/* uFlexItem */
 .cMemberList .uFlexItem:first-child {
     border-top-width: 0;
 }
@@ -285,15 +278,11 @@ ul {
     -ms-flex-align: center;
     align-items: center;
 }
-/* _btnProfile uProfile -size50 */
 .uFlexItem .uProfile {
     display: block;
     margin-right: 12px;
 }
 
-[tabindex], a[role=button], button, input, textarea {
-    outline: 0;
-}
 .uProfile {
     display: inline-block;
     position: relative;
@@ -301,56 +290,12 @@ ul {
     font-size: 0;
 }
 a {
-    color: #222;
+    color: #50401B;
     text-decoration: none;
 }
 a {
     background-color: transparent;
     -webkit-text-decoration-skip: objects;
-}
-a:-webkit-any-link {
-    color: -webkit-link;
-    cursor: pointer;
-    text-decoration: underline;
-}
-.uProfile.-size50 .profileInner {
-    width: 50px;
-    height: 50px;
-}
-
-.uProfile .profileInner {
-    display: block;
-    overflow: hidden;
-    position: relative;
-    background-color: #ebebeb;
-    border-radius: 50%;
-    font-size: 0;
-}
-.uProfile.-size50 .profileInner:before {
-    width: 25px;
-    height: 25px;
-    overflow: hidden;
-    display: block;
-    background-repeat: no-repeat;
-    content: '';
-    background-image: url(../images/spr_icons.png);
-    background-position: -205px -490px;
-    margin: -12px 0 0 -12px;
-}
-.uProfile .profileInner:before {
-    position: absolute;
-    left: 50%;
-    top: 50%;
-}
-.uProfile .profileInner img {
-    position: relative;
-    width: 100%;
-    height: 100%;
-    border-radius: 50%;
-    vertical-align: top;
-}
-img {
-    border-style: none;
 }
 .uFlexItem .body {
     -webkit-box-flex: 1;
@@ -377,8 +322,46 @@ img {
 .uFlexItem .body .text {
     font-size: 14px;
     font-weight: 700;
-    color: #50401B;
+    color: #333;
     margin-top: 3px;
+}
+.cMemberList .body .subText {
+    margin-top: 2px;
+}
+
+.uFlexItem .body .subText {
+    display: block;
+    margin-top: 2px;
+    font-size: 12px;
+    font-weight: 400;
+    color: #666;
+}
+.uFlexItem .body .-ellipsis, .uFlexItem .body .ellipsis {
+    display: block;
+    overflow: hidden;
+    max-width: 100%;
+    white-space: nowrap;
+    word-break: normal;
+    word-wrap: normal;
+    -o-text-overflow: ellipsis;
+    text-overflow: ellipsis;
+}
+.uFlexItem .body .date {
+    display: block;
+    font-size: 12px;
+    font-weight: 400;
+    color: #999;
+}
+
+.uFlexItem .body .-ellipsis, .uFlexItem .body .ellipsis {
+    display: block;
+    overflow: hidden;
+    max-width: 100%;
+    white-space: nowrap;
+    word-break: normal;
+    word-wrap: normal;
+    -o-text-overflow: ellipsis;
+    text-overflow: ellipsis;
 }
 .uFlexItem .etc {
     display: block;
@@ -386,15 +369,11 @@ img {
     text-align: right;
     font-size: 0;
 }
-/* _btnManageMemberWithdrawal uButton -sizeS -alert -reverse */
-.uButton.-alert.-reverse {
+/* _btnReleaseBlockMember uButton -sizeS -cancel */
+.uButton.-cancel {
     border: 1px solid #50401B;
     background: #fff;
     color: #50401B;
-}
-.uButton.-alert {
-    background: #ff0f2d;
-    color: #fff;
 }
 .uButton.-sizeS {
     min-width: 41px;
@@ -413,7 +392,8 @@ button.uButton {
     min-width: 90px;
     height: 34px;
     padding: 0 15px;
-    background: #474e60;  
+    background: #474e60;
+    border-radius: 1px;
     font-size: 13px;
     color: #fff;
     font-weight: 500;
@@ -423,11 +403,6 @@ button.uButton {
 }
 [tabindex], a[role=button], button, input, textarea {
     outline: 0;
-}
-button {
-    border: 0;
-    background-color: transparent;   
-    cursor: pointer;
 }
 button, input, select, textarea {
     font-family: -apple-system,BlinkMacSystemFont,"Helvetica Neue",Helvetica,Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji",NotoColorEmoji,"Segoe UI Symbol","Android Emoji",EmojiSymbols;
@@ -449,7 +424,6 @@ button, input, optgroup, select, textarea {
     -webkit-box-sizing: border-box;
     box-sizing: border-box;
 }
-user agent stylesheet
 button {
     appearance: auto;
     -webkit-writing-mode: horizontal-tb !important;
@@ -473,52 +447,48 @@ button {
     border-style: outset;
     border-color: -internal-light-dark(rgb(118, 118, 118), rgb(133, 133, 133));
     border-image: initial;
-} 
+}
 button {
     border: 0;
     background-color: transparent;
-    border-radius: 0px;
+    border-radius: 0;
     cursor: pointer;
+}
+.profileInner img {
+    border-radius: 50%; 
+}
+.header.beeHeaderColor{
+   background-color: white;
+}
+li{
+   list-style: none;
 }
 </style>
 <body>
 <main id="content" role="main" class="midContent" data-uiselector="contentRegion"><div data-viewname="DBandMemberWithdrawalListView" class="sSettingBand gContentCardShadow">
 <div class="uHeaderWrap -h50">
-    <header class="header">
+    <header class="header beeHeaderColor">
         <h1 class="title">멤버 탈퇴, 차단 설정</h1>
     </header>
 </div>
 <div class="uTabNav">
-    <button type="button" class="btn _moveToWithdrawalMemberPage sf_color -on">멤버 목록</button>
-    <button type="button" class="btn _moveToBlockMemberPage sf_color">차단 목록</button>
+    <button type="button" onclick="location.href='/beeSettingSubMemberWithdraw.do'" class="btn _moveToWithdrawalMemberPage sf_color">멤버 목록</button>
+    <button type="button" class="btn _moveToBlockMemberPage sf_color -on">차단 목록</button>
 </div>
 <div class="leaveMemberList">   
-    <div class="summaryWrap _summaryWrap">
-        <div class="subTitle gMat18 _memberCount">
-            <h2 class="title gFw6">멤버 <span class="sf_color _memberCountText">1</span></h2>           
-        </div>
-    </div>
     <div class="listWrap">
-        <ul class="cMemberList"><li data-viewname="DBandMemberWithdrawalItemView" class="uFlexItem">
+        <ul class="cMemberList"><li data-viewname="DBandBlockMemberItemView" class="uFlexItem">
 <span class="body">
-    <span class="text -ellipsis">안녕풍경</span>  
+    <span class="text -ellipsis">안녕풍경</span>
 </span>
-
 <span class="etc">
-    <button type="button" class="_btnManageMemberWithdrawal uButton -sizeS -alert -reverse" style="display: inline-block;">탈퇴</button>
-	<button type="button" class="_btnManageMemberWithdrawal uButton -sizeS -alert -reverse" style="display: inline-block;margin-left: 5px;">차단</button>
-    <label for="uCheck67080144" class="uCheck -checkbox _toggleMemberWithdrawal" style="display: none;">
-        <input type="checkbox" id="uCheck67080144" class="checkInput">
-        <span class="checkLabel">
-            <span class="shape sf_tAfterBg"></span>
-            <span class="text"></span>
-        </span>
-    </label>
+    <button type="button" class="_btnReleaseBlockMember uButton -sizeS -cancel">차단해제</button>
 </span></li></ul>
-        <p class="uEmpty _collectionEmptyMsgEl" style="height:545px;display: none;">
+        <p class="uEmpty _collectionEmptyMsgEl" style="height: 545px; display: none;">
             <span class="gColorGr3 _collectionEmptyMsg"></span>
         </p>
     </div>
+    
 </div></div></main>
 </body>
 </html>

@@ -10,6 +10,27 @@
 <link rel="preconnect" href="https://fonts.gstatic.com">
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap" rel="stylesheet">
 <style>
+body {
+    background: #F7F7F7;
+    line-height: 1.43;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    width: 100%;
+}
+body, h1, h2, h3, h4, h5, h6 {
+    margin: 0;
+    font-size: 1rem;
+    font-weight: 400;
+    color: #6D6042;
+}
+*, :after, :before {
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    font-family: 'Noto Sans KR', sans-serif;
+}
+main {
+    display: block;
+}
 /* 기본 */
 #content.midContent {
     -webkit-box-flex: 0;
@@ -22,38 +43,11 @@
     -ms-flex: 1 1 auto;
     flex: 1 1 auto;
 }
-figcaption, figure, main {
-    display: block;
-}
-*, :after, :before {
-    -webkit-box-sizing: border-box;
-    box-sizing: border-box;
-    font-family: 'Noto Sans KR', sans-serif;
-}
-main {
-    display: block;
-}
-body {
-    background: #eef0f3;
-    line-height: 1.43;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-}
-body, h1, h2, h3, h4, h5, h6 {
-    margin: 0;
-    font-size: 14px;
-    font-weight: 400;
-    color: #50401B;
-}
-html {
-    -ms-text-size-adjust: 100%;
-    -webkit-text-size-adjust: 100%;
-}
 /* sSettingBand gContentCardShadow */
 .sSettingBand {
     position: relative;
+    width: 100%;
 }
-
 .gContentCardShadow {
     background-color: #fff;
     -webkit-box-shadow: 0 1.4px 1.3px 0 rgb(62 73 89 / 10%);
@@ -88,6 +82,9 @@ html {
 article, aside, footer, header, nav, section {
     display: block;
 }
+div {
+    display: block;
+}
 h1 {
     font-size: 2em;
     margin: .67em 0;
@@ -104,9 +101,7 @@ h1 {
 .uHeaderWrap.-h50 .header .title {
     font-size: 16px;
 }
-div {
-    display: block;
-}
+
 .uHeaderWrap .header .title {
     font-size: 18px;
     font-weight: 600;
@@ -258,6 +253,11 @@ button, input, optgroup, select, textarea {
 /* 버튼 */
 .uButton.-confirm {
     background: #50401B;
+    min-width: 100px;
+    height: 35px;
+    padding: 0 10px;
+    font-size: 0.8rem;
+    border-radius: 25px;
 }
 
 button.uButton {
@@ -329,10 +329,13 @@ button {
 textarea::placeholder{
 	color: #50401B;
 }
+.header.beeHeaderColor{
+   background-color: white;
+}
 </style>
 <body>
 <main id="content" role="main" class="midContent" data-uiselector="contentRegion"><div data-viewname="DGroupBandEditIntroView" class="sSettingBand gContentCardShadow"><div class="uHeaderWrap -h50">
-    <header class="header">
+    <header class="header beeHeaderColor">
         <h1 class="title">비즈 소개</h1>
     </header>
 </div>

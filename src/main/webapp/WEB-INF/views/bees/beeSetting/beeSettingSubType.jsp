@@ -9,21 +9,27 @@
 <style>
 /* 기본 */
 *, :after, :before {
-	-webkit-box-sizing: border-box;
-	box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    font-family: 'Noto Sans KR', sans-serif;
 }
 body, h1, h2, h3, h4, h5, h6 {
-	margin: 0;
-	font-size: 14px;
-	font-weight: bold;
-	color: #50401B;
+    margin: 0;
+    font-size: 1rem;
+    font-weight: 400;
+    color: #6D6042;
 }
-
+body {
+    background: #F7F7F7;
+    line-height: 1.43;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    width: 100%;
+}
 html {
 	-ms-text-size-adjust: 100%;
 	-webkit-text-size-adjust: 100%;
 }
-
 #content.midContent {
 	-webkit-box-flex: 0;
 	-ms-flex: 0 0 auto;
@@ -57,16 +63,6 @@ section {
 	background-color: #fff;
 	-webkit-box-shadow: 0 1.4px 1.3px 0 rgba(62, 73, 89, .1);
 	box-shadow: 0 1.4px 1.3px 0 rgba(62, 73, 89, .1);
-}
-
-body {
-	background: #eef0f3;
-	font-family: -apple-system, BlinkMacSystemFont, "Helvetica Neue",
-		Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji",
-		NotoColorEmoji, "Segoe UI Symbol", "Android Emoji", EmojiSymbols;
-	line-height: 1.43;
-	-webkit-font-smoothing: antialiased;
-	-moz-osx-font-smoothing: grayscale;
 }
 html {
 	-ms-text-size-adjust: 100%;
@@ -451,11 +447,11 @@ input {
 }
 
 .uButton.-sizeL {
-	min-width: 109px;
-	height: 40px;
-	padding: 0 30px;
-	font-size: 14px;
-	font-weight: 600;
+	min-width: 100px;
+    height: 35px;
+    padding: 0 10px;
+    font-size: 0.8rem;
+    border-radius: 25px;
 }
 
 button.uButton {
@@ -514,12 +510,6 @@ button, input {
 button, input, optgroup, select, textarea {
 	margin: 0;
 }
-
-*, :after, :before {
-	-webkit-box-sizing: border-box;
-	box-sizing: border-box;
-}
-
 button {
 	appearance: auto;
 	-webkit-writing-mode: horizontal-tb !important;
@@ -546,6 +536,12 @@ button {
 		rgb(133, 133, 133));
 	border-image: initial;
 }
+.header.beeHeaderColor{
+   background-color: white;
+}
+li{
+   list-style: none;
+}
 </style>
 <body>
 	<main id="content" role="main" class="midContent"
@@ -553,7 +549,7 @@ button {
 	<div data-viewname="DBandTypeConditionView">
 		<section class="sSettingBand gContentCardShadow">
 		<div class="uHeaderWrap -h50">
-			<header class="header">
+			<header class="header beeHeaderColor">
 			<h1 class="title">비즈 공개</h1>
 			</header>
 		</div>

@@ -5,16 +5,23 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
+<!--구글 노토 산스 -->
+<link rel="preconnect" href="https://fonts.gstatic.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap" rel="stylesheet">
+
 </head>
 <style>
 /* 기본 */
 *, :after, :before {
     -webkit-box-sizing: border-box;
     box-sizing: border-box;
+    font-family: 'Noto Sans KR', sans-serif;
+}
+.navi {
+    display: none;
 }
 body {
     background: #eef0f3;
-    font-family: -apple-system,BlinkMacSystemFont,"Helvetica Neue",Helvetica,Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji",NotoColorEmoji,"Segoe UI Symbol","Android Emoji",EmojiSymbols;
     line-height: 1.43;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
@@ -61,7 +68,7 @@ main {
 .bandMakeUsecaseArea .title {
     font-size: 20px;
     font-weight: 600;
-    color: #444;
+    color: #50401B;
 }
 h2 {
     display: block;
@@ -165,10 +172,11 @@ img {
 }
 em {
     font-style: normal;
+    color: #50401B;
+    font-weight: 600;
 }
 body {
     background: #eef0f3;
-    font-family: -apple-system,BlinkMacSystemFont,"Helvetica Neue",Helvetica,Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji",NotoColorEmoji,"Segoe UI Symbol","Android Emoji",EmojiSymbols;
     line-height: 1.43;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
@@ -182,20 +190,21 @@ button, dd, dl, dt, fieldset, ol, p, ul {
 }
 </style>
 <body>
-<main id="content" data-uiselector="regionContent" role="main" class=""><div data-viewname="DGroupBandCreationSetView" class="bandMakeUsecaseArea gMat50"><h2 class="title">만들고 싶은 모임을 선택하세요.</h2>
+<main id="content" data-uiselector="regionContent" role="main" class=""><div data-viewname="DGroupBandCreationSetView" class="bandMakeUsecaseArea gMat50" style="min-height: 800px;">
+<h2 class="title">만들고 싶은 모임을 선택하세요.</h2>
 
 <ul class="usecaseList">
 	
 	<li class="usecaseItem">
 		<a href="/band-create/group?usecase=취미,+동호회" class="usecaseItemLink _createType" data-type="" data-usecase="취미, 동호회" data-type2="">
-			<span class="iconUscase"><img src="https://coresos-phinf.pstatic.net/a/2j484g/h_7j8Ud018adm104hzqdi9zgjg_5ksoqj.png" alt="취미, 동호회"></span>
+			<span class="iconUscase"><img src="/resources/beeCreate/img/취미.PNG" alt="취미, 동호회"></span>
 			<em class="uscaseName">취미, 동호회</em>		
 		</a>
 	</li>
 	
 	<li class="usecaseItem">
 		<a href="/band-create/group?open_type=secret&amp;usecase=스터디" class="usecaseItemLink _createType" data-type="secret" data-usecase="스터디" data-type2="">
-			<span class="iconUscase"><img src="https://coresos-phinf.pstatic.net/a/2j4a6i/h_j29Ud018adm3za76p8oivcq_5ksoqj.png" alt="스터디"></span>
+			<span class="iconUscase"><img src="/resources/beeCreate/img/스터디.PNG"  alt="스터디"></span>
 			<em class="uscaseName">스터디</em>
 			
 		</a>
@@ -203,7 +212,7 @@ button, dd, dl, dt, fieldset, ol, p, ul {
 	
 	<li class="usecaseItem">
 		<a href="/band-create/group?usecase=게임" class="usecaseItemLink _createType" data-type="" data-usecase="게임" data-type2="">
-			<span class="iconUscase"><img src="https://coresos-phinf.pstatic.net/a/311fc0/2_3c8Ud018adme6xaqnpi9vjj_5ksoqj.png" alt="게임"></span>
+			<span class="iconUscase"><img src="/resources/beeCreate/img/게임.PNG"  alt="게임"></span>
 			<em class="uscaseName">게임</em>
 			
 		</a>
@@ -211,7 +220,7 @@ button, dd, dl, dt, fieldset, ol, p, ul {
 	
 	<li class="usecaseItem">
 		<a href="/band-create/group?usecase=운동+모임" class="usecaseItemLink _createType" data-type="" data-usecase="운동 모임" data-type2="">
-			<span class="iconUscase"><img src="https://coresos-phinf.pstatic.net/a/2jj5j9/5_ihfUd018adm1tghm24gzyoxd_5ksoqj.png" alt="운동 모임"></span>
+			<span class="iconUscase"><img src="/resources/beeCreate/img/운동.PNG"  alt="운동 모임"></span>
 			<em class="uscaseName">운동</em>
 			
 		</a>
@@ -219,7 +228,7 @@ button, dd, dl, dt, fieldset, ol, p, ul {
 	
 	<li class="usecaseItem">
 		<a href="/band-create/group?usecase=지역" class="usecaseItemLink _createType" data-type="" data-usecase="지역 모임" data-type2="">
-			<span class="iconUscase"><img src="https://coresos-phinf.pstatic.net/a/31b880/6_g97Ud018admt4oaixwkm04g_5ksoqj.png" alt="종교 모임"></span>
+			<span class="iconUscase"><img src="/resources/beeCreate/img/지역.PNG"  alt="지역 모임"></span>
 			<em class="uscaseName">지역</em>
 			
 		</a>
@@ -227,7 +236,7 @@ button, dd, dl, dt, fieldset, ol, p, ul {
 	
 	<li class="usecaseItem">
 		<a href="/band-create/group" class="usecaseItemLink makeLink _createType">
-			<span class="iconUscase -make"></span>
+			<span class="iconUscase"><img src="/resources/beeCreate/img/직접만들기.PNG"  alt="직접만들기 모임"></span>
 			<em class="uscaseName">직접 만들기</em>
 		</a>
 	</li>

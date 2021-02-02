@@ -5,8 +5,12 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
+<!--구글 노토 산스 -->
+<link rel="preconnect" href="https://fonts.gstatic.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap" rel="stylesheet">
 </head>
 <style>
+
 /* 기본 */
 #content.midContent {
     -webkit-box-flex: 0;
@@ -31,16 +35,17 @@ main {
     display: block;
 }
 body {
-    background: #eef0f3;
+    background: #F7F7F7;
     line-height: 1.43;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+    width: 100%;
 }
 body, h1, h2, h3, h4, h5, h6 {
     margin: 0;
-    font-size: 14px;
+    font-size: 1rem;
     font-weight: 400;
-    color: #50401B;
+    color: #6D6042;
 }
 html {
     -ms-text-size-adjust: 100%;
@@ -305,11 +310,12 @@ option {
 }
 
 .uButton.-sizeL {
-    min-width: 109px;
-    height: 40px;
-    padding: 0 30px;
-    font-size: 14px;
-    font-weight: 600;
+   min-width: 100px;
+    height: 35px;
+    padding: 0 10px;
+    font-size: 0.8rem;
+    border-radius: 25px;
+    font-weight: 400;
 }
 button.uButton {
     line-height: 1;
@@ -383,11 +389,17 @@ button {
     border-color: -internal-light-dark(rgb(118, 118, 118), rgb(133, 133, 133));
     border-image: initial;
 }
+.header.beeHeaderColor{
+   background-color: white;
+}
+li{
+   list-style: none;
+}
 </style>
 <body>
 <main id="content" role="main" class="midContent" data-uiselector="contentRegion"><div data-viewname="DBandJoinConditionView" class="sSettingBand gContentCardShadow">
 <div class="uHeaderWrap -h50">
-    <header class="header">
+    <header class="header beeHeaderColor">
         <h1 class="title">가입 조건 설정</h1>
     </header>
 </div>

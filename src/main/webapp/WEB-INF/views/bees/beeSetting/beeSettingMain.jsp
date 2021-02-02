@@ -11,34 +11,131 @@
 <link rel="preconnect" href="https://fonts.gstatic.com">
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap" rel="stylesheet">
 <style>
+a:hover {
+    color: #0056b3;
+    text-decoration: none;
+}
+*, :after, :before {
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    font-family: 'Noto Sans KR', sans-serif;
+}
 body {
-    background: #eef0f3;
-/*     font-family: -apple-system,BlinkMacSystemFont,"Helvetica Neue",Helvetica,Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji",NotoColorEmoji,"Segoe UI Symbol","Android Emoji",EmojiSymbols;
- */    line-height: 1.43;
+    background: #F7F7F7;
+    line-height: 1.43;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+    width: 100%;
 }
 body, h1, h2, h3, h4, h5, h6 {
     margin: 0;
     font-size: 1rem;
     font-weight: 400;
-    color: #222;
+    color: #6D6042;
 }
-article, aside, footer, header, nav, section {
+
+main {
     display: block;
 }
-div {
-    display: block;
-}
-/* 전체크기 */
 #content.midContent {
     -webkit-box-flex: 0;
     -ms-flex: 0 0 auto;
     flex: 0 0 auto;
     width: 100%;
 }
+#content {
+    -webkit-box-flex: 1;
+    -ms-flex: 1 1 auto;
+    flex: 1 1 auto;
+}
+article, aside, footer, header, nav, section {
+    display: block;
+}
+/* div {
+    display: block;
+} */
+ol, ul {
+    list-style: none;
+}
+button, dd, dl, dt, fieldset, ol, p, ul {
+    margin: 0;
+    padding: 0;
+}
+ul {
+    display: block;
+    list-style-type: none;
+    margin-block-start: 1em;
+    margin-block-end: 1em;
+    margin-inline-start: 0px;
+    margin-inline-end: 0px;
+    padding-inline-start: 40px;
+}
+h1 {
+    display: block;
+    font-size: 1em;
+    margin-block-start: 0.67em;
+    margin-block-end: 0.67em;
+    margin-inline-start: 0px;
+    margin-inline-end: 0px;
+    font-weight: bold;
+}
+button, input {
+    overflow: visible;
+}
+button, input, optgroup, select, textarea {
+    margin: 0;
+}
+button, dd, dl, dt, fieldset, ol, p, ul {
+    margin: 0;
+    padding: 0;
+}
+button, select {
+    text-transform: none;
+}
+button, input {
+    overflow: visible;
+}
+input, textarea {
+    color: #6D6042;
+    border-radius: 0;
+}
+input {
+    -webkit-writing-mode: horizontal-tb !important;
+    text-rendering: auto;
+    color: -internal-light-dark(black, white);
+    letter-spacing: normal;
+    word-spacing: normal;
+    text-transform: none;
+    text-indent: 0px;
+    text-shadow: none;
+    display: inline-block;
+    text-align: start;
+    appearance: textfield;
+    background-color: -internal-light-dark(rgb(255, 255, 255), rgb(59, 59, 59));
+    -webkit-rtl-ordering: logical;
+    cursor: text;
+    margin: 0em;
+    padding: 1px 2px;
+    border-width: 2px;
+    border-style: inset;
+    border-color: -internal-light-dark(rgb(118, 118, 118), rgb(133, 133, 133));
+    border-image: initial;
+}
+label {
+    cursor: default;
+}
+em {
+    font-style: normal;
+}
+a {
+    color: #6D6042;
+    text-decoration: none;
+}
+/* 전체크기 */
+
 .sSettingBand {
     position: relative;
+    width: 100%;
 }
 .gContentCardShadow {
     background-color: #fff;
@@ -46,7 +143,6 @@ div {
     box-shadow: 0 1.4px 1.3px 0 rgba(62,73,89,.1);
 }
 /* 밴드설정 */
-
 .uHeaderWrap {
     position: relative;
     padding: 0 22px;
@@ -72,37 +168,12 @@ div {
     justify-content: space-between;
     word-break: break-word;
 }
-h1 {
-    display: block;
-    font-size: 1em;
-    margin-block-start: 0.67em;
-    margin-block-end: 0.67em;
-    margin-inline-start: 0px;
-    margin-inline-end: 0px;
-    font-weight: bold;
-}
 .uHeaderWrap.-h50 .header .title {
     font-size: 1rem;
 }
 /* 밴드설정내용 */
 .sSettingBand .sSettingList {
     padding: 0 22px;
-}
-ol, ul {
-    list-style: none;
-}
-button, dd, dl, dt, fieldset, ol, p, ul {
-    margin: 0;
-    padding: 0;
-}
-ul {
-    display: block;
-    list-style-type: disc;
-    margin-block-start: 1em;
-    margin-block-end: 1em;
-    margin-inline-start: 0px;
-    margin-inline-end: 0px;
-    padding-inline-start: 40px;
 }
 .sSettingBand .sSettingItem.-tLineNone, .sSettingBand .sSettingItem:first-child {
     border-top-width: 0;
@@ -144,7 +215,7 @@ ul {
     word-break: break-all;
     font-size: 14px;
     font-weight: 400;
-    color: #222;
+    color: #6D6042;
 }
 .sSettingBand .sSettingItem .label strong {
     font-weight: 600;
@@ -154,14 +225,12 @@ ul {
     margin-top: 6px;
     font-size: 0.8rem;
     font-weight: 400;
-    color: #666;
+    color: #6D6042;
 }
 .sSettingBand .sSettingItem .-point {
     color: #2ecc71!important;
 }
-em {
-    font-style: normal;
-}
+
 /* 버튼 */
 :not(button).uButton.-sizeS {
     line-height: 26px;
@@ -196,10 +265,6 @@ button.uButton {
     vertical-align: top;
     line-height: 32px;
 }
-a {
-    color: #222;
-    text-decoration: none;
-}
 .uButton {
     position: relative;
     min-width: 90px;
@@ -217,19 +282,6 @@ a {
 [tabindex], a[role=button], button, input, textarea {
     outline: 0;
 }
-button, input, select, textarea {
-/*     font-family: -apple-system,BlinkMacSystemFont,"Helvetica Neue",Helvetica,Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji",NotoColorEmoji,"Segoe UI Symbol","Android Emoji",EmojiSymbols;
- */}
-button, dd, dl, dt, fieldset, ol, p, ul {
-    margin: 0;
-    padding: 0;
-}
-button, select {
-    text-transform: none;
-}
-button, input {
-    overflow: visible;
-}
 /* 옆으로 밀기 */
 .sSettingBand .sSettingItem .itemSide {
     position: relative;
@@ -245,9 +297,7 @@ button, input {
     box-sizing: border-box;
     padding: 0;
 }
-label {
-    cursor: default;
-}
+
 .uCheck {
     position: relative;
     display: inline-block;
@@ -272,46 +322,11 @@ input[type="checkbox" i] {
     padding: initial;
     border: initial;
 }
-input, textarea {
-    color: #333;
-    border-radius: 0;
-}
-input {
-    -webkit-writing-mode: horizontal-tb !important;
-    text-rendering: auto;
-    color: -internal-light-dark(black, white);
-    letter-spacing: normal;
-    word-spacing: normal;
-    text-transform: none;
-    text-indent: 0px;
-    text-shadow: none;
-    display: inline-block;
-    text-align: start;
-    appearance: textfield;
-    background-color: -internal-light-dark(rgb(255, 255, 255), rgb(59, 59, 59));
-    -webkit-rtl-ordering: logical;
-    cursor: text;
-    margin: 0em;
-    /* font: 400 13.3333px Arial; */
-    padding: 1px 2px;
-    border-width: 2px;
-    border-style: inset;
-    border-color: -internal-light-dark(rgb(118, 118, 118), rgb(133, 133, 133));
-    border-image: initial;
-}
-button, input, select, textarea {
-    font-family: -apple-system,BlinkMacSystemFont,"Helvetica Neue",Helvetica,Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji",NotoColorEmoji,"Segoe UI Symbol","Android Emoji",EmojiSymbols;
-}
-button, input {
-    overflow: visible;
-}
-button, input, optgroup, select, textarea {
-    margin: 0;
-}
+
 .uCheck.-switch .checkLabel {
-    min-width: 29px;
+    min-width: 50px;
     min-height: 16px;
-    padding-left: 29px;
+    /* padding-left: 29px; */
 }
 .uCheck .checkLabel {
     position: relative;
@@ -326,12 +341,13 @@ button, input, optgroup, select, textarea {
     top: 50%;
 }
 .uCheck.-switch .checkLabel .shape {
-    width: 29px;
+    margin-left: 4px;
+    width: 30px;
     height: 16px;
     margin-top: -7px;
 }
 .uCheck.-switch .checkInput:checked+.checkLabel .shape:before {
-    background: #57d482;
+    background: #F7D078;
 }
 .uCheck.-switch .checkLabel .shape:before {
     background: #c8c8ca;
@@ -353,10 +369,7 @@ button, input, optgroup, select, textarea {
     display: inline-block;
     vertical-align: top;
 }
-*, :after, :before {
-    -webkit-box-sizing: border-box;
-    box-sizing: border-box;
-}
+
 .uCheck.-switch .checkInput:checked+.checkLabel .shape:after {
     left: 14px;
 }
@@ -381,10 +394,8 @@ button, input, optgroup, select, textarea {
     color: #666;
     display: block;
     overflow: hidden;
-    min-height: 34px;
+    min-height: 20px;
     padding: 7px 22px;
-    /* border: 1px solid #f0f2f4;
-    border-width: 1px 0; */
     background: #f6f8f9;
 }
 /* 퍼센트 */
@@ -393,8 +404,7 @@ button, input, optgroup, select, textarea {
     line-height: 26px;
     vertical-align: top;
     font-size: 0.9rem;
-   /*  font-weight: 400; */
-    color: #666;
+    color: #6D6042;
 }
 .sSettingBand .sSettingItem .itemSide.-wAuto {
     width: auto;
@@ -410,10 +420,16 @@ button, input, optgroup, select, textarea {
     border: 0px;
     background-color: #DC1D2D;
 }
+.beesWithdraw{
+text-align: inherit;
+}
+.header.beeHeaderColor{
+   background-color: white;
+}
 </style>
 <main id="content" role="main" class="midContent" data-uiselector="contentRegion">
 <section data-viewname="DGroupBandSettingHomeView" class="sSettingBand gContentCardShadow"><div class="uHeaderWrap -h50">
-    <header class="header">
+    <header class="header beeHeaderColor">
         <h1 class="title">비즈 설정</h1>
     </header>
 </div>
@@ -425,7 +441,7 @@ button, input, optgroup, select, textarea {
                 <span class="label">비즈 이름 및 커버</span>
             </div>
             <div class="itemSide">
-                <a href="/band/82519333/setting/cover-update" class="uButton -sizeS -confirm2">변경</a>
+                <a href="/beeSettingSubCoverUpdate.do" class="uButton -sizeS -confirm2">변경</a>
             </div>
         </li>      
         <li class="sSettingItem">
@@ -434,7 +450,7 @@ button, input, optgroup, select, textarea {
                 <span class="subTxt">비공개</span>
             </div>
             <div class="itemSide">
-                <a href="/band/82519333/setting/type" class="uButton -sizeS -confirm2">변경</a>
+                <a href="/beeSettingSubType.do" class="uButton -sizeS -confirm2">변경</a>
             </div>
         </li>
     <li class="sSettingItem" style="">
@@ -443,16 +459,16 @@ button, input, optgroup, select, textarea {
             <span class="subTxt">비즈 주소, 키워드, 소개글을 관리하세요.</span>
         </div>
         <div class="itemSide">    
-            <a href="/band/82519333/setting/intro" class="uButton -sizeS -confirm2">설정</a>
+            <a href="/beeSettingSubIntro.do" class="uButton -sizeS -confirm2">설정</a>
         </div>
     </li>
       <li class="sSettingItem">
             <div class="itemContent">
                 <span class="label">최대 멤버수</span>
-                <span class="subTxt">1000명까지</span>
+                <span class="subTxt">무제한</span>
             </div>
             <div class="itemSide">
-                <a href="/band/82519333/setting/quota_unfixed" class="uButton -sizeS -confirm2">변경</a>
+                <a href="/beeSettingSubMaxMember.do" class="uButton -sizeS -confirm2">변경</a>
             </div>
         </li>
     
@@ -460,7 +476,7 @@ button, input, optgroup, select, textarea {
 
 
 
-<h2 class="sSettingTitle">가입 멤버 관리</h2>
+<h2 class="sSettingTitle"></h2>
 
 <ul class="sSettingList">
 
@@ -470,15 +486,28 @@ button, input, optgroup, select, textarea {
                 <span class="subTxt">성별 제한없음, 나이 제한없음</span>
             </div>
             <div class="itemSide">
-                <a href="/band/82519333/setting/join-condition" class="uButton -sizeS -confirm2">변경</a>
+                <a href="/beeSettingSubJoinStandard.do" class="uButton -sizeS -confirm2">변경</a>
             </div>
-        </li>  
+        </li> 
+        <li class="sSettingItem">
+            <div class="itemContent">
+                <span class="label">가입 신청 받기</span>             
+            </div>
+            <div class="itemSide">
+                <label class="uCheck -switch">
+                    <input type="checkbox" id="chkJoinMethod" class="checkInput _chkJoinMethod">
+                    <span class="checkLabel">
+                        <span class="shape"></span>
+                    </span>
+                </label>
+            </div>
+        </li> 
  		<li class="sSettingItem">
             <div class="itemContent">
                 <span class="label">매니저 관리</span>
             </div>
             <div class="itemSide">
-                <a href="/band/82519333/setting/manage-coleader" class="uButton -sizeS -confirm2">변경</a>
+                <a href="/beeSettingSubJoinManager.do" class="uButton -sizeS -confirm2">변경</a>
             </div>
         </li>
      	<li class="sSettingItem">
@@ -486,7 +515,7 @@ button, input, optgroup, select, textarea {
                 <span class="label">멤버들의 권한 설정</span>
             </div>
             <div class="itemSide">
-                <a href="/band/82519333/setting/member-permission" class="uButton -sizeS -confirm2">변경</a>
+                <a href="/beeSettingSubMemberPermission.do" class="uButton -sizeS -confirm2">변경</a>
             </div>
         </li>
     	 <li class="sSettingItem">
@@ -494,7 +523,7 @@ button, input, optgroup, select, textarea {
 	            <span class="label">멤버 탈퇴, 차단 설정</span>
 	        </div>
 	        <div class="itemSide">
-	            <a href="/band/82519333/setting/member-withdrawal" class="uButton -sizeS -confirm2">변경</a>
+	            <a href="/beeSettingSubMemberWithdraw.do" class="uButton -sizeS -confirm2">변경</a>
 	        </div>
     	</li>
 </ul>
@@ -507,17 +536,38 @@ button, input, optgroup, select, textarea {
             <div class="itemContent">
                 <span class="label">비즈 탈퇴</span>
             </div>
-            <div class="itemSide">
-                <button type="button" class="uButton -sizeS -confirm2 -colorError _btnLeaveBand">탈퇴</button>
+            <div class="itemSide" id="boxWithdraw" data-toggle="modal" data-target="#myModalWithdraw">
+			  <path d="M4.715 6.542L3.343 7.914a3 3 0 1 0 4.243 4.243l1.828-1.829A3 3 0 0 0 8.586 5.5L8 6.086a1.001 1.001 0 0 0-.154.199 2 2 0 0 1 .861 3.337L6.88 11.45a2 2 0 1 1-2.83-2.83l.793-.792a4.018 4.018 0 0 1-.128-1.287z"/>
+			  <path d="M6.586 4.672A3 3 0 0 0 7.414 9.5l.775-.776a2 2 0 0 1-.896-3.346L9.12 3.55a2 2 0 0 1 2.83 2.83l-.793.792c.112.42.155.855.128 1.287l1.372-1.372a3 3 0 0 0-4.243-4.243L6.586 4.672z"/>
+			<button type="button" class="uButton -sizeS -confirm2 -colorError _btnLeaveBand">탈퇴</button> 
             </div>
+            <jsp:include page="modalWithdraw.jsp"/> 
         </li>  
         <li class="sSettingItem">
             <div class="itemContent">
                 <span class="label">비즈 삭제</span>
             </div>
-            <div class="itemSide">
-                <button type="button" class="uButton -sizeS -confirm2 _btnDeleteBand">삭제</button>
-            </div>  
+            <div class="itemSide" id="boxBeesDelete" data-toggle="modal" data-target="#myModalBeesDelete">
+			  <path d="M4.715 6.542L3.343 7.914a3 3 0 1 0 4.243 4.243l1.828-1.829A3 3 0 0 0 8.586 5.5L8 6.086a1.001 1.001 0 0 0-.154.199 2 2 0 0 1 .861 3.337L6.88 11.45a2 2 0 1 1-2.83-2.83l.793-.792a4.018 4.018 0 0 1-.128-1.287z"/>
+			  <path d="M6.586 4.672A3 3 0 0 0 7.414 9.5l.775-.776a2 2 0 0 1-.896-3.346L9.12 3.55a2 2 0 0 1 2.83 2.83l-.793.792c.112.42.155.855.128 1.287l1.372-1.372a3 3 0 0 0-4.243-4.243L6.586 4.672z"/>
+			<button type="button" class="uButton -sizeS -confirm2 _btnDeleteBand">삭제</button> 
+            </div>
+            <jsp:include page="modalBeesDelete.jsp"/>           
 </ul></section></main>
+
+<script>
+	$(function(){
+		$("#boxWithdraw").click(function(){
+			$("#myModalWithdraw").modal();
+		});
+	}); 
+
+	$(function(){
+		$("#boxBeesDelete").click(function(){
+			$("#myModalBeesDelete").modal();
+		});
+	});
+	
+</script> 
 </body>
 </html>

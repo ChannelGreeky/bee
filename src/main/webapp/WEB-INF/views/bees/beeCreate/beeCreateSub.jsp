@@ -5,16 +5,22 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
+<!--구글 노토 산스 -->
+<link rel="preconnect" href="https://fonts.gstatic.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap" rel="stylesheet">
 </head>
-<style>
+<style> 
 /* 기본 */
 *, :after, :before {
     -webkit-box-sizing: border-box;
     box-sizing: border-box;
+    font-family: 'Noto Sans KR', sans-serif;
+}
+.navi {
+    display: none;
 }
 body {
     background: #eef0f3;
-    font-family: -apple-system,BlinkMacSystemFont,"Helvetica Neue",Helvetica,Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji",NotoColorEmoji,"Segoe UI Symbol","Android Emoji",EmojiSymbols;
     line-height: 1.43;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
@@ -23,7 +29,7 @@ body, h1, h2, h3, h4, h5, h6 {
     margin: 0;
     font-size: 14px;
     font-weight: 400;
-    color: #222;
+    color: #50401B;
 }
 html {
     -ms-text-size-adjust: 100%;
@@ -120,11 +126,10 @@ div {
     margin-bottom: 11px;
     font-weight: 600;
 }
-
 .bandMake .title {
-    font-size: 14px;
+    font-size: 0.9rem;
     font-weight: 400;
-    color: #444;
+    color: #50401B;
 }
 /* uInput -simpleLine inputBand */
 .uInput {
@@ -181,9 +186,6 @@ input, textarea {
 [tabindex], a[role=button], button, input, textarea {
     outline: 0;
 }
-button, input, select, textarea {
-    font-family: -apple-system,BlinkMacSystemFont,"Helvetica Neue",Helvetica,Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji",NotoColorEmoji,"Segoe UI Symbol","Android Emoji",EmojiSymbols;
-}
 button, input {
     overflow: visible;
 }
@@ -212,10 +214,10 @@ input[type="text" i] {
 }
 .bandMake .makeCover .inputBand input {
     line-height: 54px;
-    border-bottom: 1px solid #ccc;
+    border-bottom: 1px solid #50401B;
     font-size: 30px;
     font-weight: 400;
-    color: #333;
+    color: #50401B;
 }
 /* coverSelect */
 .bandMake .makeCover .coverSelect {
@@ -372,9 +374,6 @@ input, textarea {
 [tabindex], a[role=button], button, input, textarea {
     outline: 0;
 }
-button, input, select, textarea {
-    font-family: -apple-system,BlinkMacSystemFont,"Helvetica Neue",Helvetica,Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji",NotoColorEmoji,"Segoe UI Symbol","Android Emoji",EmojiSymbols;
-}
 button, input, optgroup, select, textarea {
     margin: 0;
 }
@@ -410,7 +409,7 @@ div {
 .bandMake .makeCover .makeNoticeText {
     font-size: 12px;
     font-weight: 400;
-    color: #666;
+    color: #50401B;
 }
 /* makeType */
 .bandMake .makeType {
@@ -421,16 +420,12 @@ div {
     margin-bottom: 19px;
     font-weight: 600;
 }
-.bandMake .title {
-    font-size: 14px;
-    font-weight: 400;
-    color: #444;
-}
 body, h1, h2, h3, h4, h5, h6 {
     margin: 0;
     font-size: 14px;
     font-weight: 400;
-    color: #222;
+    color: #50401B;
+    font-weight: bold;
 }
 h2 {
     display: block;
@@ -458,7 +453,7 @@ div {
     display: -webkit-box;
     display: -ms-flexbox;
     display: flex;
-    padding: 28px 25px 24px 44px;
+    padding: 28px 60px 24px 60px;
 }
 .bandMake .makeType .bandType .typeList {
     padding: 30px 0;
@@ -477,7 +472,7 @@ div {
     width: 33.3333%;
 }
 .bandMake .makeType .bandType .bandTypeListWrap .typeList .typeListItem {
-    width: 33.33%;
+    width: 50%;
     float: none;
     padding: 0;
 }
@@ -518,9 +513,6 @@ input, textarea {
 
 [tabindex], a[role=button], button, input, textarea {
     outline: 0;
-}
-button, input, select, textarea {
-    font-family: -apple-system,BlinkMacSystemFont,"Helvetica Neue",Helvetica,Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji",NotoColorEmoji,"Segoe UI Symbol","Android Emoji",EmojiSymbols;
 }
 button, input {
     overflow: visible;
@@ -593,7 +585,7 @@ button, input, optgroup, select, textarea {
 .uCheck .checkLabel .shape:after {
     position: absolute;
     border-radius: 50%;
-    background-color: #2ecc71;
+    background-color: #F7D078;
 }
 .uCheck.-checkbox .checkInput:checked+.checkLabel .shape:after {
     opacity: 1;
@@ -606,7 +598,7 @@ button, input, optgroup, select, textarea {
 }
 .bandMake .makeType .bandType .bandTypeListWrap .typeList .typeListItem .uCheck .text {
     margin-left: 12px;
-    max-width: 187px;
+    max-width: 100%;
 }
 .bandMake .makeType .bandType .typeList li .uCheck .text {
     margin-left: 14px;
@@ -618,7 +610,7 @@ button, input, optgroup, select, textarea {
     vertical-align: middle;
     font-size: 14px;
     font-weight: 400;
-    color: #333;
+    color: #50401B;
 }
 b, strong {
     font-weight: inherit;
@@ -642,20 +634,12 @@ b, strong {
     margin: 40px 0 58px;
     text-align: center;
 }
-.bandMake .btnFooter .-cancel {
-    background: 0 0;
-}
 .bandMake .btnFooter button {
     margin: 0 3px;
 }
-.uButton.-cancel {
-    border: 1px solid #ccc;
-    background: #fff;
-    color: #666;
-}
 .uButton.-sizeXL {
     min-width: 140px;
-    height: 44px;
+    height: 40px;
     padding: 0 30px;
     font-size: 14px;
     font-weight: 600;
@@ -688,9 +672,6 @@ button {
     background-color: transparent;
     border-radius: 0;
     cursor: pointer;
-}
-button, input, select, textarea {
-    font-family: -apple-system,BlinkMacSystemFont,"Helvetica Neue",Helvetica,Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji",NotoColorEmoji,"Segoe UI Symbol","Android Emoji",EmojiSymbols;
 }
 button, dd, dl, dt, fieldset, ol, p, ul {
     margin: 0;
@@ -730,8 +711,13 @@ button {
     border-image: initial;
 }
 .uButton.-disabled:not(.-text), .uButton[data-status=off]:not(.-text), .uButton[disabled]:not(.-text) {
-    background: #b3b3b3!important;
-    color: #e6e5e5!important;
+    background: #50401B;
+    color: white;
+    min-width: 150px;
+    height: 40px;
+    padding: 0 10px;
+    font-size: 0.9rem;
+    border-radius: 40px;
 }
 .uButton.-disabled:after, .uButton[data-status=off]:after, .uButton[disabled]:after {
     display: none;
@@ -742,25 +728,39 @@ button {
     border-radius: 0;
     cursor: pointer;
 }
+input::placeholder {
+	color: #50401B;
+}
+.uButton.-cancel {
+    border: 1px solid #50401B;
+    background-color: #FFFFFF;
+    color: #50401B;
+    min-width: 150px;
+    height: 40px;
+    padding: 0 10px;
+    font-size: 0.9rem;
+    border-radius: 40px;
+}
 </style>
 <body>
-<main id="content" data-uiselector="regionContent" role="main" class=""><section data-viewname="DGroupBandCreateView" class="bandMake"><form action="" class="_form">
+<main id="content" data-uiselector="regionContent" role="main" class="" style="min-height: 800px;">
+<section data-viewname="DGroupBandCreateView" class="bandMake">
+<form action="" class="_form">
     <fieldset>
-        <legend class="gSrOnly">밴드 만들기</legend>
+        <legend class="gSrOnly">비즈 만들기</legend>
         <div class="makeCover">
-            <h2 class="title">밴드 이름</h2>
+            <h2 class="title">비즈 이름</h2>
             <div class="uInput -simpleLine inputBand">
-                <label class="gSrOnly" for="ex_name">밴드 이름 입력</label>
-                <input value="" type="text" class="_inputBandName" id="ex_name" maxlength="50" placeholder="밴드 이름 입력">
+                <label class="gSrOnly" for="ex_name">여행을 좋아하는 사람들</label>
+                <input value="" type="text" class="_inputBandName" id="ex_name" maxlength="50" placeholder="비즈 이름을 입력해주세요">
             </div>
             
 
             <div class="coverSelect">
                 <div class="mainCover">
-                    <span class="cover">
-        
-                        <img data-cover="http://coresos.phinf.naver.net/a/2ih0j6/d_06hUd018adm7m9jr516m7iz_1i12aj.jpg" src="https://coresos-phinf.pstatic.net/a/2ih0j6/d_06hUd018adm7m9jr516m7iz_1i12aj.jpg?type=cover_a640" class="_selectedCover coverImg" width="300" height="225" alt="">
-        
+                    <span class="cover">      
+                        <img id="image_section" src="#" data-cover="http://coresos.phinf.naver.net/a/2ih0j6/d_06hUd018adm7m9jr516m7iz_1i12aj.jpg" 
+                         class="_selectedCover coverImg" width="300" height="225" alt="" onError="javascript:this.src='https://coresos-phinf.pstatic.net/a/2ih0j6/d_06hUd018adm7m9jr516m7iz_1i12aj.jpg?type=cover_a640'">         
                     </span>
                 </div>
                 <div class="coverList">
@@ -772,14 +772,14 @@ button {
                         <li>
                             <span class="changeCover _coverImageUploader js-fileapi-wrapper">
                                 <span>사진 추가</span>
-                                <input type="file" class="imageUpload" title="추가" accept="image/*" name="attachment">
+                                <input type="file" id="imgInput" class="imageUpload" title="추가" accept="image/*" name="attachment">
                             </span>
                         </li>
         
             
                         <li class="_coverSet_0" style="">
                             
-                            <a href="#" data-cover="http://coresos.phinf.naver.net/a/2ih0j0/d_26hUd018adm1qpknt8jkbj0y_5gztax.jpg" class="_defaultCovers cover ">
+                            <a href="#" class="data-cover" data-cover="http://coresos.phinf.naver.net/a/2ih0j0/d_26hUd018adm1qpknt8jkbj0y_5gztax.jpg" class="_defaultCovers cover ">
                                 <img class="coverImg" src="https://coresos-phinf.pstatic.net/a/2ih0j0/d_26hUd018adm1qpknt8jkbj0y_5gztax.jpg?type=cover_a264" width="120" height="90" alt="">
                                 <span class="mask"></span>
                             </a>
@@ -788,7 +788,7 @@ button {
             
                         <li class="_coverSet_0" style="">
                             
-                            <a href="#" data-cover="http://coresos.phinf.naver.net/a/2ih055/c_36hUd018admshigztpuo8vj_y71aad.jpg" class="_defaultCovers cover ">
+                            <a href="#" class="data-cover" data-cover="http://coresos.phinf.naver.net/a/2ih055/c_36hUd018admshigztpuo8vj_y71aad.jpg" class="_defaultCovers cover ">
                                 <img class="coverImg" src="https://coresos-phinf.pstatic.net/a/2ih055/c_36hUd018admshigztpuo8vj_y71aad.jpg?type=cover_a264" width="120" height="90" alt="">
                                 <span class="mask"></span>
                             </a>
@@ -797,7 +797,7 @@ button {
             
                         <li class="_coverSet_0" style="">
                             
-                            <a href="#" data-cover="http://coresos.phinf.naver.net/a/2ih021/c_e6hUd018adm5qmds7qpu6g8_cqyzv.jpg" class="_defaultCovers cover ">
+                            <a href="#" class="data-cover" data-cover="http://coresos.phinf.naver.net/a/2ih021/c_e6hUd018adm5qmds7qpu6g8_cqyzv.jpg" class="_defaultCovers cover ">
                                 <img class="coverImg" src="https://coresos-phinf.pstatic.net/a/2ih021/c_e6hUd018adm5qmds7qpu6g8_cqyzv.jpg?type=cover_a264" width="120" height="90" alt="">
                                 <span class="mask"></span>
                             </a>
@@ -806,7 +806,7 @@ button {
             
                         <li class="_coverSet_0" style="">
                             
-                            <a href="#" data-cover="http://coresos.phinf.naver.net/a/2ih0gi/c_16hUd018adm7950giqjjo19_pdsycn.jpg" class="_defaultCovers cover ">
+                            <a href="#" class="data-cover" data-cover="http://coresos.phinf.naver.net/a/2ih0gi/c_16hUd018adm7950giqjjo19_pdsycn.jpg" class="_defaultCovers cover ">
                                 <img class="coverImg" src="https://coresos-phinf.pstatic.net/a/2ih0gi/c_16hUd018adm7950giqjjo19_pdsycn.jpg?type=cover_a264" width="120" height="90" alt="">
                                 <span class="mask"></span>
                             </a>
@@ -815,7 +815,7 @@ button {
             
                         <li class="_coverSet_0" style="">
                             
-                            <a href="#" data-cover="http://coresos.phinf.naver.net/a/2ih0ig/c_b6hUd018admxh2okr38orea_cxmcw1.jpg" class="_defaultCovers cover ">
+                            <a href="#" class="data-cover" data-cover="http://coresos.phinf.naver.net/a/2ih0ig/c_b6hUd018admxh2okr38orea_cxmcw1.jpg" class="_defaultCovers cover ">
                                 <img class="coverImg" src="https://coresos-phinf.pstatic.net/a/2ih0ig/c_b6hUd018admxh2okr38orea_cxmcw1.jpg?type=cover_a264" width="120" height="90" alt="">
                                 <span class="mask"></span>
                             </a>
@@ -824,7 +824,7 @@ button {
             
                         <li class="_coverSet_0" style="">
                             
-                            <a href="#" data-cover="http://coresos.phinf.naver.net/a/2ih041/c_d6hUd018adm1vvx62az3rwlf_96o1bg.jpg" class="_defaultCovers cover ">
+                            <a href="#" class="data-cover" data-cover="http://coresos.phinf.naver.net/a/2ih041/c_d6hUd018adm1vvx62az3rwlf_96o1bg.jpg" class="_defaultCovers cover ">
                                 <img class="coverImg" src="https://coresos-phinf.pstatic.net/a/2ih041/c_d6hUd018adm1vvx62az3rwlf_96o1bg.jpg?type=cover_a264" width="120" height="90" alt="">
                                 <span class="mask"></span>
                             </a>
@@ -833,7 +833,7 @@ button {
             
                         <li class="_coverSet_0" style="">
                             
-                            <a href="#" data-cover="http://coresos.phinf.naver.net/a/2ih0j6/d_06hUd018adm7m9jr516m7iz_1i12aj.jpg" class="_defaultCovers cover on">
+                            <a href="#" class="data-cover" data-cover="http://coresos.phinf.naver.net/a/2ih0j6/d_06hUd018adm7m9jr516m7iz_1i12aj.jpg?type=cover_a264" class="_defaultCovers cover on">
                                 <img class="coverImg" src="https://coresos-phinf.pstatic.net/a/2ih0j6/d_06hUd018adm7m9jr516m7iz_1i12aj.jpg?type=cover_a264" width="120" height="90" alt="">
                                 <span class="mask"></span>
                             </a>
@@ -841,17 +841,13 @@ button {
                         </li>   
                     </ul>
                 </div>
-            </div>
+            </div> 
             <div class="makeNoticeArea">
                 <p class="makeNoticeText">밴드이름과 사진은 개설 후에도 변경할 수 있어요</p>
-            </div>
+            </div>         
         </div>
-
-        
-
-        
-        <div class="makeType">
-            <h2 class="title">밴드 공개</h2>
+   <div class="makeType">
+            <h2 class="title">비즈 공개</h2>
             <div class="bandType">
                 <div class="bandTypeListWrap gBoxShadow">
                     <ul class="typeList ">
@@ -861,33 +857,20 @@ button {
                                 <span class="checkLabel">
                                 <span class="shape"></span>
                                 <span class="text">
-                                    <strong>비공개 밴드</strong>
-                                    <span class="msg">밴드와 게시글이 공개되지 않습니다. 초대를 통해서만 가입할 수 있습니다.</span>
+                                    <strong>비공개 비즈</strong>
+                                    <span class="msg">비즈와 게시글이 공개되지 않습니다.<br> 초대를 통해서만 가입할 수 있습니다.</span>
                                 </span>
                             </span>
-
                             </label>
                         </li>
-                        <li class="typeListItem">
-                            <label for="closed" class="uCheck -checkbox">
-                                <input type="radio" value="closed" name="bandOpenType" id="closed" class="checkInput">
-                                <span class="checkLabel">
-                                <span class="shape"></span>
-                                <span class="text">
-                                    <strong>밴드명 공개 밴드</strong>
-                                    <span class="msg">누구나 밴드를 검색으로 찾아 밴드 소개를 볼 수 있지만, 게시글은 멤버만 볼 수 있습니다.</span>
-                                </span>
-                            </span>
-                        </label>
-                    </li>
                     <li class="typeListItem">
                         <label for="public" class="uCheck -checkbox">
                             <input type="radio" value="public" name="bandOpenType" id="public" class="checkInput">
                             <span class="checkLabel">
                                 <span class="shape"></span>
                                 <span class="text">
-                                    <strong>공개 밴드</strong>
-                                    <span class="msg">누구나 밴드를 검색해 찾을 수 있고, 밴드 소개와 게시글을 볼 수 있습니다.</span>
+                                    <strong>공개 비즈</strong>
+                                    <span class="msg">누구나 비즈를 검색해 찾을 수 있고,<br> 비즈 소개와 게시글을 볼 수 있습니다.</span>
                                 </span>
                             </span>
                             </label>
@@ -911,12 +894,38 @@ button {
 
             </div>
         </div>
-        
         <div class="btnFooter">
             <button type="button" class="_btnCancel uButton -sizeXL -cancel">취소</button>
             <button type="submit" class="_btnConfirm uButton -sizeXL -disabled">완료</button>
         </div>
     </fieldset>
 </form></section></main>
+<script type="text/javascript" src="http://code.jquery.com/jquery-2.1.0.min.js"></script>
+<script type="text/javascript">
+	$(function() {
+	    $("#imgInput").on('change', function(){
+	        readURL(this);
+	        console.log(readURL);
+	    });
+	});
+	
+	function readURL(input) {
+	 if (input.files && input.files[0]) {
+	  var reader = new FileReader();
+	  
+	  reader.onload = function (e) {
+	   $('#image_section').attr('src', e.target.result);  
+	  }
+	  
+	  reader.readAsDataURL(input.files[0]);
+	  }
+	}
+	 
+	$('.data-cover').click(function(){
+		var coverSrc = $(this).attr("data-cover");
+		jQuery("#image_section").attr("src", coverSrc);
+	});
+
+</script>
 </body>
 </html>
