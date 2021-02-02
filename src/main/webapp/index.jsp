@@ -9,11 +9,12 @@
 <body>
 
 	
-	<a href="/allImage.do">모달연습</a>
-	<a href="/uploadImage.do">사진첩</a>
-  
-	<a href="/noticeBoard.do">관리자공지사항</a>
-	<a href="/uploadFile.do">파일 모아보기</a>
+	
+	<a href="/beesUploadImage.do">사진첩</a>
+	<a href="/adminNoticeBoard.do">관리자공지사항</a>
+	<a href="/adminNoticeModification.do">관리자공지사항수정</a>
+	<a href="/beesUploadFile.do">파일 모아보기</a>
+	
 	<h3><a href="/beesSchedule.do">일정</a></h3>
 	<h3><a href="/beesMember.do">멤버</a></h3>
 		
