@@ -377,207 +377,6 @@ height: 100%;
 }
 
 
-* {
-  font-family: "Noto Sans KR", sans-serif;
-}
-
-
-
-input:focus {
-  outline: none;
-}
-button:focus {
-  outline: none;
-}
-textarea:focus {
-  outline: none;
-}
-
-#bees-contents {
-
-
-  margin: 0;
- 
-
-}
-
-#bees-side-profile {
-  background-color: white;
-  width: 75%;
-  height: auto;
-  margin: auto;
-  padding-top: 10px;
-  padding-bottom: 10px;
-}
-
-#bees-side-chatting {
-  background-color: white;
-  width: 75%;
-  height: auto;
-  margin: auto;
-  margin-top: 10px;
-  padding-top: 10px;
-  padding-bottom: 10px;
-}
-
-#bees-side-profile > table {
-  margin: auto;
-  width: 95%;
-  height: 100%;
-}
-
-#bees-side a {
-  text-decoration: none;
-  color: #f7d078;
-}
-
-#bees-cover {
-  height: 130px;
-  border: 0.5px solid light-gray;
-  background-image: url("/src/main/webapp/resources/bees_cover/bees_cover_1.png");
-  background-size: cover;
-}
-
-#bees-cover >img{
-width : 100%;
-height : 100%;
-border : 1px solid #E6E6E6;
-}
-#bees-name {
-  padding-left: 5px;
-  font-size: 1.5rem;
-  font-weight: 300;
-  color : #50401B;
-}
-
-#bees-member-count {
-  width: 30%;
-  padding-left: 5px;
-  font-size: 0.9rem;
-  font-weight: 200;
-  color : #50401B;
-}
-
-#bees-invite {
-  font-size: 0.8rem;
-  font-weight: 200;
-  
-}
-
-#bees-note {
-  padding-left: 5px;
-  font-size: 0.8rem;
-  font-weight: 100;
-}
-
-#bees-public {
-  padding: 0 5px 5px 5px;
-  font-size: 0.7rem;
-  font-weight: 100;
-  color : #50401B;
-}
-
-#bees-setting {
-  padding-left: 5px;
-  padding-bottom: 15px;
-  font-size: 0.8rem;
-  font-weight: 200;
-  
-}
-
-#bees-setting > a {
-color : #50401B;
-}
-
-#join-btn {
-  width: 95%;
-  height: 40px;
-  background-color: #f7d078;
-  border: 0px solid white;
-  color: white;
-}
-#join-box {
-  font-size: 0.8rem;
-  font-weight: 200;
-  padding-left: 5px;
-}
-
-.innerline {
-  padding-left: 5px;
-  padding-right: 5px;
-}
-
-
-
-#bees-side-chatting > table {
-  margin: auto;
-  width: 95%;
-  height: 100%;
-}
-
-#chatting-header {
-  width: 70%;
-  padding-left: 5px;
-  font-size: 0.9rem;
-  font-weight: 300;
-}
-
-#new-chat {
-  padding-right: 5px;
-  text-align: right;
-  font-size: 0.8rem;
-  font-weight: 300;
-}
-
-.chat-list {
-  padding: 10px 5px 0 5px;
-  line-height: 10px;
-}
-
-.chat-profile {
-  display: inline-block;
-  width: 30px;
-  height: 30px;
-  border-radius: 999px;
-  background: url("/resources/image/프로필.png");
-  background-size: cover;
-}
-
-.chat-title {
-  padding-left: 10px;
-  height: 100%;
-  display: inline-block;
-  font-size: 0.8rem;
-  font-weight: 300;
-  vertical-align: middle;
-  cursor: pointer;
-}
-
-.chat-open-btn {
-  padding-left: 10px;
-  height: 100%;
-  display: inline-block;
-  font-size: 0.8rem;
-  font-weight: 300;
-  vertical-align: middle;
-}
-
-#bees-public{
-padding-top: 10px;
-}
-
-.add-button{
-position : absolute;
-top : 1px;
-right : 230px;
-background : #2C3E50;
-border : 0;
-color : white;
-height : 35px;
-border-radius : 3px;
-width : 157px;
-}
-
 
  #calendar {
     max-width: 1100px;
@@ -918,6 +717,9 @@ border : 5px solid #F7D078;
 
 }
 </style>
+
+
+
 <div id="header">
 		<div class="nav m-auto">
 	        <ul>
@@ -931,7 +733,7 @@ border : 5px solid #F7D078;
 	    </div>
     </div>
 
-<div class="container pt-3" id="main">
+<div class="container pt-3">
 <div class="row">
 <div class="col-1"></div>
 <div class="col-3 p-0">
@@ -939,7 +741,7 @@ border : 5px solid #F7D078;
     <div id="bees-side-profile">
         <table>
             <tr>
-                <td id="bees-cover" colspan="2"><img src="/resources/image/image.jpg""/></td>
+                <td id="bees-cover" colspan="2"></td>
                 
             </tr>
             <tr>
@@ -992,6 +794,13 @@ border : 5px solid #F7D078;
 		
 		</div>
 		
+
+</div>
+</div>
+<div class="col-1"></div>
+</div>
+</div>
+
     <!-- 일정 확인 modal -->
     <div class="sche-modal-bg"></div>
     <div id="sche-detail-modal">
@@ -1144,14 +953,8 @@ border : 5px solid #F7D078;
 					
 
 
-</div>
-</div>
-<div class="col-1"></div>
-</div>
-</div>
 
 
 
-<%@include file="/common/footer.jsp"%>
 </body>
 </html>
