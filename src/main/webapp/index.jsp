@@ -45,6 +45,7 @@
 	<a href="/myPageHeart.do">내가 좋아요 누른 페이지</a><br>
 	<a href="/beesSearchResult.do">비즈서치페이지</a>
 	
+	<a href="/bk.do">보</a>
 	
 </body>
 </html>

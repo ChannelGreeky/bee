@@ -167,5 +167,10 @@ public class MemberController {
 			return "/user/search/beesSearchResult";
 		}
 		
+		@RequestMapping(value="/bk.do")
+		public String bk() {
+			return "/bees/schedulebk";
+		}
+		
 		
 }
