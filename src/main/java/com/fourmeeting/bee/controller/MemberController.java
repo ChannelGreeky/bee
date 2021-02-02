@@ -9,18 +9,23 @@ public class MemberController {
 
 	@RequestMapping("/beesSchedule.do")
 	public String insertBeesSchedule() {
-	return "board/schedule";	
+	return "bees/schedule";	
 	}
 	
 	@RequestMapping("/beesMember.do")
-	public String selectBeesSMember() {
+	public String selectBeesMember() {
 		
-		return "board/beesMember";	
+		return "bees/beesMember";	
 	}
 	
 	@RequestMapping("/inviteMember.do")
 	public String selectMemberInvite() {
-		return "board/beesInvite";
+		return "bees/beesInvite";
+	}
+	
+	@RequestMapping("/beesApplicant.do")
+	public String insertBeesApplicant() {
+		return "bees/beesApplicant";
 	}
 	
 	@RequestMapping(value="uploadFile.do")
