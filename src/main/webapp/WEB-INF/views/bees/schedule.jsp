@@ -1,5 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -26,28 +25,11 @@
 <script src='/resources/fullcalendar/locales-all.js'></script>
 </head>
 <body>
-
-<!--제이쿼리 CDN-->
-<script src="https://code.jquery.com/jquery-3.5.1.js" integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" crossorigin="anonymous"></script>
-
-<!--구글 노토 산스 -->
-<link rel="preconnect" href="https://fonts.gstatic.com">
-<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap" rel="stylesheet">
-
-<!--부트 스트랩-->
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
-<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js" integrity="sha384-q2kxQ16AaE6UbzuKqyBE9/u/KzioAlnx2maXQHiDX9d4/zp8Ok3f+M7DPm+Ib6IU" crossorigin="anonymous"></script>
-
-<!-- modal cdn -->
-<script
-	src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js"
-	integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx"
-	crossorigin="anonymous"></script>
-<!--폰트어썸 CDN-->
-<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css" rel="stylesheet">
-
-
-
+	<%@ include file="/common/cdnLib.jsp"%>
+	<!--비즈 전체페이지 + 사이드 프로필 + 메인 컨텐츠 크기-->
+	<link rel="stylesheet" type="text/css" href="/resources/css/beesForm.css">
+	<script type="text/javascript" src="/resources/js/beesForm.js"></script>
+	
 <!-- datepicker -->
 
 <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
@@ -376,9 +358,7 @@ background-color : #50401B;
 height: 100%;
 }
 
-
-
- #calendar {
+#calendar {
     max-width: 1100px;
     margin: 0 auto;
     background-color : white;
@@ -718,9 +698,7 @@ border : 5px solid #F7D078;
 }
 </style>
 
-
-
-<div id="header">
+	<div id="header">
 		<div class="nav m-auto">
 	        <ul>
 	        	<!-- 서브헤더 공간 -->
@@ -732,17 +710,15 @@ border : 5px solid #F7D078;
 	        </ul>
 	    </div>
     </div>
-
-<div class="container pt-3">
-<div class="row">
-<div class="col-1"></div>
-<div class="col-3 p-0">
-<div id="bees-side" class="container m-0 p-2">
-    <div id="bees-side-profile">
-        <table>
+	<div class="container pt-3">
+		<div class="row">
+			<div class="col-1"></div>
+			<div class="col-3 p-0">
+				<div id="bees-side" class="container m-0 p-2">
+					<div id="bees-side-profile">
+						<table>
             <tr>
-                <td id="bees-cover" colspan="2"></td>
-                
+                <td id="bees-cover" colspan="2" style="background:url('/resources/image/image.jpg')"></td>
             </tr>
             <tr>
                 <td id="bees-name" colspan="2">비즈이름</td>
@@ -769,8 +745,8 @@ border : 5px solid #F7D078;
             </td>
         </tr>
         </table>
-    </div>
-    <div id="bees-side-chatting">
+		</div>
+		<div id="bees-side-chatting">
         <table>
             <tr><td id="chatting-header">채팅</td>
                 <td id="new-chat"><a class="chat-open-btn" href="#none" target="_blank" onclick="openPopup()">새 채팅</a></td></tr>
@@ -783,25 +759,21 @@ border : 5px solid #F7D078;
                 <a class="chat-open-btn" href="#none" target="_blank" onclick="openPopup()" style="color:dimgray">'비즈' 전체 채팅</a></td></tr>
         </table>
     </div>
-</div>
-</div>
-<div class="col-7 p-0">
-<div id="bees-contents" class="container m-0 p-2">
-
-
-    <!-- 우측 메인 Content 공간 -->
-		<div id='calendar' style='position : relative;'>
+				</div>
+			</div>
+			<div class="col-7 p-0">
+				<div id="bees-contents" class="container m-0 p-2">
+				
+				<div id='calendar' style='position : relative;'>
 		
 		</div>
-		
-
-</div>
-</div>
-<div class="col-1"></div>
-</div>
-</div>
-
-    <!-- 일정 확인 modal -->
+				
+				</div>
+			</div>
+			<div class="col-1"></div>
+		</div>
+	</div>
+	<!-- 일정 확인 modal -->
     <div class="sche-modal-bg"></div>
     <div id="sche-detail-modal">
         <div id="sche-detail-modal-header">
@@ -831,7 +803,6 @@ border : 5px solid #F7D078;
         </div>
         </form>
     </div>
-    
     <!-- 일정 삽입 modal -->
     <div class="sche-modal-bg2"></div>
     <div id="sche-detail-modal2">
@@ -876,16 +847,26 @@ border : 5px solid #F7D078;
         </div>
         </form>
     </div>
-		
-		
 		<script>
 			$(function(){
 				
 				$(function(){
 					$('.fc-daygrid-day-events').click(function(){
 						
-						var height = Number($('#bees-contents').css('height').replace('px',""))+296;
-					    $('.sche-modal-bg').css('height',height+"px");
+						$('#sche-detail-modal').css(
+								'top',
+								Math.max(0, (($(window).height() - $(
+										'#sche-detail-modal').outerHeight()) / 2)
+										+ $(window).scrollTop())
+										+ 'px');
+						$('#sche-detail-modal').css(
+								'left',
+								Math.max(0, (($(window).width() - $(
+										'#sche-detail-modal').outerWidth()) / 2)
+										+ $(window).scrollLeft())
+										+ 'px');
+						$('.sche-modal-bg').css('height',
+								($(window).height() + $(window).scrollTop()) + 'px');
 					    
 					    $('.sche-modal-bg').css('display','block');
 					    $('#sche-detail-modal').css('display', 'block');
@@ -910,8 +891,20 @@ border : 5px solid #F7D078;
 
 						
 					    //비즈 페이지에서 주석제거. -  자동으로 배경 높이 산정하여 Modal background 까는 설정//
-					    var height = Number($('#bees-contents').css('height').replace('px',""))+296;
-					    $('.sche-modal-bg2').css('height',height+"px");
+					    $('#sche-detail-modal2').css(
+								'top',
+								Math.max(0, (($(window).height() - $(
+										'#sche-detail-modal2').outerHeight()) / 2)
+										+ $(window).scrollTop())
+										+ 'px');
+						$('#sche-detail-modal2').css(
+								'left',
+								Math.max(0, (($(window).width() - $(
+										'#sche-detail-modal2').outerWidth()) / 2)
+										+ $(window).scrollLeft())
+										+ 'px');
+						$('.sche-modal-bg2').css('height',
+								($(window).height() + $(window).scrollTop()) + 'px');
 					    
 					    $('.sche-modal-bg2').css('display','block');
 					    $('#sche-detail-modal2').css('display', 'block');
@@ -947,14 +940,8 @@ border : 5px solid #F7D078;
 			})
 			
 	
-		</script>
-		
-		
-					
-
-
-
-
-
+	</script>
+	<div id="footer">
+	</div>
 </body>
 </html>

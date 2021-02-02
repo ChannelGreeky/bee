@@ -72,7 +72,10 @@
 	color : black;
 }
 
-
+#main {
+	padding-top: 20px;
+	padding-bottom : 200px;
+}
 
 #bees_main_massege {
 	padding-top: 20px;
@@ -103,7 +106,6 @@ padding-left : 5%;
 padding-right : 5%;
 border-top : 2px solid #E6E6E6;
 }
-
 
 
 #profile{
@@ -203,130 +205,13 @@ background-color : #50401B;
 	
 }
 
-#feed-top{
-	
-	padding-bottom : 10px;
-	color :  #50401B;
-	font-size : 1.6rem;
-	font-weight: 300;
-}
 
-#feed-top >b{
-	color : #F7D078;
-}
-
-#search{
-width : 90%;
-border : none;
-margin-top : 2px;
-}
-
-#search-outLine{
-
-height : 32px;
-border : 1px solid #707070;
-border-radius : 25px;
-
-}
-
-#searchBtn{
-background-color : white;
-border : none;
-
-}
-
-#searchBtn >svg{
-margin-bottom : 5px;
-
-}
-
-#line3{
-
-margin-top : 15px;
-margin-bottom : 5%;
-border-top : 1px solid #E6E6E6;
-}
-
-#search-select{
-border : none;
-text-align : right;
-}
-
-#search-select > select{
-border : none;
-font-size : 0.7rem;
-color : #50401B;
-}
-
-
-.memberList{
-	height : 15%;
-	width : 100%;
-	padding-top : 2%;
-	padding-bottom : 2%;
-	
-}
-
-
-.memberListImg{
-margin-right : 10px;
-width : 45px;
-height : 40px;
-}
-
-#memberInvite{
-color : #50401B;
-padding-left : 10px;
-text-decoration: none;
-}
-
-
-
-#memberInviteBtn{
-padding-top: 2%;
-padding-bottom: 2%;
-padding-left : 30px;
-}
-
-.chatHover{
-	width : 105px;
-	height : 30px;
-	padding-left : 2%;
-	visibility : hidden;
-	cursor : pointer;
-}
-
-#myModalLabel{
-font-size : 1.2rem;
-color :#6D6042;
-padding-left : 43%;
-font-weight:normal;
-}
-
-.modal-body >span{
-font-size : 1rem;
-color :#6D6042;
-font-weight:normal;
-text-align : center;
-}
-
-#closeBtn{
-color : #F7D078;
-}
-
-#urlCopy{
-background-color : #50401B;
-border-radius : 25px;
-border : none;
-margin-right: 41%;
-}
 
    #sub-cont-test{
    margin-top : 0.7%;
    }
 
 #memberList-outLine{
-padding-top : 60%;
 height: 100%;
 }
 
@@ -334,6 +219,7 @@ height: 100%;
 * {
   font-family: "Noto Sans KR", sans-serif;
 }
+
 
 
 input:focus {
@@ -347,8 +233,11 @@ textarea:focus {
 }
 
 #bees-contents {
-  width: 98.5%;
+
+
   margin: 0;
+ 
+
 }
 
 #bees-side-profile {
@@ -384,7 +273,7 @@ textarea:focus {
 #bees-cover {
   height: 130px;
   border: 0.5px solid light-gray;
- 
+  background-image: url("/src/main/webapp/resources/bees_cover/bees_cover_1.png");
   background-size: cover;
 }
 
@@ -457,6 +346,8 @@ color : #50401B;
   padding-right: 5px;
 }
 
+
+
 #bees-side-chatting > table {
   margin: auto;
   width: 95%;
@@ -514,66 +405,22 @@ color : #50401B;
 padding-top: 10px;
 }
 
-#memberList-outline{
-margin-top :15%;
-
-}
-
-#applicant{
-border-radius : 25px;
-margin-top : 3%;
-background-color :#F9F9F9;
-border : 1px solid #707070;
-width : 17%;
-padding-bottom: 0.5%;
-
-}
-
-#applicant > a{
-margin-left : 13%;
-font-size : 0.8rem;
-text-align : center;
-color : #707070;
-text-decoration : none;
-}
-
-#userId{
-color : black;
-font-size : 1.1rem;
-}
-
-#joinDate{
-padding-left : 1%;
-font-size : 0.5rem;
-}
-
-#join-Refuse{
-margin-left : 52%;
-margin-right : 1%;
-border : 1px solid #50401B;
-background-color : white;
-font-size : 0.9rem;
-}
-
-#join-Acceptance{
-border : 1px solid #50401B;
-background-color : #50401B;
+.add-button{
+position : absolute;
+top : 1px;
+right : 230px;
+background : #2C3E50;
+border : 0;
 color : white;
-font-size : 0.9rem;
+height : 35px;
+border-radius : 3px;
+width : 157px;
 }
 
-#join-Refuse2{
-margin-left : 50%;
-margin-right : 1%;
-border : 1px solid #50401B;
-background-color : white;
-font-size : 0.9rem;
-}
 
-#paging{
-	text-align : center;
-	font-size : 0.7rem;
-	padding-top : 8%;
-	padding-bottom : 3%;
-	color : ##707070;
-}
+ #calendar {
+    max-width: 1100px;
+    margin: 0 auto;
+    background-color : white;
+  }
+

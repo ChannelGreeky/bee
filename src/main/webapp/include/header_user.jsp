@@ -316,13 +316,13 @@ font-size:1rem;
      	       <a href="#"  >사진첩</a>
 	    </li>	
 	    <li class="navi_menu_item">
-     	       <a href="#"  >일정</a>
+     	       <a href="/beesSchedule.do">일정</a>
 	    </li>	
         <li class="navi_menu_item">
      	       <a href="#" >첨부</a>
 	    </li>	
 	    <li class="navi_menu_item">
-     	       <a href="#" >멤버</a>
+     	       <a href="/beesMember.do">멤버</a>
 	    </li>	
 	</ul>
          </div>  <!-- navi -->

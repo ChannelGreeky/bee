@@ -29,17 +29,8 @@ return false;
 <link rel="stylesheet" type="text/css" href="resources/css/beesInvite.css">
 
 <div id="header">
-		<div class="nav m-auto">
-	        <ul>
-	        	<!-- 서브헤더 공간 -->
-	        	<a href="#"><li id="rad1">전체글</li></a>
-	        	<a href="#"><li>사진첩</li></a>
-	        	<a href="/beesSchedule.do"><li>일정</li></a>
-	        	<a href="#"><li>첨부</li></a>
-	        	<a href="/beesMember.do"><li>멤버</li></a>
-	        </ul>
-	    </div>
-    </div>
+		<%@include file="/include/header_bee.jsp" %>
+</div>	
 
 <div class="container pt-3" id="main">
 <div class="row">

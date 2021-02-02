@@ -9,25 +9,7 @@
 </head>
 <body>
 
-<!--제이쿼리 CDN-->
-<script src="https://code.jquery.com/jquery-3.5.1.js" integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" crossorigin="anonymous"></script>
-
-<!--구글 노토 산스 -->
-<link rel="preconnect" href="https://fonts.gstatic.com">
-<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap" rel="stylesheet">
-
-<!--부트 스트랩-->
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
-<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js" integrity="sha384-q2kxQ16AaE6UbzuKqyBE9/u/KzioAlnx2maXQHiDX9d4/zp8Ok3f+M7DPm+Ib6IU" crossorigin="anonymous"></script>
-
-<!-- modal cdn -->
-<script
-	src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js"
-	integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx"
-	crossorigin="anonymous"></script>
-<!--폰트어썸 CDN-->
-<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css" rel="stylesheet">
-
+<%@ include file="/common/cdnLib_solm.jsp"%>
 
 <script>
 
@@ -50,23 +32,14 @@ return false;
 <link rel="stylesheet" type="text/css" href="resources/css/beesApplicant.css">
 
 <div id="header">
-		<div class="nav m-auto">
-	        <ul>
-	        	<!-- 서브헤더 공간 -->
-	        	<a href="#"><li id="rad1">전체글</li></a>
-	        	<a href="#"><li>사진첩</li></a>
-	        	<a href="/beesSchedule.do"><li>일정</li></a>
-	        	<a href="#"><li>첨부</li></a>
-	        	<a href="/beesMember.do"><li>멤버</li></a>
-	        </ul>
-	    </div>
-    </div>
+		<%@include file="/include/header_bee.jsp" %>
+</div>	
 
 <div class="container pt-3" id="main">
 <div class="row">
 <div class="col-1"></div>
 <div class="col-3 p-0">
-<div id="bees-side" class="container m-0 p-2"">
+<div id="bees-side" class="container m-0 p-2">
     <div id="bees-side-profile">
         <table>
             <tr>
