@@ -1,166 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-   <%@ include file="/include/header_admin.jsp"  %>
+   <%@ include file="/include/headerAdmin.jsp"  %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
-
-<style>
-
-.search_bar{
-background-color:#F7D078;
-margin-top:15px;
-height:60px;
-
-}
-#search_title{
-font-size: 1.5rem;
-color:#50401B;
-font-weight:bold;
-}
-#main-content div{
-box-sizing: border-box;
-border:0;
-padding:0;
-display:inline-block;
-float:left;
-
-}
-#main-content form{
-width:100%;
-
-}
-.search_bar input{
-display:inline-block;
-border-radius:30px;
-height:38px;
-margin:11px 10px;
-padding-left:5px;
-width:90%;
-border:none;
-}
-.search_bar input:focus{
-outline:none;
-}
-
-#search_btn{
-width:45px;
-height:35px;
-background-color:white;
-border:none;
-border-radius:100px;
-float:right;
-margin:11px 10px 11px 0;
-}
-#search_btn img{
-width:80%;
-height:80%;
-}
-#search_btn:focus{
-outline:none;
-}
-.search_bar select{
-border-radius:30px;
-height:38px;
-display:inline-block;
-margin:11px 10px;
-width:90%;
-border:none;
-}
-.search_bar select:focus{
-outline:none;
-}
-#main-content div{
-display:inline-block;
-
-}
-
-#write_btn{
-float:right;
-width:100px;
-margin-right:15px;
-border:none;
-color:#50401B;
-font-size:1rem;
-}
-#write_btn:focus{
-outline:none;
-
-}
-.admin_header{
-width:100%;
-
-}
-#myModal{
-width:100%;
-height:100%;
-
-}
-.modal-header{
-width:100%;
-height:15%;
-text-align:center;
-}
-#staticBackdropLabel{
-display:inline-block;
-
-padding-top:5px;
-padding-bottom:5px;
-}
-
-.write_area{
-width:100%;
-height:300px;
-margin:0;
-padding:0;
-
-}
-.modal-body{
-width:100%;
-height:80%;
-}
-.modal-body span{
-padding-left:20px;
-}
-#recipient-name{
-padding:0;
-margin:20px;
-display:block;
-height:90%;
-width:95%;
-resize:none;
-}
-.btn-close{
-float:right;
-margin-right:10px;
-margin-top:5px;
-background-color:white;
-border:none;
-}
-.btn-close:focus{
-outline:none;
-}
-#title{
-height:48x;
-width:100%;
-line-height:48px;
-}
-#title input{
-padding-left:20px;
-width:100%;
-border:none;
-}
-.line{
-margin:0;
-padding:0;
-}
-
-</style>
-
-
-
 </head>
 <body>
 <!-- 반응형 웹에 필요한 소스 -->
@@ -189,6 +34,7 @@ padding:0;
 	<link rel="preconnect" href="https://fonts.gstatic.com">
 	<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap" rel="stylesheet">
 
+<link rel="stylesheet" type="text/css" href="/resources/css/adminNoticeBoard.css">
 
 <div class="container pt-3">
 		<div class="row">
@@ -244,13 +90,13 @@ padding:0;
     <div class="modal-content">
  
       <div class="modal-header">
-        <h5 class="modal-title" id="staticBackdropLabel">공지사항 작성</h5>
+        <h5 class="modal-title" id="staticBackdropLabel" >공지사항 작성</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true"><i class="fas fa-times"></i></span>
         </button>
       </div>
       <div class="modal-body">
-        <div id="title" style="border-bottom:1px solid #E4E4E4; border-top:1px solid #E4E4E4;">
+        <div id="title" style="border-bottom:1px solid #E4E4E4;">
         <input type="text" id="myInput" placeholder="제목을 입력해주세요."/></div>
         
         <div class="write_area">
@@ -260,7 +106,7 @@ padding:0;
           
         
       </div>
-      </div>
+     
       <div class="modal-footer" style="height:10%; width:100%;padding-right:15px;">
       <hr class="line">
         <button type="button" class="btn btn-secondary" data-dismiss="modal" style="float:right;background-color:#E4E4E4;color:#50401B;border:none;border-radius:10px;">취소</button>
@@ -279,7 +125,7 @@ padding:0;
 
 
 </div> <!-- container -->
-
+<jsp:include page="/common/footer.jsp" flush="true"/>
 <script>
 
 //$(document).ready(function(){

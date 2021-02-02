@@ -5,228 +5,16 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
-    <style>
-.header{
-   border-bottom: 1px solid #FFF3D8;
-background-color:white;
- 
-   } 
-.inner{
-position: relative;
-max-width: 1034px;
-min-width:500px;
-height: 80px;
-margin:0;
-         
-          
-}
-* {
-	box-sizing: border-box;
-}
-.beeLogo{
- width: 80px;
- height: 80px;
- overflow: hidden;
-vertical-align:middle;
-display : inline-block;
-padding-top:15px;
-
-}
-.inner form{
-display:inline-block;
-}    
-
-.inner img{
-width:100%;
-height:100%;
-object-fit:cover;
-
-
-}
-   
-.searchBox{
-position:absolute;
-left:100px;
-top:29px;
-width:200px;
-height:35px;
-padding: 0 13px 0 13px;
-
-border-radius:30px;
-background-color:#FFF3D8;
-margin:0 10px;
-}
-#input_searchBox{
-
-background-color:#FFF3D8;
-
-border:none;
-width:83%;
-height:100%;
-margin:0 0 0 5px;
-padding:3px;
-}
-#input_searchBox:focus{
-outline:none;
-}
-#btn_search{
-width:20px;
-height:20px;
-border:none;
-background-color:#FFF3D8;
-}
-ul{
-list-style:none;
-margin:0;
-padding:0;
-}
-li{
-display:list-item;
-}
-.top_right-menu{
-right:15px;
-position:absolute;
-top:30px;
-}
-.header .top_right-menu>li{
-position:relative;
-line-height:20px;
-float:left;
-margin-left:30px;
-}
-
-.top_right_btn{
-width: 30px;
-height:30px;
-overflow:hidden;
-display:inline-block;
-padding:0;
-background-color:white;
-border:none;
-
-}
-.top_right_img:before{
-font-size:26px;
-margin:0;
-padding:0;
-color:#FEE6B1;
-
-}
-
-.top_right_btn:focus{
-outline:none;
-}
-.menu-sub{     
-z-index : 9;
-background-color:#F7D078;
-box-shadow:0.2em 0.2em 10px #111;
-top:20px;    
-position:absolute;
-right:0;
-white-space:nowrap;
-transform:translate(10%, 2.2em);
-display:none;
-transition: all .8s;
-}
-.menu-sub:before{
-content:' ';
-position:absolute;
-right:0;
-top:-20px;
-left:0;
-height:20px;
-
-}
-.menu-sub a{
-color:#50401B;
-text-decoration:none;
-width:100%;
-}
-.menu-sub:after{
-content:' ';
-position:absolute;
-top:-20px;
-left:85%;
-transform:translateX(-50%);
-height:0;
-width:0;
-border-width:10px;
-border-style:solid;
-border-color:transparent transparent #F7D078 transparent;
-
-}
-.menu-item{
-position:relative;
-height : 35px;
-}
-.menu-item a{
-padding:0.7em;
-display:block;
-}
-
-.menu-item:hover .menu-sub{  
-opacity: 1;  
-display:block;
- transition-duration: 2s;
- color:#B9CCA1;
-
-font-size:1rem;
-
-}
-.menu-sub:hover{
-opacity: 1;  
-display:block;
-
-}
-
-.navi{
-position: relative;
-text-align:center;
-margin:0 auto;
-z-index : 8;
-background-color:white;
-}
-.navi_menu{
-display:flex;
-text-align:center;
-height:100%;
-align-items:center;
-position:relative;
-width:50%;
-margin:0 auto;
-}
-.navi_menu_item{
-margin-right:45px;
-text-align:center;
-flex:0 0 auto;
-}
-.navi_menu_item>a{
-text-decoration: none;
-line-height:34px;
-display:block;
-width:100%;
-height:100%;
-color:#50401B;
-} 
-.navi_menu_item>a:hover{
-
-color:#B9CCA1;
-font-weight: bold;
-font-size:1rem;
-}
-
-
-
-    </style>
 </head>
 <body>
-
-	<div class="container-fluid">
+<link rel="stylesheet" type="text/css" href="resources/css/headerBee.css">
+	<div class="container-fluid p-0">
+	<div class="container">
    <div class="row header" >
-   <div class="col-md-3 p-0 .d-sm-none"></div>
-   
-       <div class="col-6 inner p-0">
-       	<div class="row h-100 w-100 p-0" >
+   <div class="col-1 p-0 .d-sm-none"></div>
+	   
+	       	<div class="col-10 inner p-0">
+       	<div class="row h-100 w-100 p-0 m-0" >
            <div class="col-8 col-md-9 p-0">
            <span class="beeLogo">
             <a href="#" >
@@ -297,11 +85,13 @@ font-size:1rem;
             		
             	</li>
              </ul>
-             </div>  <!-- div col-3 -->
-             </div> <!-- div row -->
-          </div>  <!-- inner -->
-          <div class="col-md-3 p-0 .d-sm-none"></div>
-      </div>
+             </div>  <!-- col-4 col-md-3 p-0 -->
+	             </div> <!-- row h-100 w-100 p-0 -->
+		      </div>  <!-- inner -->
+          <div class="col-1 p-0 .d-sm-none"></div>
+      </div> <!-- row header -->
+	</div> <!-- container -->
+</div> <!-- container-fluid" -->
  
 <div class="row navi">
   <div class="col-md-3 p-0 h-100 w-100"></div>
@@ -316,13 +106,13 @@ font-size:1rem;
      	       <a href="#"  >사진첩</a>
 	    </li>	
 	    <li class="navi_menu_item">
-     	       <a href="/beesSchedule.do">일정</a>
+     	       <a href="#"  >일정</a>
 	    </li>	
         <li class="navi_menu_item">
      	       <a href="#" >첨부</a>
 	    </li>	
 	    <li class="navi_menu_item">
-     	       <a href="/beesMember.do">멤버</a>
+     	       <a href="#" >멤버</a>
 	    </li>	
 	</ul>
          </div>  <!-- navi -->
