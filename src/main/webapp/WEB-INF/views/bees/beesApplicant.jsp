@@ -1,15 +1,14 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
 
+
 </head>
 <body>
-
-<%@ include file="/common/cdnLib_solm.jsp"%>
+	<%@ include file="/common/cdnLib.jsp"%>
 
 <script>
 
@@ -29,22 +28,602 @@ return false;
 </script>
 
 
-<link rel="stylesheet" type="text/css" href="resources/css/beesApplicant.css">
+<style>
+* {
+		font-family: 'Noto Sans KR', sans-serif;	
+	}
+	
+	body {
+		background-color : #F9F9F9;
+	}
+	
+	div {
+		box-sizing: border-box;
+	}
+	
+	#header {
+		border-top: 5px solid #FFF3D8;
+		background-color : white;
+	}
+	
+	.nav {
+        width: 500px;
+        height: 30px;
+        overflow: hidden;
+    }
+    
+    .nav>ul{
+        width: 100%;
+        height: 100%;
+        margin: 0px;
+        padding: 0px;
+    }
+    
+    .nav>ul li {
+        float: left;
+        list-style-type: none;
+        width: 20%;
+        height: 100%;
+        text-align: center;
+        color: #50401B;
+    }
+    
+    #sub-content {
+    	width : 95%;
+    	padding-top: 20%;
+    	background-color: white;
+    }
+    
+    #sub-content-title {
+    	color: #50401B;
+    	font-size: 1.5rem;
+    	font-weight:bold;
+    }
+    
+* {
+	box-sizing: border-box;
+}
 
-<div id="header">
-		<%@include file="/include/header_bee.jsp" %>
-</div>	
 
-<div class="container pt-3" id="main">
-<div class="row">
-<div class="col-1"></div>
-<div class="col-3 p-0">
-<div id="bees-side" class="container m-0 p-2">
-    <div id="bees-side-profile">
-        <table>
+#nav {
+	padding-left: 35%;
+	padding-right: 35%;
+	padding-top : 0.5%;
+	padding-bottom : 0.5%;
+	
+}
+
+#nav>div {
+	
+	text-align: center;
+	font-size : 1rem;
+}
+
+#nav>div>a {
+	color : black;
+}
+
+
+
+#bees_main_massege {
+	padding-top: 20px;
+	font-size: 3rem;
+}
+
+
+#sub-pack-cont>div>span{
+	color : #50401B;
+}
+
+#sub-pack-cont>div>b{
+	color : #50401B;
+}
+
+#cont-message{
+	font-size : 0.7rem;
+}
+
+#line1{
+margin-top : 13px;
+margin-bottom : 5px;
+border-top : 1px solid #E6E6E6;
+}
+
+#line2{
+padding-left : 5%;
+padding-right : 5%;
+border-top : 2px solid #E6E6E6;
+}
+
+
+
+#profile{
+width : 100%;
+height : 100%;
+border : 1px solid #E6E6E6;
+}
+
+
+#sub-pack-cont{
+background-color : white;
+padding : 8px;
+padding-bottom : 8px;
+margin : 1%;
+
+}
+
+#sub-pack-chat{
+margin : 0px;
+padding : 5%;
+width : 100%;
+heigth : 150%;
+}
+
+.chatImg{
+width : 35px;
+height : 30px;
+
+}
+
+#sub-pack-chat{
+background-color : white;
+}
+
+.chatList{
+	padding-left : 0px;
+	padding-top : 20px;
+}
+
+#feed{
+	
+	margin-left : 1px;
+	background-color : white;
+	padding : 15px;
+}
+
+#profile-outline{
+	height : 150px;
+}
+
+
+#beesName{
+	color : #50401B;
+	font-size : 1.5rem;
+	
+}
+
+#beesName-outline{
+	margin-top : 5px;
+}
+
+#btn{
+background-color : white;
+font-size : 1rem;
+padding-top : 3px;
+padding-bottom : 5px;
+color : #F7D078;
+}
+
+#member{
+margin-top : 4px;
+margin-bottom : 5px;
+padding-bottom : 13px;
+};
+
+
+#set{
+font-size : 0.9rem;
+
+}
+
+#set >a {
+color : #50401B;
+}
+
+#footer{
+background-color : #50401B;
+}
+
+#chatAdd>a{
+	color : #F7D078;
+}
+
+.chatList>a {
+	color :  #50401B;
+	font-size : 0.8rem;
+	
+}
+
+#feed-top{
+	
+	padding-bottom : 10px;
+	color :  #50401B;
+	font-size : 1.6rem;
+	font-weight: 300;
+}
+
+#feed-top >b{
+	color : #F7D078;
+}
+
+#search{
+width : 90%;
+border : none;
+margin-top : 2px;
+}
+
+#search-outLine{
+
+height : 32px;
+border : 1px solid #707070;
+border-radius : 25px;
+
+}
+
+#searchBtn{
+background-color : white;
+border : none;
+
+}
+
+#searchBtn >svg{
+margin-bottom : 5px;
+
+}
+
+#line3{
+
+margin-top : 15px;
+margin-bottom : 5%;
+border-top : 1px solid #E6E6E6;
+}
+
+#search-select{
+border : none;
+text-align : right;
+}
+
+#search-select > select{
+border : none;
+font-size : 0.7rem;
+color : #50401B;
+}
+
+
+.memberList{
+	height : 15%;
+	width : 100%;
+	padding-top : 2%;
+	padding-bottom : 2%;
+	
+}
+
+
+.memberListImg{
+margin-right : 10px;
+width : 45px;
+height : 40px;
+}
+
+#memberInvite{
+color : #50401B;
+padding-left : 10px;
+text-decoration: none;
+}
+
+
+
+#memberInviteBtn{
+padding-top: 2%;
+padding-bottom: 2%;
+padding-left : 30px;
+}
+
+.chatHover{
+	width : 105px;
+	height : 30px;
+	padding-left : 2%;
+	visibility : hidden;
+	cursor : pointer;
+}
+
+#myModalLabel{
+font-size : 1.2rem;
+color :#6D6042;
+padding-left : 43%;
+font-weight:normal;
+}
+
+.modal-body >span{
+font-size : 1rem;
+color :#6D6042;
+font-weight:normal;
+text-align : center;
+}
+
+#closeBtn{
+color : #F7D078;
+}
+
+#urlCopy{
+background-color : #50401B;
+border-radius : 25px;
+border : none;
+margin-right: 41%;
+}
+
+   #sub-cont-test{
+   margin-top : 0.7%;
+   }
+
+#memberList-outLine{
+padding-top : 60%;
+height: 100%;
+}
+
+
+* {
+  font-family: "Noto Sans KR", sans-serif;
+}
+
+
+input:focus {
+  outline: none;
+}
+button:focus {
+  outline: none;
+}
+textarea:focus {
+  outline: none;
+}
+
+#bees-contents {
+  width: 98.5%;
+  margin: 0;
+}
+
+#bees-side-profile {
+  background-color: white;
+  width: 75%;
+  height: auto;
+  margin: auto;
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+
+#bees-side-chatting {
+  background-color: white;
+  width: 75%;
+  height: auto;
+  margin: auto;
+  margin-top: 10px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+
+#bees-side-profile > table {
+  margin: auto;
+  width: 95%;
+  height: 100%;
+}
+
+#bees-side a {
+  text-decoration: none;
+  color: #f7d078;
+}
+
+#bees-cover {
+  height: 130px;
+  border: 0.5px solid light-gray;
+ 
+  background-size: cover;
+}
+
+#bees-cover >img{
+width : 100%;
+height : 100%;
+border : 1px solid #E6E6E6;
+}
+#bees-name {
+  padding-left: 5px;
+  font-size: 1.5rem;
+  font-weight: 300;
+  color : #50401B;
+}
+
+#bees-member-count {
+  width: 30%;
+  padding-left: 5px;
+  font-size: 0.9rem;
+  font-weight: 200;
+  color : #50401B;
+}
+
+#bees-invite {
+  font-size: 0.8rem;
+  font-weight: 200;
+  
+}
+
+#bees-note {
+  padding-left: 5px;
+  font-size: 0.8rem;
+  font-weight: 100;
+}
+
+#bees-public {
+  padding: 0 5px 5px 5px;
+  font-size: 0.7rem;
+  font-weight: 100;
+  color : #50401B;
+}
+
+#bees-setting {
+  padding-left: 5px;
+  padding-bottom: 15px;
+  font-size: 0.8rem;
+  font-weight: 200;
+  
+}
+
+#bees-setting > a {
+color : #50401B;
+}
+
+#join-btn {
+  width: 95%;
+  height: 40px;
+  background-color: #f7d078;
+  border: 0px solid white;
+  color: white;
+}
+#join-box {
+  font-size: 0.8rem;
+  font-weight: 200;
+  padding-left: 5px;
+}
+
+.innerline {
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#bees-side-chatting > table {
+  margin: auto;
+  width: 95%;
+  height: 100%;
+}
+
+#chatting-header {
+  width: 70%;
+  padding-left: 5px;
+  font-size: 0.9rem;
+  font-weight: 300;
+}
+
+#new-chat {
+  padding-right: 5px;
+  text-align: right;
+  font-size: 0.8rem;
+  font-weight: 300;
+}
+
+.chat-list {
+  padding: 10px 5px 0 5px;
+  line-height: 10px;
+}
+
+.chat-profile {
+  display: inline-block;
+  width: 30px;
+  height: 30px;
+  border-radius: 999px;
+  background: url("/resources/image/p6.png");
+  background-size: cover;
+}
+
+.chat-title {
+  padding-left: 10px;
+  height: 100%;
+  display: inline-block;
+  font-size: 0.8rem;
+  font-weight: 300;
+  vertical-align: middle;
+  cursor: pointer;
+}
+
+.chat-open-btn {
+  padding-left: 10px;
+  height: 100%;
+  display: inline-block;
+  font-size: 0.8rem;
+  font-weight: 300;
+  vertical-align: middle;
+}
+
+#bees-public{
+padding-top: 10px;
+}
+
+#memberList-outline{
+margin-top :15%;
+
+}
+
+#applicant{
+border-radius : 25px;
+margin-top : 3%;
+background-color :#F9F9F9;
+border : 1px solid #707070;
+width : 17%;
+padding-bottom: 0.5%;
+
+}
+
+#applicant > a{
+margin-left : 13%;
+font-size : 0.8rem;
+text-align : center;
+color : #707070;
+text-decoration : none;
+}
+
+#userId{
+color : black;
+font-size : 1.1rem;
+}
+
+#joinDate{
+padding-left : 1%;
+font-size : 0.5rem;
+}
+
+#join-Refuse{
+margin-left : 43%;
+margin-right : 1%;
+border : 1px solid #50401B;
+background-color : white;
+font-size : 0.9rem;
+}
+
+#join-Acceptance{
+border : 1px solid #50401B;
+background-color : #50401B;
+color : white;
+font-size : 0.9rem;
+}
+
+#join-Refuse2{
+margin-left : 40.4%;
+margin-right : 1%;
+border : 1px solid #50401B;
+background-color : white;
+font-size : 0.9rem;
+}
+
+#paging{
+	text-align : center;
+	font-size : 0.7rem;
+	padding-top : 8%;
+	padding-bottom : 3%;
+	color : ##707070;
+}
+</style>
+<!-- 
+<link rel="stylesheet" type="text/css" href="resources/css/beesApplicant.css"> -->
+
+	<div id="header">
+		<%@include file="/include/headerUser.jsp" %>
+	</div>
+	<div class="container pt-3">
+		<div class="row">
+			<div class="col-1"></div>
+			<div class="col-3 p-0">
+				<div id="bees-side" class="container m-0 p-2">
+					<div id="bees-side-profile">
+						<table>
             <tr>
-                <td id="bees-cover" colspan="2"><img src="/resources/image/image.jpg""/></td>
-                
+                <td id="bees-cover" colspan="2" style="background:url('/resources/image/bees/cover/bees_cover_2.jpg')"></td>
             </tr>
             <tr>
                 <td id="bees-name" colspan="2">비즈이름</td>
@@ -71,8 +650,8 @@ return false;
             </td>
         </tr>
         </table>
-    </div>
-    <div id="bees-side-chatting">
+		</div>
+		<div id="bees-side-chatting">
         <table>
             <tr><td id="chatting-header">채팅</td>
                 <td id="new-chat"><a class="chat-open-btn" href="#none" target="_blank" onclick="openPopup()">새 채팅</a></td></tr>
@@ -85,58 +664,35 @@ return false;
                 <a class="chat-open-btn" href="#none" target="_blank" onclick="openPopup()" style="color:dimgray">'비즈' 전체 채팅</a></td></tr>
         </table>
     </div>
-</div>
-</div>
-<div class="col-7 p-0">
-<div id="bees-contents" class="container m-0 p-2">
-
-
-    <!-- 우측 메인 Content 공간 -->
-					<div class="row"  id="feed">
+				</div>
+			</div>
+			<div class="col-7 p-0">
+				<div id="bees-contents" class="container m-0 p-2">
+				
+				<div class="row"  id="feed">
 						<div class="col-md-12" id="feed-top">가입신청자</b></div>
 						<div class="col-md-12" id="line3"></div>
 						<div class="col-md-12 p-0, memberList" >
-						<img src="/resources/image/프로필.png" class="memberListImg"/>
+						<img src="/resources/image/p6.png" class="memberListImg"/>
 						<span id="userId">비즈 조아</span> <span id="joinDate">2021년 1월 29일 신청 </span>
 						<button id="join-Refuse">거절</button><button id="join-Acceptance">수락</button>
 						</div> 
 						
 						<div class="col-md-12 p-0, memberList" >
-						<img src="/resources/image/프로필.png" class="memberListImg"/>
+						<img src="/resources/image/p6.png" class="memberListImg"/>
 						<span id="userId">비즈 짱시러</span> <span id="joinDate">2021년 1월 29일 신청 </span>
 						<button id="join-Refuse2" ">거절</button><button id="join-Acceptance">수락</button>
 						
-						</div>
-						<div class="col-md-12 p-0, memberList" >
-						<img src="/resources/image/프로필.png" class="memberListImg"/>
-						<span id="userId">비즈 짱시러</span> <span id="joinDate">2021년 1월 29일 신청 </span>
-						<button id="join-Refuse2">거절</button><button id="join-Acceptance">수락</button>
-						</div>
-						<div class="col-md-12 p-0, memberList" >
-						<img src="/resources/image/프로필.png" class="memberListImg"/>
-						<span id="userId">비즈 짱시러</span> <span id="joinDate">2021년 1월 29일 신청 </span>
-						<button id="join-Refuse2">거절</button><button id="join-Acceptance">수락</button>
-						</div>
-						<div class="col-md-12 p-0, memberList" >
-						<img src="/resources/image/프로필.png" class="memberListImg"/>
-						<span id="userId">비즈 짱시러</span> <span id="joinDate">2021년 1월 29일 신청 </span>
-						<button id="join-Refuse2">거절</button><button id="join-Acceptance">수락</button>
-						</div>
+						
 						<div id ="paging">< 1 2 3 4 5 ></div> 
 					</div>
-    
-    
- 
-	
-
+					</div>
+					</div>
+		</div>	
+	</div>			
 </div>
-</div>
-<div class="col-1"></div>
-</div>
-</div>
-
-
-
-<%@include file="/common/footer.jsp"%>
+	<div id="footer">
+	<%@include file="/common/footer.jsp"%>
+	</div>
 </body>
 </html>

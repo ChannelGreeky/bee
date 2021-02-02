@@ -699,17 +699,8 @@ border : 5px solid #F7D078;
 </style>
 
 	<div id="header">
-		<div class="nav m-auto">
-	        <ul>
-	        	<!-- 서브헤더 공간 -->
-	        	<a href="#"><li id="rad1">전체글</li></a>
-	        	<a href="#"><li>사진첩</li></a>
-	        	<a href="/beesSchedule.do"><li>일정</li></a>
-	        	<a href="#"><li>첨부</li></a>
-	        	<a href="/beesMember.do"><li>멤버</li></a>
-	        </ul>
-	    </div>
-    </div>
+		<%@include file="/include/headerUser.jsp" %>
+	</div>
 	<div class="container pt-3">
 		<div class="row">
 			<div class="col-1"></div>
@@ -718,7 +709,7 @@ border : 5px solid #F7D078;
 					<div id="bees-side-profile">
 						<table>
             <tr>
-                <td id="bees-cover" colspan="2" style="background:url('/resources/image/image.jpg')"></td>
+                <td id="bees-cover" colspan="2" style="background:url('/resources/image/bees/cover/bees_cover_2.jpg')"></td>
             </tr>
             <tr>
                 <td id="bees-name" colspan="2">비즈이름</td>
@@ -941,7 +932,12 @@ border : 5px solid #F7D078;
 			
 	
 	</script>
+				</div>	
+		</div>		
+	</div>	
+	
 	<div id="footer">
+	<%@include file="/common/footer.jsp"%>
 	</div>
 </body>
 </html>
