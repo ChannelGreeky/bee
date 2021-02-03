@@ -16,13 +16,14 @@ public class Member {
 	private String memberAddr;
 	private String interest;
 	private String profileImg;
+	private char memberGender;
 	public Member() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
 	public Member(int memberNo, String memberId, String memberPw, String memberName, String memberEmail,
 			char memberPhone, Timestamp memberDate, char delYN, Timestamp memberEndDate, int memberBirth,
-			String memberAddr, String interest, String profileImg) {
+			String memberAddr, String interest, String profileImg, char memberGender) {
 		super();
 		this.memberNo = memberNo;
 		this.memberId = memberId;
@@ -37,6 +38,7 @@ public class Member {
 		this.memberAddr = memberAddr;
 		this.interest = interest;
 		this.profileImg = profileImg;
+		this.memberGender = memberGender;
 	}
 	public int getMemberNo() {
 		return memberNo;
@@ -116,6 +118,13 @@ public class Member {
 	public void setProfileImg(String profileImg) {
 		this.profileImg = profileImg;
 	}
+	public char getMemberGender() {
+		return memberGender;
+	}
+	public void setMemberGender(char memberGender) {
+		this.memberGender = memberGender;
+	}
+	
 	
 	
 }
