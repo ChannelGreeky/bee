@@ -29,9 +29,9 @@ return false;
 
 <link rel="stylesheet" type="text/css" href="resources/css/beesApplicant.css">
 
-	<div id="header">
-		<%@include file="/include/headerUser.jsp" %>
-	</div>
+	<div>
+		<%@include file="/include/headerBee.jsp" %>
+	</div>	
 	<div class="container pt-3" id="all">
 		<div class="row">
 			<div class="col-1"></div>
