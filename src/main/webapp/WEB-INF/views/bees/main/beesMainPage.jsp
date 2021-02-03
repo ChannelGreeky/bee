@@ -26,7 +26,7 @@
 	
 	
 	<div id="header">
-		<%@include file="/include/header_bee.jsp" %>
+		<%@include file="/include/headerBee.jsp" %>
 	</div>	
 	<div class="container pt-3">
 		<div class="row">

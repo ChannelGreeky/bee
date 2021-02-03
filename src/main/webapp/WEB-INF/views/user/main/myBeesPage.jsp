@@ -14,7 +14,7 @@
 	<script type="text/javascript" src="/resources/js/beesModifyModal.js"></script>
 
 	<div>
-	<%@include file="/include/header_user.jsp" %>
+	<%@include file="/include/headerUser.jsp" %>
 	</div>
 	<div class="container pt-3">
 		<div class="row">

@@ -10,7 +10,7 @@
 	<link rel="stylesheet" type="text/css" href="/resources/css/feedSearchResult.css">
 	<script type="text/javascript" src="/resources/js/feedSearchResult.js"></script>
 	<div>
-		<%@include file="/include/header_user.jsp" %>
+		<%@include file="/include/headerUser.jsp" %>
 	</div>
 	<div class="container pt-3">
 		<div class="row">
