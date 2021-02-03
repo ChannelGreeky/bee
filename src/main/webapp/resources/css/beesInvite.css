@@ -194,10 +194,6 @@ font-size : 0.9rem;
 color : #50401B;
 }
 
-#footer{
-background-color : #50401B;
-}
-
 #chatAdd>a{
 	color : #F7D078;
 }
@@ -381,7 +377,7 @@ color : #50401B;
   width: 30px;
   height: 30px;
   border-radius: 999px;
-  background: url("/resources/image/프로필.png");
+  background: url("/resources/image/p6.png");
   background-size: cover;
 }
 
@@ -434,15 +430,14 @@ padding-top: 10px;
 }
 
 #line3{
-width : 90%;
-margin-left : 5%;
+margin-left : 4%;
+width : 30%;
 margin-top : 2%;
 border-top : 1px solid #E6E6E6;
 }
 
 #line4{
-width : 90%;
-margin-left : 5%;
+margin-left : 4%;
 margin-top : 15px;
 margin-bottom : 10%;
 border-top : 1px solid #E6E6E6;
@@ -558,4 +553,8 @@ margin-top : 1%;
 margin-bottom : 4%;
 margin-left : 41%;
 margin-right : 0%;
+}
+
+#all {
+height : 900px;
 }

@@ -27,18 +27,14 @@
 <body>
 	<%@ include file="/common/cdnLib.jsp"%>
 	<!--비즈 전체페이지 + 사이드 프로필 + 메인 컨텐츠 크기-->
-	<link rel="stylesheet" type="text/css" href="/resources/css/beesForm.css">
-	<script type="text/javascript" src="/resources/js/beesForm.js"></script>
+<link rel="stylesheet" type="text/css" href="/resources/css/beesForm.css">
+<script type="text/javascript" src="/resources/js/beesForm.js"></script>
 	
 <!-- datepicker -->
-
 <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 <script src="./jquery-ui-1.12.1/datepicker-ko.js"></script>
-
-<!-- 외부 css + js-->
-<!--비즈 전체페이지 + 사이드 프로필 + 메인 컨텐츠 크기-->
 
 
 <script>
@@ -57,6 +53,7 @@ return false;
 });
 
 </script>
+
 <!-- background-event.html 파일 default 설정 -->
 <script>
 
@@ -137,222 +134,6 @@ return false;
 
 <style>
 
-	* {
-		font-family: 'Noto Sans KR', sans-serif;	
-	}
-	
-	body {
-		background-color : #F9F9F9;
-	}
-	
-	div {
-		box-sizing: border-box;
-	}
-	
-	#header {
-		border-top: 5px solid #FFF3D8;
-		background-color : white;
-	}
-	
-	.nav {
-        width: 500px;
-        height: 30px;
-        overflow: hidden;
-    }
-    
-    .nav>ul{
-        width: 100%;
-        height: 100%;
-        margin: 0px;
-        padding: 0px;
-    }
-    
-    .nav>ul li {
-        float: left;
-        list-style-type: none;
-        width: 20%;
-        height: 100%;
-        text-align: center;
-        color: #50401B;
-    }
-    
-    #sub-content {
-    	width : 95%;
-    	padding-top: 20%;
-    	background-color: white;
-    }
-    
-    #sub-content-title {
-    	color: #50401B;
-    	font-size: 1.5rem;
-    	font-weight:bold;
-    }
-    
-* {
-	box-sizing: border-box;
-}
-
-
-#nav {
-	padding-left: 35%;
-	padding-right: 35%;
-	padding-top : 0.5%;
-	padding-bottom : 0.5%;
-	
-}
-
-#nav>div {
-	
-	text-align: center;
-	font-size : 1rem;
-}
-
-#nav>div>a {
-	color : black;
-}
-
-#main {
-	padding-top: 20px;
-	padding-bottom : 200px;
-}
-
-#bees_main_massege {
-	padding-top: 20px;
-	font-size: 3rem;
-}
-
-<%-- 
-#sub-pack-cont{
-	border : 1px solid red;
-}--%>
-
-#sub-pack-cont>div>span{
-	color : #50401B;
-}
-
-#sub-pack-cont>div>b{
-	color : #50401B;
-}
-
-#cont-message{
-	font-size : 0.7rem;
-}
-
-#line1{
-margin-top : 13px;
-margin-bottom : 5px;
-border-top : 1px solid #E6E6E6;
-}
-
-#line2{
-padding-left : 5%;
-padding-right : 5%;
-border-top : 2px solid #E6E6E6;
-}
-
-
-#profile{
-width : 100%;
-height : 100%;
-border : 1px solid #E6E6E6;
-}
-
-
-#sub-pack-cont{
-background-color : white;
-padding : 8px;
-padding-bottom : 8px;
-margin : 1%;
-
-}
-
-#sub-pack-chat{
-margin : 0px;
-padding : 5%;
-width : 100%;
-heigth : 150%;
-}
-
-.chatImg{
-width : 35px;
-height : 30px;
-
-}
-
-#sub-pack-chat{
-background-color : white;
-}
-
-.chatList{
-	padding-left : 0px;
-	padding-top : 20px;
-}
-
-#feed{
-	
-	margin-left : 1px;
-	background-color : white;
-	padding : 15px;
-}
-
-#profile-outline{
-	height : 150px;
-}
-
-
-#beesName{
-	color : #50401B;
-	font-size : 1.5rem;
-	
-}
-
-#beesName-outline{
-	margin-top : 5px;
-}
-
-#btn{
-background-color : white;
-font-size : 1rem;
-padding-top : 3px;
-padding-bottom : 5px;
-color : #F7D078;
-}
-
-#member{
-margin-top : 4px;
-margin-bottom : 5px;
-padding-bottom : 13px;
-};
-
-
-#set{
-font-size : 0.9rem;
-
-}
-
-#set >a {
-color : #50401B;
-}
-
-#footer{
-background-color : #50401B;
-}
-
-#chatAdd>a{
-	color : #F7D078;
-}
-
-.chatList>a {
-	color :  #50401B;
-	font-size : 0.8rem;
-	
-}
-
-
-
-   #sub-cont-test{
-   margin-top : 0.7%;
-   }
 
 #memberList-outLine{
 height: 100%;
@@ -696,12 +477,26 @@ color : #50401B;
 border : 5px solid #F7D078;
 
 }
+
+#all {
+height : 900px;
+}
+
+#bees-setting > a{
+color: #50401B
+}
+
+#bees-public {
+ padding-top : 10px;
+}
 </style>
 
+<link rel="stylesheet" type="text/css" href="resources/css/beesSchedule.css">
+	
 	<div id="header">
 		<%@include file="/include/headerUser.jsp" %>
 	</div>
-	<div class="container pt-3">
+	<div class="container pt-3" id="all">
 		<div class="row">
 			<div class="col-1"></div>
 			<div class="col-3 p-0">
@@ -885,7 +680,7 @@ border : 5px solid #F7D078;
 					    $('#sche-detail-modal2').css(
 								'top',
 								Math.max(0, (($(window).height() - $(
-										'#sche-detail-modal2').outerHeight()) / 2)
+										'#sche-detail-modal2').outerHeight())/ 2)
 										+ $(window).scrollTop())
 										+ 'px');
 						$('#sche-detail-modal2').css(
@@ -932,9 +727,7 @@ border : 5px solid #F7D078;
 			
 	
 	</script>
-				</div>	
-		</div>		
-	</div>	
+
 	
 	<div id="footer">
 	<%@include file="/common/footer.jsp"%>
