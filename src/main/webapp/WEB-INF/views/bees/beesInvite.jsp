@@ -1,5 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -7,7 +6,7 @@
 <title>Insert title here</title>
 </head>
 <body>
-<%@ include file="/common/cdnLib.jsp"%>
+	<%@ include file="/common/cdnLib.jsp"%>
 
 <script>
 
@@ -28,20 +27,18 @@ return false;
 
 <link rel="stylesheet" type="text/css" href="resources/css/beesInvite.css">
 
-<div id="header">
-		<%@include file="/include/header_bee.jsp" %>
-</div>	
-
-<div class="container pt-3" id="main">
-<div class="row">
-<div class="col-1"></div>
-<div class="col-3 p-0">
-<div id="bees-side" class="container m-0 p-2">
-    <div id="bees-side-profile">
-        <table>
+	<div id="header">
+		<%@include file="/include/headerUser.jsp" %>
+	</div>
+	<div class="container pt-3" id="all">
+		<div class="row">
+			<div class="col-1"></div>
+			<div class="col-3 p-0">
+				<div id="bees-side" class="container m-0 p-2">
+					<div id="bees-side-profile">
+						<table>
             <tr>
-                <td id="bees-cover" colspan="2"><img src="/resources/image/image.jpg""/></td>
-                
+                <td id="bees-cover" colspan="2" style="background:url('/resources/image/bees/cover/bees_cover_2.jpg')"></td>
             </tr>
             <tr>
                 <td id="bees-name" colspan="2">비즈이름</td>
@@ -68,8 +65,8 @@ return false;
             </td>
         </tr>
         </table>
-    </div>
-    <div id="bees-side-chatting">
+		</div>
+		<div id="bees-side-chatting">
         <table>
             <tr><td id="chatting-header">채팅</td>
                 <td id="new-chat"><a class="chat-open-btn" href="#none" target="_blank" onclick="openPopup()">새 채팅</a></td></tr>
@@ -82,17 +79,13 @@ return false;
                 <a class="chat-open-btn" href="#none" target="_blank" onclick="openPopup()" style="color:dimgray">'비즈' 전체 채팅</a></td></tr>
         </table>
     </div>
-</div>
-</div>
-<div class="col-7 p-0">
-<div id="bees-contents" class="container m-0 p-2">
-
-
-    <!-- 우측 메인 Content 공간 -->
-		<!-- 우측 메인 Content 공간 -->
-					<div class="row p-0"  id="feed">
+				</div>
+			</div>
+			<div class="col-7 p-0">
+				<div id="bees-contents" class="container m-0 p-2">
+				<div class="row p-0"  id="feed">
 						<div class="col-md-12" id="feed-top">멤버초대</div>
-						<div class="col-md-12" id="line3"></div>
+						<div class="col-md-11" id="line3"></div>
 						
 
 <!-- modal -->
@@ -120,7 +113,7 @@ return false;
 </svg> <span id="box-text1">초대링크 공유하기</span> <br> <sapn id="box-text2">함께하고 싶은 비즈들에게 공유해주세요!</span></div></a>
 	
 	
-	<div class="col-md-12" id="line4"></div>
+	<div class="col-md-11" id="line4"></div>
 
 					</div>
     
@@ -134,17 +127,14 @@ return false;
 			var clipboard = new Clipboard('#copy')
 		});
 	</script>
-					
-
-
-</div>
-</div>
-<div class="col-1"></div>
-</div>
+			</div>	
+		</div>		
+	</div>			
 </div>
 
-
-
-<%@include file="/common/footer.jsp"%>
+	<div id="footer">
+	<%@include file="/common/footer.jsp"%>
+	</div>
+	
 </body>
 </html>

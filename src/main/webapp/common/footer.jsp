@@ -12,7 +12,6 @@
 </div>
 <style>
 #footer{
-	
 		width:100%;
 		height:80px;
 		margin-top:40px;

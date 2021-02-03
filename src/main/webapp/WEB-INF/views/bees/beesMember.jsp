@@ -1,21 +1,18 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+
 </head>
 <body>
-
-<%@ include file="/common/cdnLib_solm.jsp"%>
-
-<!-- modal cdn -->
-<script
-	src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js"
-	integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx"
-	crossorigin="anonymous"></script>
-
+	<%@ include file="/common/cdnLib.jsp"%>
+	
+	<!--비즈 전체페이지 + 사이드 프로필 + 메인 컨텐츠 크기-->
+	<link rel="stylesheet" type="text/css" href="/resources/css/beesForm.css">
+	<script type="text/javascript" src="/resources/js/beesForm.js"></script>
+	
 <script>
 
 $(function(){
@@ -30,25 +27,21 @@ return false;
 });
 
 });
-
 </script>
 
-
-<link rel="stylesheet" type="text/css" href="resources/css/beesMember.css"> 
-<div id="header">
-		<%@include file="/include/header_bee.jsp" %>
-</div>
-
-<div class="container pt-3" id="main">
-<div class="row">
-<div class="col-1"></div>
-<div class="col-3 p-0">
-<div id="bees-side" class="container m-0 p-2">
-    <div id="bees-side-profile">
-        <table>
+<link rel="stylesheet" type="text/css" href="resources/css/beesMember.css">
+	<div id="header">
+		<%@include file="/include/headerUser.jsp" %>
+	</div>	
+	<div class="container pt-3" id="all">
+		<div class="row">
+			<div class="col-1"></div>
+			<div class="col-3 p-0">
+				<div id="bees-side" class="container m-0 p-2">
+					<div id="bees-side-profile">
+						<table>
             <tr>
-                <td id="bees-cover" colspan="2"><img src="/resources/image/image.jpg""/></td>
-                
+                <td id="bees-cover" colspan="2" style="background:url('/resources/image/bees/cover/bees_cover_2.jpg')"></td>
             </tr>
             <tr>
                 <td id="bees-name" colspan="2">비즈이름</td>
@@ -75,8 +68,8 @@ return false;
             </td>
         </tr>
         </table>
-    </div>
-    <div id="bees-side-chatting">
+		</div>
+		<div id="bees-side-chatting">
         <table>
             <tr><td id="chatting-header">채팅</td>
                 <td id="new-chat"><a class="chat-open-btn" href="#none" target="_blank" onclick="openPopup()">새 채팅</a></td></tr>
@@ -89,18 +82,14 @@ return false;
                 <a class="chat-open-btn" href="#none" target="_blank" onclick="openPopup()" style="color:dimgray">'비즈' 전체 채팅</a></td></tr>
         </table>
     </div>
-</div>
-</div>
-<div class="col-7 p-0">
-<div id="bees-contents" class="container m-0 p-2">
-
-
-    <!-- 우측 메인 Content 공간 -->
-					<div class="row"  id="feed">
+				</div>
+			</div>
+			<div class="col-7 p-0">
+				<div id="bees-contents" class="container m-0 p-2">
+				<div class="row"  id="feed">
 						<div class="col-md-12" id="feed-top">멤버 <b>6</b></div>
 						<from action="#" method="post" id="search-outLine">
 						<div class="col-md-12"  >
-						
 						<input type="text" id="search" placeholder="&nbsp;&nbsp;&nbsp;멤버검색"/><button type="submit" id="searchBtn"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-zoom-in" viewBox="0 0 16 16">
   <path fill-rule="evenodd" d="M6.5 12a5.5 5.5 0 1 0 0-11 5.5 5.5 0 0 0 0 11zM13 6.5a6.5 6.5 0 1 1-13 0 6.5 6.5 0 0 1 13 0z"/>
   <path d="M10.344 11.742c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1 6.538 6.538 0 0 1-1.398 1.4z"/>
@@ -117,13 +106,8 @@ return false;
 							</from>
 						
 						<div class="row" id="memberList-outline">
-							<div class="col-md-12 p-0, memberList" ><img src="/resources/image/프로필.png" class="memberListImg"/>본인 <span>user1</span></div>  
-							<div class="col-md-12 p-0, memberList" ><img src="/resources/image/프로필.png" class="memberListImg"/>홍길동<span>user1</span></div>
-							<div class="col-md-12 p-0, memberList" ><img src="/resources/image/프로필.png" class="memberListImg"/>홍길동<span>user1</span></div>
-							<div class="col-md-12 p-0, memberList" ><img src="/resources/image/프로필.png" class="memberListImg"/>홍길동<span>user1</span></div>
-							<div class="col-md-12 p-0, memberList" ><img src="/resources/image/프로필.png" class="memberListImg"/>홍길동<span>user1</span></div>
+							<div class="col-md-12 p-0, memberList" ><img src="/resources/image/p6.png" class="memberListImg"/>본인 <span>user1</span></div>  
 							
-						
 						</div>
 						
 						<div class="col-md-12" id="line3"></div>
@@ -133,62 +117,14 @@ return false;
 </svg><a href="/inviteMember.do" id="memberInvite">멤버 초대하기</a></div>
 					</div>
     
-    
- 
+				
+				</div>
+			</div>	
+		</div>		
+	</div>	
 
-<!-- modal
-<img src="/resources/image/대화하기.png" class="chatHover" data-toggle="modal" data-target="#myModal"/>
-
-
-<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">  
-      <h4 class="modal-title" id="myModalLabel">멤버 선택</h4><br>
-        <button type="button" id="closeBtn" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
-      </div>
-      <div class="modal-body">
-      <form>
-      	<input type="text" id="nameSearch" /><button type="submit">검색</button>
-      </form>
-     	
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-primary" id="urlCopy">초대(1)</button>
-      </div>
-    </div>
-  </div>
-					</div>
-					
-	
-	<script>
-$(function(){
-		
-		$('.memberList').hover(function(){
-			$(this).children('.chatHover').css('visibility', 'visible');},
-			function(){
-			$(this).children('.chatHover').css('visibility', 'hidden');
-
-			});
-		
-		
-		$('.chatHover').click(function(){
-			$("#myModal").modal();
-		});
-		
-		
-	});
-	
-	</script>
- -->
-</div>
-</div>
-<div class="col-1"></div>
-</div>
-</div>
-
-
-
-<%@include file="/common/footer.jsp"%>
+	<div id="footer">
+	<%@include file="/common/footer.jsp"%>
+	</div>
 </body>
 </html>
