@@ -2,7 +2,7 @@ package com.fourmeeting.bee.vote.model.vo;
 
 import java.sql.Date;
 
-public class voteChoice {
+public class VoteChoice {
 	
 	private int voteChoNo;
 	private String voteChoItem;
@@ -14,12 +14,12 @@ public class voteChoice {
 
 	
 	
-	public voteChoice() {
+	public VoteChoice() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
 
-	public voteChoice(int voteChoNo, String voteChoItem, int userNo, String userName, int voteNo) {
+	public VoteChoice(int voteChoNo, String voteChoItem, int userNo, String userName, int voteNo) {
 		super();
 		this.voteChoNo = voteChoNo;
 		this.voteChoItem = voteChoItem;

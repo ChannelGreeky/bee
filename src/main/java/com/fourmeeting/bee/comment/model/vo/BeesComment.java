@@ -2,7 +2,7 @@ package com.fourmeeting.bee.comment.model.vo;
 
 import java.sql.Date;
 
-public class beesComment {
+public class BeesComment {
 	
 	private int commentNo;
 	private String commentCont;
@@ -16,12 +16,12 @@ public class beesComment {
 	
 	
 	
-	public beesComment() {
+	public BeesComment() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
 
-	public beesComment(int commentNo, String commentCont, Date commentDate, int recommentNo, char commentDelYN,
+	public BeesComment(int commentNo, String commentCont, Date commentDate, int recommentNo, char commentDelYN,
 			int userNo, int boardNo, int beesNo) {
 		super();
 		this.commentNo = commentNo;
