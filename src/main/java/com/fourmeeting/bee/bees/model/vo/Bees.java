@@ -1,5 +1,7 @@
 package com.fourmeeting.bee.bees.model.vo;
 
+import java.sql.Timestamp;
+
 public class Bees {
 	private int beesNo;
 	private String beesName;
@@ -13,6 +15,8 @@ public class Bees {
 	private char beesGender;
 	private int beesMaxBirth;
 	private int beesMinBirth;
+	private Timestamp beesDate;
+	private Timestamp beesDelDate;
 	public int getBeesNo() {
 		return beesNo;
 	}
@@ -85,8 +89,25 @@ public class Bees {
 	public void setBeesMinBirth(int beesMinBirth) {
 		this.beesMinBirth = beesMinBirth;
 	}
+	public Timestamp getBeesDate() {
+		return beesDate;
+	}
+	public void setBeesDate(Timestamp beesDate) {
+		this.beesDate = beesDate;
+	}
+	public Timestamp getBeesDelDate() {
+		return beesDelDate;
+	}
+	public void setBeesDelDate(Timestamp beesDelDate) {
+		this.beesDelDate = beesDelDate;
+	}
+	public Bees() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
 	public Bees(int beesNo, String beesName, String beesCover, String beesCategory, String beesHost, char beesPublicYN,
-			String beesCont, int beesUserLimit, char beesDelYN, char beesGender, int beesMaxBirth, int beesMinBirth) {
+			String beesCont, int beesUserLimit, char beesDelYN, char beesGender, int beesMaxBirth, int beesMinBirth,
+			Timestamp beesDate, Timestamp beesDelDate) {
 		super();
 		this.beesNo = beesNo;
 		this.beesName = beesName;
@@ -100,9 +121,10 @@ public class Bees {
 		this.beesGender = beesGender;
 		this.beesMaxBirth = beesMaxBirth;
 		this.beesMinBirth = beesMinBirth;
+		this.beesDate = beesDate;
+		this.beesDelDate = beesDelDate;
 	}
-	public Bees() {
-		super();
-		// TODO Auto-generated constructor stub
-	}
+	
+	
+	
 }
