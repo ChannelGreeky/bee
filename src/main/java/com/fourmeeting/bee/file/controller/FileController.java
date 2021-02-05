@@ -1,5 +1,5 @@
 package com.fourmeeting.bee.file.controller;
 
-public class BeesFileController {
+public class FileController {
 
 }
