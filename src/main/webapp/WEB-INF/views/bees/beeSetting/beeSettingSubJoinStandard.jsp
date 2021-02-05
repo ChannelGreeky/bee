@@ -389,9 +389,9 @@ button {
     border-color: -internal-light-dark(rgb(118, 118, 118), rgb(133, 133, 133));
     border-image: initial;
 }
-.header.beeHeaderColor{
+/* .header.beeHeaderColor{
    background-color: white;
-}
+} */
 li{
    list-style: none;
 }

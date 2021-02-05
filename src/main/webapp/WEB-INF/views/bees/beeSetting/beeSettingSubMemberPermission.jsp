@@ -419,9 +419,9 @@ button.uButton {
     font-weight: 400;
     color: #6D6042;
 }
-.header.beeHeaderColor{
+/* .header.beeHeaderColor{
    background-color: white;
-}
+} */
 li{
    list-style: none;
 }

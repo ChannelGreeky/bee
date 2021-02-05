@@ -58,5 +58,24 @@
 	
 	<a href="/bk.do">보</a>
 	
+	<hr>
+	
+	<h1>비즈 생성</h1>
+		<a href="/beeCreateMain.do">비즈만들기 메인</a><br>
+		<a href="/beeCreateSub.do">비즈커버설정</a><br>
+	<h1>비즈 설정</h1>
+		<a href="/beeSettingMain.do">비즈설정 메인</a><br>
+		
+		<a href="/beeSettingSubCoverUpdate.do">비즈 커버  설정 상세</a><br>
+		<a href="/beeSettingSubType.do">비즈 공개 설정 상세</a><br>
+		<a href="/beeSettingSubIntro.do">비즈 소개 설정 상세</a><br>
+		<a href="/beeSettingSubMaxMember.do">비즈 최대인원수 설정 상세</a><br>
+		<a href="/beeSettingSubJoinStandard.do">비즈 가입 조건 상세</a><br>
+		<a href="/beeSettingSubJoinManager.do">비즈 매니저 추가 상세</a><br>
+		<a href="/beeSettingSubMemberPermission.do">비즈 멤버 권한 설정 상세</a><br>
+		<a href="/beeSettingSubMemberWithdraw.do">비즈 멤버 탈퇴 차단 설정 멤버리스트</a><br>
+		<a href="/beeSettingSubMemberWithdrawDo.do">비즈 멤버 탈퇴 차단 설정 멤버차단</a><br>
+	
+	
 </body>
 </html>
