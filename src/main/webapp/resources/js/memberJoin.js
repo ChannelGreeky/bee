@@ -7,31 +7,35 @@ window.onload = function() {
 		phoneMessage = document.getElementById("phoneMessage");
 		addrMessage = document.getElementById("addrMessage");
 
-		userId = document.getElementById("userId");
-		userPw = document.getElementById("userPw");
-		userPwRe = document.getElementById("userPwRe");
-		userName = document.getElementById("userName");
-		phone = document.getElementById("phone");
+		memberId = document.getElementById("memberId");
+		memberPw = document.getElementById("memberPw");
+		memberPwRe = document.getElementById("memberPwRe");
+		memberName = document.getElementById("memberName");
+		phone = document.getElementById("memberPhone");
 		authBox = document.getElementById("authBox");
 		authInput = document.getElementById("inputAuthNum");
 		sendSms = document.getElementById("sendSms");
 		addr = document.getElementById("addr_address");
 		detailAddr = document.getElementById("addr_detailAddress");
-		email = document.getElementById("email");
+		email = document.getElementById("memberEmail");
 	}
 
 	function check() {
 		if(!idCheck()){
-			userId.focus();
+			memberId.focus();
+			return false;
+		} else if ($('#idCheckBtn').css('display') != 'none'){
+			idCheckBtn.focus();
+			idMessage.innerHTML = "중복확인을 눌러 중복확인을 진행해 주십시오";
 			return false;
 		} else if (!pwCheck()){
-			userPw.focus();
+			memberPw.focus();
 			return false;
 		} else if (!pwReCheck()){
-			userPwRe.focus();
+			memberPwRe.focus();
 			return false;
 		} else if (!nameCheck()) {
-			userName.focus();
+			memberName.focus();
 			return false;
 		} else if (!phoneCheck()) {
 			phone.focus();
@@ -52,13 +56,17 @@ window.onload = function() {
 		} else if (!emailCheck()) {
 			email.focus();
 			return false;
+		} else if ($('#emailCheckBtn').css('display') != 'none'){
+			emailCheckBtn.focus();
+			emailMessage.innerHTML = "중복확인을 눌러 중복확인을 진행해 주십시오";
+			return false;
 		} else {
 			return true;
 		}
 	}
 
 	function idCheck() {
-		if ((/^[a-z][a-z0-9]{5,11}$/.test(userId.value))) {
+		if ((/^[a-z][a-z0-9]{5,11}$/.test(memberId.value))) {
 			idMessage.innerHTML = "";
 			return true;
 		} else{
@@ -70,7 +78,7 @@ window.onload = function() {
 	}
 	function pwCheck() {
 		if ((/^(?=.*[A-Za-z])(?=.*\d)(?=.*[$@$!%*#?&])[A-Za-z\d$@$!%*#?&]{8,16}$/
-				.test(userPw.value))) //비밀번호 검사
+				.test(memberPw.value))) //비밀번호 검사
 		{
 			pwMessage.style.color = "blue";
 			pwMessage.innerHTML = "유효한 비밀번호입니다.";
@@ -84,13 +92,13 @@ window.onload = function() {
 	}
 
 	function pwReCheck() {
-		if (!(userPw.value == userPwRe.value)) //PW와 PW_RE 비교 검사
+		if (!(memberPw.value == memberPwRe.value)) //PW와 PW_RE 비교 검사
 		{
 			pwReMessage.style.color = "red";
 			pwReMessage.innerHTML = "비밀번호와 비밀번호 확인 값은 같아야 합니다.";
 
 			return false;
-		} else if (userPwRe.value == "" || userPw.value == "") {
+		} else if (memberPwRe.value == "" || memberPw.value == "") {
 			pwReMessage.style.color = "red";
 			pwReMessage.innerHTML = "비밀번호를 입력해 주십시오";
 
@@ -103,7 +111,7 @@ window.onload = function() {
 	}
 
 	function nameCheck() {
-		if (!(/[가-힣]+$/.test(userName.value))) //이름 검사
+		if (!(/[가-힣]+$/.test(memberName.value))) //이름 검사
 		{
 			nameMessage.style.color = "red";
 			nameMessage.innerHTML = "이름은 한글(최소1글자)만 가능합니다.";
@@ -170,8 +178,7 @@ window.onload = function() {
 
 			return false;
 		} else {
-			emailMessage.style.color = "blue";
-			emailMessage.innerHTML = "유효한 이메일입니다.";
+			idMessage.innerHTML = "";
 			return true;
 		}
 	}
@@ -235,6 +242,84 @@ window.onload = function() {
 			}
 		}).open();
 	}
+	
+	$(function() {
+		$('#idCheckBtn').click(
+				function() {
+					if(idCheck()) {
+						$.ajax({
+							url: "/memberIdCheck.do",
+							data: {
+								memberId: $("#memberId").val()
+							},
+							type: "post",
+							success: function(result){
+								if(result == "true"){
+									if(confirm("사용 가능한 ID입니다. 사용하시겠습니까?")){
+										$('#memberId').attr('readonly', true);
+										$('#idMessage').css('color', 'blue');
+										$('#idMessage').html('중복확인 완료');	
+										$('#idCheckBtn').css('display', 'none');
+										$('#idChangeBtn').css('display', 'inline-block');
+									}
+								} else {
+									alert("중복된 ID 입니다.");
+									$('#idMessage').css('color', 'red');
+									$('#idMessage').html('중복된 ID 입니다.');
+								}
+							}
+						});	
+					}
+				});
+		$('#idChangeBtn').click(
+				function() {
+					$('#memberId').attr('readonly', false);
+					$('#idMessage').css('color', 'red');
+					$('#idMessage').html('');	
+					$('#idCheckBtn').css('display', 'inline-block');
+					$('#idChangeBtn').css('display', 'none');
+					$('#memberId').focus();
+		});
+	});
+	
+	$(function() {
+		$('#emailCheckBtn').click(
+				function() {
+					if(emailCheck()) {
+						$.ajax({
+							url: "/memberEmailCheck.do",
+							data: {
+								memberEmail: $("#memberEmail").val()
+							},
+							type: "post",
+							success: function(result){
+								if(result == "true"){
+									if(confirm("사용 가능한 이메일입니다. 사용하시겠습니까?")){
+										$('#memberEmail').attr('readonly', true);
+										$('#emailMessage').css('color', 'blue');
+										$('#emailMessage').html('중복확인 완료');	
+										$('#emailCheckBtn').css('display', 'none');
+										$('#emailChangeBtn').css('display', 'inline-block');
+									}
+								} else {
+									alert("중복된 이메일 입니다.");
+									$('#emailMessage').css('color', 'red');
+									$('#emailMessage').html('중복된 이메일 입니다.');
+								}
+							}
+						});	
+					}
+				});
+		$('#emailChangeBtn').click(
+				function() {
+					$('#memberEmail').attr('readonly', false);
+					$('#emailMessage').css('color', 'red');
+					$('#emailMessage').html('');	
+					$('#emailCheckBtn').css('display', 'inline-block');
+					$('#emailChangeBtn').css('display', 'none');
+					$('#memberEmail').focus();
+		});
+	});
 	
 	$(function() {
 		$('#sendSms').click(function() {

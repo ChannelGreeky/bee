@@ -27,10 +27,10 @@
 			
 				<div class="row">
 					<div class="col-12">
-						<form class="text-center">
-							<input type="text" id="userId" name="userId" placeholder="아이디">
+						<form class="text-center" action="/memberLogin.do" method="post">
+							<input type="text" id="memberId" name="memberId" placeholder="아이디">
 							<span id="idMessage" class="message"></span>
-							<input type="password" id="userPw" name="userPw" placeholder="비밀번호">
+							<input type="password" id="memberPw" name="memberPw" placeholder="비밀번호">
 							<span id="pwMessage" class="message"></span> 
 							<input type="submit" id="loginBtn" class="btn btn-outline-secondary" value="로그인" />
 						</form>
@@ -48,7 +48,7 @@
 				<hr class="my-1">
 				<div class="row">
 					<div class="col-12 text-center">
-						<a id="joinBtn" href="/init/memberJoin.jsp">회원가입</a>
+						<a id="joinBtn" href="memberJoin.do">회원가입</a>
 					</div>
 	
 				</div>

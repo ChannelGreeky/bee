@@ -45,7 +45,7 @@
 											<a class="btn w-100" href="/init/memberFindPw.jsp">비밀번호 찾기</a>
 										</div>
 										<div class="col-5">																			
-											<a class="btn w-100" href="/init/memberLogin.jsp">로그인</a>
+											<a class="btn w-100" href="/main.jsp">로그인</a>
 										</div>
 										<div class="col-1"></div>
 									</div>

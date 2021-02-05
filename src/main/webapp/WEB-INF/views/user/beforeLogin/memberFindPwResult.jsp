@@ -39,7 +39,7 @@
 									<div class="row border-0 my-5">
 										<div class="col-1"></div>
 										<div class="col-10 text-center">																			
-											<a class="btn w-75" href="/init/memberLogin.jsp">로그인</a>
+											<a class="btn w-75" href="/main.jsp">로그인</a>
 										</div>
 										<div class="col-1"></div>
 									</div>

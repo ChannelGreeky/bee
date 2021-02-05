@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="member">
+  	<select id="selectLoginMember" parameterType="Member" resultType="Member">
+	SELECT 
+		MEMBER_NO as memberNo,
+		MEMBER_ID as memberId,
+		MEMBER_PW as memberPw,
+		MEMBER_NAME as memberName,
+		MEMBER_EMAIL as memberEmail,
+		MEMBER_PHONE as memberPhone,
+		MEMBER_DATE as memberDate,
+		MEMBER_DEL_YN as delYN,
+		MEMBER_END_DATE memberEndDate,
+		MEMBER_BIRTH memberBirth,
+		MEMBER_ADDR as memberAddr,
+		INTEREST as interest,
+		PROFILE_IMG as profileImg,
+		MEMBER_GENDER as memberGender
+	FROM MEMBER WHERE MEMBER_ID = #{memberId} AND MEMBER_PW = #{memberPw} AND MEMBER_DEL_YN = 'N'
+	</select>
+	
+	<insert id="insertMemberSignUp" parameterType="Member">
+		INSERT INTO MEMBER VALUES
+		(MEMBER_SEQ.NEXTVAL,
+		#{memberId}, #{memberPw}, #{memberName}, #{memberEmail}, #{memberPhone}, DEFAULT, 'N',
+		DEFAULT, #{memberBirth}, #{memberAddr}, #{interest}, DEFAULT, #{memberGender})
+	</insert>
+	
+	<select id="selectMemberIdCheck" resultType="Member">
+	SELECT 
+		MEMBER_NO as memberNo,
+		MEMBER_ID as memberId,
+		MEMBER_PW as memberPw,
+		MEMBER_NAME as memberName,
+		MEMBER_EMAIL as memberEmail,
+		MEMBER_PHONE as memberPhone,
+		MEMBER_DATE as memberDate,
+		MEMBER_DEL_YN as delYN,
+		MEMBER_END_DATE memberEndDate,
+		MEMBER_BIRTH memberBirth,
+		MEMBER_ADDR as memberAddr,
+		INTEREST as interest,
+		PROFILE_IMG as profileImg,
+		MEMBER_GENDER as memberGender
+	FROM MEMBER WHERE MEMBER_ID = #{memberId}
+	</select>
+  	
+  	<select id="selectMemberEmailCheck" resultType="Member">
+	SELECT 
+		MEMBER_NO as memberNo,
+		MEMBER_ID as memberId,
+		MEMBER_PW as memberPw,
+		MEMBER_NAME as memberName,
+		MEMBER_EMAIL as memberEmail,
+		MEMBER_PHONE as memberPhone,
+		MEMBER_DATE as memberDate,
+		MEMBER_DEL_YN as delYN,
+		MEMBER_END_DATE memberEndDate,
+		MEMBER_BIRTH memberBirth,
+		MEMBER_ADDR as memberAddr,
+		INTEREST as interest,
+		PROFILE_IMG as profileImg,
+		MEMBER_GENDER as memberGender
+	FROM MEMBER WHERE MEMBER_EMAIL = #{memberEmail}
+	</select>
+</mapper>

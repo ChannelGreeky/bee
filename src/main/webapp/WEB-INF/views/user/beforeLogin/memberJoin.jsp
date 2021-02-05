@@ -28,7 +28,7 @@
 			<div id="loginForm" class="container col-6">
 				<div class="row">
 					<div class="col-12 px-4">
-						<form>
+						<form action="memberSignUp.do" method="post">
 							<div class="container">
 								<div class="row border-0 my-3">
 									<div class="col-12 border-0 px-5">
@@ -36,10 +36,11 @@
 										<div class="container p-0 m-0 border-none">
 											<div class="row p-0 m-0">
 												<div class="col-12 col-lg-9 p-0 m-0">
-													<input type="text" id="userId" name="userId" onblur="idCheck();" placeholder="아이디 입력" />
+													<input type="text" id="memberId" name="memberId" onblur="idCheck();" placeholder="아이디 입력" />
 												</div>
 												<div class="col-12 col-lg-3 p-0 m-0 text-center">
-													<button type="button" class="btn checkBtn m-0">중복확인</button>
+													<button type="button" id="idCheckBtn" class="btn checkBtn m-0">중복확인</button>
+													<button type="button" id="idChangeBtn" class="btn checkBtn m-0" style="display:none;">변경하기</button>
 												</div>
 											</div>
 										</div>
@@ -50,7 +51,7 @@
 								<div class="row border-0">
 									<div class="col-12 border-0 px-5">
 										<span class="formTitle d-block">&nbsp;비밀번호</span> 
-										<input type="password" id="userPw" name="userPw" onblur="pwCheck();" placeholder="비밀번호 입력(숫자,영문,특수문자 조합 최소 8자 최대 16자)">
+										<input type="password" id="memberPw" name="memberPw" onblur="pwCheck();" placeholder="비밀번호 입력(숫자,영문,특수문자 조합 최소 8자 최대 16자)">
 										<span id="pwMessage" class="checkMessage"></span>
 									</div>
 								</div>
@@ -58,7 +59,7 @@
 								<div class="row border-0 my-0">
 									<div class="col-12 border-0 px-5">
 										<span class="formTitle d-block">&nbsp;비밀번호 확인</span> 
-										<input type="password" id="userPwRe" name="userPwRe" onblur="pwReCheck();" placeholder="비밀번호 재입력">
+										<input type="password" id="memberPwRe" name="memberPwRe" onblur="pwReCheck();" placeholder="비밀번호 재입력">
 										<span id="pwReMessage" class="checkMessage"></span>
 									</div>
 								</div>
@@ -66,7 +67,7 @@
 								<div class="row border-0 my-3">
 									<div class="col-12 border-0 px-5">
 										<span class="formTitle d-block">&nbsp;이름</span> 
-										<input type="text" id="userName" name="userName" onblur="nameCheck();" placeholder="이름 입력">
+										<input type="text" id="memberName" name="memberName" onblur="nameCheck();" placeholder="이름 입력">
 										<span id="nameMessage" class="checkMessage"></span>
 									</div>
 								</div>
@@ -101,8 +102,8 @@
 								<div class="row border-0 my-3">
 									<div class="col-12 border-0 px-5">
 										<span class="formTitle d-block">&nbsp;성별</span> 
-										<input type="radio" class="form-check form-check-inline ml-1 " name="gender" value="M" checked>남 &nbsp; 
-										<input type="radio" class="form-check form-check-inline ml-1" name="gender" value="F">여
+										<input type="radio" class="form-check form-check-inline ml-1 " name="memberGender" value="M" checked>남 &nbsp; 
+										<input type="radio" class="form-check form-check-inline ml-1" name="memberGender" value="F">여
 									</div>
 								</div>
 									
@@ -112,7 +113,7 @@
 										<div class="container p-0 m-0 border-none">
 											<div class="row p-0 m-0">
 												<div class="col-12 col-lg-9 p-0 m-0">
-													<input type="text" id="phone" name="phone" onblur="phoneCheck();" maxlength="11" placeholder="-제외하고 입력" />
+													<input type="text" id="memberPhone" name="memberPhone" onblur="phoneCheck();" maxlength="11" placeholder="-제외하고 입력" />
 												</div>
 												<div class="col-12 col-lg-3 p-0 m-0 text-center">
 													<button type="button" id="sendSms" class="btn checkBtn m-0">인증하기</button>
@@ -165,10 +166,11 @@
 										<div class="container p-0 m-0 border-none">
 											<div class="row p-0 m-0">
 												<div class="col-12 col-lg-9 p-0 m-0">
-													<input type="text" id="email" name="email" onblur="emailCheck();" placeholder="이메일 입력" />
+													<input type="text" id="memberEmail" name="memberEmail" onblur="emailCheck();" placeholder="이메일 입력" />
 												</div>
 												<div class="col-12 col-lg-3 p-0 m-0 text-center">
-													<button type="button" class="btn checkBtn m-0">중복확인</button>
+													<button type="button" id="emailCheckBtn" class="btn checkBtn m-0">중복확인</button>
+													<button type="button" id="emailChangeBtn" class="btn checkBtn m-0" style="display:none;">변경하기</button>
 												</div>
 											</div>
 										</div>
@@ -183,24 +185,24 @@
 										
 											<div class="row p-0 m-0 mb-3">
 												<div class="col-4 p-0 m-0">
-													<input type="checkbox" id="meet" name="hobby" value="meet"><label for="meet"></label>
+													<input type="checkbox" id="meet" name="interest" value="meet"><label for="meet"></label>
 												</div>
 												<div class="col-4 p-0 m-0">
-													<input type="checkbox" id="study" name="hobby" value="study"><label for="study"></label>
+													<input type="checkbox" id="study" name="interest" value="study"><label for="study"></label>
 												</div>
 												<div class="col-4 p-0 m-0">
-													<input type="checkbox" id="game" name="hobby" value="game"><label for="game"></label>
+													<input type="checkbox" id="game" name="interest" value="game"><label for="game"></label>
 												</div>
 											</div>
 											<div class="row p-0 m-0 my-3">
 												<div class="col-4 p-0 m-0">
-													<input type="checkbox" id="exercise" name="hobby" value="exercise"><label for="exercise"></label>
+													<input type="checkbox" id="exercise" name="interest" value="exercise"><label for="exercise"></label>
 												</div>
 												<div class="col-4 p-0 m-0">
-													<input type="checkbox" id="area" name="hobby" value="area"><label for="area"></label>
+													<input type="checkbox" id="area" name="interest" value="area"><label for="area"></label>
 												</div>
 												<div class="col-4 p-0 m-0">
-													<input type="checkbox" id="etc" name="hobby" value="etc"><label for="etc"></label>
+													<input type="checkbox" id="etc" name="interest" value="etc"><label for="etc"></label>
 												</div>
 											</div>									
 										</div>
@@ -211,7 +213,7 @@
 								<div class="row border-0 my-3">
 									<div class="col-1"></div>
 									<div class="col-5">																			
-										<a class="btn w-100" href="/init/memberLogin.jsp">돌아가기</a>
+										<a class="btn w-100" href="/main.jsp">돌아가기</a>
 									</div>
 									<div class="col-5">																			
 										<input type="submit" id="joinBtn" class="btn w-100" onclick="return check();" value="회원가입" />

@@ -8,7 +8,7 @@ public class Member {
 	private String memberPw;
 	private String memberName;
 	private String memberEmail;
-	private char memberPhone;
+	private String memberPhone;
 	private Timestamp memberDate;     
 	private char delYN;
 	private Timestamp memberEndDate; 
@@ -22,7 +22,7 @@ public class Member {
 		// TODO Auto-generated constructor stub
 	}
 	public Member(int memberNo, String memberId, String memberPw, String memberName, String memberEmail,
-			char memberPhone, Timestamp memberDate, char delYN, Timestamp memberEndDate, int memberBirth,
+			String memberPhone, Timestamp memberDate, char delYN, Timestamp memberEndDate, int memberBirth,
 			String memberAddr, String interest, String profileImg, char memberGender) {
 		super();
 		this.memberNo = memberNo;
@@ -70,10 +70,10 @@ public class Member {
 	public void setMemberEmail(String memberEmail) {
 		this.memberEmail = memberEmail;
 	}
-	public char getMemberPhone() {
+	public String getMemberPhone() {
 		return memberPhone;
 	}
-	public void setMemberPhone(char memberPhone) {
+	public void setMemberPhone(String memberPhone) {
 		this.memberPhone = memberPhone;
 	}
 	public Timestamp getMemberDate() {

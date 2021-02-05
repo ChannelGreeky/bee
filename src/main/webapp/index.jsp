@@ -1,3 +1,4 @@
+<%@page import="com.fourmeeting.bee.member.model.vo.Member"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
@@ -8,7 +9,16 @@
 </head>
 <body>
 
-	
+	<%
+		Member m = (Member)session.getAttribute("member");
+		if (m != null) {
+	%>
+		<h2>로그인 후 (세션에 Member값 들어있음)</h2>
+		<a href="/memberLogout.do">로그아웃</a>
+	<% } else {
+	%>
+		<h2>로그인 전</h2>
+	<%}%>
 	
 	<a href="/beesUploadImage.do">사진첩</a>
 	<a href="/adminNoticeBoard.do">관리자공지사항</a>
