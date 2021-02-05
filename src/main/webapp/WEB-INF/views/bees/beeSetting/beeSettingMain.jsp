@@ -423,9 +423,9 @@ input[type="checkbox" i] {
 .beesWithdraw{
 text-align: inherit;
 }
-.header.beeHeaderColor{
+/* .header.beeHeaderColor{
    background-color: white;
-}
+} */
 </style>
 <main id="content" role="main" class="midContent" data-uiselector="contentRegion">
 <section data-viewname="DGroupBandSettingHomeView" class="sSettingBand gContentCardShadow"><div class="uHeaderWrap -h50">

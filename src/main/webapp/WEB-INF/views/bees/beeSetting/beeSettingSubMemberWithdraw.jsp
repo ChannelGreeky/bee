@@ -465,9 +465,9 @@ button {
     border-radius: 0px;
     cursor: pointer;
 }
-.header.beeHeaderColor{
+/* .header.beeHeaderColor{
    background-color: white;
-}
+} */
 li{
    list-style: none;
 }

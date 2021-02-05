@@ -329,9 +329,9 @@ button {
 textarea::placeholder{
 	color: #50401B;
 }
-.header.beeHeaderColor{
+/* .header.beeHeaderColor{
    background-color: white;
-}
+} */
 </style>
 <body>
 <main id="content" role="main" class="midContent" data-uiselector="contentRegion"><div data-viewname="DGroupBandEditIntroView" class="sSettingBand gContentCardShadow"><div class="uHeaderWrap -h50">

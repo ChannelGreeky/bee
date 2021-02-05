@@ -457,9 +457,9 @@ button {
 .profileInner img {
     border-radius: 50%; 
 }
-.header.beeHeaderColor{
+/* .header.beeHeaderColor{
    background-color: white;
-}
+} */
 li{
    list-style: none;
 }

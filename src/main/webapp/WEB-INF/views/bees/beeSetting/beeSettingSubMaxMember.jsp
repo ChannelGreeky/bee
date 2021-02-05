@@ -862,9 +862,9 @@ input[type="checkbox" i] {
 .beesWithdraw{
 text-align: inherit;
 }
-.header.beeHeaderColor{
+/* .header.beeHeaderColor{
    background-color: white;
-}
+} */
 </style> 
 <body>
 <main id="content" role="main" class="midContent" data-uiselector="contentRegion"><div data-viewname="DBandQuotaUnfixedSetView"><section class="sSettingBand gContentCardShadow">
