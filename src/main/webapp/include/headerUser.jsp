@@ -78,7 +78,7 @@
 	                            <a href="#">공지사항</a>
 	                        </li>
 	                        <li>
-	                        	<a href="#">로그아웃</a>
+	                        	<a href="/main.jsp">로그아웃</a>
 	                        </li>
 	                     </ul>
             		

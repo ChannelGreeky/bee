@@ -118,7 +118,8 @@ width:100%;
 							<div class="col-md-12 admin_header">
 								<span id="search_title">공지사항</span>
 								<!-- Button trigger modal -->
-								<button type="button" style="background-color:#F7D078; border-radius:30px;" id="write_btn" >글작성</button>			
+								
+								<button type="button" style="background-color:#F7D078; border-radius:30px;" id="write_btn" class="btn btn-primary" data-toggle="modal" data-target="#myModal" >글작성</button>			
 							</div>
 						</div>
 						<div class="row w-100">
@@ -130,11 +131,11 @@ width:100%;
 								 <input type="date"> 
 								 </div>
 								<div class="col-md-2 w-100 search_bar"> 
-								<select>
-									<option>닉네임</option>
-									<option>카테고리</option>
-									<option>글제목</option>
-									
+								<select name="category">
+									<optgroup label="카테고리">
+									<option value="noticeWrite">공지사항</option>
+									<option value="faqWrite">FAQ</option>	
+									</optgroup>  
 								</select>
 							</div>	
 					

@@ -114,11 +114,11 @@ width:100%;
 								 <input type="date"> 
 								 </div>
 								<div class="col-md-2 w-100 search_bar"> 
-								<select>
-									<option>닉네임</option>
-									<option>카테고리</option>
-									<option>글제목</option>
-									
+								<select name="category">
+									<optgroup label="카테고리">
+									<option value="noticeWrite">공지사항</option>
+									<option value="faqWrite">FAQ</option>	
+									</optgroup>  
 								</select>
 							</div>	
 					

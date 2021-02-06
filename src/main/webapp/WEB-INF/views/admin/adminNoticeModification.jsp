@@ -35,6 +35,110 @@
 	<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap" rel="stylesheet">
 
 <link rel="stylesheet" type="text/css" href="/resources/css/adminNoticeModification.css">
+
+<style>
+		
+	body{
+		font-family: 'Noto Sans KR', sans-serif;
+		/* background-color: #f9f9f9; */
+	}
+	
+	div{
+	    /* border: 1px black solid;    */
+	}	
+	
+	.container{
+		width: 100%;
+		height: 100%;
+		background-color: white;
+	}
+	
+	.question_div p{
+		font-size: 1.5rem;
+		font-weight: 600;
+		color: #50401B;
+	}
+	
+	.question_table{
+		width: 100%;
+		border: 1px solid #ededed;
+		text-align: center;
+		color: #50401B;
+	}
+	
+	.question_table tr th{
+		padding: 7px 20px;
+		background-color: #fff3d8;
+	}
+	
+	.question_table tr td{
+		padding: 5px 20px;
+		height: 40px;
+	}
+	
+	/* 답변하기 or 답변완료 */
+	.answer_yn_btn{
+		color: #50401B;
+		background-color: white;
+		border-radius: 25px;
+		width: 80px;
+		height: 27px;
+		font-weight: 500;
+		border: 1px solid #50401B;
+		font-size: 0.85rem;
+		line-height: 15px;
+	}
+	
+	/* 삭제 or 복구 */
+	.qna_del_yn_btn{
+		color: #50401B;
+		background-color: #F7D078;
+		border-radius: 25px;
+		width: 80px;
+		height: 27px;
+		font-weight: 500;
+		font-size: 0.85rem;
+		line-height: 15px;
+		border: 0;
+	}
+	
+	.answer_yn_btn, .qna_del_yn_btn:focus{
+		outline: none;
+	}
+	
+</style>
+
+	<script>
+		
+		$(function(){
+			
+			$(".answer_yn_btn").click(function(){
+				
+				//누르면 모달창 떠서 답변 글 작성 하기
+				//if 답변 정상적으로 등록되면 버튼 바뀌기 
+				$(this).css('background-color','#F7D078').css('border','0').val("답변완료");
+				
+			});
+			
+			$(".qna_del_yn_btn").click(function(){
+				
+				if($(this).val()=="삭제"){
+					var result = confirm("정말 삭제하시겠습니까?");
+					if(result){
+						//삭제 로직 구현
+						$(this).css('background-color','#50401B').css('color','white').val("복구");
+					} 
+				}
+				else if($(this).val()=="복구"){
+					//if 복구 정상적 되면
+					$(this).css('background-color','#F7D078').css('color','#50401B').val("삭제");
+				} 
+				
+			});
+			
+		});
+	
+	</script>
 <div class="container pt-3">
 		<div class="row">
 			<div class="col-1 p-0"></div>
@@ -80,9 +184,125 @@
 			<div class="col-1 p-0"></div>
 		</div>
 
+<div class="container pt-3">
+			<div class="row">
+				
+				<!-- 여백 -->
+				<div class="col-1"></div>
+				
+				<div class="col-10 question_div">
+					<p>공지사항</p>
+					<table border="1" class="question_table">
+						<tr>
+							<th>글 번호</th>
+							<th>분류</th>
+							<th>글제목</th>
+							<th>작성자ID</th>
+							<th>작성일</th>
+							<th>수정</th>
+							<th>삭제/복구</th>
+						</tr>
+						<tr>
+							<td>2</td>
+							<td>공지사항</td>
+							<td>설 맞이 이벤트! 루피 이모티콘 증정!</td>
+							<td>admin1</td>
+							<td>21.01.27</td>
+							<td><input type="button" value="수정" class="answer_yn_btn"></td>
+							<td><input type="button" value="삭제" class="qna_del_yn_btn"></td>
+						</tr>
+						<tr>
+							<td>1</td>
+							<td>QNA</td>
+							<td>자주 찾는 질문</td>
+							<td>admin1</td>
+							<td>21.01.26</td>
+							<td><input type="button" value="수정" class="answer_yn_btn"></td>
+							<td><input type="button" value="삭제" class="qna_del_yn_btn"></td>
+						</tr>
+						<tr>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+						</tr>
+						<tr>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+						</tr>
+						<tr>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+						</tr>
+						<tr>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+						</tr>
+						<tr>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+						</tr>
+						<tr>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+						</tr>
+						<tr>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+						</tr>
+						<tr>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+						</tr>
+					</table>
+				</div>
+				
+				<!-- 여백 -->
+				<div class="col-1"></div>
+				
+			</div>
+		</div>
 
 
-	<!-- Modal -->
+	<!-- 글 수정 Modal -->
 <div class="modal fade" id="myModal" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
   <div class="modal-dialog modal-lg ">
      <form>

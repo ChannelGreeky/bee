@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-   <%@ include file="/include/headerAdmin.jsp"  %>
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -35,73 +35,177 @@
 	<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap" rel="stylesheet">
 
 <link rel="stylesheet" type="text/css" href="/resources/css/adminNoticeBoard.css">
+<style>
+		
+	body{
+		font-family: 'Noto Sans KR', sans-serif;
+		/* background-color: #f9f9f9; */
+	}
+	
+	div{
+	    /* border: 1px black solid;    */
+	}	
+	
+	.container{
+		width: 100%;
+		height: 100%;
+		background-color: white;
+	}
+	
+	.question_div {
+		min-height:500px;
+	}
+	
+	.question_table{
+		width: 100%;
+		border: 1px solid #ededed;
+		text-align: center;
+		color: #50401B;
+		
+	}
+	
+	.question_table tr th{
+		padding: 7px 20px;
+		background-color: #fff3d8;
+	}
+	
+	.question_table tr td{
+		padding: 5px 20px;
+		height: 40px;
+	}
+	
+	/* 답변하기 or 답변완료 */
+	.answer_yn_btn{
+		color: #50401B;
+		background-color: white;
+		border-radius: 25px;
+		width: 80px;
+		height: 27px;
+		font-weight: 500;
+		border: 1px solid #50401B;
+		font-size: 0.85rem;
+		line-height: 15px;
+	}
+	
+	/* 삭제 or 복구 */
+	.qna_del_yn_btn{
+		color: #50401B;
+		background-color: #F7D078;
+		border-radius: 25px;
+		width: 80px;
+		height: 27px;
+		font-weight: 500;
+		font-size: 0.85rem;
+		line-height: 15px;
+		border: 0;
+	}
+	
+	.answer_yn_btn, .qna_del_yn_btn:focus{
+		outline: none;
+	}
+	
+</style>
+
+	<script>
+		
+		$(function(){
+			
+			$(".answer_yn_btn").click(function(){
+				
+				//누르면 모달창 떠서 답변 글 작성 하기
+				//if 답변 정상적으로 등록되면 버튼 바뀌기 
+				$(this).css('background-color','#F7D078').css('border','0').val("답변완료");
+				
+			});
+			
+			$(".qna_del_yn_btn").click(function(){
+				
+				if($(this).val()=="삭제"){
+					var result = confirm("정말 삭제하시겠습니까?");
+					if(result){
+						//삭제 로직 구현
+						$(this).css('background-color','#50401B').css('color','white').val("복구");
+					} 
+				}
+				else if($(this).val()=="복구"){
+					//if 복구 정상적 되면
+					$(this).css('background-color','#F7D078').css('color','#50401B').val("삭제");
+				} 
+				
+			});
+			
+		});
+	
+	</script>
+	   <%@ include file="/include/adminSearchButtomForm.jsp"  %>
 
 <div class="container pt-3">
-		<div class="row">
-			<div class="col-1 p-0"></div>
-			
+			<div class="row">
 				
-			<div class="col-10 p-0">
-					<div id="main-content" class="container m-0 p-2">
-						<div class="row w-100">
-							<div class="col-md-12 admin_header">
-								<span id="search_title">공지사항</span>
-								<!-- Button trigger modal -->
-								<button type="button" style="background-color:#F7D078; border-radius:30px;" id="write_btn" class="btn btn-primary" data-toggle="modal" data-target="#myModal" >글작성</button>
-								
-							
-							</div>
-						</div>
-						<div class="row w-100">
-						<form method="" >
-							<div class="col-md-2 w-100 search_bar">
-								<input type="date" >
-								</div>
-								<div class="col-md-2 w-100 search_bar">
-								 <input type="date"> 
-								 </div>
-								<div class="col-md-2 w-100 search_bar"> 
-								<select>
-									<option>닉네임</option>
-									<option>카테고리</option>
-									<option>글제목</option>
-									
-								</select>
-							</div>	
+				<!-- 여백 -->
+				<div class="col-1"></div>
+				
+				<div class="col-10 question_div">
 					
-							<div class="col-md-6 w-100 search_bar">
-								<input type="text" style="width:77%; right:10px;">
-								<button type="submit" id="search_btn" ><img src="resources/image/search.png"/></button>
-							</div>
-						</form>
+					<table border="1" class="question_table">
+						<tr>
+							<th>글 번호</th>
+							<th>분류</th>
+							<th>글제목</th>
+							<th>작성자ID</th>
+							<th>작성일</th>
+							<th>수정</th>
+							<th>삭제/복구</th>
+						</tr>
+						<tr>
+							<td>2</td>
+							<td>공지사항</td>
+							<td>설 맞이 이벤트! 루피 이모티콘 증정!</td>
+							<td>admin1</td>
+							<td>21.01.27</td>
+							<td><input type="button" value="수정" class="answer_yn_btn"></td>
+							<td><input type="button" value="삭제" class="qna_del_yn_btn"></td>
+						</tr>
 						
-					</div>
+						
+					</table>
 				</div>
+				
+				<!-- 여백 -->
+				<div class="col-1"></div>
+				
 			</div>
-			<div class="col-1 p-0"></div>
 		</div>
 
 
 
-	<!-- Modal -->
+
+
+
+	<!--글 작성 Modal -->
 <div class="modal fade" id="myModal" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
   <div class="modal-dialog modal-lg ">
-     <form>
+     <form action="/noticeInsert.do" method="post">
     <div class="modal-content">
  
       <div class="modal-header">
-        <h5 class="modal-title" id="staticBackdropLabel" >공지사항 작성</h5>
+        <h5 class="modal-title" id="staticBackdropLabel" >
+        	<select name="noticeCategory">
+        		<option value="noticeModal"> 공지사항 작성</option>
+        		<option value="faqModal">FAQ</option>
+        	</select>
+        </h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true"><i class="fas fa-times"></i></span>
         </button>
       </div>
       <div class="modal-body">
         <div id="title" style="border-bottom:1px solid #E4E4E4;">
-        <input type="text" id="myInput" placeholder="제목을 입력해주세요."/></div>
+        <input type="text" id="myInput" name="noticeTitle" placeholder="제목을 입력해주세요."/></div>
         
         <div class="write_area">
            
-            <textarea class="form-control" id="recipient-name"></textarea>
+            <textarea class="form-control" id="recipient-name" name="noticeCont"></textarea>
           </div>
           
         
@@ -110,7 +214,7 @@
       <div class="modal-footer" style="height:10%; width:100%;padding-right:15px;">
       <hr class="line">
         <button type="button" class="btn btn-secondary" data-dismiss="modal" style="float:right;background-color:#E4E4E4;color:#50401B;border:none;border-radius:10px;">취소</button>
-        <button type="button" class="btn btn-primary" style="float:right; background-color:#FFF3D8;color:#50401B;border:none;border-radius:10px;">작성완료</button>
+        <button type="submit" class="btn btn-primary" style="float:right; background-color:#FFF3D8;color:#50401B;border:none;border-radius:10px;">작성완료</button>
       </div>
      
         </div> <!-- modal-content -->
