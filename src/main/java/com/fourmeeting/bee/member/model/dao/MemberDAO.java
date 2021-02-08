@@ -34,4 +34,32 @@ public class MemberDAO {
 
 		return member;
 	}
+	
+	public Member selectMemberPhoneCheck(SqlSessionTemplate sqlSession, String receiver) {
+		// TODO Auto-generated method stub
+		Member member = sqlSession.selectOne("member.selectMemberPhoneCheck", receiver);
+
+		return member;
+	}
+	
+	public Member selectMemberFindId(SqlSessionTemplate sqlSession, Member m) {
+		// TODO Auto-generated method stub
+		Member member = sqlSession.selectOne("member.selectMemberFindId", m);
+
+		return member;
+	}
+	
+	public Member selectMemberFindPw(SqlSessionTemplate sqlSession, Member m) {
+		// TODO Auto-generated method stub
+		Member member = sqlSession.selectOne("member.selectMemberFindPw", m);
+
+		return member;
+	}
+
+	public int updateMemberFindPw(SqlSessionTemplate sqlSession, Member m) {
+		// TODO Auto-generated method stub
+		int result = sqlSession.insert("member.updateMemberFindPw", m);
+
+		return result;
+	}
 }

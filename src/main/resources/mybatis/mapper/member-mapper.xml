@@ -64,4 +64,67 @@
 		MEMBER_GENDER as memberGender
 	FROM MEMBER WHERE MEMBER_EMAIL = #{memberEmail}
 	</select>
+	
+	<select id="selectMemberPhoneCheck" resultType="Member">
+	SELECT 
+		MEMBER_NO as memberNo,
+		MEMBER_ID as memberId,
+		MEMBER_PW as memberPw,
+		MEMBER_NAME as memberName,
+		MEMBER_EMAIL as memberEmail,
+		MEMBER_PHONE as memberPhone,
+		MEMBER_DATE as memberDate,
+		MEMBER_DEL_YN as delYN,
+		MEMBER_END_DATE memberEndDate,
+		MEMBER_BIRTH memberBirth,
+		MEMBER_ADDR as memberAddr,
+		INTEREST as interest,
+		PROFILE_IMG as profileImg,
+		MEMBER_GENDER as memberGender
+	FROM MEMBER WHERE MEMBER_PHONE = #{receiver}
+	</select>
+	
+	<select id="selectMemberFindId" parameterType="Member" resultType="Member">
+	SELECT 
+		MEMBER_NO as memberNo,
+		MEMBER_ID as memberId,
+		MEMBER_PW as memberPw,
+		MEMBER_NAME as memberName,
+		MEMBER_EMAIL as memberEmail,
+		MEMBER_PHONE as memberPhone,
+		MEMBER_DATE as memberDate,
+		MEMBER_DEL_YN as delYN,
+		MEMBER_END_DATE memberEndDate,
+		MEMBER_BIRTH memberBirth,
+		MEMBER_ADDR as memberAddr,
+		INTEREST as interest,
+		PROFILE_IMG as profileImg,
+		MEMBER_GENDER as memberGender
+	FROM MEMBER WHERE MEMBER_NAME = #{memberName} AND MEMBER_BIRTH = #{memberBirth} AND MEMBER_PHONE = #{memberPhone}
+	</select>
+	
+	<select id="selectMemberFindPw" parameterType="Member" resultType="Member">
+	SELECT 
+		MEMBER_NO as memberNo,
+		MEMBER_ID as memberId,
+		MEMBER_PW as memberPw,
+		MEMBER_NAME as memberName,
+		MEMBER_EMAIL as memberEmail,
+		MEMBER_PHONE as memberPhone,
+		MEMBER_DATE as memberDate,
+		MEMBER_DEL_YN as delYN,
+		MEMBER_END_DATE memberEndDate,
+		MEMBER_BIRTH memberBirth,
+		MEMBER_ADDR as memberAddr,
+		INTEREST as interest,
+		PROFILE_IMG as profileImg,
+		MEMBER_GENDER as memberGender
+	FROM MEMBER WHERE MEMBER_ID = #{memberId} AND MEMBER_NAME = #{memberName} AND MEMBER_PHONE = #{memberPhone}
+	</select>
+	
+	<update id="updateMemberFindPw" parameterType="Member">
+		UPDATE MEMBER SET 
+			MEMBER_PW = #{memberPw}
+		WHERE MEMBER_ID = #{memberId}
+	</update>
 </mapper>

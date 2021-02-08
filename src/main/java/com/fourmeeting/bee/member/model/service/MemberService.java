@@ -45,4 +45,32 @@ public class MemberService {
 		
 		return member;
 	}
+	
+	public Member selectMemberPhoneCheck(String receiver) {
+		
+		Member member = mDAO.selectMemberPhoneCheck(sqlSession, receiver);
+		
+		return member;
+	}
+	
+	public Member selectMemberFindId(Member m) {
+		
+		Member member = mDAO.selectMemberFindId(sqlSession, m);
+		
+		return member;
+	}
+	
+	public Member selectMemberFindPw(Member m) {
+		
+		Member member = mDAO.selectMemberFindPw(sqlSession, m);
+		
+		return member;
+	}
+
+	public int updateMemberFindPw(Member m) {
+		// TODO Auto-generated method stub
+		int result = mDAO.updateMemberFindPw(sqlSession, m);
+		
+		return result;
+	}
 }

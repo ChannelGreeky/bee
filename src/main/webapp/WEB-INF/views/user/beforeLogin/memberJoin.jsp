@@ -36,7 +36,7 @@
 										<div class="container p-0 m-0 border-none">
 											<div class="row p-0 m-0">
 												<div class="col-12 col-lg-9 p-0 m-0">
-													<input type="text" id="memberId" name="memberId" onblur="idCheck();" placeholder="아이디 입력" />
+													<input type="text" id="memberId" name="memberId" onblur="idCheck();" placeholder="아이디 입력" autocomplete="off" />
 												</div>
 												<div class="col-12 col-lg-3 p-0 m-0 text-center">
 													<button type="button" id="idCheckBtn" class="btn checkBtn m-0">중복확인</button>
@@ -51,7 +51,7 @@
 								<div class="row border-0">
 									<div class="col-12 border-0 px-5">
 										<span class="formTitle d-block">&nbsp;비밀번호</span> 
-										<input type="password" id="memberPw" name="memberPw" onblur="pwCheck();" placeholder="비밀번호 입력(숫자,영문,특수문자 조합 최소 8자 최대 16자)">
+										<input type="password" id="memberPw" name="memberPw" onblur="pwCheck();" placeholder="비밀번호 입력(숫자,영문,특수문자 조합 최소 8자 최대 16자)" autocomplete="off" />
 										<span id="pwMessage" class="checkMessage"></span>
 									</div>
 								</div>
@@ -59,7 +59,7 @@
 								<div class="row border-0 my-0">
 									<div class="col-12 border-0 px-5">
 										<span class="formTitle d-block">&nbsp;비밀번호 확인</span> 
-										<input type="password" id="memberPwRe" name="memberPwRe" onblur="pwReCheck();" placeholder="비밀번호 재입력">
+										<input type="password" id="memberPwRe" name="memberPwRe" onblur="pwReCheck();" placeholder="비밀번호 재입력" autocomplete="off" />
 										<span id="pwReMessage" class="checkMessage"></span>
 									</div>
 								</div>
@@ -67,7 +67,7 @@
 								<div class="row border-0 my-3">
 									<div class="col-12 border-0 px-5">
 										<span class="formTitle d-block">&nbsp;이름</span> 
-										<input type="text" id="memberName" name="memberName" onblur="nameCheck();" placeholder="이름 입력">
+										<input type="text" id="memberName" name="memberName" onblur="nameCheck();" placeholder="이름 입력" autocomplete="off" />
 										<span id="nameMessage" class="checkMessage"></span>
 									</div>
 								</div>
@@ -113,16 +113,17 @@
 										<div class="container p-0 m-0 border-none">
 											<div class="row p-0 m-0">
 												<div class="col-12 col-lg-9 p-0 m-0">
-													<input type="text" id="memberPhone" name="memberPhone" onblur="phoneCheck();" maxlength="11" placeholder="-제외하고 입력" />
+													<input type="text" id="memberPhone" name="memberPhone" onblur="phoneCheck();" maxlength="11" placeholder="-제외하고 입력" autocomplete="off" />
 												</div>
 												<div class="col-12 col-lg-3 p-0 m-0 text-center">
-													<button type="button" id="sendSms" class="btn checkBtn m-0">인증하기</button>
+													<button type="button" id="sendSms" class="btn checkBtn m-0" style="display:inline-block">인증하기</button>
+													<button type="button" id="changePhone" class="btn checkBtn m-0" style="display:none">번호변경</button>
 												</div>
 											</div>
 												
 											<div id="authBox" class="row p-0 mx-0 mt-3 mb-0" style="display:none;">
 												<div id="authInputBox" class="col-12 col-lg-9 p-0 m-0">
-													<input type="text" id="inputAuthNum" name="authNum" onblur="authNumCheck();" maxlength="11" placeholder="인증번호 입력" />
+													<input type="text" id="inputAuthNum" name="authNum" onblur="authNumCheck();" maxlength="11" placeholder="인증번호 입력" autocomplete="off" />
 												</div>
 												<div id="authBtnBox" class="col-12 col-lg-3 p-0 m-0 text-center">
 													<button type="button" id="smsCheck" class="btn checkBtn m-0">인증완료</button>
@@ -147,12 +148,12 @@
 											</div>
 											<div class="row p-0 mx-0 my-2">
 												<div class="col-12 border-0 p-0">
-													<input type="text" id="addr_address" name="addr" readonly>
+													<input type="text" id="addr_address" name="addr" readonly />
 												</div>
 											</div>
 											<div class="row p-0 m-0">
 												<div class="col-12 border-0 p-0">
-													<input type="text" id="addr_detailAddress" name="detailAddr" onblur="addrCheck();" placeholder="상세주소 입력">
+													<input type="text" id="addr_detailAddress" name="detailAddr" onblur="addrCheck();" placeholder="상세주소 입력" autocomplete="off" />
 												</div>
 											</div>
 										</div>
@@ -166,7 +167,7 @@
 										<div class="container p-0 m-0 border-none">
 											<div class="row p-0 m-0">
 												<div class="col-12 col-lg-9 p-0 m-0">
-													<input type="text" id="memberEmail" name="memberEmail" onblur="emailCheck();" placeholder="이메일 입력" />
+													<input type="text" id="memberEmail" name="memberEmail" onblur="emailCheck();" placeholder="이메일 입력" autocomplete="off" />
 												</div>
 												<div class="col-12 col-lg-3 p-0 m-0 text-center">
 													<button type="button" id="emailCheckBtn" class="btn checkBtn m-0">중복확인</button>
@@ -227,9 +228,7 @@
 			</div>
 		</div>
 	</div>
-	<div id="footer">
-		<div class="col-12 my-3"></div>
-	</div>
+	<%@ include file="/common/footer.jsp"%>
 	<script type="text/javascript" src="/resources/js/memberJoin.js"></script>
 </body>
 </html>

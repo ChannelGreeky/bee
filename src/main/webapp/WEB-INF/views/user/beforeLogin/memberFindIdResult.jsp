@@ -1,3 +1,4 @@
+<%@page import="com.fourmeeting.bee.member.model.vo.Member"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
@@ -11,6 +12,12 @@
 </head>
 
 <body>
+	<% 
+		Member m = (Member) request.getAttribute("m");
+		
+		if(m != null) {
+	%>
+	
 	<div class="container">
 			<div class="row">
 				<div class="col-3"></div>
@@ -32,7 +39,7 @@
 								<div class="container">
 									<div id="resultBox" class="row p-5 my-5">
 										<div class="col-12 text-center">
-											<span id="resultMessage">홍길동님의 ID는 m.getUserId()입니다.</span>
+											<span id="resultMessage"><%=m.getMemberName() %>님의 ID는 <%=m.getMemberId() %>입니다.</span>
 										</div>
 									</div>
 	
@@ -56,8 +63,13 @@
 				</div>
 			</div>
 	</div>
-	<div id="footer" class="row m-0 p-0">
-			<div class="col-12 my-3"></div>
-	</div>
+	<div class="py-3"></div>
+	<%@ include file="/common/footer.jsp"%>
+	<% } else { %>
+		<script>
+			alert("찾으시는 정보의 회원이 없거나 잘못된 정보입니다.");
+			location.replace("/main.jsp");
+		</script>
+	<% } %>
 </body>
 </html>

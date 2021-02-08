@@ -40,15 +40,15 @@ window.onload = function() {
 		} else if (!phoneCheck()) {
 			phone.focus();
 			return false;
-		} else if (authBox.style.display == "none"){
-			sendSms.focus();
+		} else if (authBox.style.display != "none"){
+			authInput.focus();
 			phoneMessage.style.color = "red";
 			phoneMessage.innerHTML = "인증절차를 진행하여 주십시오";
 			return false;
-		} else if (authInput.value == "") {
-			authInput.focus();
+		} else if (sendSms.style.display != "none" ) {
+			sendSms.focus();
 			phoneMessage.style.color = "red";
-			phoneMessage.innerHTML = "인증번호를 옳바르게 입력하고 인증 버튼을 눌러 인증을 진행해 주십시오";
+			phoneMessage.innerHTML = "인증절차를 진행하여 주십시오";
 			return false;
 		} else if (!addrCheck()) {
 			addr.focus();
@@ -148,7 +148,6 @@ window.onload = function() {
 
 			return false;
 		} else {
-			phoneMessage.innerHTML = "";
 			return true;
 		}
 	}
@@ -321,20 +320,68 @@ window.onload = function() {
 		});
 	});
 	
+
 	$(function() {
+		var authNum;
 		$('#sendSms').click(function() {
-			console.log($('#authBox').css('display'));
-			
 			if($('#authInputBox').css('display') == 'inline-block'){
 				alert('인증번호를 확인하세요.');
 			} else {
-				if($('#phone') == "" || !(/^(010[1-9][0-9]{7})$/.test(phone.value))){
+				if($('#memberPhone') == "" || !(/^(010[1-9][0-9]{7})$/.test(phone.value))){
 					$('#phoneMessage').html('핸드폰번호를 제대로 작성하세요.');
 				} else {
-					//ajax SMS API 작성
-					$('#authBox').removeAttr('style');
-					$('#phoneMessage').html('');				
+					$.ajax({
+						url: "/memberPhoneCheck.do",
+						data: {
+							receiver: $("#memberPhone").val()
+						},
+						type: "post",
+						success: function(result){
+							if(result == "true"){
+								$('#authBox').removeAttr('style');
+								$('#phoneMessage').html('');
+								
+								$.ajax({
+									url: "/sendSms.do",
+									data: {
+										receiver: $("#memberPhone").val()
+									},
+									type: "post",
+									success: function(getAuthNum){
+										authNum = getAuthNum;
+									}
+								});	
+							} else {
+								alert("이미 가입된 전화번호 입니다.");
+								$('#phoneMessage').css('color', 'red');
+								$('#phoneMessage').html('이미 가입된 전화번호 입니다.');
+							}
+						}
+					});
 				}
 			}
 		});
+		$('#smsCheck').click(
+				function() {
+					if ($("#inputAuthNum").val() == authNum) {
+						alert("번호 인증 성공");
+						$('#phoneMessage').css('color', 'blue');
+						$('#phoneMessage').html('인증완료');
+						$('#memberPhone').attr('readonly', true);
+						$('#sendSms').css('display', 'none');
+						$('#changePhone').css('display', 'inline-block');
+						$('#authBox').attr('style','display:none');
+					} else {
+						alert("옳바르지 않은 인증번호 입니다.");
+					}
+				});
+		$('#changePhone').click(
+				function() {
+					$('#phoneMessage').html('');
+					$('#memberPhone').attr('readonly', false);
+					$('#memberPhone').val('');
+					$('#inputAuthNum').val('');
+					$('#sendSms').css('display', 'inline-block');
+					$('#changePhone').css('display', 'none');
+				});
 	});

@@ -27,12 +27,12 @@
 				</div>
 				<div class="row">
 					<div class="col-12 p-0">
-						<form>
+						<form action="memberFindPw.do" method="post">
 							<div class="container">	
 								<div class="row border-0 my-3">
 									<div class="col-12 border-0 px-5">
 										<span class="formTitle d-block">&nbsp;아이디</span> 
-										<input type="text" id="userId" name="userId" onblur="idCheck();" placeholder="아이디 입력">
+										<input type="text" id="memberId" name="memberId" onblur="idCheck();" placeholder="아이디 입력" autocomplete="off" />
 										<span id="idMessage" class="checkMessage"></span>
 									</div>
 								</div>
@@ -40,7 +40,7 @@
 								<div class="row border-0 my-3">
 									<div class="col-12 border-0 px-5">
 										<span class="formTitle d-block">&nbsp;이름</span> 
-										<input type="text" id="userName" name="userName" onblur="nameCheck();" placeholder="이름 입력">
+										<input type="text" id="memberName" name="memberName" onblur="nameCheck();" placeholder="이름 입력" autocomplete="off" />
 										<span id="nameMessage" class="checkMessage"></span>
 									</div>
 								</div>
@@ -51,16 +51,17 @@
 										<div class="container p-0 m-0 border-none">
 											<div class="row p-0 m-0">
 												<div class="col-12 col-lg-9 p-0 m-0">
-													<input type="text" id="phone" name="phone" onblur="phoneCheck();" maxlength="11" placeholder="-제외하고 입력" />
+													<input type="text" id="memberPhone" name="memberPhone" onblur="phoneCheck();" maxlength="11" placeholder="-제외하고 입력" autocomplete="off" />
 												</div>
 												<div class="col-12 col-lg-3 p-0 m-0 text-center">
-													<button type="button" id="sendSms" class="btn checkBtn m-0">인증하기</button>
+													<button type="button" id="sendSms" class="btn checkBtn m-0" style="display:inline-block">인증하기</button>
+													<button type="button" id="changePhone" class="btn checkBtn m-0" style="display:none">번호변경</button>
 												</div>
 											</div>
 												
 											<div id="authBox" class="row p-0 mx-0 mt-3 mb-0" style="display:none;">
 												<div id="authInputBox" class="col-12 col-lg-9 p-0 m-0">
-													<input type="text" id="inputAuthNum" name="authNum" onblur="authNumCheck();" maxlength="11" placeholder="인증번호 입력" />
+													<input type="text" id="inputAuthNum" name="authNum" onblur="authNumCheck();" maxlength="11" placeholder="인증번호 입력" autocomplete="off" />
 												</div>
 												<div id="authBtnBox" class="col-12 col-lg-3 p-0 m-0 text-center">
 													<button type="button" id="smsCheck" class="btn checkBtn m-0">인증완료</button>
@@ -69,7 +70,7 @@
 										</div>
 										<span id="phoneMessage" class="checkMessage"></span>
 									</div>
-								</div>							
+								</div>						
 									
 								<div class="row border-0 my-5">
 									<div class="col-1"></div>
@@ -89,9 +90,7 @@
 		</div>
 	</div>
 	
-	<div id="footer" class="row m-0 p-0">
-		<div class="col-12 my-3"></div>
-	</div>
+	<%@ include file="/common/footer.jsp"%>
 	
 	<script type="text/javascript" src="/resources/js/memberFindPw.js"></script>
 </body>

@@ -28,9 +28,9 @@
 				<div class="row">
 					<div class="col-12">
 						<form class="text-center" action="/memberLogin.do" method="post">
-							<input type="text" id="memberId" name="memberId" placeholder="아이디">
+							<input type="text" id="memberId" name="memberId" placeholder="아이디" autocomplete="off" />
 							<span id="idMessage" class="message"></span>
-							<input type="password" id="memberPw" name="memberPw" placeholder="비밀번호">
+							<input type="password" id="memberPw" name="memberPw" placeholder="비밀번호" autocomplete="off" />
 							<span id="pwMessage" class="message"></span> 
 							<input type="submit" id="loginBtn" class="btn btn-outline-secondary" value="로그인" />
 						</form>
@@ -39,10 +39,10 @@
 				
 				<div class="row">
 					<div class="col-12 col-lg-6 text-center pl-4">
-						<a class="findInfo" href="/init/memberFindId.jsp">아이디를 잊으셨나요?</a>
+						<a class="findInfo" href="memberFindIdPage.do">아이디를 잊으셨나요?</a>
 					</div>
 					<div class="col-12 col-lg-6 text-center pr-4">
-						<a class="findInfo" href="/init/memberFindPw.jsp">비밀번호를 잊으셨나요?</a>
+						<a class="findInfo" href="memberFindPwPage.do">비밀번호를 잊으셨나요?</a>
 					</div>
 				</div>
 				<hr class="my-1">
