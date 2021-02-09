@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@page import="com.fourmeeting.bee.beesuser.model.vo.BeesUserList"%>
+<%@page import="java.util.ArrayList"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -17,9 +19,11 @@
 <title>Insert title here</title>
 </head>
 <body>
+<%
+	ArrayList<BeesUserList> list = (ArrayList<BeesUserList>)request.getAttribute("list");
+	/* Member sessionMember = (Member)session.getAttribute("member"); */
+%>
 <script src="https://code.jquery.com/jquery-3.5.1.js" integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" crossorigin="anonymous"></script>
-
-
 <style>
 * {
 	box-sizing: border-box;
@@ -646,11 +650,12 @@ button {
       <h4 class="modal-title" id="myModalLabel">멤버 선택</h4>      
       </div>
       <div class="modal-body">
- <div class="leaveMemberList">   
+<div class="leaveMemberList">  
+<%for(BeesUserList bu : list){%> 
     <div class="listWrap">
         <ul class="cMemberList"><li data-viewname="DBandBlockMemberItemView" class="uFlexItem">
 <span class="body">
-    <span class="text -ellipsis">안녕풍경</span>
+    <span class="text -ellipsis"><%=bu.getUserName() %></span>
 </span>
 <span class="etc">
     <span class="uCheck  -checkbox ">
@@ -665,74 +670,7 @@ button {
             <span class="gColorGr3 _collectionEmptyMsg"></span>
         </p>
     </div> 
-    <div class="listWrap">
-        <ul class="cMemberList"><li data-viewname="DBandBlockMemberItemView" class="uFlexItem">
-<span class="body">
-    <span class="text -ellipsis">다시만나</span>
-</span>
-<span class="etc">
-   <span class="uCheck  -checkbox ">
-            <input type="checkbox" class="checkInput _chkMember" value="67080144" >
-            <span class="checkLabel">
-                <span class="shape"></span>
-            </span>
-     </span>
-</span></li></ul>
-        <p class="uEmpty _collectionEmptyMsgEl" style="height: 545px; display: none;">
-            <span class="gColorGr3 _collectionEmptyMsg"></span>
-        </p>
-    </div>
-    <div class="listWrap">
-        <ul class="cMemberList"><li data-viewname="DBandBlockMemberItemView" class="uFlexItem">
-<span class="body">
-    <span class="text -ellipsis">우리우리</span>
-</span>
-<span class="etc">
-    <span class="uCheck  -checkbox ">
-            <input type="checkbox" class="checkInput _chkMember" value="67080144" >
-            <span class="checkLabel">
-                <span class="shape"></span>
-            </span>
-     </span>
-</span></li></ul>
-        <p class="uEmpty _collectionEmptyMsgEl" style="height: 545px; display: none;">
-            <span class="gColorGr3 _collectionEmptyMsg"></span>
-        </p>
-    </div>
-    <div class="listWrap">
-        <ul class="cMemberList"><li data-viewname="DBandBlockMemberItemView" class="uFlexItem">
-<span class="body">
-    <span class="text -ellipsis">풍경조아</span>
-</span>
-<span class="etc">
-    <span class="uCheck  -checkbox ">
-            <input type="checkbox" class="checkInput _chkMember" value="67080144" >
-            <span class="checkLabel">
-                <span class="shape"></span>
-            </span>
-     </span>
-</span></li></ul>
-        <p class="uEmpty _collectionEmptyMsgEl" style="height: 545px; display: none;">
-            <span class="gColorGr3 _collectionEmptyMsg"></span>
-        </p>
-    </div>
-    <div class="listWrap">
-        <ul class="cMemberList"><li data-viewname="DBandBlockMemberItemView" class="uFlexItem">
-<span class="body">
-    <span class="text -ellipsis">메이플</span>
-</span>
-<span class="etc">
-    <span class="uCheck  -checkbox ">
-            <input type="checkbox" class="checkInput _chkMember" value="67080144" >
-            <span class="checkLabel">
-                <span class="shape"></span>
-            </span>
-     </span>
-</span></li></ul>
-        <p class="uEmpty _collectionEmptyMsgEl" style="height: 545px; display: none;">
-            <span class="gColorGr3 _collectionEmptyMsg"></span>
-        </p>
-    </div>
+<%} %> 
 </div>
       </div>   
       <div class="modal-footer">

@@ -1,4 +1,74 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="bees">
+	<insert id="insertBee" parameterType="Bees">
+	insert into BEES values (BEES_SEQ.NEXTVAL,#{beesName},#{beesCover},#{beesCategory},#{beesHost},#{beesPublicYN},'',0,'N','N',0,0,SYSTIMESTAMP,'')
+	</insert>
+  	<select id="selectBeeSetting" parameterType="Bees" resultType="Bees">
+  	select
+  		BEES_NO as beesNo,
+  		BEES_NAME as beesName,
+  		BEES_COVER as beesCover,
+  		BEES_CATEGORY as beesCategory,     
+  		BEES_HOST as beesHost,
+  		BEES_PUBLIC_YN as beesPublicYN,
+  		BEES_CONT as beesCont,
+  		BEES_USER_LIMIT as beesUserLimit,
+  		BEES_DEL_YN as beesDelYN,
+  		BEES_GENDER as beesGender,
+  		BEES_MAX_BIRTH as beesMaxBirth,
+  		BEES_MIN_BIRTH as beesMinBirth,
+  		BEES_DATE as beesDate,
+  		BEES_DEL_DATE as beesDelDate
+  	from BEES where BEES_NO = #{beesNo}
+  	</select>
+	<update id="updateBeeSettingCover">
+		UPDATE BEES
+			SET
+				BEES_NAME = #{beesName},
+				BEES_COVER = #{beesCover}				
+		where BEES_NO = #{beesNo}
+	</update>
+	<update id="updateBeeSettingType">
+		UPDATE BEES
+			SET
+				BEES_PUBLIC_YN = #{beesPublicYN}			
+		where BEES_NO = #{beesNo}
+	</update>
+	<update id="updateBeeSettingIntro">
+		UPDATE BEES
+			SET
+				BEES_CONT = #{beesCont}			
+		where BEES_NO = #{beesNo}
+	</update>
+	<update id="updateBeeSettingMaxMember">
+		UPDATE BEES
+			SET
+				BEES_USER_LIMIT = #{beesUserLimit}			
+		where BEES_NO = #{beesNo}
+	</update>
+	<update id="updateBeeSettingJoinStandard">
+		UPDATE BEES
+			SET
+				BEES_GENDER = #{beesGender},
+				BEES_MAX_BIRTH = #{beesMaxBirth},
+				BEES_MIN_BIRTH = #{beesMinBirth}			
+		where BEES_NO = #{beesNo}
+	</update>
+	<select id="selectBeesUser" parameterType="beesUserList" resultType="beesUserList">
+		select
+		BEES_USER.USER_NO as userNo,
+		BEES_USER.BEES_NO as beesNo,
+		BEES_USER.MEMBER_NO as memberNo,
+		BEES_USER.USER_NAME as userName,
+		BEES_USER.USER_CLASS as userClass,
+		BEES_USER.USER_BLOCK_YN as userBlockYN,
+		BEES_USER.USER_DEL_YN as userDelYN,
+		BEES_USER.USER_AUTH_YN as userAuthYN,
+		MEMBER.MEMBER_ID as memberId,
+		MEMBER.PROFILE_IMG as profileImg
+		from Bees_User left join bees On bees_user.bees_no=bees.bees_no left join member On bees_user.member_no=member.member_no
+		where bees_user.BEES_NO=#{beesNo} and bees_user.user_del_yn='N' and bees_user.user_auth_yn='Y'
+	</select>
+	
 </mapper>

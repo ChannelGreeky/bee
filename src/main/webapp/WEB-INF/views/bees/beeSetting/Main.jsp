@@ -1,4 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@page import="com.fourmeeting.bee.bees.model.vo.Bees"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -6,6 +7,10 @@
 <title>Insert title here</title>
 </head>
 <body>
+<%
+	Bees beeResult = (Bees)request.getAttribute("beeResult");
+	/* Member sessionMember = (Member)session.getAttribute("member"); */
+%>
 	<%@ include file="/common/cdnLib.jsp"%>
 	<!--비즈 전체페이지 + 사이드 프로필 + 메인 컨텐츠 크기-->
 	<link rel="stylesheet" type="text/css" href="/resources/css/beesForm.css">
@@ -18,7 +23,8 @@
 			<div class="col-1"></div>
 			<div class="col-3 p-0">
 				<div id="bees-side" class="container m-0 p-2">
-				<jsp:include page="beeSettingLeft.jsp"/>	
+				<%@ include file="beeSettingLeft.jsp"%>
+				<%-- <jsp:include page="beeSettingLeft.jsp"/>	 --%>
 				</div>
 			</div>
 			<div class="col-7 p-0">

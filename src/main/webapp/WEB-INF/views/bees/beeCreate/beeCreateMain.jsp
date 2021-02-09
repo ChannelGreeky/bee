@@ -196,14 +196,14 @@ button, dd, dl, dt, fieldset, ol, p, ul {
 <ul class="usecaseList">
 	
 	<li class="usecaseItem">
-		<a href="/band-create/group?usecase=취미,+동호회" class="usecaseItemLink _createType" data-type="" data-usecase="취미, 동호회" data-type2="">
+		<a href="/beeCreateSub.do?category=meet" class="usecaseItemLink _createType" data-type="" data-usecase="취미, 동호회" data-type2="">
 			<span class="iconUscase"><img src="/resources/image/beeCreate/취미.PNG" alt="취미, 동호회"></span>
 			<em class="uscaseName">취미, 동호회</em>		
 		</a>
 	</li>
 	
 	<li class="usecaseItem">
-		<a href="/band-create/group?open_type=secret&amp;usecase=스터디" class="usecaseItemLink _createType" data-type="secret" data-usecase="스터디" data-type2="">
+		<a href="/beeCreateSub.do?category=study" class="usecaseItemLink _createType" data-type="secret" data-usecase="스터디" data-type2="">
 			<span class="iconUscase"><img src="/resources/image/beeCreate/스터디.PNG"  alt="스터디"></span>
 			<em class="uscaseName">스터디</em>
 			
@@ -211,7 +211,7 @@ button, dd, dl, dt, fieldset, ol, p, ul {
 	</li>
 	
 	<li class="usecaseItem">
-		<a href="/band-create/group?usecase=게임" class="usecaseItemLink _createType" data-type="" data-usecase="게임" data-type2="">
+		<a href="/beeCreateSub.do?category=game" class="usecaseItemLink _createType" data-type="" data-usecase="게임" data-type2="">
 			<span class="iconUscase"><img src="/resources/image/beeCreate/게임.PNG"  alt="게임"></span>
 			<em class="uscaseName">게임</em>
 			
@@ -219,7 +219,7 @@ button, dd, dl, dt, fieldset, ol, p, ul {
 	</li>
 	
 	<li class="usecaseItem">
-		<a href="/band-create/group?usecase=운동+모임" class="usecaseItemLink _createType" data-type="" data-usecase="운동 모임" data-type2="">
+		<a href="/beeCreateSub.do?category=exercise" class="usecaseItemLink _createType" data-type="" data-usecase="운동 모임" data-type2="">
 			<span class="iconUscase"><img src="/resources/image/beeCreate/운동.PNG"  alt="운동 모임"></span>
 			<em class="uscaseName">운동</em>
 			
@@ -227,7 +227,7 @@ button, dd, dl, dt, fieldset, ol, p, ul {
 	</li>
 	
 	<li class="usecaseItem">
-		<a href="/band-create/group?usecase=지역" class="usecaseItemLink _createType" data-type="" data-usecase="지역 모임" data-type2="">
+		<a href="/beeCreateSub.do?category=area" class="usecaseItemLink _createType" data-type="" data-usecase="지역 모임" data-type2="">
 			<span class="iconUscase"><img src="/resources/image/beeCreate/지역.PNG"  alt="지역 모임"></span>
 			<em class="uscaseName">지역</em>
 			
@@ -235,7 +235,7 @@ button, dd, dl, dt, fieldset, ol, p, ul {
 	</li>
 	
 	<li class="usecaseItem">
-		<a href="/band-create/group" class="usecaseItemLink makeLink _createType">
+		<a href="/beeCreateSub.do?category=etc" class="usecaseItemLink makeLink _createType">
 			<span class="iconUscase"><img src="/resources/image/beeCreate/직접만들기.PNG"  alt="직접만들기 모임"></span>
 			<em class="uscaseName">직접 만들기</em>
 		</a>

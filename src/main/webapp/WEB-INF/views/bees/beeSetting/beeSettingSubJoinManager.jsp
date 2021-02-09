@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@page import="com.fourmeeting.bee.beesuser.model.vo.BeesUserList"%>
+<%@page import="java.util.ArrayList"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -322,7 +324,7 @@ em {
 }
 .uFlexItem .body .leader {
     background: #F7D078;
-    width: 30px;
+    width: 40px;
     color: #50401B; 
 }
 /* text -ellipsis gMat6 */
@@ -514,8 +516,15 @@ button {
 #beeNaviStyleOnly>a{
 	text-decoration: none;
 }
+.uButton.-sizeS {
+    background: #50401B;
+}
 </style>
 <body>
+<%
+	ArrayList<BeesUserList> list = (ArrayList<BeesUserList>)request.getAttribute("list");
+	/* Member sessionMember = (Member)session.getAttribute("member"); */
+%>
 <main id="content" role="main" class="midContent" data-uiselector="contentRegion"><div data-viewname="DGroupBandManageCoLeaderView" class="sSettingBand gContentCardShadow">
 <div class="uHeaderWrap">
     <header class="header beeHeaderColor">
@@ -523,7 +532,9 @@ button {
         <div class="btnsWrap" id="boxJoinManager" data-toggle="modal" data-target="#myModalJoinManager">
 			  <path d="M4.715 6.542L3.343 7.914a3 3 0 1 0 4.243 4.243l1.828-1.829A3 3 0 0 0 8.586 5.5L8 6.086a1.001 1.001 0 0 0-.154.199 2 2 0 0 1 .861 3.337L6.88 11.45a2 2 0 1 1-2.83-2.83l.793-.792a4.018 4.018 0 0 1-.128-1.287z"/>
 			  <path d="M6.586 4.672A3 3 0 0 0 7.414 9.5l.775-.776a2 2 0 0 1-.896-3.346L9.12 3.55a2 2 0 0 1 2.83 2.83l-.793.792c.112.42.155.855.128 1.287l1.372-1.372a3 3 0 0 0-4.243-4.243L6.586 4.672z"/>
-			<button type="button" class="btn uButton sf_tBorderOpacity sf_color _btnAddCoLeader">매니저 추가</button> 
+		
+		<button type="button" class="btn uButton sf_tBorderOpacity sf_color _btnAddCoLeader">매니저 추가</button> 
+        
         </div>
         <jsp:include page="modalJoinManager.jsp"/>    
         <!-- <div class="btnsWrap">
@@ -531,21 +542,25 @@ button {
         </div> -->
     </header>
 </div>
-
-<ul class="cMemberList gMal22 gMar22"><li data-viewname="DBandCoLeaderItemView" class="uFlexItem"><a href="#" role="button" class="uProfile -size50 _btnProfileImage">
+<%for(BeesUserList bu : list){%>
+<ul class="cMemberList gMal22 gMar22">
+<li data-viewname="DBandCoLeaderItemView" class="uFlexItem"><a href="#" role="button" class="uProfile -size50 _btnProfileImage">
     <span class="profileInner ">
-        <img src="https://ssl.pstatic.net/cmstatic/webclient/dres/20210105172030/images/template/profile_120x120.png" width="50" height="50" alt="고은희">
+        <img src="<%=bu.getProfileImg() %>" width="50" height="50" 
+         onError="javascript:this.src='https://ssl.pstatic.net/cmstatic/webclient/dres/20210105172030/images/template/profile_120x120.png'">
     </span>
 </a>
 
-<span class="body">
-    
-    <span class="text -flex"><em class="leader gMal0">방장</em></span>
-    <span class="text -ellipsis gMat6">이지은</span>
+<span class="body">   
+    <span class="text -flex"><em class="leader gMal0">매니저</em></span>
+    <span class="text -ellipsis gMat6"><%=bu.getUserName() %></span>
 </span>
 
+<span class="etc">
+    <button type="button" class="uButton -sizeS -confirm2 _btnRemoveCoLeader">취소</button>
+</span>
 </li></ul>
-
+<%} %> 
 <div class="sSettingBand">
     <div class="linkMemeberPrower">
         <p class="text">매니저는 무엇을 할 수 있나요?<br>설정 메뉴에서 매니저의 권한을 설정할 수 있습니다.</p>

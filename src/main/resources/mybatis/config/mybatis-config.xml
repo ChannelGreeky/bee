@@ -7,5 +7,6 @@
 <typeAlias type="com.fourmeeting.bee.bees.model.vo.Setting" alias="setting"></typeAlias>
 <typeAlias type="com.fourmeeting.bee.beesuser.model.vo.BeesUser" alias="beesUser"></typeAlias>
 <typeAlias type="com.fourmeeting.bee.notice.model.vo.Notice" alias="notice"></typeAlias>
+<typeAlias type="com.fourmeeting.bee.beesuser.model.vo.BeesUserList" alias="BeesUserList"></typeAlias>
 </typeAliases>
 </configuration>
