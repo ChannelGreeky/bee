@@ -64,7 +64,7 @@
 		<a href="/beeCreateMain.do">비즈만들기 메인</a><br>
 		<a href="/beeCreateSub.do">비즈커버설정</a><br>
 	<h1>비즈 설정</h1>
-		<a href="/beeSettingMain.do">비즈설정 메인</a><br>
+		<a href="/beeSettingMain.do?beesNo=20">비즈설정 메인</a><br>
 		
 		<a href="/beeSettingSubCoverUpdate.do">비즈 커버  설정 상세</a><br>
 		<a href="/beeSettingSubType.do">비즈 공개 설정 상세</a><br>
