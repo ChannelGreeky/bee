@@ -1,12 +1,12 @@
 package com.fourmeeting.bee.comment.model.vo;
 
-import java.sql.Date;
+import java.sql.Timestamp;
 
 public class BeesComment {
 	
 	private int commentNo;
 	private String commentCont;
-	private Date commentDate;
+	private Timestamp commentDate;
 	private int recommentNo;
 	private char commentDelYN;
 	
@@ -21,7 +21,9 @@ public class BeesComment {
 		// TODO Auto-generated constructor stub
 	}
 
-	public BeesComment(int commentNo, String commentCont, Date commentDate, int recommentNo, char commentDelYN,
+
+
+	public BeesComment(int commentNo, String commentCont, Timestamp commentDate, int recommentNo, char commentDelYN,
 			int userNo, int boardNo, int beesNo) {
 		super();
 		this.commentNo = commentNo;
@@ -34,69 +36,103 @@ public class BeesComment {
 		this.beesNo = beesNo;
 	}
 
+
+
 	public int getCommentNo() {
 		return commentNo;
 	}
+
+
 
 	public void setCommentNo(int commentNo) {
 		this.commentNo = commentNo;
 	}
 
+
+
 	public String getCommentCont() {
 		return commentCont;
 	}
+
+
 
 	public void setCommentCont(String commentCont) {
 		this.commentCont = commentCont;
 	}
 
-	public Date getCommentDate() {
+
+
+	public Timestamp getCommentDate() {
 		return commentDate;
 	}
 
-	public void setCommentDate(Date commentDate) {
+
+
+	public void setCommentDate(Timestamp commentDate) {
 		this.commentDate = commentDate;
 	}
+
+
 
 	public int getRecommentNo() {
 		return recommentNo;
 	}
 
+
+
 	public void setRecommentNo(int recommentNo) {
 		this.recommentNo = recommentNo;
 	}
+
+
 
 	public char getCommentDelYN() {
 		return commentDelYN;
 	}
 
+
+
 	public void setCommentDelYN(char commentDelYN) {
 		this.commentDelYN = commentDelYN;
 	}
+
+
 
 	public int getUserNo() {
 		return userNo;
 	}
 
+
+
 	public void setUserNo(int userNo) {
 		this.userNo = userNo;
 	}
+
+
 
 	public int getBoardNo() {
 		return boardNo;
 	}
 
+
+
 	public void setBoardNo(int boardNo) {
 		this.boardNo = boardNo;
 	}
+
+
 
 	public int getBeesNo() {
 		return beesNo;
 	}
 
+
+
 	public void setBeesNo(int beesNo) {
 		this.beesNo = beesNo;
 	}
+
+	
 	
 	
 	
