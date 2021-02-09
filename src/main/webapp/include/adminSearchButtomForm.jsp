@@ -72,22 +72,12 @@ border:none;
 .search_bar select:focus{
 outline:none;
 }
-#main-content div{
-display:inline-block;
 
-}
-.btn-primary{
-float:right;
-width:100px;
-margin-right:15px;
-border:none;
-color:#50401B;
-font-size:1rem;
-}
+
 #write_btn{
 float:right;
 width:100px;
-margin-right:15px;
+margin-right:3px;
 border:none;
 color:#50401B;
 font-size:1rem;
@@ -112,10 +102,10 @@ width:100%;
 			<div class="col-1 p-0"></div>
 			
 				
-			<div class="col-10 p-0">
-					<div id="main-content" class="container m-0 p-2">
+			<div class="col-10 p-0" >
+					<div id="main-content" class="container" style="margin-left:15px;">
 						<div class="row w-100">
-							<div class="col-md-12 admin_header">
+							<div class="col-md-12 admin_header" >
 								<span id="search_title">공지사항</span>
 								<!-- Button trigger modal -->
 								

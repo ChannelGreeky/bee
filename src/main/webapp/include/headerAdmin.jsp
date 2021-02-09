@@ -16,25 +16,25 @@
 	       	<div class="col-10 inner p-0">
 	       		<div class="row h-100 w-100 p-0" >
 	           		<div class="col-2 col-md-2 p-0 d-xs-none">
-	           			<span class="beeLogo">
+	           			<span class="beeLogo" style="margin-left:20px;">
 	            		<a href="#" >
-		       			<img src="resources/image/beeLogo.png" alt="로고이미지"/>	
+		       			<img src="resources/image/beeLogo.png" alt="로고이미지" />	
 	 	  				</a>
 	            		</span>
 	           
 	            	</div>
 	         		<div class="col-md-8 p-0">
 		         		<ul class="admin_menu">
-		         			<li><a href="#">회원관리</a></li>
+		         			<li><a href="/memberManagement.do">회원관리</a></li>
 		         			<li><a href="#">모임관리</a></li>
-		         			<li><a href="#">공지사항</a></li>
+		         			<li><a href="/adminNoticeBoard.do">공지사항</a></li>
 		         			<li><a href="#">1:1문의</a></li>
 		         		</ul>
 	         		</div>
-	            	<div class="col-2 col-md-2 p-0">
+	            	<div class="col-2 col-md-2 p-0" >
 			            <ul class="top_right-menu">
 			            	<li class="menu-item">
-			            		<button type="button" class="top_right_btn" id="set_btn">
+			            		<button type="button" class="top_right_btn" id="set_btn" >
 			            			<img src="/resources/image/profile.png" style="border-radius:30px;">
 			            		</button>
 			            		
@@ -46,20 +46,18 @@
 				                            <a href="/index.jsp">내가 쓴 글</a>
 				                        </li>
 						  				<li>
-				                            <a href="#">좋아요 목록</a>
-				                        </li>
-				 		  				<li>
-				                            <a href="#">내 정보</a>
+				                            <a href="/memberManagement.do">회원관리</a>
 				                        </li>
 				                        <li>
-				                            <a href="#">비즈가입ㆍ초대 확인</a>
+				                            <a href="#">모임관리</a>
 				                        </li>
-										<li>
+				 		  				<li>
+				                            <a href="/adminNoticeBoard.do">공지사항</a>
+				                        </li>
+				                       	<li>
 				                            <a href="#">문의사항</a>
 				                        </li>
-										<li>
-				                            <a href="#">공지사항</a>
-				                        </li>
+										
 				                        <li>
 				                        	<a href="/main.jsp">로그아웃</a>
 				                        </li>

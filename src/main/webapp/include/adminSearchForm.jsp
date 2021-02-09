@@ -77,10 +77,7 @@ border:none;
 .search_bar select:focus{
 outline:none;
 }
-#main-content div{
-display:inline-block;
 
-}
 .admin_header{
 width:100%;
 
@@ -98,10 +95,10 @@ width:100%;
 			
 				
 			<div class="col-10 p-0">
-					<div id="main-content" class="container m-0 p-2">
+					<div id="main-content" class="container" style="margin-left:15px;">
 						<div class="row w-100">
 							<div class="col-md-12 admin_header">
-								<span id="search_title">공지사항</span>
+								<span id="search_title">회원관리</span>
 								
 							</div>
 						</div>
@@ -116,8 +113,10 @@ width:100%;
 								<div class="col-md-2 w-100 search_bar"> 
 								<select name="category">
 									<optgroup label="카테고리">
-									<option value="noticeWrite">공지사항</option>
-									<option value="faqWrite">FAQ</option>	
+									<option value="idMember">아이디</option>
+									<option value="nameMember">이름</option>
+									<option value="withdrawalMember">탈퇴고객</option>
+									<option value="joinMember">가입고객</option>	
 									</optgroup>  
 								</select>
 							</div>	
