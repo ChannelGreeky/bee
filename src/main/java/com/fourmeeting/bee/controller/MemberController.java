@@ -28,7 +28,7 @@ public class MemberController {
 		return "bees/beesApplicant";
 	}
 	
-	@RequestMapping(value="uploadFile.do")
+	/*@RequestMapping(value="uploadFile.do")
 	public String uploadFile(){
 		return "bees/fileBoard";
 	}
@@ -47,7 +47,7 @@ public class MemberController {
 	public String noticeBoard(){
 		return "admin/noticeBoard";
 	}	
-		
+		*/
 		//------ 마이페이지 ------- //
 		@RequestMapping(value="myinfo.do")
 		public String myinfo(){
@@ -93,12 +93,12 @@ public class MemberController {
 		//마이페이지
 		
 		//------ 관리자페이지(테이블) ------- //
-		
+	/*	
 		@RequestMapping(value="/memberManagement.do")
 		public String memberManagement(){
 			return "admin/memberManagement";
 		}
-		
+	*/	
 		@RequestMapping(value="/beesManagement.do")
 		public String beesManagement(){
 			return "admin/beesManagement";
