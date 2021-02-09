@@ -1,5 +1,45 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper>
-  <cache-ref namespace=""/>
+<mapper namespace="notice">
+	<insert id="noticeInsert" parameterType="Notice">
+		INSERT INTO NOTICE VALUES
+		(
+			notice_no_seq.nextval,
+			#{memberNo},
+			#{noticeCategory},
+			#{noticeTitle},
+			#{noticeCont},
+			DEFAULT,
+			'N'
+		)
+	</insert>
+	
+
+	
+	<select id="noticeSelectAll" resultType="Notice">
+		
+		SELECT 
+   			notice_no as noticeNo, 
+    		member_id as memberId, 
+    		notice_category as noticeCategory, 
+    		notice_title as noticeTitle,
+    		notice_cont as noticeCont,
+    		notice_date as noticeDate,
+    		notice_del_yn as noticeDelYN
+		from notice 
+		LEFT JOIN 
+    		member 
+		USING(member_no)
+	</select>
+	
+	<update id="noticeBtnUpdate">
+		UPDATE notice
+		Set
+		notice_del_yn =#{noticeDelYN}
+		WHERE notice_no=#{noticeNo}
+	
+	
+	</update>
+	
+	
 </mapper>
