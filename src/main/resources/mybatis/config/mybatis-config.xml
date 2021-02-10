@@ -3,7 +3,10 @@
 <configuration>
 <typeAliases>
 <typeAlias type="com.fourmeeting.bee.member.model.vo.Member" alias="Member" />
+<typeAlias type="com.fourmeeting.bee.userpage.model.vo.RecommendBees" alias="recommendSearch"></typeAlias>
+<typeAlias type="com.fourmeeting.bee.userpage.model.vo.CategoryRecommendBees" alias="categorySearch"></typeAlias>
 <typeAlias type="com.fourmeeting.bee.bees.model.vo.Bees" alias="bees"></typeAlias>
+<typeAlias type="com.fourmeeting.bee.bees.model.vo.BeesUserCount" alias="beesUserCount"></typeAlias>
 <typeAlias type="com.fourmeeting.bee.bees.model.vo.Setting" alias="setting"></typeAlias>
 <typeAlias type="com.fourmeeting.bee.beesuser.model.vo.BeesUser" alias="beesUser"></typeAlias>
 <typeAlias type="com.fourmeeting.bee.notice.model.vo.Notice" alias="notice"></typeAlias>

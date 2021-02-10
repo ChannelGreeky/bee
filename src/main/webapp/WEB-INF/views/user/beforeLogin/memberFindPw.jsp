@@ -75,7 +75,7 @@
 								<div class="row border-0 my-5">
 									<div class="col-1"></div>
 									<div class="col-5">																			
-										<a class="btn w-100" href="/main.jsp">돌아가기</a>
+										<a class="btn w-100" href="/index.jsp">돌아가기</a>
 									</div>
 									<div class="col-5">																			
 										<input type="submit" id="joinBtn" class="btn w-100" onclick="return check();" value="비밀번호 찾기" />

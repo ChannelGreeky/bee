@@ -71,4 +71,84 @@
 		where bees_user.BEES_NO=#{beesNo} and bees_user.user_del_yn='N' and bees_user.user_auth_yn='Y'
 	</select>
 	
+	<select id="selectRecommendBees" parameterType="recommendSearch" resultType="beesUserCount">
+	SELECT 
+		B.BEES_NO AS beesNo,
+	    B.BEES_NAME AS beesName,
+	    B.BEES_COVER AS beesCover,
+	    B.BEES_CATEGORY AS beesCategory,
+	    B.BEES_HOST AS beesHost,
+	    B.BEES_PUBLIC_YN AS beesPublicYN,
+	    B.BEES_CONT AS beesCont,
+	    B.BEES_USER_LIMIT AS beesUserLimit,
+	    B.BEES_DEL_YN AS beesDelYN,
+	    B.BEES_GENDER AS beesGender,
+	    B.BEES_MAX_BIRTH AS beesMaxBirth,
+	    B.BEES_MIN_BIRTH AS beesMinBirth,
+	    B.BEES_DATE AS beesDate,
+	    B.BEES_DEL_DATE AS beesDelDate,
+	    NVL(BU.COUNT, 0) as beesUserCount
+	FROM BEES B 
+	LEFT JOIN 
+    (SELECT BEES_NO, COUNT(*) AS COUNT FROM BEES_USER
+    GROUP BY BEES_NO ORDER BY COUNT(*) DESC) BU
+	ON B.BEES_NO = BU.BEES_NO
+	WHERE B.BEES_CATEGORY IN
+		<foreach item="interest" collection="interest" open="(" separator="," close=")">
+				#{interest}
+		</foreach>
+	AND B.BEES_NO != (SELECT BEES_NO FROM BEES_USER WHERE MEMBER_NO = #{sessionMemberNo})
+	AND B.BEES_PUBLIC_YN = 'N' AND ROWNUM <![CDATA[<]]>= 10
+	</select>
+	
+	<select id="selectMyBees" parameterType="Member" resultType="bees">
+	SELECT 
+		BEES_NO AS beesNo,
+	    BEES_NAME AS beesName,
+	    BEES_COVER AS beesCover,
+	    BEES_CATEGORY AS beesCategory,
+	    BEES_HOST AS beesHost,
+	    BEES_PUBLIC_YN AS beesPublicYN,
+	    BEES_CONT AS beesCont,
+	    BEES_USER_LIMIT AS beesUserLimit,
+	    BEES_DEL_YN AS beesDelYN,
+	    BEES_GENDER AS beesGender,
+	    BEES_MAX_BIRTH AS beesMaxBirth,
+	    BEES_MIN_BIRTH AS beesMinBirth,
+	    BEES_DATE AS beesDate,
+	    BEES_DEL_DATE AS beesDelDate
+	FROM BEES 
+	WHERE BEES_NO IN 
+	(SELECT BEES_NO FROM BEES_USER 
+	WHERE MEMBER_NO = #{memberNo} AND USER_BLOCK_YN = 'N' 
+	AND USER_DEL_YN = 'N' AND USER_AUTH_YN = 'Y')
+	</select>
+	
+	<select id="selectCategoryRecommendBees" parameterType="categorySearch" resultType="beesUserCount">
+	SELECT 
+		B.BEES_NO AS beesNo,
+	    B.BEES_NAME AS beesName,
+	    B.BEES_COVER AS beesCover,
+	    B.BEES_CATEGORY AS beesCategory,
+	    B.BEES_HOST AS beesHost,
+	    B.BEES_PUBLIC_YN AS beesPublicYN,
+	    B.BEES_CONT AS beesCont,
+	    B.BEES_USER_LIMIT AS beesUserLimit,
+	    B.BEES_DEL_YN AS beesDelYN,
+	    B.BEES_GENDER AS beesGender,
+	    B.BEES_MAX_BIRTH AS beesMaxBirth,
+	    B.BEES_MIN_BIRTH AS beesMinBirth,
+	    B.BEES_DATE AS beesDate,
+	    B.BEES_DEL_DATE AS beesDelDate,
+	    NVL(BU.COUNT, 0) as beesUserCount
+	FROM BEES B 
+	LEFT JOIN 
+    (SELECT BEES_NO, COUNT(*) AS COUNT FROM BEES_USER
+    GROUP BY BEES_NO ORDER BY COUNT(*) DESC) BU
+	ON B.BEES_NO = BU.BEES_NO
+	WHERE B.BEES_CATEGORY = #{category}
+	AND B.BEES_NO != (SELECT BEES_NO FROM BEES_USER WHERE MEMBER_NO = #{sessionMemberNo})
+	AND B.BEES_PUBLIC_YN = 'N' AND ROWNUM <![CDATA[<]]>= 10
+	</select>
+	
 </mapper>

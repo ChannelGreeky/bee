@@ -21,7 +21,8 @@
 		color:#50401B;
 	}
 	
-
+	input:focus {outline:none;}
+	
 	.btn{ 
 		font-weight:bold;
 	    text-decoration: none;

@@ -93,26 +93,21 @@
 	</div> <!-- container -->
 </div> <!-- container-fluid" -->
  
+<div class="w-100" style="background-color:white">
 <div class="row navi">
-  <div class="col-md-3 p-0 h-100 w-100"></div>
-   
-       <div class="col-md-6  p-0 navi" >   
-
+  <div class="col-md-12 p-0 h-100 w-100"></div>
 	<ul class="navi_menu">
 	    <li class="navi_menu_item">
-     	       <a href="#" >내 비즈소식</a>
+     	       <a href="#" >내 비즈 소식</a>
 	    </li>	
 	    <li class="navi_menu_item">
      	       <a href="#"  >인기글</a>
 	    </li>	
 	    <li class="navi_menu_item">
-     	       <a href="#"  >추천비즈</a>
+     	       <a href="/beesRecommend.do">추천비즈</a>
 	    </li>	
-       
 	</ul>
-         </div>  <!-- navi -->
-
-  <div class="col-md-3 p-0 w-100"></div>
+</div>
 </div>
 
 

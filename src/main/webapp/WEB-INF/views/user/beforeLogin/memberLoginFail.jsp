@@ -9,7 +9,7 @@
 <body>
 	<script>
 		alert("ID 또는 PW를 확인하세요");
-		location.replace("/main.jsp");
+		location.replace("/index.jsp");
 	</script>
 </body>
 </html>

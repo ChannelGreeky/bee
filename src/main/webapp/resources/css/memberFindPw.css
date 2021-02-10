@@ -20,6 +20,8 @@
 		color:#50401B;
 	}
 	
+	input:focus {outline:none;}
+	
 	input::placeholder {
   		color: #707070;
   		opacity: 0.5;

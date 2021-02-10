@@ -19,9 +19,19 @@
 	Member m = (Member)session.getAttribute("member");
 	ArrayList<BeesUserCount> recommendBees = (ArrayList<BeesUserCount>) request.getAttribute("recommendBees");
 	ArrayList<Bees> myBees = (ArrayList<Bees>) request.getAttribute("myBees");
+	String category =  (String) request.getAttribute("category");
 	DecimalFormat formatter = new DecimalFormat("###,###");
 	%>
 	<%@include file="/include/headerUser.jsp" %>
+	<div id="header">
+		<div class="nav m-auto">
+	        <ul>
+	            <a href="#"><li id="rad1">내 비즈 소식</li></a>
+	            <a href="#"><li>인기글</li></a>
+	            <a href="/beesRecommend.do"><li>추천비즈</li></a>
+	        </ul>
+	    </div>
+    </div>
     
 	<div class="container pt-3">
 		<div class="row">
@@ -63,7 +73,7 @@
 					</div>
 					<% 		}
 						} %>
-					
+
 					<div class="row m-0">
 						<div class="col-12 py-2">
 							<a class="makeBeesBtn btn w-100 py-2" href="#">+ 비즈 만들기</a>
@@ -151,7 +161,15 @@
 					
 					<div class="row mt-4 m-0">
 						<div class="col-12">
-							<span id="main-content-title"><%=m.getMemberName() %>님 만을 위한 추천 비즈</span>
+							<span id="main-content-title">
+							<% if (category.equals("meet")){%>취미/동호회
+							<%} else if (category.equals("study")) { %>공부
+							<%} else if (category.equals("game")) { %>게임
+							<%} else if (category.equals("exercise")) {%>운동
+							<%} else if (category.equals("area")) {%>지역
+							<%} else { %>기타
+							<%} %>
+							</span>
 						</div>
 					</div>
 					
@@ -173,18 +191,24 @@
 								<span class="recommendCategory"><%=b.getBeesCategory() %></span>
 								<br>
 								<span class="beesInfo">비즈장 : <%=b.getBeesHost() %></span><br>
-								<span class="beesInfo">인원수 : <%=formatter.format(b.getBeesUserCount()+1) %>명</span>
+								<span class="beesInfo">인원수 :  <%=formatter.format(b.getBeesUserCount()+1) %>명</span>
 							</div>
-						<% }
-						} %>
+							<% } %>
+						<% } %>
 					</div>
-					
+					<%if(!recommendBees.isEmpty() && recommendBees.size() > 10) { %>
 					<div class="row mt-3 m-0">
 						<div class="col-12">
 							<a class="viewMoreBtn btn w-100 py-2" href="#">+ 더보기</a>
 						</div>
 					</div>
-					
+					<% } else if (recommendBees.isEmpty()){ %>
+						<div class="row mt-3 m-0">
+							<div class="col-12 text-center">
+								<img src="/resources/image/hide.png" width="50%" />
+							</div>
+						</div>
+					<%} %>
 				</div>
 			</div>
 			<div class="col-1">

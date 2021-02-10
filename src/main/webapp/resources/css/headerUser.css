@@ -176,9 +176,10 @@ display:block;
 }
 
 .navi{
+width:500px;
+margin:auto;
 position: relative;
 text-align:center;
-margin:0 auto;
 z-index : 8;
 background-color:white;
 }
@@ -188,13 +189,14 @@ text-align:center;
 height:100%;
 align-items:center;
 position:relative;
-width:50%;
+width:100%;
 margin:0 auto;
 }
 .navi_menu_item{
-margin-right:45px;
 text-align:center;
 flex:0 0 auto;
+width: 33%;
+height: 100%;
 }
 .navi_menu_item>a{
 text-decoration: none;

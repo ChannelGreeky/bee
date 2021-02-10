@@ -1,81 +1,63 @@
-<%@page import="com.fourmeeting.bee.member.model.vo.Member"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+	pageEncoding="UTF-8"%>
+<!DOCTYPE html>
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Insert title here</title>
+<meta charset="UTF-8">
+<title>Bee 로그인</title>
+<%@ include file="/common/cdnLib.jsp"%>
+<link rel="stylesheet" type="text/css" href="/resources/css/index.css">
 </head>
-<body>
 
-	<%
-		Member m = (Member)session.getAttribute("member");
-		if (m != null) {
-	%>
-		<h2>로그인 후 (세션에 Member값 들어있음)</h2>
-		<a href="/memberLogout.do">로그아웃</a>
-	<% } else {
-	%>
-		<h2>로그인 전</h2>
-	<%}%>
+<body>
 	
-	<a href="/beesUploadImage.do">사진첩</a>
-	<a href="/adminNoticeBoard.do">관리자공지사항</a>
-	<a href="/adminNoticeModification.do">관리자공지사항수정</a>
-	<a href="/beesUploadFile.do">파일 모아보기</a>
 	
-	<h3><a href="/beesSchedule.do">일정</a></h3>
-	<h3><a href="/beesMember.do">멤버</a></h3>
+	<div class="container pt-5">
+
+		<div id="top-padding" class="row my-5">
+			<div class="col-12 my-3"></div>
+		</div>
 		
-	<h1>마이페이지</h1>
-	<a href="/myinfo.do">1. 내 정보(△)</a><br>
-	<a href="/myboard.do">2-1. 내가 쓴 글()</a><br>
-	<a href="/mycomment.do">2-2. 내가 쓴 댓글(O)</a><br>
-	<a href="/myheart.do">3. 좋아요 누른 목록()</a><br>
-	<a href="/mybeesJoinQnas.do">4-1. 가입 신청중인 비즈(O)</a><br>
-	<a href="/myQnaHistory.do">5-1. 나의 문의 내역(O)</a><br>
-	<a href="/myask.do">5-2. 1:1 문의하기(O)</a><br>
-	<a href="/mynotice.do">6. 공지사항(O)</a><br>
-	<br><hr>
+		<div id="contents" class="row mt-5">
+			<div class="col-1"></div>
+			<div class="col-5 text-center">
+				<img src="/resources/image/indexLogo.PNG" width="100%" height="100%"/>
+			</div>
+			<div id="loginForm" class="container col-5 py-5">
+			
+				<div class="row">
+					<div class="col-12">
+						<form class="text-center" action="/memberLogin.do" method="post">
+							<input type="text" id="memberId" name="memberId" placeholder="아이디" autocomplete="off" />
+							<span id="idMessage" class="message"></span>
+							<input type="password" id="memberPw" name="memberPw" placeholder="비밀번호" autocomplete="off" />
+							<span id="pwMessage" class="message"></span> 
+							<input type="submit" id="loginBtn" class="btn btn-outline-secondary" value="로그인" />
+						</form>
+					</div>
+				</div>
+				
+				<div class="row">
+					<div class="col-12 col-lg-6 text-center pl-4">
+						<a class="findInfo" href="memberFindIdPage.do">아이디를 잊으셨나요?</a>
+					</div>
+					<div class="col-12 col-lg-6 text-center pr-4">
+						<a class="findInfo" href="memberFindPwPage.do">비밀번호를 잊으셨나요?</a>
+					</div>
+				</div>
+				<hr class="my-1">
+				<div class="row">
+					<div class="col-12 text-center">
+						<a id="joinBtn" href="memberJoin.do">회원가입</a>
+					</div>
 	
-	<h1>관리자페이지(테이블)</h1>
-	<a href="/memberManagement.do">1. 회원관리</a><br>
-	<a href="/beesManagement.do">2. 모임관리</a><br>
-	<a href="/adminNotice.do">3. 공지사항</a><br>
-	<a href="/adminQuestion.do">4. 1:1문의사항</a><br>
-	<br><hr>
+				</div>
+			</div>
+			<div class="col-1"></div>
+		</div>
+	</div>
 	
-	
-	<h1>페이지</h1>
-	<a href="/feedSearchResult.do">피드 서치 페이지</a><br>
-	<a href="/bestFeedPage.do">인기글</a><br>
-	<a href="/myBeesPage.do">내 비즈 소식</a><br>
-	<a href="/beesMainPage.do">비즈 메인 페이지</a><br>
-	<a href="/myPageBoard.do">내가 쓴 게시글</a><br>
-	<a href="/myPageHeart.do">내가 좋아요 누른 페이지</a><br>
-	<a href="/beesSearchResult.do">비즈서치페이지</a>
-	
-	<a href="/bk.do">보</a>
-	
-	<hr>
-	
-	<h1>비즈 생성</h1>
-		<a href="/beeCreateMain.do">비즈만들기 메인</a><br>
-		<a href="/beeCreateSub.do">비즈커버설정</a><br>
-	<h1>비즈 설정</h1>
-		<a href="/beeSettingMain.do?beesNo=20">비즈설정 메인</a><br>
+	<script type="text/javascript" src="/resources/js/index.js"></script>
 		
-		<a href="/beeSettingSubCoverUpdate.do">비즈 커버  설정 상세</a><br>
-		<a href="/beeSettingSubType.do">비즈 공개 설정 상세</a><br>
-		<a href="/beeSettingSubIntro.do">비즈 소개 설정 상세</a><br>
-		<a href="/beeSettingSubMaxMember.do">비즈 최대인원수 설정 상세</a><br>
-		<a href="/beeSettingSubJoinStandard.do">비즈 가입 조건 상세</a><br>
-		<a href="/beeSettingSubJoinManager.do">비즈 매니저 추가 상세</a><br>
-		<a href="/beeSettingSubMemberPermission.do">비즈 멤버 권한 설정 상세</a><br>
-		<a href="/beeSettingSubMemberWithdraw.do">비즈 멤버 탈퇴 차단 설정 멤버리스트</a><br>
-		<a href="/beeSettingSubMemberWithdrawDo.do">비즈 멤버 탈퇴 차단 설정 멤버차단</a><br>
-	
-	
 </body>
 </html>

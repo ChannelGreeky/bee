@@ -34,7 +34,7 @@ import com.fourmeeting.bee.member.model.service.MemberService;
 import com.fourmeeting.bee.member.model.vo.Member;
 
 @Controller
-public class MemberExController {
+public class MemberController {
 	@Autowired
 	@Qualifier(value = "memberService")
 	private MemberService mService;
