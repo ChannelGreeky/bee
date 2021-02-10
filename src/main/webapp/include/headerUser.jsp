@@ -100,20 +100,15 @@
 
 	<ul class="navi_menu">
 	    <li class="navi_menu_item">
-     	       <a href="#" >전체글</a>
+     	       <a href="#" >내 비즈소식</a>
 	    </li>	
 	    <li class="navi_menu_item">
-     	       <a href="#"  >사진첩</a>
+     	       <a href="#"  >인기글</a>
 	    </li>	
 	    <li class="navi_menu_item">
-     	       <a href="/beesSchedule.do"  >일정</a>
+     	       <a href="#"  >추천비즈</a>
 	    </li>	
-        <li class="navi_menu_item">
-     	       <a href="#" >첨부</a>
-	    </li>	
-	    <li class="navi_menu_item">
-     	       <a href="/beesMember.do" >멤버</a>
-	    </li>	
+       
 	</ul>
          </div>  <!-- navi -->
 
