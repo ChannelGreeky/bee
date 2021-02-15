@@ -819,7 +819,7 @@ select:focus {
 		var items = $(this).parent().parent().parent().find('.item-select-btn');
 		console.log(items.length);
 		var boardNo = $(this).closest('.bees-feed').attr('id');
-		//var memberNo = ${sessionScope.member.memberNo};
+		var memberNo = ${sessionScope.member.memberNo};
 		var selectItem;
 		$(items).each(function(index, item){
 			if($(item).attr('fill')!='lightgray'){
@@ -827,7 +827,7 @@ select:focus {
 				$.ajax({
 					url:"/voteInsertItem.do",
 					type:"get",
-					data:{"selectItem":selectItem,"boardNo":boardNo,"memberNo":3},
+					data:{"selectItem":selectItem,"boardNo":boardNo,"memberNo":memberNo},
 					success:function(data){
 						if(data>0){
 						var selector = '#'+selectItem;
@@ -881,13 +881,12 @@ select:focus {
 	})
 			$('.comment-submit-btn').click(function(){
 				var commentCont = $(this).prev().children().eq('0').val();
-				//var memberNo = ${sessionScope.member.memberNo};
+				var memberNo = ${sessionScope.member.memberNo};
 				var boardNo = $(this).closest('.bees-feed').attr('id');
-				//var beesNo = ${requestScope.bees.beesNo};
 				$.ajax({
 					url:"/insertComment.do",
 					type:"get",
-					data:{"commentCont":commentCont,"memberNo":1,"boardNo":boardNo},
+					data:{"commentCont":commentCont,"memberNo":memberNo,"boardNo":boardNo},
 					success:function(data){
 						if(data>0){
 							alert("댓글이 성공적으로 등록되었습니다.");
@@ -903,13 +902,13 @@ select:focus {
 			})
 			$('.recomment-submit-btn').click(function(){
 				var commentCont = $(this).prev().children().eq('0').val();
-				//var memberNo = ${sessionScope.member.memberNo};
+				var memberNo = ${sessionScope.member.memberNo};
 				var recommentNo = ($(this).attr('id')).replace("rn","");
 				var boardNo = $(this).closest('.bees-feed').attr('id');
 				$.ajax({
 					url:"/insertRecomment.do",
 					type:"get",
-					data:{"commentCont":commentCont,"memberNo":1,"boardNo":boardNo, "recommentNo":recommentNo},
+					data:{"commentCont":commentCont,"memberNo":memberNo,"boardNo":boardNo, "recommentNo":recommentNo},
 					success:function(data){
 						if(data>0){
 							alert("댓글이 성공적으로 등록되었습니다.");
@@ -956,13 +955,13 @@ select:focus {
 		$('.feed-like-btn').click(
 				function() {
 					var boardNo = $(this).closest('.bees-feed').attr('id');
-					//var memberNo = ${sessionScope.member.memberNo};
+					var memberNo = ${sessionScope.member.memberNo};
 					if ($(this).attr('fill') == 'red') {
 						$.ajax({
 							url : "/deleteBoardLike.do",
 							data : {
 								"boardNo" : boardNo,
-								"memberNo" : 1
+								"memberNo" : memberNo
 							},
 							success : function(data) {
 								if (data > 0) {
@@ -985,7 +984,7 @@ select:focus {
 							url : "/insertBoardLike.do",
 							data : {
 								"boardNo" : boardNo,
-								"memberNo" : 1
+								"memberNo" : memberNo
 							},
 							success : function(data) {
 

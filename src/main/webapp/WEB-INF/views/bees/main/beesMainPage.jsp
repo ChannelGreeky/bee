@@ -877,7 +877,7 @@ if($(window).scrollTop()==($(document).height()-$(window).height())){
 		var items = $(this).parent().parent().parent().find('.item-select-btn');
 		console.log(items.length);
 		var boardNo = $(this).closest('.bees-feed').attr('id');
-		//var memberNo = ${sessionScope.member.memberNo};
+		var memberNo = ${sessionScope.member.memberNo};
 		var selectItem;
 		$(items).each(function(index, item){
 			if($(item).attr('fill')!='lightgray'){
@@ -885,7 +885,7 @@ if($(window).scrollTop()==($(document).height()-$(window).height())){
 				$.ajax({
 					url:"/voteInsertItem.do",
 					type:"get",
-					data:{"selectItem":selectItem,"boardNo":boardNo,"memberNo":3},
+					data:{"selectItem":selectItem,"boardNo":boardNo,"memberNo":memberNo},
 					success:function(data){
 						if(data>0){
 						var selector = '#'+selectItem;
@@ -939,13 +939,13 @@ if($(window).scrollTop()==($(document).height()-$(window).height())){
 	})
 			$('.comment-submit-btn').click(function(){
 				var commentCont = $(this).prev().children().eq('0').val();
-				//var memberNo = ${sessionScope.member.memberNo};
+				var memberNo = ${sessionScope.member.memberNo};
 				var boardNo = $(this).closest('.bees-feed').attr('id');
-				//var beesNo = ${requestScope.bees.beesNo};
+				var beesNo = ${requestScope.bees.beesNo};
 				$.ajax({
 					url:"/insertComment.do",
 					type:"get",
-					data:{"commentCont":commentCont,"memberNo":1,"boardNo":boardNo},
+					data:{"commentCont":commentCont,"memberNo":memberNo,"boardNo":boardNo},
 					success:function(data){
 						if(data>0){
 							alert("댓글이 성공적으로 등록되었습니다.");
@@ -961,13 +961,13 @@ if($(window).scrollTop()==($(document).height()-$(window).height())){
 			})
 			$('.recomment-submit-btn').click(function(){
 				var commentCont = $(this).prev().children().eq('0').val();
-				//var memberNo = ${sessionScope.member.memberNo};
+				var memberNo = ${sessionScope.member.memberNo};
 				var recommentNo = ($(this).attr('id')).replace("rn","");
 				var boardNo = $(this).closest('.bees-feed').attr('id');
 				$.ajax({
 					url:"/insertRecomment.do",
 					type:"get",
-					data:{"commentCont":commentCont,"memberNo":1,"boardNo":boardNo, "recommentNo":recommentNo},
+					data:{"commentCont":commentCont,"memberNo":memberNo,"boardNo":boardNo, "recommentNo":recommentNo},
 					success:function(data){
 						if(data>0){
 							alert("댓글이 성공적으로 등록되었습니다.");
@@ -1022,13 +1022,13 @@ if($(window).scrollTop()==($(document).height()-$(window).height())){
 		$('.feed-like-btn').click(
 				function() {
 					var boardNo = $(this).closest('.bees-feed').attr('id');
-					//var memberNo = ${sessionScope.member.memberNo};
+					var memberNo = ${sessionScope.member.memberNo};
 					if ($(this).attr('fill') == 'red') {
 						$.ajax({
 							url : "/deleteBoardLike.do",
 							data : {
 								"boardNo" : boardNo,
-								"memberNo" : 1
+								"memberNo" : memberNo
 							},
 							success : function(data) {
 								if (data > 0) {
@@ -1051,7 +1051,7 @@ if($(window).scrollTop()==($(document).height()-$(window).height())){
 							url : "/insertBoardLike.do",
 							data : {
 								"boardNo" : boardNo,
-								"memberNo" : 1
+								"memberNo" : memberNo
 							},
 							success : function(data) {
 
@@ -1240,7 +1240,7 @@ if($(window).scrollTop()==($(document).height()-$(window).height())){
 		var scheduleStartDate = $('#sche-start-date').val()+" 00:00:00";
 		var scheduleEndDate=$('#sche-end-date').val()+" 00:00:00";
 		console.log(scheduleStartDate);
-		//var userNo = ${requestScope.user.userNo};
+		var userNo = ${requestScope.user.userNo};
 		var beesNo = ${requestScope.bees.beesNo};
 		$.ajax({
 			url:"/insertSchedule.do",
@@ -1250,7 +1250,7 @@ if($(window).scrollTop()==($(document).height()-$(window).height())){
 				"scheduleCont":scheduleCont, 
 				"scheduleStartDate":scheduleStartDate, 
 				"scheduleEndDate":scheduleEndDate,
-				"userNo":1,
+				"userNo":userNo,
 				"beesNo":beesNo},
 			type:"post",
 			success:function(data){
@@ -1388,7 +1388,7 @@ if($(window).scrollTop()==($(document).height()-$(window).height())){
 	
 	$('#write-modal-submit').click(function(){
 		var boardCont = $('#write-modal-cont-div').html();
-		//var memberNo = ${sessionScope.user.userNo};
+		var memberNo = ${sessionScope.member.memberNo};
 		var beesNo = ${requestScope.bees.beesNo};
 		var beesFunction = $('#write-modal-submit').attr('name');
 		var imageCount = 0;
@@ -1397,7 +1397,7 @@ if($(window).scrollTop()==($(document).height()-$(window).height())){
 		}
 		$.ajax({
 			url:"/insertBoard.do",
-			data:{"boardCont":boardCont, "memberNo":1, "beesNo":beesNo, "beesFunction":beesFunction, "imageCount":imageCount},
+			data:{"boardCont":boardCont, "memberNo":memberNo, "beesNo":beesNo, "beesFunction":beesFunction, "imageCount":imageCount},
 			type:"post",
 			success:function(data){
 				
@@ -1681,11 +1681,11 @@ $('#join-modal-submit').click(function(){
 		alert("이름을 입력하세요.");
 	}else{
 	
-	//var memberNo = ${sessionScope.member.memberNo};
+	var memberNo = ${sessionScope.member.memberNo};
 	var beesNo = ${requestScope.bees.beesNo};
 	$.ajax({
 		url:"/insertBeesUser.do",
-		data:{"userName":userName,"memberNo":1001,"beesNo":beesNo},
+		data:{"userName":userName,"memberNo":memberNo,"beesNo":beesNo},
 		success:function(data){
 			if(data>0){
 				alert("가입 신청이 완료되었습니다. 관리자 승인시 가입이 완료됩니다.");

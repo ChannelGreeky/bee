@@ -211,13 +211,13 @@ if($(window).scrollTop()==($(document).height()-$(window).height())){
 				$('.feed-like-btn').click(
 				function() {
 					var boardNo = $(this).closest('.bees-feed').attr('id');
-					//var memberNo = ${sessionScope.member.memberNo};
+					var memberNo = ${sessionScope.member.memberNo};
 					if ($(this).attr('fill') == 'red') {
 						$.ajax({
 							url : "/deleteBoardLike.do",
 							data : {
 								"boardNo" : boardNo,
-								"memberNo" : 1
+								"memberNo" : memberNo
 							},
 							success : function(data) {
 								if (data > 0) {
@@ -240,7 +240,7 @@ if($(window).scrollTop()==($(document).height()-$(window).height())){
 							url : "/insertBoardLike.do",
 							data : {
 								"boardNo" : boardNo,
-								"memberNo" : 1
+								"memberNo" : memberNo
 							},
 							success : function(data) {
 
