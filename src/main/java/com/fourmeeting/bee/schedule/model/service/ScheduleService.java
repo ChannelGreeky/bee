@@ -8,9 +8,12 @@ import javax.annotation.Resource;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Service;
 
+import com.fourmeeting.bee.beesuser.model.vo.BeesUser;
 import com.fourmeeting.bee.schedule.model.dao.ScheduleDAO;
 import com.fourmeeting.bee.schedule.model.vo.Schedule;
 import com.fourmeeting.bee.schedule.model.vo.ScheduleDetail;
+import com.fourmeeting.bee.schedule.model.vo.ScheduleInsert;
+import com.fourmeeting.bee.schedule.model.vo.ScheduleList;
 
 
 @Service("ScheduleService")
@@ -55,9 +58,52 @@ public class ScheduleService {
 		return result;
 	}
 
+	
+	/*-------------------solm---------------------*/
 	public ArrayList<Schedule> scheduleSelectAllMyBees(List<Integer> beesNo) {
 		ArrayList<Schedule> scheduleList = scheduleDAO.scheduleSelectAllMyBees(sqlSession, beesNo);
 		return scheduleList;
 	}
+	
+	public ArrayList<ScheduleList> selectBeesSchedule(int beesNo) {
+		ArrayList<ScheduleList> list = scheduleDAO.selectBeesSchedule(sqlSession, beesNo);
+		return list;
+	}
+
+	
+	public BeesUser selectUserNo(int memberNo) {
+		BeesUser BU = scheduleDAO.selectUserNo(sqlSession, memberNo);
+		return BU;
+	}
+	
+	public int insetScheDate(ScheduleInsert SI) {
+	int	result = scheduleDAO.insetScheDate(sqlSession, SI);
+	
+	return result;
+		
+	}
+
+
+	public ScheduleDetail selectScheContList(int scheduleNo) {
+		
+		ScheduleDetail schedule =  scheduleDAO.selectScheContList(sqlSession, scheduleNo);
+		return schedule;
+	}
+
+
+	public int deleteBeesSchedule(int scheduleNo) {
+		int result = scheduleDAO.deleteBeesSchedule(sqlSession, scheduleNo);
+		return result;
+		
+	}
+
+
+	public int updateScheduleCont(ScheduleDetail scheDetail) {
+		System.out.println("[updateScheduleCont-service] 확인");
+		int result = scheduleDAO.updateScheduleCont(sqlSession, scheDetail);
+		return result;
+		
+	}
+
 
 }

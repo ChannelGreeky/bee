@@ -126,6 +126,13 @@ return false;
 			console.log('a', Clipboard, $('#copy'), $("#copy-input").val());
 			var clipboard = new Clipboard('#copy')
 		});
+		
+		$(function(){
+			var newURL = window.location.protocol + "//" + window.location.host + "/" + window.location.pathname;
+			$('#copy-input').val(newURL);
+			
+			
+		})
 	</script>
 			</div>	
 		</div>		

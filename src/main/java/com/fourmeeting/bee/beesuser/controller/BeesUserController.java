@@ -1,16 +1,23 @@
 package com.fourmeeting.bee.beesuser.controller;
 
+import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.fourmeeting.bee.beesuser.model.service.BeesUserService;
 import com.fourmeeting.bee.beesuser.model.vo.BeesUser;
+import com.fourmeeting.bee.beesuser.model.vo.BeesUserList;
+import com.fourmeeting.bee.member.model.vo.Member;
 import com.google.gson.Gson;
 
 @Controller
@@ -34,6 +41,131 @@ public class BeesUserController {
 		new Gson().toJson(result,out);
 
 		
+	}
+	
+	/*------------solm----------*/
+	
+	@RequestMapping(value="/beesMember.do")
+	public ModelAndView selectBeesUser(HttpSession session, HttpServletRequest request) {
+
+		System.out.println("[beesUser-controller] 호출");
+		 String mainpage_option = request.getParameter("option");
+		    if(mainpage_option==null || mainpage_option.length()==0)
+		    {
+		    	mainpage_option="user_name";
+		    }
+		
+		    System.out.println("BeesMember로 넘어오는지 확인 : " + mainpage_option);
+		    
+		    
+		//로그인한 memberNo 받아오는 코드
+		Member m = (Member)session.getAttribute("member");
+		int memberNo = m.getMemberNo();
+		
+		//memberNo 확인
+		System.out.println(memberNo);
+		
+		//memberNo를 통해 beesUser 정보 넘겨받는 코드
+		BeesUser beesUser = userService.selectBeesUserClass(memberNo);
+		
+		//첫 페이지에서 보이는 BeesUser List 받아오는 코드
+		ArrayList<BeesUserList> list = userService.selectBeesUser(mainpage_option);
+		
+		//가입신청자 몇명 있는지 받아오는 코드
+		ArrayList<BeesUserList> WaitersList = userService.selectBeesUserWaiters();
+		
+		
+		ModelAndView mav = new ModelAndView();
+		mav.addObject("list", list);
+		mav.addObject("WaitersList", WaitersList);
+		session.setAttribute("BeesUser", beesUser);
+		mav.setViewName("bees/beesUser"); //viewResolve를 통해 경로 최종 완성
+		
+		return mav;
+		
+		//return "bees/beesUser";	
+	}
+	
+	@RequestMapping(value="/beesApplicant.do")
+	public ModelAndView selectBeesApplicant() {
+		System.out.println("[beesApplicant-controller] 호출");
+		ArrayList<BeesUserList> list = userService.selectBeesApplicant();
+		
+		ModelAndView mav = new ModelAndView();
+		mav.addObject("list", list);
+		mav.setViewName("bees/beesApplicant"); //viewResolve를 통해 경로 최종 완성
+		
+		return mav;
+
+	}
+	
+	
+	@RequestMapping(value="/beesUserSearch.do")
+	public ModelAndView selectBeesUserSearch(@RequestParam String keyword, HttpServletRequest request) {
+		
+		System.out.println("[beesUserSearch-Controller] 호출");
+		//System.out.println(beesMemberSearchKeyword);
+		
+	    String option = request.getParameter("option");
+	    if(option==null || option.length()==0)
+	    {
+	    	option="user_name";
+	    }
+	
+	    System.out.println(option);
+		
+	    //가입신청자 몇명 있는지 받아오는 코드
+	    ArrayList<BeesUserList> WaitersList = userService.selectBeesUserWaiters();
+		
+
+		ArrayList<BeesUserList> SearchList = userService.selectBeesUserSearch(keyword, option);
+		
+		
+		
+		ModelAndView mav = new ModelAndView();
+		mav.addObject("list", SearchList); //ddfdsㅇ여기만 서치리스트로 바꾸시면기존에 만드신 로직으로 사용이 가능합니다.
+		mav.addObject("WaitersList", WaitersList);
+		mav.addObject("keyword",keyword);
+		mav.addObject("option",option);
+		mav.setViewName("bees/beesUser"); //viewResolve를 통해 경로 최종 완성
+		
+		return mav;
+		
+		
+	}
+	
+	@RequestMapping(value="/BeesUserRefusal.do")
+	public String updateBeesUserRefusal(@RequestParam String userName, HttpServletResponse response)throws IOException {
+		System.out.println("[BeesUserRefusal-conroller] 호출");
+		
+		int result = userService.updateBeesUserRefusal(userName);
+		
+		if(result>0) {
+			System.out.println("승인 거부 성공");
+			response.getWriter().print(true);
+			
+		}else {
+			System.out.println("승인 거부 실패");
+			response.getWriter().print(false);
+		}
+		return null;
+	}
+	
+	
+	@RequestMapping(value="/BeesUserApproval.do")
+	public void updateBeesUserApproval(@RequestParam String userName, HttpServletResponse response)throws IOException {
+		System.out.println("[BeesUserApproval-conroller] 호출");
+		
+		int result = userService.updateBeesUserApproval(userName);
+		
+		if(result>0) {
+			System.out.println("승인 승낙 성공");
+			response.getWriter().print(true);
+			
+		}else {
+			System.out.println("승인 승낙 실패");
+			response.getWriter().print(false);
+		}
 	}
 	
 	

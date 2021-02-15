@@ -1,5 +1,7 @@
 package com.fourmeeting.bee.beesuser.model.vo;
 
+import java.sql.Date;
+
 public class BeesUserList {
 	
 	private int userNo;
@@ -12,16 +14,16 @@ public class BeesUserList {
 	private char userBlockYN;
 	private char userDelYN;
 	private char userAuthYN;
-	
-	
-	
+	private Date userAuthDate;
+	private Date userAskDate;
+
 	public BeesUserList() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-	
+
 	public BeesUserList(int userNo, int beesNo, int memberNo, String memberId, String profileImg, String userName,
-			String userClass, char userBlockYN, char userDelYN, char userAuthYN) {
+			String userClass, char userBlockYN, char userDelYN, char userAuthYN, Date userAuthDate, Date userAskDate) {
 		super();
 		this.userNo = userNo;
 		this.beesNo = beesNo;
@@ -33,6 +35,8 @@ public class BeesUserList {
 		this.userBlockYN = userBlockYN;
 		this.userDelYN = userDelYN;
 		this.userAuthYN = userAuthYN;
+		this.userAuthDate = userAuthDate;
+		this.userAskDate = userAskDate;
 	}
 	
 	public int getUserNo() {
@@ -95,6 +99,20 @@ public class BeesUserList {
 	public void setUserAuthYN(char userAuthYN) {
 		this.userAuthYN = userAuthYN;
 	}
-	
+	public Date getUserAuthDate() {
+		return userAuthDate;
+	}
+
+	public void setUserAuthDate(Date userAuthDate) {
+		this.userAuthDate = userAuthDate;
+	}
+
+	public Date getUserAskDate() {
+		return userAskDate;
+	}
+
+	public void setUserAskDate(Date userAskDate) {
+		this.userAskDate = userAskDate;
+	}
 	
 }

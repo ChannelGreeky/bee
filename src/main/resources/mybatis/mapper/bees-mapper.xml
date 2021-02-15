@@ -327,4 +327,68 @@ bees_min_birth as beesMinBirth
 from bees
 where bees_no = #{bees_no} and bees_del_yn='N'
 </select>
+
+
+<!-- 수정예정 -->
+
+<select id="selectBeesSchedule" parameterType="ScheduleList"
+		resultType="ScheduleList">
+
+		select
+		schedule.schedule_no as scheduleNo,
+		schedule.user_no as userNo,
+		schedule.bees_no as beesNo,
+		schedule.schedule_title as scheduleTitle,
+		schedule.schedule_cont as scheduleCont,
+		schedule.schedule_start_date as scheduleStartDate,
+		schedule.schedule_end_date as scheduleEndDate,
+		schedule.board_no as boardNo,
+		member.member_no as memberNo,
+		member.profile_Img as profileImg,
+		bees_user.user_name as userName
+		from schedule left join bees_user on schedule.user_no=bees_user.user_no
+		left join member on bees_user.member_no=member.member_no
+		where schedule.bees_no=#{beesNo}
+
+	</select>
+
+
+	<insert id="insertScheDate"
+		parameterType="com.fourmeeting.bee.schedule.model.vo.ScheduleInsert">
+		insert ALL
+		into board values(board_no_seq.nextval,
+		#{memberNo}, 28, systimestamp, '', '', schedule_seq.nextval, '', '',
+		'','N','N')
+		into schedule values(schedule_seq.currval, #{userNo},
+		#{beesNo}, #{scheduleTitle}, #{scheduleCont}, #{scheduleStartDate},
+		#{scheduleEndDate}, BOARD_NO_SEQ.currval)
+		select * from DUAL
+
+	</insert>
+
+	<select id="selectScheContList" parameterType="ScheduleDetail"
+		resultType="ScheduleDetail">
+		select
+		schedule_no as scheduleNo,
+		user_no as userNo,
+		user_name as userName,
+		bees_no as beesNo,
+		board_no as boardNo,
+		schedule_title as scheduleTitle,
+		schedule_cont as scheduleCont,
+		schedule_start_date as scheduleStartDate,
+		schedule_end_date as scheduleEndDate,
+		profile_img as profileImg
+		from schedule_detail
+		where schedule_no = #{scheduleNo}
+	</select>
+
+	<delete id="deleteBeesSchedule">
+		delete from schedule where schedule_no=#{scheduleNo}
+	</delete>
+	
+	<update id="updateScheduleCont"  parameterType="ScheduleDetail">
+		update schedule set schedule_cont=#{scheduleCont} where schedule_no=#{scheduleNo}
+	</update>
+	
 </mapper>

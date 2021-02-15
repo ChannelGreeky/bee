@@ -1,4 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page import="com.fourmeeting.bee.schedule.model.vo.ScheduleList" %>
+<%@ page import="com.fourmeeting.bee.schedule.model.vo.ScheduleDetail" %>
+<%@ page import="java.util.ArrayList" %>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -34,7 +38,7 @@
 <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-<script src="./jquery-ui-1.12.1/datepicker-ko.js"></script>
+<!--<script src="./jquery-ui-1.12.1/datepicker-ko.js"></script>-->
 
 
 <script>
@@ -53,14 +57,23 @@ return false;
 });
 
 </script>
+<%
+	ArrayList<ScheduleList> list = (ArrayList<ScheduleList>)request.getAttribute("list");
+	System.out.println("스케줄 리스트 확인요 : "+ list);
+%>
 
 <!-- background-event.html 파일 default 설정 -->
 <script>
 
+var calendar;
+
   document.addEventListener('DOMContentLoaded', function() {
     var calendarEl = document.getElementById('calendar');
 
-    var calendar = new FullCalendar.Calendar(calendarEl, {
+    calendar = new FullCalendar.Calendar(calendarEl, {
+    	<%-- dateClick: function (info) {
+            alert('Clicked on: ' + info.dateStr);
+    	},--%>
     	headerToolbar: {
         left: 'prev',
         center: 'title',
@@ -73,13 +86,27 @@ return false;
       businessHours: true, // display business hours
       editable: true,
       selectable: true,--%>
+      
       events: [
+    	  
+    	  <% for(int i=0; i<list.size(); i++){	
+    		  ScheduleList scheList = (ScheduleList)list.get(i);
+    		  //System.out.println("확인: " + sche.getScheduleTitle());
+    	  %>
         {
-          title: 'Business Lunch',
-          start: '2021-02-12T13:00:00',
-          constraint: 'businessHours'
+          
+          title: '<%= scheList.getScheduleNo() %> - <%= scheList.getScheduleTitle() %>',
+          start: '<%= scheList.getScheduleStartDate() %>',
+          end: '<%= scheList.getScheduleEndDate() %>',
+          color: '#ff9f89'
+       
         },
-        {
+        
+       
+        
+        <%}%>
+      
+      <%--  {
           title: 'Meeting',
           start: '2020-09-13T11:00:00',
           constraint: 'availableForMeeting', // defined below
@@ -123,7 +150,7 @@ return false;
           overlap: false,
           display: 'background',
           color: '#ff9f89'
-        }
+        }--%>
       ]
     });
 
@@ -131,6 +158,10 @@ return false;
   });
 
 </script>
+
+
+
+
 
 <style>
 
@@ -388,7 +419,7 @@ margin-left : 38%;
 	position: absolute;
 	background-color: white;
 	width: 500px;
-	height: 350px;
+	height: 380px;
 	box-shadow: 1px 1px 2px rgb(230, 230, 230);
 	border-radius: 25px;
 	z-index: 50;
@@ -438,8 +469,14 @@ margin-left : 38%;
 	font-weight: 200;
 }
 
-#sche-detail-date {
+#sche-detail-start-date {
 	padding-left: 16px;
+	font-size: 0.8rem;
+	font-weight: 500;
+}
+
+#sche-detail-end-date {
+	
 	font-size: 0.8rem;
 	font-weight: 500;
 }
@@ -465,8 +502,14 @@ margin-left : 38%;
 #sche-detail-note {
 	margin-top: 20px;
 	border-top: 1px solid lightgray;
+	border-left : 1px solid white;
+	border-right : 1px solid white;
+	border-bottom : 1px solid white;
+	outline-style: none;
 	font-size: 1rem;
 	padding: 20px;
+	width : 100%;
+	height : 60%;
 }
 
 .fc-daygrid-event.fc-daygrid-dot-event.fc-event.fc-event-start.fc-event-end.fc-event-future{
@@ -489,6 +532,29 @@ color: #50401B
 #bees-public {
  padding-top : 10px;
 }
+.fc-event-time{
+display: none;
+}
+.fc-event-title{
+color: #50401B
+}
+#sche-detail-modal-footer{
+display : none;
+}
+
+#scheduleModifyEnd{
+background-color : #50401B;
+border-radius : 25px;
+color : white;
+border : none;
+padding-left : 8%;
+padding-right : 8%;
+padding-bottom : 1%;
+padding-top : 1%;
+margin-left : 35%;
+margin-top : 3%;
+}
+
 </style>
 
 <link rel="stylesheet" type="text/css" href="resources/css/beesSchedule.css">
@@ -571,24 +637,66 @@ color: #50401B
                 </svg>
             </button>
         </div>
-        <form>
+        
+         <form>
         <div id="sche-detail-modal-cont">
-            <div id="sche-detail-title">기획안 발표</div>
-            <div id="sche-detail-date">2021.01.29 (월) - 2021.01.30 (금)</div>
+            <div id="sche-detail-title">타이틀</div>
+            <span id="sche-detail-start-date"></span><span> - <span></span><span id="sche-detail-end-date"></span>
             <div id="sche-detail-writer-info">
                 <div id="sche-detail-writer-profile"></div>
-                <span>홍길동</span><a href="">수정하기</a> <a href="">삭제하기</a>
-            </div>
-        <div id="sche-detail-note">
-            4모임 개인 블로그 + SNS 사이트 웹 사이트   
-            기획안 발표하는 날
+                <span id="sche-detail-userName">susu</span><a href="" id="scheduleModify">수정하기</a> <a href="" id="scheduleDelete">삭제하기</a>
+               
+          </div>
+         <!--   <div id="sche-detail-note"> </div>-->
+       
+      	 <textarea id="sche-detail-note" style="resize: none;" readonly="readonly" >
+            내용내용
+       	 </textarea>
+        <button tpye="submit" id="scheduleModifyEnd" style="display : none;">수정 완료</button>
         </div>
+        <div id="sche-detail-modal-footer">
+        </div>
+        </form>
+        
+        
+        
+        
+        <%--
+        <form>
+        <div id="sche-detail-modal-cont">
+        
+       
+     	<% for(int i=0; i<1; i++){	
+    		  ScheduleList scheList = (ScheduleList)list.get(i);
+    	
+            <div id="sche-detail-title"><%= scheList.getScheduleTitle() %></div>
+            <div id="sche-detail-date"><%= scheList.getScheduleStartDate() %> - <%= scheList.getScheduleEndDate() %></div>
+            <div id="sche-detail-writer-info">
+                <div id="sche-detail-writer-profile"><%= scheList.getProfileImg() %></div>
+                <span><%= scheList.getUserName() %></span><a href="">수정하기</a> <a href="">삭제하기</a>
+                
+              
+          </div>
+        <div id="sche-detail-note">
+            <%= scheList.getScheduleCont() %>
+        </div>
+        
+    <%} %>
         </div>
         <div id="sche-detail-modal-footer">
             
         </div>
-        </form>
+        </form> --%>
+        
+       
     </div>
+    
+    
+
+    
+    
+    
+    
     <!-- 일정 삽입 modal -->
     <div class="sche-modal-bg2"></div>
     <div id="sche-detail-modal2">
@@ -614,11 +722,11 @@ color: #50401B
          		<td id="sche-date-end2">종료</td>
          	</tr>
          	<tr id="sche-date-choice2">
-         		<td><input type="text" placeholder="2021.01.11" id="sche-start-datepicker"/><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-calendar-plus" viewBox="0 0 16 16">
+         		<td><input type="text"  id="sche-start-datepicker"/><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-calendar-plus" viewBox="0 0 16 16">
   <path d="M8 7a.5.5 0 0 1 .5.5V9H10a.5.5 0 0 1 0 1H8.5v1.5a.5.5 0 0 1-1 0V10H6a.5.5 0 0 1 0-1h1.5V7.5A.5.5 0 0 1 8 7z"/>
   <path d="M3.5 0a.5.5 0 0 1 .5.5V1h8V.5a.5.5 0 0 1 1 0V1h1a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2h1V.5a.5.5 0 0 1 .5-.5zM1 4v10a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V4H1z"/>
 </svg></td>
-         		<td><input type="text" placeholder="2021.01.11" id="sche-end-datepicker"/><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-calendar-plus" viewBox="0 0 16 16">
+         		<td><input type="text"  id="sche-end-datepicker"/><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-calendar-plus" viewBox="0 0 16 16">
   <path d="M8 7a.5.5 0 0 1 .5.5V9H10a.5.5 0 0 1 0 1H8.5v1.5a.5.5 0 0 1-1 0V10H6a.5.5 0 0 1 0-1h1.5V7.5A.5.5 0 0 1 8 7z"/>
   <path d="M3.5 0a.5.5 0 0 1 .5.5V1h8V.5a.5.5 0 0 1 1 0V1h1a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2h1V.5a.5.5 0 0 1 .5-.5zM1 4v10a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V4H1z"/>
 </svg></td>
@@ -633,11 +741,91 @@ color: #50401B
         </div>
         </form>
     </div>
+
 		<script>
 			$(function(){
 				
-				$(function(){
+				<%-- 수정하기 눌렀을 때 --%>
+				$('#scheduleModify').click(function(){
+					$('#sche-detail-note').removeAttr("readonly");
+					$('#scheduleModifyEnd').show();
+					return false
+				})
+				
+				<%-- 수정 완료 눌렀을 때 --%>
+				$('#scheduleModifyEnd').click(function(){
+					var scheduleCont = $('#sche-detail-note').val();
+					var scheduleNo = $('#sche-detail-modal-footer').text();
+					
+					
+					$.ajax({
+						url : "/scheduleModify.do",
+						type : "post",
+						data : {"scheduleCont":scheduleCont, "scheduleNo":scheduleNo},
+						success : function(result){
+							if (result > 0) {
+								
+							} else {
+								alert("다시 시도해주세요");
+							}
+						},
+						error : function(){
+							alert("ajax 통신 오류");
+						}
+					})
+
+				})
+				
+				<%-- 일정 삭제하기 눌렀을 때 --%>
+				$('#scheduleDelete').click(function(){
+					var scheduleNo = $('#sche-detail-modal-footer').text();
+					
+					
+					$.ajax({
+						url: "/scheDel.do",
+						type: "post",
+						data:{"scheduleNo":scheduleNo},
+						success: function(result){
+							if(result=="true"){
+								alert("일정 삭제가 완료되었습니다.");
+								location.reload();
+							}
+						},
+						error : function(){
+							alert("ajax 통신 실패");
+						}
+					})
+				})
+				
+				
+				
 					$('.fc-daygrid-day-events').click(function(){
+						var title = $(this).text();
+						var scheduleNo = title.substring(6,10);
+						
+					
+						$.ajax({
+							url : "/scheContList.do",
+							dataType:"json",
+							data : {"scheduleNo":scheduleNo},
+							success : function(schedule){
+								console.log(schedule.userName );
+								
+								$('#sche-detail-title').text(schedule.scheduleTitle);
+								$('#sche-detail-start-date').text(schedule.transStartDate);
+								$('#sche-detail-end-date').text(schedule.transEndDate);
+								$('#sche-detail-writer-profile').text(schedule.profileImg);
+								$('#sche-detail-note').text(schedule.scheduleCont);
+								$('#sche-detail-userName').text(schedule.userName);
+								$('#sche-detail-modal-footer').text(schedule.scheduleNo);
+							},
+							error : function(){
+								alert("ajax통신 실패애..");
+							}
+							
+						});
+						
+			
 						
 						$('#sche-detail-modal').css(
 								'top',
@@ -657,20 +845,24 @@ color: #50401B
 					    $('.sche-modal-bg').css('display','block');
 					    $('#sche-detail-modal').css('display', 'block');
 					    
-					    })
+					    });
 					    
+					
+					
+					
+					
 					    $('#sche-detail-modal-close').click(function () {
 					    
 					    $('#sche-detail-modal').css('display', 'none');
 					    $('.sche-modal-bg').css('display','none');
 					    
 					    
-					    })
+					    });
 						
-					});
+					
 			
 				
-				$(function(){
+				
 
 
 					$('.fc-daygrid-day-number').click(function () {
@@ -695,7 +887,7 @@ color: #50401B
 					    $('.sche-modal-bg2').css('display','block');
 					    $('#sche-detail-modal2').css('display', 'block');
 					    
-					    })
+					    });
 					    
 					    $('#sche-detail-modal-close2').click(function () {
 					    
@@ -703,10 +895,7 @@ color: #50401B
 					    $('.sche-modal-bg2').css('display','none');
 					    
 					    
-					    })
-
-
-					})
+					    });
 					
 					
 					
@@ -722,8 +911,86 @@ color: #50401B
   					});
   					
 					});
+					
+					
+					<%-- 일정 등록 기본설정 --%>
+					
+					<%-- 일정 등록 StartDate --%>
+					$("#sche-start-datepicker").datepicker({
+		                dateFormat: 'yy-mm-dd' //Input Display Format 변경
+		                ,showOtherMonths: true //빈 공간에 현재월의 앞뒤월의 날짜를 표시
+		                ,showMonthAfterYear:true //년도 먼저 나오고, 뒤에 월 표시
+		                ,changeYear: true //콤보박스에서 년 선택 가능
+		                ,changeMonth: true //콤보박스에서 월 선택 가능                        
+		                ,yearSuffix: "년" //달력의 년도 부분 뒤에 붙는 텍스트
+		                ,monthNamesShort: ['1','2','3','4','5','6','7','8','9','10','11','12'] //달력의 월 부분 텍스트
+		                ,monthNames: ['1월','2월','3월','4월','5월','6월','7월','8월','9월','10월','11월','12월'] //달력의 월 부분 Tooltip 텍스트
+		                ,dayNamesMin: ['일','월','화','수','목','금','토'] //달력의 요일 부분 텍스트
+		                ,dayNames: ['일요일','월요일','화요일','수요일','목요일','금요일','토요일'] //달력의 요일 부분 Tooltip 텍스트
+		                ,minDate: "-1M" //최소 선택일자(-1D:하루전, -1M:한달전, -1Y:일년전)
+		                ,maxDate: "+1Y" //최대 선택일자(+1D:하루후, -1M:한달후, -1Y:일년후)                
+		            });                    
+		            
+		            //초기값을 오늘 날짜로 설정
+		            $('#sche-start-datepicker').datepicker('setDate', 'today'); //(-1D:하루전, -1M:한달전, -1Y:일년전), (+1D:하루후, -1M:한달후, -1Y:일년후)   
+					
+		            
+		            <%-- 일정 등록 StartEnd --%>
+		            
+		            $("#sche-end-datepicker").datepicker({
+		                dateFormat: 'yy-mm-dd' //Input Display Format 변경
+		                ,showOtherMonths: true //빈 공간에 현재월의 앞뒤월의 날짜를 표시
+		                ,showMonthAfterYear:true //년도 먼저 나오고, 뒤에 월 표시
+		                ,changeYear: true //콤보박스에서 년 선택 가능
+		                ,changeMonth: true //콤보박스에서 월 선택 가능                        
+		                ,yearSuffix: "년" //달력의 년도 부분 뒤에 붙는 텍스트
+		                ,monthNamesShort: ['1','2','3','4','5','6','7','8','9','10','11','12'] //달력의 월 부분 텍스트
+		                ,monthNames: ['1월','2월','3월','4월','5월','6월','7월','8월','9월','10월','11월','12월'] //달력의 월 부분 Tooltip 텍스트
+		                ,dayNamesMin: ['일','월','화','수','목','금','토'] //달력의 요일 부분 텍스트
+		                ,dayNames: ['일요일','월요일','화요일','수요일','목요일','금요일','토요일'] //달력의 요일 부분 Tooltip 텍스트
+		                ,minDate: "-1M" //최소 선택일자(-1D:하루전, -1M:한달전, -1Y:일년전)
+		                ,maxDate: "+1Y" //최대 선택일자(+1D:하루후, -1M:한달후, -1Y:일년후)                
+		            });                    
+		            
+		            //초기값을 오늘 날짜로 설정
+		            $('#sche-end-datepicker').datepicker('setDate', 'today'); //(-1D:하루전, -1M:한달전, -1Y:일년전), (+1D:하루후, -1M:한달후, -1Y:일년후)   
+					
+		            
+		            
+		            <%-- 일정 등록 ajax --%>
+					
+					$('#shce-dateUpdate-submit2').click(function(){
+						
+						var scheduleTitle = $('#sche-detail-title-input2').val();
+						var scheduleCont = $('#sche-detail-title-explanation2').val();
+						var scheduleStartDate = $('#sche-start-datepicker').datepicker().val()+" 00:00:00";
+						var scheduleEndDate = $('#sche-end-datepicker').datepicker().val()+" 00:00:00";
+						
 
-			})
+						$.ajax({
+							url : "/scheDateInput.do",
+							type : "post",
+							data: {"scheduleTitle":scheduleTitle, "scheduleCont":scheduleCont, "scheduleStartDate":scheduleStartDate, "scheduleEndDate":scheduleEndDate},
+							success : function(result){
+								if(result=="true"){
+									alert("일정 등록이 완료되었습니다.");
+									location.reload();
+							}
+							},
+							error : function(){
+								alert("ajax 통신실패")
+								
+							}
+							
+						});
+						
+						
+
+					});
+					
+					
+					
+			});
 			
 	
 	</script>

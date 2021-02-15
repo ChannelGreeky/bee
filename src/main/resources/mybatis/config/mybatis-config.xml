@@ -1,4 +1,3 @@
-<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN" "http://mybatis.org/dtd/mybatis-3-config.dtd" >
 <configuration>
 <typeAliases>
@@ -9,6 +8,7 @@
 <typeAlias type="com.fourmeeting.bee.bees.model.vo.BeesUserCount" alias="beesUserCount"></typeAlias>
 <typeAlias type="com.fourmeeting.bee.bees.model.vo.Setting" alias="Setting"></typeAlias>
 <typeAlias type="com.fourmeeting.bee.beesuser.model.vo.BeesUser" alias="BeesUser"></typeAlias>
+<typeAlias type="com.fourmeeting.bee.beesuser.model.vo.BeesUserSelect" alias="BeesUserSelect"></typeAlias>
 <typeAlias type="com.fourmeeting.bee.notice.model.vo.Notice" alias="notice"></typeAlias>
 <typeAlias type="com.fourmeeting.bee.beesuser.model.vo.BeesUserList" alias="BeesUserList"></typeAlias>
 <typeAlias type="com.fourmeeting.bee.beesuser.model.vo.UserSelect" alias="userSelect"></typeAlias>
@@ -26,6 +26,9 @@
 <typeAlias type="com.fourmeeting.bee.image.model.vo.Image" alias="image"></typeAlias>
 <typeAlias type="com.fourmeeting.bee.schedule.model.vo.Schedule" alias="schedule"></typeAlias>
 <typeAlias type="com.fourmeeting.bee.schedule.model.vo.ScheduleDetail" alias="scheduleDetail"></typeAlias>
+<typeAlias type="com.fourmeeting.bee.beesuser.model.vo.BeesUserList" alias="beesUserList"></typeAlias>
+<typeAlias type="com.fourmeeting.bee.schedule.model.vo.ScheduleInsert" alias="ScheduleInsert"></typeAlias>
+<typeAlias type="com.fourmeeting.bee.schedule.model.vo.ScheduleList" alias="ScheduleList"></typeAlias>
 <typeAlias type="com.fourmeeting.bee.admin.model.vo.MemberManagement" alias="memberManagement"></typeAlias>
 <typeAlias type="com.fourmeeting.bee.admin.model.vo.Criteria" alias="criteria"></typeAlias>
 <typeAlias type="com.fourmeeting.bee.image.model.vo.AttachFileDTO" alias="attachFileDTO"></typeAlias>

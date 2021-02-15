@@ -1,4 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page import="com.fourmeeting.bee.beesuser.model.vo.BeesUserList" %>
+<%@ page import="java.util.ArrayList" %>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -27,8 +30,45 @@ return false;
 
 </script>
 
-<link rel="stylesheet" type="text/css" href="resources/css/beesApplicant.css">
 
+<%
+ArrayList<BeesUserList> list = (ArrayList<BeesUserList>)request.getAttribute("list");
+
+%>
+
+
+
+<link rel="stylesheet" type="text/css" href="resources/css/beesApplicant.css">
+<style>
+#askDate{
+ font-size : 0.6rem;	 
+ color : darkgray;
+ padding-left : 1%;
+}
+
+#memberListPd1{
+padding-bottom : 3%;
+}
+#memberListPd2{
+padding-bottom : 3%;
+}
+
+.join-Refuse{
+margin-left : 65%;
+margin-right : 1%;
+border : 1px solid #50401B;
+background-color : white;
+font-size : 0.9rem;
+}
+
+.join-Acceptance{
+border : 1px solid #50401B;
+background-color : #50401B;
+color : white;
+font-size : 0.9rem;
+}
+
+</style>
 	<div>
 		<%@include file="/include/headerBee.jsp" %>
 	</div>	
@@ -90,18 +130,79 @@ return false;
 						<div class="col-md-12" id="feed-top">가입신청자</b></div>
 						<div class="col-md-12" id="line3"></div>
 						<div class="col-md-12 p-0, memberList" >
+						
+						<%for(BeesUserList BUList : list){ %>
+						<form>
+						<div class="row" >
+						
+						<div class="col-md-6" id="memberListPd1">
 						<img src="/resources/image/p6.png" class="memberListImg"/>
-						<span id="userId">비즈 조아</span> <span id="joinDate">2021년 1월 29일 신청 </span>
-						<button id="join-Refuse">거절</button><button id="join-Acceptance">수락</button>
+						<span id="userId"><%=BUList.getUserName()%></span> <span id="askDate"><%= BUList.getUserAskDate() %> 신청</span>
+						</div>
+						
+						<div class="col-md-6" id="memberListPd2">
+						<button class="join-Refuse">거절</button> <button class="join-Acceptance">수락</button></div>
+						
 						</div> 
+						</form>
+						<%} %>
+						</div>
+						<!--  -->
+						<script>
+							$(function(){
+							
+								
+								
+								$('.join-Refuse').click(function(){
+								
+									var userName = $(this).parent().siblings('#memberListPd1').children('#userId').text();
+									//alert(userName);
+									
+									$.ajax({
+										url : "BeesUserRefusal.do",
+										type : "post",
+										data : {"userName" : userName},
+										success : function(result){
+											if(result=="true"){
+												alert("가입 승인을 거절하였습니다.");
+												location.reload();
+										}
+										},
+										
+										error : function(){
+											alert("ajax 통신 실패");
+										}
+										
+									})
+								})
+								
+								
+								
+								
+								
+								$('.join-Acceptance').click(function(){
+									var userName = $(this).parent().siblings('#memberListPd1').children('#userId').text();
+									
+									$.ajax({
+										url : "BeesUserApproval.do",
+										type : "post",
+										data : {"userName" : userName},
+										success : function(result){
+											if(result=="true"){
+												alert("가입 승인이 완료되었습니다.");
+												location.reload();
+										}
+										},
+										
+										error : function(){
+											alert("ajax 통신 실패");
+										}
+								})
+							})
+							})
+						</script>
 						
-						<div class="col-md-12 p-0, memberList" >
-						<img src="/resources/image/p6.png" class="memberListImg"/>
-						<span id="userId">비즈 짱시러</span> <span id="joinDate">2021년 1월 29일 신청 </span>
-						<button id="join-Refuse2" ">거절</button><button id="join-Acceptance">수락</button>
 						
-						
-						<div id ="paging">< 1 2 3 4 5 ></div> 
 					</div>
 					</div>
 					</div>
