@@ -589,17 +589,13 @@ public class MemberController {
 /*	@RequestMapping(value="/myPageBoard.do")
 	public String myboard(){
 		return "user/myPage/board";
-	}
+	}*/
 	
-	@RequestMapping(value="/myPageHeart.do")
+	/*@RequestMapping(value="/myPageHeart.do")
 	public String myheart(){
 		return "user/myPage/heart";
-	}
-	
-	@RequestMapping(value="/myPageBeesInvitation.do")
-	public String mybeesInvitation(){
-		return "my/beesInvitation";
 	}*/
+	
 	
 	//관리자페이지------------------------------------------------------
 
