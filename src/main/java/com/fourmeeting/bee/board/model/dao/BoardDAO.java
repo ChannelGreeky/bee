@@ -13,7 +13,6 @@ import com.fourmeeting.bee.board.model.vo.BoardPaging;
 import com.fourmeeting.bee.board.model.vo.Feed;
 import com.fourmeeting.bee.board.model.vo.ModifyFeed;
 
-import oracle.sql.TIMESTAMP;
 
 @Repository("BoardDAO")
 public class BoardDAO {
