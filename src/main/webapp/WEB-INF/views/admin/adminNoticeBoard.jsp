@@ -1,6 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-
+    pageEncoding="UTF-8" isELIgnored="false"%>
+<%@page import="java.util.ArrayList"%>
+<%@page import="java.text.SimpleDateFormat" %>
+<%@page import="com.fourmeeting.bee.member.model.vo.Member"%>
+<%@page import="com.fourmeeting.bee.notice.model.vo.Notice"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -75,7 +80,7 @@
 	}
 	
 	/* 답변하기 or 답변완료 */
-	.answer_yn_btn{
+	#answer_yn_btn{
 		color: #50401B;
 		background-color: white;
 		border-radius: 25px;
@@ -103,42 +108,150 @@
 	.answer_yn_btn, .qna_del_yn_btn:focus{
 		outline: none;
 	}
+	.btn-primary{
+	color: #50401B;
+		background-color: #F7D078;
+		border-radius: 25px;
+		width: 80px;
+		height: 27px;
+		font-weight: 500;
+		font-size: 0.85rem;
+		line-height: 15px;
+		border: 0;
+	
+	
+	}
+	.btn-modify{
+	color: #50401B;
+		background-color: #F7D078;
+		border-radius: 25px;
+		width: 80px;
+		height: 27px;
+		font-weight: 500;
+		font-size: 0.85rem;
+		line-height: 15px;
+		border: 0;
+	
+	
+	}
 	
 </style>
 
-	<script>
+	
+	   <%@ include file="/include/adminSearchButtomForm.jsp"  %>
+<%
+	ArrayList<Notice> list=(ArrayList<Notice>)request.getAttribute("list");
+
+	Member member = (Member)session.getAttribute("member");
+	
+%>
+<script>
 		
-		$(function(){
-			
-			$(".answer_yn_btn").click(function(){
-				
-				//누르면 모달창 떠서 답변 글 작성 하기
-				//if 답변 정상적으로 등록되면 버튼 바뀌기 
-				$(this).css('background-color','#F7D078').css('border','0').val("답변완료");
-				
-			});
-			
+	$(document).ready(function() {
+
+			//삭제 복구 버튼
 			$(".qna_del_yn_btn").click(function(){
 				
-				if($(this).val()=="삭제"){
+				var btnVal = $(this).val();
+				
+				// var boardNum = $(this).parents('tr').children().first().text(); //게시판 번호 받아오기
+				  var boardNum = $(this).attr('id');
+				
+				if(btnVal=="삭제"){
 					var result = confirm("정말 삭제하시겠습니까?");
 					if(result){
 						//삭제 로직 구현
-						$(this).css('background-color','#50401B').css('color','white').val("복구");
+						btnVal = "N"; //삭제할거면 버튼 N으로 바꿔
+						alert(btnVal);
+						//$(this).css('background-color','#50401B').css('color','white').val("복구");
 					} 
 				}
-				else if($(this).val()=="복구"){
+				else if(btnVal=="복구"){
 					//if 복구 정상적 되면
-					$(this).css('background-color','#F7D078').css('color','#50401B').val("삭제");
+					//$(this).css('background-color','#F7D078').css('color','#50401B').val("삭제");
+					btnVal = "Y"; //복구 할거면 버튼 Y로 바꿔
+					alert(btnVal);
 				} 
-				
+				var $btnObject = $(this);
+				var $modifyObject = $(this).parent().prev();
+				$.ajax({
+					url:"/delBtnChange.do",
+					type: "get",
+					data : {"btnVal":btnVal, "boardNum":boardNum},
+					success : function(data){
+						if(data=="true")
+						{
+							if(btnVal=='Y'){ //원래 상태가 Y였다면  삭제상태를 복구로...버튼은 정반대
+								//$(this).text('N'); //<--여기 this는 ajax를 나타냄. ajax안에서 사용하면 this가 button을 뜻하는게 아니라 ajax를 갸리킴
+								
+								$btnObject.css('background-color','#F7D078').css('color','#50401B').val("삭제");
+								$modifyObject.css('visibility','visible');
+								
+								
+							}else{			//원래 상태가 N였다면
+								//$(this).text('Y');
+								
+								$btnObject.css('background-color','#50401B').css('color','white').val("복구");
+								$modifyObject.css('visibility','hidden');
+							}	
+						}else{
+							alert("변경 실패");	
+						}
+					},
+					error : function(){
+						console.log("ajax 통신 실패");
+					}
+				});
 			});
 			
-		});
-	
-	</script>
-	   <%@ include file="/include/adminSearchButtomForm.jsp"  %>
+			
+			
+			
+			$(".btn-modify").click(function(){
+				 var num = $(this).parents('tr').children().first().text(); 
+				
+				alert(num);
+				var $ctnObject = $(this);
+				$.ajax({
+					url:"/modifyChange.do",
+					type: "post",
+					data : {"num":num},
+					dataType: "json",
+					success : function(data){
+						
+						console.log(data.title);
+						console.log(data.category);
+						console.log(data.cont);
+						console.log(num);
+						console.log(data.memberNo);
+					//	console.log(data.);
+						$("#modify_category").val(data.category);
+						$("#modify_title").val(data.title);
+						$("#recipient-name").val(data.cont);
+						$("#modify_boardNo").val(num);
+				$a = $(".btn-modifys").attr('id');
+				console.log($a);
+					if(($a) != data.memberNo){
+						$(".btn-modifys").css('visibility','hidden');
+					}else if(($a) == data.memberNo){
+							$(".btn-modifys").css('visibility','visible');	
+					}
+					},
+					error : function(request,status,error){
+						alert("code = "+ request.status + " message = " + request.responseText + " error = " + error); 
 
+					}
+				});
+			
+			});
+		});
+		
+	</script>
+<%
+		
+		if (member != null) {
+	%>
+	
 <div class="container pt-3">
 			<div class="row">
 				
@@ -154,20 +267,42 @@
 							<th>글제목</th>
 							<th>작성자ID</th>
 							<th>작성일</th>
-							<th>수정</th>
+							<th>글 보기/수정</th>
 							<th>삭제/복구</th>
 						</tr>
+			
+						<%for(Notice n : list){ %>	
+							
 						<tr>
-							<td>2</td>
-							<td>공지사항</td>
-							<td>설 맞이 이벤트! 루피 이모티콘 증정!</td>
-							<td>admin1</td>
-							<td>21.01.27</td>
-							<td><input type="button" value="수정" class="answer_yn_btn"></td>
-							<td><input type="button" value="삭제" class="qna_del_yn_btn"></td>
+							<td><%=n.getNoticeNo() %></td>
+							<td><%=n.getNoticeCategory() %></td>
+							<td><%=n.getNoticeTitle() %></td>
+							
+							
+							<td><%=n.getMemberId() %></td>
+							
+							<%SimpleDateFormat sdFormat = new SimpleDateFormat("yy.MM.dd"); %>
+							<td><%=sdFormat.format(n.getNoticeDate()) %></td>
+							<td>
+							<%if(n.getNoticeDelYN()=='N'){ %>
+								<% if(member.getMemberId().equals(n.getMemberId())){%>
+								<input type="button" class="btn btn-modify" data-toggle="modal" data-target="#modifyModal" value="보기/수정"
+								id="mBtn" >   <!--  -->
+								<%}else{ %>
+								<input type="button" class="btn btn-modify" data-toggle="modal" data-target="#modifyModal" value="보기"
+								id="mBtn" >
+								<%} %>
+							<%} %>
+							<input type="hidden" id="<%= n.getMemberNo()%>" class="hiddenCont">
+							<%if(n.getNoticeDelYN()=='N'){ %>
+							<td><input type="button" value="삭제" name="deleteBtn" id="<%=n.getNoticeNo() %>" class="qna_del_yn_btn"></td>
+							<%}else{ %>
+							<td><input type="button" value="복구" name="restoreBtn" id="<%=n.getNoticeNo() %>" class="qna_del_yn_btn" 
+							style="background-color:#50401B; color:white;"></td>
+							<%} %>
+						
 						</tr>
-						
-						
+						<%} %> 
 					</table>
 				</div>
 				
@@ -177,6 +312,62 @@
 			</div>
 		</div>
 
+<script>
+$(document).ready(function() {
+	
+});
+
+
+</script>
+
+
+<%//for(int i=0; i < list.size();i++){ %>
+	<% 
+
+	%>
+
+<!-- 글 수정 Modal -->
+<div class="modal fade" id="modifyModal" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg ">
+     <form action="/modifyUpdate.do" method="post">
+    <div class="modal-content" >
+      <div class="modal-header">
+        <h5 class="modal-title" id="staticBackdropLabel" >  
+        <input type="text" name="modifyInsertCategory"	id="modify_category">
+         </h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true"><i class="fas fa-times"></i></span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div id="title" style="border-bottom:1px solid #E4E4E4;">
+       		<input class="form-control" name="modifyInsertTitle" id="modify_title" >
+    		<input type="hidden" name="modifyInsertNoticeNo" id="modify_boardNo">
+    		
+        </div>
+        
+        <div class="write_area">
+           
+            <textarea class="form-control" name="modifyInsertCont" id="recipient-name">
+           		
+            </textarea>
+          </div>
+          
+        
+      </div>
+     
+      <div class="modal-footer" style="height:10%; width:100%;padding-right:15px;">
+      <hr class="line">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal" style="float:right;background-color:#E4E4E4;color:#50401B;border:none;border-radius:10px;">취소</button>
+        
+        <button type="submit" id="<%=member.getMemberNo() %>" class="btn btn-modifys" style="float:right; background-color:#FFF3D8;color:#50401B;border:none;border-radius:10px;">수정</button>
+       
+      </div>
+   
+        </div> <!-- modal-content -->
+         </form>
+  </div> <!-- modal-dialog -->
+</div><!-- Modal-fade -->
 
 
 
@@ -224,7 +415,17 @@
 
 
 								
-								
+
+
+
+
+
+
+<%}else{ %>
+		
+	location.replace('/index.jsp');			  <!--  -->		
+						
+<%} %>
 											
 
 
@@ -232,29 +433,6 @@
 <jsp:include page="/common/footer.jsp" flush="true"/>
 <script>
 
-//$(document).ready(function(){
-//	$('#myModal').on('shown.bs.modal', function () {
-	//	  $('#myInput').trigger('focus')
-	//	})
-//});	  
-	  
-//var myModal = document.getElementById('myModal');
-//var myInput = document.getElementById('myInput')
-//myModal.onclick=function(){
-//$('#write_btn').click(function(e){
-
-//});
-
-
-//myModal.addEventListener('shown.bs.modal', function () {
-//  myInput.focus()
-//})
-//var myModal = new bootstrap.Modal(document.getElementById('myModal'), {
-//  keyboard: false
-//})
-//myModal.show();
-//myModal.hide()
-//}
 </script>
 
 

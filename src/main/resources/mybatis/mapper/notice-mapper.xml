@@ -32,6 +32,22 @@
 		USING(member_no)
 	</select>
 	
+	<update id="modifyUpdate" parameterType="Notice">
+		update 
+			notice 
+		set 
+			notice_title=#{noticeTitle},
+			notice_category=#{noticeCategory},
+			notice_cont=#{noticeCont}
+		where (
+			notice_no=#{noticeNo} 
+		and 
+			notice_del_yn= #{noticeDelYN}
+			)
+	
+	
+	</update>
+	
 	<update id="noticeBtnUpdate">
 		UPDATE notice
 		Set
@@ -40,6 +56,125 @@
 	
 	
 	</update>
+	<select id="selectMemberAllList" parameterType="Criteria" resultType="Member">
 	
+		SELECT ROWNUM, tbl.* 
+			FROM        
+			(SELECT 
+		            ROW_NUMBER() OVER(ORDER BY member_date desc) AS num,
+		   			member_no as memberNo,
+		       		member_id as memberId,
+		       		member_name as memberName, 
+		       		member_email as memberEmail, 
+		       		member_date as memberDate, 
+		       		member_end_date as memberEndDate, 
+		       		member_del_yn as delYN
+			from member
+		<![CDATA[	where member_no >=1000)tbl  ]]>
+       		 WHERE num BETWEEN (#{pageNum}-1) * #{amount} AND #{pageNum} * #{amount}
+	
+	 
+	</select>
+	
+	
+	<update id="updateMemberDelYN" parameterType="Member">
+ 		
+		
+				merge into 
+					member m 
+				using 
+					(SELECT DISTINCT m.member_no, m.member_del_yn, m.member_end_date, b.user_class  
+					FROM member m
+					left join bees_user b
+					on(m.member_no = b.member_no)
+					<![CDATA[WHERE m.member_no >= 1000 and (b.user_class is null or b.user_class !='host')]]>
+					and m.member_no=#{memberNo})n
+					on(m.member_no = n.member_no)
+					when matched then
+					update set 
+					<if test=" 'Y'.equals(delYN)">
+					 m.member_end_date=systimestamp,
+					</if>
+					<if test=" 'N'.equals(delYN)">
+					m.member_end_date=null,
+					</if>                                       
+					m.member_del_yn=#{delYN}
+		 
+		 
+		
+ 		 	
+	</update>
+	
+	<select id="noticeSelectOne" parameterType="int" resultType="Notice">
+		select 
+			notice_category as noticeCategory, 
+			notice_title as noticeTitle, 
+			notice_cont as noticeCont,
+			member_no as memberNo
+		from notice
+		WHERE notice_no = #{num}
+	
+	
+	</select>
+	
+	<insert id="insertOnlyImage" parameterType="java.util.Map">
+			INSERT INTO IMAGE(
+			img_no
+			, original_img_name
+			, change_img_name
+			, img_path
+			, img_size
+			, img_del_yn
+			, member_no
+			)
+			select img_seq.nextval as img_no
+			, A.*  
+			from(
+			<foreach item="item" collection="list" index="index" separator=" UNION ALL ">	
+				select #{item.fileName} as original_img_name
+				, #{item.changeFileName} as change_img_name
+				, #{item.uploadPath} as img_path
+				, #{item.imgSIze} as img_size
+				, #{item.imgDelYN} as img_del_yn
+				, #{item.memberNo} as member_no 
+				from dual
+			</foreach>
+			) A
+	</insert>
+	
+	
+	<update id="updateDeleteImage" parameterType="AttachFileDTO">
+		UPDATE IMAGE
+		SET
+			img_del_yn = #{imgDelYN}
+		WHERE 
+			member_no = #{memberNo} 
+		AND change_img_name = #{changeFileName}
+	
+	
+	
+	</update>
+	
+	<select id="totalCount" resultType="int">
+		select count(*) from member where member_no >=1000
+	
+	</select>
+	
+	
+	<select id="selectAllImage" parameterType="int" resultType="AttachFileDTO">
+		SELECT 
+			img_no as imgNo, 
+			board_no as boardNo, 
+			original_img_name as fileName, 
+			change_img_name as changeFileName, 
+			img_path as uploadPath, 
+			img_size as imgSIze, 
+			img_del_yn as imgDelYN, 
+			member_no as memberNo
+		FROM image
+		WHERE 
+			member_no = #{memberNo}
+	
+	</select>
 	
 </mapper>
