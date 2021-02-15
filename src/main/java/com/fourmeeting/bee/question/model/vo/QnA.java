@@ -2,7 +2,7 @@ package com.fourmeeting.bee.question.model.vo;
 
 import java.sql.Timestamp;
 
-public class Question {
+public class QnA {
 
 	private int questionNo;
 	private int memberNo;
@@ -13,15 +13,22 @@ public class Question {
 	private char replyYN;
 	private char questionDelYN;
 	
+	private int answerNo;
+	private int adminNo;
+	private String answerCont;
+	private Timestamp answerDate;
+	private char answerDelYN;
 	
-	public Question() {
+	
+	public QnA() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
 
 
-	public Question(int questionNo, int memberNo, String questionCategory, String questionTitle, String questionCont,
-			Timestamp questionDate, char replyYN, char questionDelYN) {
+	public QnA(int questionNo, int memberNo, String questionCategory, String questionTitle, String questionCont,
+			Timestamp questionDate, char replyYN, char questionDelYN, int answerNo, int adminNo, String answerCont,
+			Timestamp answerDate, char answerDelYN) {
 		super();
 		this.questionNo = questionNo;
 		this.memberNo = memberNo;
@@ -31,6 +38,11 @@ public class Question {
 		this.questionDate = questionDate;
 		this.replyYN = replyYN;
 		this.questionDelYN = questionDelYN;
+		this.answerNo = answerNo;
+		this.adminNo = adminNo;
+		this.answerCont = answerCont;
+		this.answerDate = answerDate;
+		this.answerDelYN = answerDelYN;
 	}
 
 
@@ -113,5 +125,57 @@ public class Question {
 		this.questionDelYN = questionDelYN;
 	}
 
+
+	public int getAnswerNo() {
+		return answerNo;
+	}
+
+
+	public void setAnswerNo(int answerNo) {
+		this.answerNo = answerNo;
+	}
+
+
+	public int getAdminNo() {
+		return adminNo;
+	}
+
+
+	public void setAdminNo(int adminNo) {
+		this.adminNo = adminNo;
+	}
+
+
+	public String getAnswerCont() {
+		return answerCont;
+	}
+
+
+	public void setAnswerCont(String answerCont) {
+		this.answerCont = answerCont;
+	}
+
+
+	public Timestamp getAnswerDate() {
+		return answerDate;
+	}
+
+
+	public void setAnswerDate(Timestamp answerDate) {
+		this.answerDate = answerDate;
+	}
+
+
+	public char getAnswerDelYN() {
+		return answerDelYN;
+	}
+
+
+	public void setAnswerDelYN(char answerDelYN) {
+		this.answerDelYN = answerDelYN;
+	}
+
+
+	
 	
 }
