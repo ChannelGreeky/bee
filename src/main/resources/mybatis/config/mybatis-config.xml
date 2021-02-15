@@ -26,5 +26,8 @@
 <typeAlias type="com.fourmeeting.bee.image.model.vo.Image" alias="image"></typeAlias>
 <typeAlias type="com.fourmeeting.bee.schedule.model.vo.Schedule" alias="schedule"></typeAlias>
 <typeAlias type="com.fourmeeting.bee.schedule.model.vo.ScheduleDetail" alias="scheduleDetail"></typeAlias>
+<typeAlias type="com.fourmeeting.bee.admin.model.vo.MemberManagement" alias="memberManagement"></typeAlias>
+<typeAlias type="com.fourmeeting.bee.admin.model.vo.Criteria" alias="criteria"></typeAlias>
+<typeAlias type="com.fourmeeting.bee.image.model.vo.AttachFileDTO" alias="attachFileDTO"></typeAlias>
 </typeAliases>
 </configuration>
