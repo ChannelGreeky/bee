@@ -1,7 +1,6 @@
 package com.fourmeeting.bee.board.model.dao;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
 import org.mybatis.spring.SqlSessionTemplate;
@@ -9,7 +8,6 @@ import org.springframework.stereotype.Repository;
 
 import com.fourmeeting.bee.board.model.vo.Board;
 import com.fourmeeting.bee.board.model.vo.BoardLike;
-import com.fourmeeting.bee.board.model.vo.BoardPaging;
 import com.fourmeeting.bee.board.model.vo.Feed;
 import com.fourmeeting.bee.board.model.vo.ModifyFeed;
 
