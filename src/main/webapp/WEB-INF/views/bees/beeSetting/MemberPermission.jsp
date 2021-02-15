@@ -1,4 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@page import="com.fourmeeting.bee.bees.model.vo.Setting"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -6,6 +7,9 @@
 <title>Insert title here</title>
 </head>
 <body>
+<%
+	Setting settingResult = (Setting)request.getAttribute("settingResult");	
+%>
    <%@ include file="/common/cdnLib.jsp"%>
    <!--비즈 전체페이지 + 사이드 프로필 + 메인 컨텐츠 크기-->
    <link rel="stylesheet" type="text/css" href="/resources/css/beesForm.css">

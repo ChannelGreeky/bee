@@ -100,8 +100,7 @@
                  <span class="subTxt">성별 제한있음, 나이 제한없음</span>
                 <%}else{ %>
                  <span class="subTxt">성별 제한있음, 나이 제한있음</span>
-                <%} %>
-                
+                <%} %>            
             </div>
             <div class="itemSide">
             <form id="beeSettingSubJoinStandard" action="/beeSettingSubJoinStandard.do" method="post">
@@ -126,7 +125,10 @@
                 <span class="label">멤버들의 권한 설정</span>
             </div>
             <div class="itemSide">
-                <a href="/beeSettingSubMemberPermission.do" class="uButton -sizeS -confirm2">변경</a>
+            <form id="beeSettingSubMemberPermission" action="/beeSettingSubMemberPermission.do" method="post">
+            <input type="hidden" id="beesNo" name="beesNo" value="<%=beeResult.getBeesNo()%>"/>
+                <a href="#" onclick="document.getElementById('beeSettingSubMemberPermission').submit();" class="uButton -sizeS -confirm2">변경</a>
+            </form>
             </div>
         </li>
     	 <li class="sSettingItem">
@@ -134,7 +136,10 @@
 	            <span class="label">멤버 탈퇴, 차단 설정</span>
 	        </div>
 	        <div class="itemSide">
-	            <a href="/beeSettingSubMemberWithdraw.do" class="uButton -sizeS -confirm2">변경</a>
+	        <form id="beeSettingSubMemberWithdraw" action="/beeSettingSubMemberWithdraw.do" method="post">
+            <input type="hidden" id="beesNo" name="beesNo" value="<%=beeResult.getBeesNo()%>"/>
+	            <a href="#" onclick="document.getElementById('beeSettingSubMemberWithdraw').submit();" class="uButton -sizeS -confirm2">변경</a>	          
+	        </form>
 	        </div>
     	</li>
 </ul>
@@ -150,7 +155,9 @@
             <div class="itemSide" id="boxWithdraw" data-toggle="modal" data-target="#myModalWithdraw">
 			  <path d="M4.715 6.542L3.343 7.914a3 3 0 1 0 4.243 4.243l1.828-1.829A3 3 0 0 0 8.586 5.5L8 6.086a1.001 1.001 0 0 0-.154.199 2 2 0 0 1 .861 3.337L6.88 11.45a2 2 0 1 1-2.83-2.83l.793-.792a4.018 4.018 0 0 1-.128-1.287z"/>
 			  <path d="M6.586 4.672A3 3 0 0 0 7.414 9.5l.775-.776a2 2 0 0 1-.896-3.346L9.12 3.55a2 2 0 0 1 2.83 2.83l-.793.792c.112.42.155.855.128 1.287l1.372-1.372a3 3 0 0 0-4.243-4.243L6.586 4.672z"/>
+			
 			<button type="button" class="uButton -sizeS -confirm2 -colorError _btnLeaveBand">탈퇴</button> 
+			
             </div>
             <jsp:include page="modalWithdraw.jsp"/> 
         </li>  

@@ -4,6 +4,12 @@
 	<insert id="insertBee" parameterType="Bees">
 	insert into BEES values (BEES_SEQ.NEXTVAL,#{beesName},#{beesCover},#{beesCategory},#{beesHost},#{beesPublicYN},'',0,'N','N',0,0,SYSTIMESTAMP,'')
 	</insert>
+	<insert id="insertHostBeeUser" parameterType="Bees">
+	insert into bees_user values(USER_SEQ.NEXTVAL,BEES_SEQ.CURRVAL,#{beesHostNo},#{beesHostName},'host','N','N','Y',SYSTIMESTAMP,SYSTIMESTAMP)	
+	</insert>
+	<insert id="insertSetting" parameterType="Bees">
+	insert into setting values (SET_SEQ.NEXTVAL,BEES_SEQ.CURRVAL,DEFAULT,DEFAULT,DEFAULT,DEFAULT,DEFAULT,DEFAULT,DEFAULT,DEFAULT,DEFAULT,DEFAULT,DEFAULT,DEFAULT)
+	</insert>
   	<select id="selectBeeSetting" parameterType="Bees" resultType="Bees">
   	select
   		BEES_NO as beesNo,
@@ -70,6 +76,133 @@
 		from Bees_User left join bees On bees_user.bees_no=bees.bees_no left join member On bees_user.member_no=member.member_no
 		where bees_user.BEES_NO=#{beesNo} and bees_user.user_del_yn='N' and bees_user.user_auth_yn='Y'
 	</select>
+	<select id="selectBeesManager" parameterType="beesUserList" resultType="beesUserList">
+		select
+		BEES_USER.USER_NO as userNo,
+		BEES_USER.BEES_NO as beesNo,
+		BEES_USER.MEMBER_NO as memberNo,
+		BEES_USER.USER_NAME as userName,
+		BEES_USER.USER_CLASS as userClass,
+		BEES_USER.USER_BLOCK_YN as userBlockYN,
+		BEES_USER.USER_DEL_YN as userDelYN,
+		BEES_USER.USER_AUTH_YN as userAuthYN,
+		MEMBER.MEMBER_ID as memberId,
+		MEMBER.PROFILE_IMG as profileImg
+		from Bees_User left join bees On bees_user.bees_no=bees.bees_no left join member On bees_user.member_no=member.member_no
+		where bees_user.BEES_NO=#{beesNo} and bees_user.user_class='manager' and bees_user.user_del_yn='N' and bees_user.user_auth_yn='Y'
+	</select>
+	<select id="selectBeesOnlyUser" parameterType="beesUserList" resultType="beesUserList">
+		select
+		BEES_USER.USER_NO as userNo,
+		BEES_USER.BEES_NO as beesNo,
+		BEES_USER.MEMBER_NO as memberNo,
+		BEES_USER.USER_NAME as userName,
+		BEES_USER.USER_CLASS as userClass,
+		BEES_USER.USER_BLOCK_YN as userBlockYN,
+		BEES_USER.USER_DEL_YN as userDelYN,
+		BEES_USER.USER_AUTH_YN as userAuthYN,
+		MEMBER.MEMBER_ID as memberId,
+		MEMBER.PROFILE_IMG as profileImg
+		from Bees_User left join bees On bees_user.bees_no=bees.bees_no left join member On bees_user.member_no=member.member_no
+		where bees_user.BEES_NO=#{beesNo} and bees_user.user_class='user' and bees_user.user_del_yn='N' and bees_user.user_auth_yn='Y'
+	</select>
+	<select id="selectBeesBlock" parameterType="beesUserList" resultType="beesUserList">
+		select
+		BEES_USER.USER_NO as userNo,
+		BEES_USER.BEES_NO as beesNo,
+		BEES_USER.MEMBER_NO as memberNo,
+		BEES_USER.USER_NAME as userName,
+		BEES_USER.USER_CLASS as userClass,
+		BEES_USER.USER_BLOCK_YN as userBlockYN,
+		BEES_USER.USER_DEL_YN as userDelYN,
+		BEES_USER.USER_AUTH_YN as userAuthYN,
+		MEMBER.MEMBER_ID as memberId,
+		MEMBER.PROFILE_IMG as profileImg
+		from Bees_User left join bees On bees_user.bees_no=bees.bees_no left join member On bees_user.member_no=member.member_no
+		where bees_user.BEES_NO=#{beesNo} and bees_user.user_block_yn='Y' and bees_user.user_del_yn='Y' and bees_user.user_auth_yn='Y'
+	</select>
+	<select id="selectBeeMemberPermission" parameterType="Setting" resultType="Setting">
+  	select
+  		SET_NO as setNO,
+  		BEES_NO as beesNo,
+  		SET_NOTICE as setNotice,
+  		SET_WRITE as setWrite,
+  		SET_COMMENT as setComment,
+  		SET_CONT_DEL as setContDel,
+  		SET_SCHE_REGIST as setScheRegist,
+  		SET_SCHE_MODIFY as setScheModify,
+  		SET_CHAT_OPEN as setChatOpen,
+  		SET_CHAT_DEL as setChatDel,
+  		SET_USER_INVITE as setUserInvite,
+  		SET_USER_PERMIT as setUserPermit,
+  		SET_USER_CONDI as setUserCondi,
+  		SET_USER_BLOCK as setUserBlock 
+  	from SETTING where BEES_NO = #{beesNo}
+  	</select>
+  	<update id="updateBeeOneWithdraw">
+		UPDATE BEES_USER
+			SET
+			USER_DEL_YN='Y'		
+		where MEMBER_NO = #{memberNo} and BEES_NO = #{beesNo}
+	</update>
+	<update id="updateBeeOneDelete">
+		UPDATE BEES
+			SET
+			BEES_DEL_YN='Y',
+			BEES_DEL_DATE=SYSTIMESTAMP 	
+		where BEES_NO = #{beesNo} 
+	</update>
+	<update id="updateBeeMemberPermissionSet">
+		UPDATE SETTING
+			SET
+			SET_NOTICE = #{setNotice},
+	  		SET_WRITE = #{setWrite},
+	  		SET_COMMENT = #{setComment},
+	  		SET_CONT_DEL = #{setContDel},
+	  		SET_SCHE_REGIST = #{setScheRegist},
+	  		SET_SCHE_MODIFY = #{setScheModify},
+	  		SET_CHAT_OPEN = #{setChatOpen},
+	  		SET_CHAT_DEL = #{setChatDel},
+	  		SET_USER_INVITE = #{setUserInvite},
+	  		SET_USER_PERMIT = #{setUserPermit},
+	  		SET_USER_CONDI = #{setUserCondi},
+	  		SET_USER_BLOCK = #{setUserBlock} 
+		where BEES_NO = #{beesNo}
+	</update>
+	<update id="updateManagerToUser">
+		UPDATE BEES_USER
+			SET
+			USER_CLASS='user'		
+		where MEMBER_NO = #{memberNo} and BEES_NO = #{beesNo}
+	</update>
+	<update id="updateMemberWithdraw">
+		UPDATE BEES_USER
+			SET
+			USER_DEL_YN='Y'		
+		where MEMBER_NO = #{memberNo} and BEES_NO = #{beesNo}
+	</update>
+	<update id="subMemberWithdrawBlockSet">
+		UPDATE BEES_USER
+			SET
+			USER_BLOCK_YN='Y',
+			USER_DEL_YN='Y'		
+		where MEMBER_NO = #{memberNo} and BEES_NO = #{beesNo}
+	</update>
+	<update id="subMemberBlockDeleteSet">
+		UPDATE BEES_USER
+			SET
+			USER_BLOCK_YN='N',
+			USER_DEL_YN='Y'		
+		where MEMBER_NO = #{memberNo} and BEES_NO = #{beesNo}
+	</update>
+	<update id="updatesubJoinManagerSet">
+		UPDATE BEES_USER
+			SET
+			USER_CLASS='manager'		
+		where MEMBER_NO = #{memberNo} and BEES_NO = #{beesNo}
+	</update>
+	
+	
 	
 	<select id="selectRecommendBees" parameterType="recommendSearch" resultType="beesUserCount">
 	SELECT 

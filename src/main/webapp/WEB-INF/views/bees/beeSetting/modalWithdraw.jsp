@@ -1,5 +1,7 @@
+<%@page import="com.fourmeeting.bee.member.model.vo.Member"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@page import="com.fourmeeting.bee.bees.model.vo.Bees"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -17,9 +19,11 @@
 <title>Insert title here</title>
 </head>
 <body>
+<%
+	Bees beeResult = (Bees)request.getAttribute("beeResult");
+	Member sessionMember = (Member)session.getAttribute("member");
+%>
 <script src="https://code.jquery.com/jquery-3.5.1.js" integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" crossorigin="anonymous"></script>
-
-
 <style>
 * {
 	box-sizing: border-box;
@@ -126,8 +130,12 @@ text-align: inherit;
        	이 비즈에 내가 등록한 글, 사진, 댓글 등을 수정/삭제할 수 없습니다.</span>      	
       </div>
       <div class="modal-footer">
-         <button type="button" onclick="location.href='/beeSettingMain.do'" class="uButton -sizeS -confirm2 beesModalCancle">취소 </button> 
-         <button type="button" class="uButton -sizeS -confirm2 beesModalDo">탈퇴하기</button>
+         <button type="button" onclick="location.href='/beeSettingMain.do?beesNo=<%=beeResult.getBeesNo()%>'" class="uButton -sizeS -confirm2 beesModalCancle">취소 </button> 
+         <form action="/beeSettingSubOneWithdraw.do" method="post">
+         <input type="hidden" id="beesNo" name="beesNo" value="<%=beeResult.getBeesNo()%>"/>
+         <input type="hidden" id="memberNo" name="memberNo" value="<%=sessionMember.getMemberNo()%>"/>
+         <button type="submit" class="uButton -sizeS -confirm2 beesModalDo">탈퇴하기</button>
+         </form>
       </div> 
     </div>
   </div>

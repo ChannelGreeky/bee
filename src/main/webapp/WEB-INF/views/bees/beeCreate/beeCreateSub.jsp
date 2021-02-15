@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@page import="com.fourmeeting.bee.member.model.vo.Member"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -13,7 +14,7 @@
 <body>
 <main id="content" data-uiselector="regionContent" role="main" class="" style="min-height: 800px;">
 <section data-viewname="DGroupBandCreateView" class="bandMake">
-<form action="/beeCreate.do" class="_form" method="post">
+<form action="/beeCreate.do" class="_form" method="post" enctype="multipart/form-data">
     <fieldset>
         <legend class="gSrOnly">비즈 만들기</legend>
         <div class="makeCover">
@@ -24,14 +25,17 @@
             </div>
 <%
 	String category = request.getParameter("category");
+    Member sessionMember = (Member)session.getAttribute("member");
 %>        
             <div class="coverSelect">
                 <div class="mainCover">
                     <span class="cover">      
-                        <img id="image_section" name="image_section" src="#" data-cover="http://coresos.phinf.naver.net/a/2ih0j6/d_06hUd018adm7m9jr516m7iz_1i12aj.jpg" 
-                         class="_selectedCover coverImg" width="300" height="225" alt="" onError="javascript:this.src='https://coresos-phinf.pstatic.net/a/2ih0j6/d_06hUd018adm7m9jr516m7iz_1i12aj.jpg?type=cover_a640'">         
-                    	<input type="hidden" id="beeCoverImage" name="beeCoverImage" value="#"/>
+                        <img id="image_section" name="image_section" src="#" data-cover="/resources/image/beeCreate/hobby1.png" 
+                         class="_selectedCover coverImg" width="300" height="225" alt="" onError="javascript:this.src='/resources/image/beeCreate/hobby1.png'">         
+                    	<input type="hidden" id="beeCoverImage" name="beeCoverImage" value="/resources/image/beeCreate/hobby1.png"/>
                     	<input type="hidden" id="category" name="category" value="<%=category%>"/>
+                    	<input type="hidden" id="beesHost" name="beesHost" value="<%=sessionMember.getMemberId()%>"/>
+                    	<input type="hidden" id="beesHostNo" name="beesHostNo" value="<%=sessionMember.getMemberNo()%>"/>
                     </span>
                 </div>
                 <div class="coverList">
@@ -43,15 +47,15 @@
                         <li>
                             <span class="changeCover _coverImageUploader js-fileapi-wrapper">
                                 <span>사진 추가</span>
-                                <input type="file" id="imgInput" class="imageUpload" title="추가" accept="image/*" name="attachment">
+                                <input type="file" id="imgInput" name="imgInput" class="imageUpload" title="추가" accept="image/*" name="attachment">
                             </span>
                         </li>
         
             
                         <li class="_coverSet_0" style="">
                             
-                            <a href="#" class="data-cover" data-cover="http://coresos.phinf.naver.net/a/2ih0j0/d_26hUd018adm1qpknt8jkbj0y_5gztax.jpg" class="_defaultCovers cover ">
-                                <img class="coverImg" src="https://coresos-phinf.pstatic.net/a/2ih0j0/d_26hUd018adm1qpknt8jkbj0y_5gztax.jpg?type=cover_a264" width="120" height="90" alt="">
+                            <a href="#" class="data-cover" data-cover="/resources/image/beeCreate/hobby1.png" class="_defaultCovers cover ">
+                                <img class="coverImg" src="/resources/image/beeCreate/hobby1.png" width="120" height="90" alt="취미">
                                 <span class="mask"></span>
                             </a>
                             
@@ -59,8 +63,8 @@
             
                         <li class="_coverSet_0" style="">
                             
-                            <a href="#" class="data-cover" data-cover="http://coresos.phinf.naver.net/a/2ih055/c_36hUd018admshigztpuo8vj_y71aad.jpg" class="_defaultCovers cover ">
-                                <img class="coverImg" src="https://coresos-phinf.pstatic.net/a/2ih055/c_36hUd018admshigztpuo8vj_y71aad.jpg?type=cover_a264" width="120" height="90" alt="">
+                            <a href="#" class="data-cover" data-cover="/resources/image/beeCreate/meet1.png" class="_defaultCovers cover ">
+                                <img class="coverImg" src="/resources/image/beeCreate/meet1.png" width="120" height="90" alt="모임">
                                 <span class="mask"></span>
                             </a>
                             
@@ -68,8 +72,8 @@
             
                         <li class="_coverSet_0" style="">
                             
-                            <a href="#" class="data-cover" data-cover="http://coresos.phinf.naver.net/a/2ih021/c_e6hUd018adm5qmds7qpu6g8_cqyzv.jpg" class="_defaultCovers cover ">
-                                <img class="coverImg" src="https://coresos-phinf.pstatic.net/a/2ih021/c_e6hUd018adm5qmds7qpu6g8_cqyzv.jpg?type=cover_a264" width="120" height="90" alt="">
+                            <a href="#" class="data-cover" data-cover="/resources/image/beeCreate/study1.png" class="_defaultCovers cover ">
+                                <img class="coverImg" src="/resources/image/beeCreate/study1.png" width="120" height="90" alt="스터디">
                                 <span class="mask"></span>
                             </a>
                             
@@ -77,8 +81,8 @@
             
                         <li class="_coverSet_0" style="">
                             
-                            <a href="#" class="data-cover" data-cover="http://coresos.phinf.naver.net/a/2ih0gi/c_16hUd018adm7950giqjjo19_pdsycn.jpg" class="_defaultCovers cover ">
-                                <img class="coverImg" src="https://coresos-phinf.pstatic.net/a/2ih0gi/c_16hUd018adm7950giqjjo19_pdsycn.jpg?type=cover_a264" width="120" height="90" alt="">
+                            <a href="#" class="data-cover" data-cover="/resources/image/beeCreate/nature2.png" class="_defaultCovers cover ">
+                                <img class="coverImg" src="/resources/image/beeCreate/nature2.png" width="120" height="90" alt="지역">
                                 <span class="mask"></span>
                             </a>
                             
@@ -86,8 +90,8 @@
             
                         <li class="_coverSet_0" style="">
                             
-                            <a href="#" class="data-cover" data-cover="http://coresos.phinf.naver.net/a/2ih0ig/c_b6hUd018admxh2okr38orea_cxmcw1.jpg" class="_defaultCovers cover ">
-                                <img class="coverImg" src="https://coresos-phinf.pstatic.net/a/2ih0ig/c_b6hUd018admxh2okr38orea_cxmcw1.jpg?type=cover_a264" width="120" height="90" alt="">
+                            <a href="#" class="data-cover" data-cover="/resources/image/beeCreate/nature1.png" class="_defaultCovers cover ">
+                                <img class="coverImg" src="/resources/image/beeCreate/nature1.png" width="120" height="90" alt="풍경">
                                 <span class="mask"></span>
                             </a>
                             
@@ -95,8 +99,8 @@
             
                         <li class="_coverSet_0" style="">
                             
-                            <a href="#" class="data-cover" data-cover="http://coresos.phinf.naver.net/a/2ih041/c_d6hUd018adm1vvx62az3rwlf_96o1bg.jpg" class="_defaultCovers cover ">
-                                <img class="coverImg" src="https://coresos-phinf.pstatic.net/a/2ih041/c_d6hUd018adm1vvx62az3rwlf_96o1bg.jpg?type=cover_a264" width="120" height="90" alt="">
+                            <a href="#" class="data-cover" data-cover="/resources/image/beeCreate/game1.png" class="_defaultCovers cover ">
+                                <img class="coverImg" src="/resources/image/beeCreate/game1.png" width="120" height="90" alt="게임">
                                 <span class="mask"></span>
                             </a>
                             
@@ -104,8 +108,8 @@
             
                         <li class="_coverSet_0" style="">
                             
-                            <a href="#" class="data-cover" data-cover="http://coresos.phinf.naver.net/a/2ih0j6/d_06hUd018adm7m9jr516m7iz_1i12aj.jpg?type=cover_a264" class="_defaultCovers cover on">
-                                <img class="coverImg" src="https://coresos-phinf.pstatic.net/a/2ih0j6/d_06hUd018adm7m9jr516m7iz_1i12aj.jpg?type=cover_a264" width="120" height="90" alt="">
+                            <a href="#" class="data-cover" data-cover="/resources/image/beeCreate/exercise1.png" class="_defaultCovers cover on">
+                                <img class="coverImg" src="/resources/image/beeCreate/exercise1.png" width="120" height="90" alt="운동">
                                 <span class="mask"></span>
                             </a>
                             

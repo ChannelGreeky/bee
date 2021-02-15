@@ -1,11 +1,17 @@
 package com.fourmeeting.bee.bees.controller;
 
+import java.io.File;
+import java.io.IOException;
 import java.io.UnsupportedEncodingException;
+import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
 
 import javax.annotation.Resource;
+import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,9 +41,13 @@ import com.fourmeeting.bee.schedule.model.service.ScheduleService;
 import com.fourmeeting.bee.schedule.model.vo.Schedule;
 import com.fourmeeting.bee.vote.model.service.VoteService;
 import com.fourmeeting.bee.vote.model.vo.FeedVote;
+import com.oreilly.servlet.MultipartRequest;
+import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
 
 @Controller("beesController")
 public class BeesController {
+	@Autowired
+	ServletContext context;
 	
 	@Autowired
 	@Qualifier(value = "beesService")
@@ -67,15 +77,17 @@ public class BeesController {
 	@RequestMapping(value="/beeCreateMain.do")
 	public String beeCreateMain()
 	{
-			return "bees/beeCreate/Main";
+			return "/bees/beeCreate/Main";
 		
 	}	
 	@RequestMapping(value="/beeCreateSub.do")
 	public String beeCreateSub()
 	{
-			return "bees/beeCreate/Sub";
+			return "/bees/beeCreate/Sub";
 		
 	}
+	
+
 	
 	@RequestMapping(value="/beesSelectOne.do")
 	private String beesSelectOne(@RequestParam int beesNo, @RequestParam int memberNo, HttpServletRequest request) throws Exception {
@@ -807,24 +819,71 @@ public class BeesController {
 	}
 	
 	@RequestMapping(value="/beeCreate.do")
-	public String beeCreate(Model model, HttpServletRequest request) throws UnsupportedEncodingException {
+	public String beeCreate(Model model, HttpServletRequest request) throws IOException, UnsupportedEncodingException {
+		String uploadPath = "/resources/image/beeCreateProfile/";
+		int uploadFileSizeLimit = 10*1024*1024;
+		String encType="UTF-8";
+		String realUploadPath = context.getRealPath(uploadPath);
+		System.out.println("완성된 실제 업로드 절대경로 : " + realUploadPath);
+		MultipartRequest multi = new MultipartRequest(request,realUploadPath,uploadFileSizeLimit,encType,new DefaultFileRenamePolicy());
+
+		String originalFileName = multi.getFilesystemName("imgInput");
+		
+		SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS"); 
+		long currentTime = Calendar.getInstance().getTimeInMillis(); 
+		Timestamp uploadTime = Timestamp.valueOf(formatter.format(currentTime));
+		
+		File file = new File(realUploadPath+"\\"+originalFileName);
+		
+		file.renameTo(new File(realUploadPath+"\\"+currentTime+"_bee"));
+		String changedFileName = currentTime+"_bee";
+		
+		File reNameFile = new File(realUploadPath+"\\"+changedFileName);
+		String filePath = reNameFile.getPath();
+		
+		long fileSize = reNameFile.length(); 
+		
+		System.out.println("파일 이름 (원본) : " + originalFileName);
+		System.out.println("파일 이름 (변경) : " + changedFileName);
+		System.out.println("파일 경로 : " + filePath);
+		System.out.println("파일 사이즈 : " + fileSize);
+		System.out.println("업로드 시간 : " + uploadTime);
+		
+			
 		char beesPublicYN = 0;
 		Bees bee = new Bees(); 
-		bee.setBeesName(request.getParameter("beeName"));
-		bee.setBeesCover(request.getParameter("beeCoverImage"));
-		bee.setBeesCategory(request.getParameter("category"));	
-		bee.setBeesHost("hellohi");
-		String beesPublic = request.getParameter("beeType");
+		bee.setBeesName(multi.getParameter("beeName"));
+		System.out.println("비즈이름 미리보기:"+bee.getBeesName());
+		String beeCover = multi.getParameter("beeCoverImage");
+		
+		if(fileSize==0){
+		bee.setBeesCover(beeCover);
+		System.out.println("파일명 미리보기:"+bee.getBeesCover());
+		}else{
+		bee.setBeesCover(changedFileName);
+		System.out.println("파일명 미리보기:"+bee.getBeesCover());	
+		}
+	
+		bee.setBeesCategory(multi.getParameter("category"));	
+		bee.setBeesHost(multi.getParameter("beesHost"));
+		bee.setBeesHostNo(Integer.parseInt(multi.getParameter("beesHostNo")));
+		String beesPublic = multi.getParameter("beeType");
 		if(beesPublic.equals("public")){
 			beesPublicYN ='Y';
 		}else{
 			beesPublicYN ='N';
 		}
-		bee.setBeesPublicYN(beesPublicYN);
+		bee.setBeesPublicYN(beesPublicYN);		
+		bee.setBeesHostName(bee.getBeesName());
+		System.out.println("비즈 카테고리 미리보기:"+bee.getBeesCategory());
+		System.out.println("비즈 개설자:"+bee.getBeesHost());
+		System.out.println("비즈 공개 비공개:"+bee.getBeesPublicYN());
 		
 		int beeResult = bService.insertBee(bee);
+		int beehostResult = bService.insertHostBeeUser(bee);
+		int beeSetting = bService.insertSetting(bee);
 		
-		if (beeResult > 0) {
+		if (beeResult > 0 && beeSetting >0 && beehostResult >0) {
 			model.addAttribute("msg", "비즈가 성공적으로 만들어졌습니다");
 		} else {
 			model.addAttribute("msg", "비즈 생성이 실패하였습니다. 지속적으로 실패 시 관리자에게 문의하세요.");
@@ -832,8 +891,75 @@ public class BeesController {
 		model.addAttribute("location", "/index.jsp");
 
 	
-		return "bees/beeCreate/beeResult";
+		return "/bees/beeCreate/beeResult";
 		
+	}
+	
+	@RequestMapping(value="/coverUpdateSet.do")
+	public String coverUpdateSet(Model model, HttpServletRequest request) throws IOException, UnsupportedEncodingException {	
+			String uploadPath = "/resources/image/beeCreateProfile/";
+			int uploadFileSizeLimit = 10*1024*1024;
+			String encType="UTF-8";
+			String realUploadPath = context.getRealPath(uploadPath);
+			System.out.println("완성된 실제 업로드 절대경로 : " + realUploadPath);
+			
+			MultipartRequest multi = new MultipartRequest(request,realUploadPath,uploadFileSizeLimit,encType,new DefaultFileRenamePolicy());
+			String originalFileName = multi.getFilesystemName("imgInput");
+			
+			
+			SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS"); 
+			long currentTime = Calendar.getInstance().getTimeInMillis(); 
+			Timestamp uploadTime = Timestamp.valueOf(formatter.format(currentTime));
+			
+			File file = new File(realUploadPath+"\\"+originalFileName);
+			
+			file.renameTo(new File(realUploadPath+"\\"+currentTime+"_bee"));
+			String changedFileName = currentTime+"_bee";
+			
+			File reNameFile = new File(realUploadPath+"\\"+changedFileName);
+			String filePath = reNameFile.getPath();
+			
+			long fileSize = reNameFile.length(); 
+			
+			System.out.println("파일 이름 (원본) : " + originalFileName);
+			System.out.println("파일 이름 (변경) : " + changedFileName);
+			System.out.println("파일 경로 : " + filePath);
+			System.out.println("파일 사이즈 : " + fileSize);
+			System.out.println("업로드 시간 : " + uploadTime);
+		
+			Bees bee = new Bees(); 
+			bee.setBeesNo(Integer.parseInt(multi.getParameter("beesNo")));
+			bee.setBeesName(multi.getParameter("beeName"));
+			System.out.println("비즈이름 미리보기:"+bee.getBeesName());
+			String beeCover = multi.getParameter("beeCoverImage");
+			String beeCover2 = multi.getParameter("beeCoverImage2");
+			String choiceCover = multi.getParameter("choiceCover");
+			
+			if(fileSize==0){
+				if(choiceCover.equals("1")){
+					bee.setBeesCover(beeCover);
+					System.out.println("파일명 미리보기1:"+bee.getBeesCover());		
+				}else{
+					bee.setBeesCover(beeCover2);
+					System.out.println("파일명 미리보기2:"+bee.getBeesCover());	
+				}
+			}else{				
+				bee.setBeesCover(changedFileName);
+				System.out.println("파일명 미리보기3:"+bee.getBeesCover());			
+			}
+				
+			System.out.println("커버변경 설정: "+bee.getBeesName()+"/"+bee.getBeesCover());
+			int beeResult = bService.updateBeeSettingCover(bee);
+			
+			if (beeResult > 0) {
+				model.addAttribute("msg", "성공적으로 비즈설정이 변경되었습니다.");
+			} else {
+				model.addAttribute("msg", "비즈 설정 변경이 실패하였습니다. 지속적으로 실패 시 관리자에게 문의하세요.");
+			}
+			model.addAttribute("location", "/beeSettingMain.do?beesNo="+bee.getBeesNo());
+
+		
+			return "bees/beeCreate/beeResult";	
 	}
 	
 	@RequestMapping(value="/beeSettingMain.do")
@@ -848,8 +974,7 @@ public class BeesController {
 			mav.addObject("beeResult",beeResult);
 			mav.setViewName("bees/beeSetting/Main");  //ViewResolver에 의해서 경로가 최종 완성됨
 					
-			return mav;			
-			/*return "bees/beeSetting/Main";*/
+			return mav;						
 		
 	}
 	
@@ -868,26 +993,7 @@ public class BeesController {
 			return mav;	
 		
 	}
-	@RequestMapping(value="/coverUpdateSet.do")
-	public String coverUpdateSet(Model model, HttpServletRequest request) throws UnsupportedEncodingException {	
-			
-			Bees bee = new Bees(); 
-			bee.setBeesNo(Integer.parseInt(request.getParameter("beesNo")));
-			bee.setBeesName(request.getParameter("beeName"));
-			bee.setBeesCover(request.getParameter("beeCoverImage"));
-			System.out.println("커버변경 설정: "+bee.getBeesName()+"/"+bee.getBeesCover());
-			int beeResult = bService.updateBeeSettingCover(bee);
-			
-			if (beeResult > 0) {
-				model.addAttribute("msg", "성공적으로 비즈설정이 변경되었습니다.");
-			} else {
-				model.addAttribute("msg", "비즈 설정 변경이 실패하였습니다. 지속적으로 실패 시 관리자에게 문의하세요.");
-			}
-			model.addAttribute("location", "/beeSettingMain.do?beesNo="+bee.getBeesNo());
-
-		
-			return "bees/beeCreate/beeResult";	
-	}
+	
 	
 	@RequestMapping(value="/beeSettingSubType.do")
 	public ModelAndView beeSettingSubType(Model model, HttpServletRequest request) throws UnsupportedEncodingException {	
@@ -1032,43 +1138,226 @@ public class BeesController {
 		Bees bee = new Bees(); 
 		int beesNO = Integer.parseInt(request.getParameter("beesNo"));
 		System.out.println("매니저 관리 비즈 번호: "+beesNO);
-		ArrayList<BeesUserList> list = bService.selectBeesUser(beesNO);
+		ArrayList<BeesUserList> list = bService.selectBeesManager(beesNO);
+		ArrayList<BeesUserList> listUser = bService.selectBeesOnlyUser(beesNO);
 		
 		ModelAndView mav = new ModelAndView();
 		mav.addObject("list", list);
+		mav.addObject("listUser", listUser);
 		mav.setViewName("bees/beeSetting/JoinManager"); //viewResolve를 통해 경로 최종 완성
 		
 		return mav;
 
+	}
+	@RequestMapping(value="/subJoinManagerToUserSet.do")
+	public String subJoinManagerToUserSet(Model model, HttpServletRequest request) throws UnsupportedEncodingException {	
+		BeesUserList beeUser = new BeesUserList(); 
+		beeUser.setBeesNo(Integer.parseInt(request.getParameter("beesNo")));	
+		beeUser.setMemberNo(Integer.parseInt(request.getParameter("memberNo")));	
+		System.out.println("일반회원 변경 설정: "+beeUser.getBeesNo()+"/"+beeUser.getMemberNo());
 		
-		/*Bees beeResult = bService.selectBeeSetting(bee);
+		int beeUserResult = bService.updateManagerToUser(beeUser);
+		
+		if (beeUserResult > 0) {
+			model.addAttribute("msg", "일반회원으로 변경 되었습니다.");
+		} else {
+			model.addAttribute("msg", "비즈 탈퇴가 실패하였습니다. 지속적으로 실패 시 관리자에게 문의하세요.");
+		}
+		model.addAttribute("location", "/beeSettingMain.do?beesNo="+beeUser.getBeesNo());
+
+	
+		return "bees/beeCreate/beeResult";			
+	}
+	
+	@RequestMapping(value="/subJoinManagerSet.do")
+	public String subJoinManagerSet(Model model, HttpServletRequest request) throws UnsupportedEncodingException {	
+		BeesUserList beeUser = new BeesUserList(); 
+		beeUser.setBeesNo(Integer.parseInt(request.getParameter("beesNo")));	
+		beeUser.setMemberNo(Integer.parseInt(request.getParameter("memberNo")));	
+		System.out.println("매니저 변경 설정: "+beeUser.getBeesNo()+"/"+beeUser.getMemberNo());		
+		int beeUserResult = bService.updatesubJoinManagerSet(beeUser);
+		
+		if (beeUserResult > 0) {
+			model.addAttribute("msg", "매니저로 변경 되었습니다.");
+		} else {
+			model.addAttribute("msg", "매니저로 변경이 실패하였습니다. 지속적으로 실패 시 관리자에게 문의하세요.");
+		}
+		model.addAttribute("location", "/beeSettingMain.do?beesNo="+beeUser.getBeesNo());
+
+		return "bees/beeCreate/beeResult";			
+	}
+	
+	@RequestMapping(value="/beeSettingSubMemberPermission.do")
+	public ModelAndView beeSettingSubMemberPermission(Model model, HttpServletRequest request) throws UnsupportedEncodingException {	
+		Setting setting = new Setting(); 
+		setting.setBeesNo(Integer.parseInt(request.getParameter("beesNo")));
+		System.out.println("설정 확인 비즈 번호: "+setting.getBeesNo());
+		Setting settingResult = bService.selectBeeMemberPermission(setting);
 		
 		ModelAndView mav = new ModelAndView();
 		
-		mav.addObject("beeResult",beeResult);
-		mav.setViewName("bees/beeSetting/JoinManager");  //ViewResolver에 의해서 경로가 최종 완성됨
+		mav.addObject("settingResult",settingResult);
+		mav.setViewName("bees/beeSetting/MemberPermission");  //ViewResolver에 의해서 경로가 최종 완성됨
 				
-		return mav;	*/	
-
+		return mav;				
 	}
-	@RequestMapping(value="/beeSettingSubMemberPermission.do")
-	public String beeSettingSubMemberPermission()
-	{
-			return "bees/beeSetting/MemberPermission";
+	@RequestMapping(value="/subMemberPermissionSet.do")
+	public String subMemberPermissionSet(Model model, HttpServletRequest request) throws UnsupportedEncodingException {	
+		Setting setting = new Setting(); 
+		setting.setBeesNo(Integer.parseInt(request.getParameter("beesNo")));
+		setting.setSetNotice(request.getParameter("set_notice"));
+		setting.setSetWrite(request.getParameter("set_write"));
+		setting.setSetComment(request.getParameter("set_comment"));
+		setting.setSetScheRegist(request.getParameter("set_sche_regist"));
+		setting.setSetScheModify(request.getParameter("set_sche_modify"));
+		setting.setSetChatOpen(request.getParameter("set_chat_open"));
+		setting.setSetChatDel(request.getParameter("set_chat_del"));
+		setting.setSetUserInvite(request.getParameter("set_user_invite"));
+		setting.setSetUserPermit(request.getParameter("set_user_permit"));
+		setting.setSetUserCondi(request.getParameter("set_user_condi"));
+		setting.setSetContDel(request.getParameter("set_cont_del"));
+		setting.setSetUserBlock(request.getParameter("set_user_block"));
+		System.out.println("설정 변경 비즈 번호: "+setting.getBeesNo()+"/"+setting.getSetNotice()+
+				"/"+setting.getSetWrite()+"/"+setting.getSetComment()+"/"+setting.getSetScheRegist()+"/"+
+				setting.getSetScheModify()+"/"+setting.getSetChatOpen()+"/"+setting.getSetChatDel()+"/"+
+				setting.getSetUserInvite()+"/"+setting.getSetUserPermit()+"/"+setting.getSetUserCondi()+"/"
+				+setting.getSetContDel()+"/"+setting.getSetUserBlock());
+		int settingResult = bService.updateBeeMemberPermissionSet(setting);
+		if (settingResult > 0) {
+			model.addAttribute("msg", "성공적으로 비즈설정이 변경되었습니다.");
+		} else {
+			model.addAttribute("msg", "비즈 설정 변경이 실패하였습니다. 지속적으로 실패 시 관리자에게 문의하세요.");
+		}
+		model.addAttribute("location", "/beeSettingMain.do?beesNo="+setting.getBeesNo());
 		
+		return "bees/beeCreate/beeResult";	   		
 	}
 	@RequestMapping(value="/beeSettingSubMemberWithdraw.do")
-	public String beeSettingSubMemberWithdraw()
-	{
-			return "bees/beeSetting/MemberWithdraw";
+	public ModelAndView beeSettingSubMemberWithdraw(Model model, HttpServletRequest request) throws UnsupportedEncodingException {		
+		Bees bee = new Bees(); 
+		int beesNO = Integer.parseInt(request.getParameter("beesNo"));
+		System.out.println("멤버 탈퇴 비즈 번호: "+beesNO);
+		ArrayList<BeesUserList> list = bService.selectBeesUser(beesNO);
 		
+		ModelAndView mav = new ModelAndView();
+		mav.addObject("list", list);
+		mav.setViewName("bees/beeSetting/MemberWithdraw"); //viewResolve를 통해 경로 최종 완성
+		
+		return mav;
+		
+	}
+	@RequestMapping(value="/subMemberWithdrawSet.do")
+	public String subMemberWithdrawSet(Model model, HttpServletRequest request) throws UnsupportedEncodingException {	
+		BeesUserList beeUser = new BeesUserList(); 
+		beeUser.setBeesNo(Integer.parseInt(request.getParameter("beesNo")));	
+		beeUser.setMemberNo(Integer.parseInt(request.getParameter("memberNo")));	
+		System.out.println("회원 탈퇴 설정: "+beeUser.getBeesNo()+"/"+beeUser.getMemberNo());
+		
+		int beeUserResult = bService.updateMemberWithdraw(beeUser);
+		
+		if (beeUserResult > 0) {
+			model.addAttribute("msg", "성공적으로 탈퇴 되었습니다.");
+		} else {
+			model.addAttribute("msg", "회원 탈퇴가 실패하였습니다. 지속적으로 실패 시 관리자에게 문의하세요.");
+		}
+		model.addAttribute("location", "/beeSettingMain.do?beesNo="+beeUser.getBeesNo());
+
+	
+		return "bees/beeCreate/beeResult";			
+	}
+	
+	@RequestMapping(value="/subMemberWithdrawBlockSet.do")
+	public String subMemberWithdrawBlockSet(Model model, HttpServletRequest request) throws UnsupportedEncodingException {	
+		BeesUserList beeUser = new BeesUserList(); 
+		beeUser.setBeesNo(Integer.parseInt(request.getParameter("beesNo")));	
+		beeUser.setMemberNo(Integer.parseInt(request.getParameter("memberNo")));	
+		System.out.println("회원 차단 설정: "+beeUser.getBeesNo()+"/"+beeUser.getMemberNo());
+		
+		int beeUserResult = bService.subMemberWithdrawBlockSet(beeUser);
+		
+		if (beeUserResult > 0) {
+			model.addAttribute("msg", "성공적으로 차단 되었습니다.");
+		} else {
+			model.addAttribute("msg", "회원 차단이 실패하였습니다. 지속적으로 실패 시 관리자에게 문의하세요.");
+		}
+		model.addAttribute("location", "/beeSettingMain.do?beesNo="+beeUser.getBeesNo());
+
+	
+		return "bees/beeCreate/beeResult";			
 	}
 	
 	@RequestMapping(value="/beeSettingSubMemberWithdrawDo.do")
-	public String beeSettingSubMemberWithdrawDo()
-	{
-			return "bees/beeSetting/MemberWithdrawDo";
+	public ModelAndView beeSettingSubMemberWithdrawDo(Model model, HttpServletRequest request) throws UnsupportedEncodingException {
 		
+		Bees bee = new Bees(); 
+		int beesNO = Integer.parseInt(request.getParameter("beesNo"));
+		System.out.println("멤버 탈퇴 비즈 번호: "+beesNO);
+		ArrayList<BeesUserList> list = bService.selectBeesBlock(beesNO);
+		
+		ModelAndView mav = new ModelAndView();
+		mav.addObject("list", list);
+		mav.setViewName("bees/beeSetting/MemberWithdrawDo"); //viewResolve를 통해 경로 최종 완성
+		
+		return mav;
+			
+	}
+	
+	@RequestMapping(value="/subMemberBlockDeleteSet.do")
+	public String subMemberBlockDeleteSet(Model model, HttpServletRequest request) throws UnsupportedEncodingException {	
+		BeesUserList beeUser = new BeesUserList(); 
+		beeUser.setBeesNo(Integer.parseInt(request.getParameter("beesNo")));	
+		beeUser.setMemberNo(Integer.parseInt(request.getParameter("memberNo")));	
+		System.out.println("회원 차단 설정: "+beeUser.getBeesNo()+"/"+beeUser.getMemberNo());
+		
+		int beeUserResult = bService.subMemberBlockDeleteSet(beeUser);
+		
+		if (beeUserResult > 0) {
+			model.addAttribute("msg", "성공적으로 차단해제 되었습니다.");
+		} else {
+			model.addAttribute("msg", "회원 차단해제가 실패하였습니다. 지속적으로 실패 시 관리자에게 문의하세요.");
+		}
+		model.addAttribute("location", "/beeSettingMain.do?beesNo="+beeUser.getBeesNo());
+
+	
+		return "bees/beeCreate/beeResult";			
+	}
+	
+	@RequestMapping(value="/beeSettingSubOneWithdraw.do")
+	public String beeSettingSubOneWithdraw(Model model, HttpServletRequest request) throws UnsupportedEncodingException {	
+		BeesUserList beeUser = new BeesUserList(); 
+		beeUser.setBeesNo(Integer.parseInt(request.getParameter("beesNo")));	
+		beeUser.setMemberNo(Integer.parseInt(request.getParameter("memberNo")));	
+		System.out.println("비즈탈퇴 설정: "+beeUser.getBeesNo()+"/"+beeUser.getMemberNo());
+		int beeUserResult = bService.updateBeeOneWithdraw(beeUser);
+		
+		if (beeUserResult > 0) {
+			model.addAttribute("msg", "성공적으로 탈퇴되었습니다.");
+		} else {
+			model.addAttribute("msg", "비즈 탈퇴가 실패하였습니다. 지속적으로 실패 시 관리자에게 문의하세요.");
+		}
+		model.addAttribute("location", "/index.jsp");
+
+	
+		return "bees/beeCreate/beeResult";	
+			
+	}
+	@RequestMapping(value="/beeSettingSubOneDelete.do")
+	public String beeSettingSubOneDelete(Model model, HttpServletRequest request) throws UnsupportedEncodingException {	
+		Bees bee = new Bees(); 
+		bee.setBeesNo(Integer.parseInt(request.getParameter("beesNo")));
+		System.out.println("비즈삭제 설정: "+bee.getBeesNo());
+		int beeResult = bService.updateBeeOneDelete(bee);
+		
+		if (beeResult > 0) {
+			model.addAttribute("msg", "성공적으로 비즈가 삭제되었습니다.");
+		} else {
+			model.addAttribute("msg", "비즈 삭제가 실패하였습니다. 지속적으로 실패 시 관리자에게 문의하세요.");
+		}
+		model.addAttribute("location", "/beeSettingMain.do?beesNo="+bee.getBeesNo());
+
+	
+		return "bees/beeCreate/beeResult";	
+			
 	}
 	
 }

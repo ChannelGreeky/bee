@@ -68,7 +68,7 @@
 
 					<div class="row m-0">
 						<div class="col-12 py-2">
-							<a class="makeBeesBtn btn w-100 py-2" href="#">+ 비즈 만들기</a>
+							<a class="makeBeesBtn btn w-100 py-2" href="/beeCreateMain.do">+ 비즈 만들기</a>
 						</div>
 					</div>
 				</div>

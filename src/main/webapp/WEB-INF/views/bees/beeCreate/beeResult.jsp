@@ -15,6 +15,5 @@
 			alert("${msg}");
 			location.replace("${location}");
 		</script>
-	
 </body>
 </html>

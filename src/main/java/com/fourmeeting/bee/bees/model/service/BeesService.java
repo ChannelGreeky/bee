@@ -30,6 +30,16 @@ public class BeesService {
 		return beeResult;
 	}
 
+	public int insertSetting(Bees bee) {
+		int beeSetting = bDAO.insertSetting(sqlSession, bee);
+		return beeSetting;
+	}
+	
+	public int insertHostBeeUser(Bees bee) {
+		int beehostResult = bDAO.insertHostBeeUser(sqlSession, bee);
+		return beehostResult;
+	}
+
 	public Bees selectBeeSetting(Bees bee) {
 		Bees beeResult = bDAO.selectBeeSetting(sqlSession, bee);
 		return beeResult;
@@ -65,6 +75,70 @@ public class BeesService {
 		return list;
 
 	}
+	
+	public ArrayList<BeesUserList> selectBeesManager(int beesNO) {
+		ArrayList<BeesUserList> list = bDAO.selectBeesManager(sqlSession, beesNO);
+		return list;
+	}
+
+	public ArrayList<BeesUserList> selectBeesOnlyUser(int beesNO) {
+		ArrayList<BeesUserList> list = bDAO.selectBeesOnlyUser(sqlSession, beesNO);
+		return list;
+	}
+
+	public ArrayList<BeesUserList> selectBeesBlock(int beesNO) {
+		ArrayList<BeesUserList> list = bDAO.selectBeesBlock(sqlSession, beesNO);
+		return list;
+	}
+
+	public Setting selectBeeMemberPermission(Setting setting) {
+		Setting settingResult = bDAO.selectBeeMemberPermission(sqlSession, setting);
+		return settingResult;
+	}
+
+	public int updateBeeOneWithdraw(BeesUserList beeUser) {
+		int beeUserResult = bDAO.updateBeeOneWithdraw(sqlSession, beeUser);
+		return beeUserResult;
+	}
+
+	public int updateBeeOneDelete(Bees bee) {
+		int beeResult = bDAO.updateBeeOneDelete(sqlSession, bee);
+		return beeResult;
+	}
+
+	public int updateBeeMemberPermissionSet(Setting setting) {
+		int settingResult = bDAO.updateBeeMemberPermissionSet(sqlSession, setting);
+		return settingResult;
+	}
+
+	public int updateManagerToUser(BeesUserList beeUser) {
+		int beeUserResult = bDAO.updateManagerToUser(sqlSession, beeUser);
+		return beeUserResult;
+	}
+
+	public int updateMemberWithdraw(BeesUserList beeUser) {
+		int beeUserResult = bDAO.updateMemberWithdraw(sqlSession, beeUser);
+		return beeUserResult;
+	}
+
+	public int subMemberWithdrawBlockSet(BeesUserList beeUser) {
+		int beeUserResult = bDAO.subMemberWithdrawBlockSet(sqlSession, beeUser);
+		return beeUserResult;
+	}
+
+	public int subMemberBlockDeleteSet(BeesUserList beeUser) {
+		int beeUserResult = bDAO.subMemberBlockDeleteSet(sqlSession, beeUser);
+		return beeUserResult;
+	}
+
+	public int updatesubJoinManagerSet(BeesUserList beeUser) {
+		int beeUserResult = bDAO.updatesubJoinManagerSet(sqlSession, beeUser);
+		return beeUserResult;
+	}
+
+	
+	
+	
 	
 	public Bees beesSelectOne(int beesNo) {
 		// TODO Auto-generated method stub

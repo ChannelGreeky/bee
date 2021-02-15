@@ -1,5 +1,7 @@
+<%@page import="com.fourmeeting.bee.member.model.vo.Member"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@page import="com.fourmeeting.bee.bees.model.vo.Bees"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -112,7 +114,10 @@ text-align: inherit;
     color: #FFFFFF;
 }
 </style> 
-
+<%
+	Bees beeResult = (Bees)request.getAttribute("beeResult");
+	Member sessionMember = (Member)session.getAttribute("member");
+%>
 <!-- modal -->
 <div class="modal fade" id="myModalBeesDelete" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
   <div class="modal-dialog">
@@ -126,12 +131,14 @@ text-align: inherit;
        	삭제 후에는 복구가 불가능합니다.</span>      	
       </div>   
       <div class="modal-footer">
-         <button type="button" onclick="location.href='/beeSettingMain.do'" class="uButton -sizeS -confirm2 beesModalCancle">아니오 </button> 
-         <button type="button" class="uButton -sizeS -confirm2 beesModalDo">예</button>
+         <button type="button" onclick="location.href='/beeSettingMain.do?beesNo=<%=beeResult.getBeesNo()%>'" class="uButton -sizeS -confirm2 beesModalCancle">아니오 </button> 
+         <form action="/beeSettingSubOneDelete.do" method="post">
+         <input type="hidden" id="beesNo" name="beesNo" value="<%=beeResult.getBeesNo()%>"/>
+         <button type="submit" class="uButton -sizeS -confirm2 beesModalDo">예</button>
+         </form>
       </div> 
     </div>
   </div>
 </div>
-
 </body>
 </html>
