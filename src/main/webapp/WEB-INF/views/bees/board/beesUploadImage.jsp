@@ -1,12 +1,66 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-      <%@ include file="/include/headerBee.jsp"  %>
+    <%@page import="java.util.ArrayList"%>
+    <%@page import="com.fourmeeting.bee.image.model.vo.AttachFileDTO" %>
+       <%@page import="com.fourmeeting.bee.member.model.vo.Member"%>
+      <%@ include file="/include/headerUser.jsp"  %>
+   
+      
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<style>
+.uploadResult {
+width: 100%;
+background-color: gray;
+}
 
+.uploadResult ul {
+display: flex;
+flex-flow: row;
+justify-content: center;
+align-items: center;
+padding:0;
+}
+.uploadResult li{
+width:33%;
+min-width:190px;
+
+}
+.uploadResult ul li {
+list-style: none;
+padding: 10px;
+
+}
+
+.uploadResult ul li img {
+width: 80%;
+white-space:pre;
+}
+.bigPictureWrapper {
+  position: absolute;
+  display: none;
+  justify-content: center;
+  align-items: center;
+  top:5%;
+  bottom:5%;
+  width:100%;
+  height:100%;
+  background-color: gray; 
+  z-index: 100;
+}
+
+.bigPicture {
+  position: relative;
+  display:flex;
+  justify-content: center;
+  align-items: center;
+}
+
+
+</style>
 </head>
 <body>
 
@@ -105,9 +159,90 @@
                           </div>
             
                </div> <!-- img_body -->
+            <!-- 여기부터 실험 -->
+            <div class='bigPictureWrapper'>
+  <div class='bigPicture'>
+  </div>
+</div>
+            <div class='uploadDiv'>
+		<input type='file' name='uploadFile' multiple>
+	</div>
+<%
+	ArrayList<AttachFileDTO> list=(ArrayList<AttachFileDTO>)request.getAttribute("list");
+
+ Member member = (Member)session.getAttribute("member");
+	System.out.println(member.getMemberNo());	
+	
+%>
+	
+
+<%
+		
+		if (member != null) {
+	%>
+	<div class='uploadResult'>  <!--  업로드 된 파일 목록으로 보여주기-->
+		<ul >
+			<%for(AttachFileDTO af : list){%>
+			<%System.out.println("/resources/file/"+af.getChangeFileName());%>
+		<li ><img src="<%="/resources/file/"+af.getChangeFileName()%>" width='150px' height='150px'>
+		<span data-file=\'"+fileCallPath+"\' data-type='image' data-name=\'"+fileName+"\'><img src='/resources/image/admin/error.png' style='width:20px; height:20px;'></span></li>
+	<%} %>
+			
+		</ul>
+	</div>
+
+ <%} %>
+	<button id='uploadBtn'>Upload</button>
+            
+   <script>
+
+	function showImage(fileCallPath){
+	  
+	  //alert(fileCallPath);
+	
+	  $(".bigPictureWrapper").css("display","flex").show();
+	  
+	  $(".bigPicture")
+	  .html("<img src='/display.do?fileName="+fileCallPath+"'>")
+	  .animate({width:'100%', height: '100%'}, 1000);
+
+	}
+	
+	$(".bigPictureWrapper").on("click", function(e){
+	  $(".bigPicture").animate({width:'0%', height: '0%'}, 1000);
+	  setTimeout(() => {
+		    $(this).hide();
+		  }, 1000);
+	});
+	
+
+
+	
+	$(".uploadResult").on("click","span", function(e){
+	   
+	  var targetFile = $(this).data("file");
+	  var type = $(this).data("type");
+ 	  var name = $(this).data("name");	
+	  var targetLi = $(this).closest("li");
+	  
+	  $.ajax({
+	    url: '/deleteFile.do',
+	    data: {filePath: targetFile, type:type, name:name},
+	    dataType:'text',
+	    type: 'POST',
+	      success: function(result){
+	         alert(result);
+	         targetLi.remove();
+	       }
+	  }); //$.ajax
+	  
+	});
+
+            
+  </script>          
             
             
-            
+            <!-- 여기까지 실험 -->
             </div> <!-- img_content -->
             </div> <!-- main_content -->
 
@@ -119,8 +254,119 @@
 	</div>
 	<jsp:include page="/common/footer.jsp" flush="true"/>
  <script>
-                              
-                              $(function(){
+
+ $(document).ready(function(){
+	 
+	 $.ajax({
+		 url: '/selectAllImage.do',
+		 processData: false,
+		 contentType: false,
+		 type: 'POST',
+		 dataType:'json',
+		 success: function(result){
+			 console.log("re"+result);
+			 /*
+			 var str="";
+			 $(result).each(function(i, attachFileDTO){
+			 var fileCallPath = encodeURIComponent( attachFileDTO.uploadPath);
+				
+			 str += "<li><div>";
+			 str += "<li><a href=\"javascript:showImage(\'"+originPath+"\')\">"+
+		        "<img src='/display.do?fileName="+fileCallPath+"'></a>"+
+		        "<span data-file=\'"+fileCallPath+"\' data-type='image' data-name=\'"+fileName+"\'><img src='/resources/image/admin/error.png' style='width:20px; height:20px;'></span></li>";
+			 str += "</div>";
+			 str +"</li>";
+			 });
+			 $(".uploadResult ul").append(str);
+		 */
+		 }
+		 });   //$.ajax
+	
+	 
+	 
+	 
+	 var cloneObj = $(".uploadDiv").clone();
+	 $("#uploadBtn").on("click", function(e){
+		 
+		 var regex = new RegExp("(.*?)\.(jpe?g|png|gif)$");
+			var maxSize = 5242880; //5MB
+
+			function checkExtension(fileName, fileSize) {
+
+				if (fileSize >= maxSize) {
+					alert("파일 사이즈 초과(파일은 최대 5MB까지만 가능합니다.)");
+					return false;
+				}
+
+				if (!regex.test(fileName)) {
+					alert("이미지 파일만 업로드 가능합니다.(가능한 확장자명:jpeg/jpg/png/gif)");
+					return false;
+				}
+				return true;
+			}
+		 var formData = new FormData();
+			
+		 var inputFile = $("input[name='uploadFile']");
+		
+		 var files = inputFile[0].files;
+ 		
+ 		console.log(files);
+ 		
+ 		for(var i = 0; i < files.length; i++){
+ 			if (!checkExtension(files[i].name, files[i].size)) {
+				return false;
+			}
+
+ 			 formData.append("uploadFile", files[i]);
+ 			
+ 		}
+			
+ 		
+ 		 $.ajax({
+ 			 url: '/uploadAjaxAction.do',
+ 			 processData: false,
+ 			 contentType: false,
+ 			 data: formData,
+ 			 type: 'POST',
+ 			 dataType:'json',
+ 			 success: function(result){
+ 			 alert("파일등록 성공!");
+ 			 console.log(result);
+ 			 showUploadedFile(result);
+ 			$(".uploadDiv").html(cloneObj.html());
+ 			 }
+ 			 }); //$.ajax
+ 			
+ 			 
+	 });
+	 var uploadResult = $(".uploadResult ul");
+	 
+	 function showUploadedFile(uploadResultArr){
+		    
+		    var str = "";
+		    
+		    $(uploadResultArr).each(function(i, obj){
+		      
+		      
+		        
+		        var fileCallPath =  encodeURIComponent( obj.thumbnailFileName);
+		        var originPath = obj.uploadPath;
+		        var fileName = obj.uuid +"_"+obj.fileName;
+		        
+		        originPath = originPath.replace(new RegExp(/\\/g),"/");
+		        str += "<li><a href=\"javascript:showImage(\'"+originPath+"\')\">"+
+		        "<img src='/display.do?fileName="+fileCallPath+"'></a>"+
+		        "<span data-file=\'"+fileCallPath+"\' data-type='image' data-name=\'"+fileName+"\'><img src='/resources/image/admin/error.png' style='width:20px; height:20px;'></span></li>";
+		        
+		        
+		      
+		    });
+		    
+		    uploadResult.append(str);
+		  }
+ });
+ 
+ /*     $(document).ready(function(){
                                  $('#btn-upload').click(function(e){
                                     e.preventDefault();
                                     $('#upImgFiles').click();
@@ -129,7 +375,7 @@
                                  
                               });
                               
-                              function uploadImgs() {
+                            function uploadImgs() {
                                   // @breif 업로드 파일 읽기
                                   var fileList = document.getElementById( "upImgFiles" ).files;
                                        
@@ -162,7 +408,7 @@
                                    [].forEach.call( fileList, readAndPreview );
                                 }
                                }  
-                           
+                           */
                              
                              </script>
 </body>

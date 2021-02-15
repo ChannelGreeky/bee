@@ -9,6 +9,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Service;
 
 import com.fourmeeting.bee.image.model.dao.ImageDAO;
+import com.fourmeeting.bee.image.model.vo.AttachFileDTO;
 import com.fourmeeting.bee.image.model.vo.Image;
 
 
@@ -62,4 +63,5 @@ public class ImageService {
 		return imageList;
 	}
 
+	
 }

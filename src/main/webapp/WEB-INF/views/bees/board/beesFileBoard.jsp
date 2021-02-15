@@ -1,12 +1,14 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-     <%@ include file="/include/headerUser.jsp"  %>
-    
+     <%@ include file="/include/headerBee.jsp"  %>
+    <%@page import="com.fourmeeting.bee.member.model.vo.Member"%>
+<%@page import="com.fourmeeting.bee.notice.model.vo.Notice"%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+
 
 
 </head>
@@ -32,7 +34,7 @@
 	<!--비즈 전체페이지 + 사이드 프로필 + 메인 컨텐츠 크기-->
 	<link rel="stylesheet" type="text/css" href="/resources/css/beesForm.css">
 	<script type="text/javascript" src="/resources/js/beesForm.js"></script>
-   <link rel="stylesheet" type="text/css" href="/resources/css/beesFileBoard.css">
+  <link rel="stylesheet" type="text/css" href="/resources/css/beesFileBoard.css"> 
    
    
 	<div class="container pt-3">
@@ -84,87 +86,75 @@
                 <a class="chat-open-btn" href="#none" target="_blank" onclick="openPopup()" style="color:dimgray">'비즈' 전체 채팅</a></td></tr>
         </table>
     </div>
-				</div>
-			</div>
+				</div><!-- "bees-side" -->
+			</div><!-- col-3 p-0" -->
 			<div class="col-7 p-0">
 
 				<div id="bees-contents" class="container m-0 p-2">
 
 <div id="main_content" style="background-color: white; width:100%; min-height:600px;">
 
-
-
 <!-- 내 코드 -->
-
-		<div class="head">첨부 모아보기</div>
-      <div class="main_head"> 
-            <div class="file_on">파일</div> 
-            <div class="vote_off">투표</div> 
-            
-            <div class="cont_searchBox">
-            <form action>
-               
-                    
-                      <input type="text" id="search" autocomplete="off">
-                      <button type="submit" id="search_btn">
-                      <img src="/resources/image/search.png" style="width:20px; height:20px"/>
-                      </button>
-                   
-             
-            </form>
-             </div>
-      </div> <!-- main_head -->
-      <div class="main_bodys">
-         
-             <div class="cont">
-               <ul class="file_cont">
-                  <li><a href="#">파일내용</a></li>
-               </ul>
-               <ul class="vote_cont">
-                   <li><a href="#">투표내용</a></li>         
-               </ul>
-          </div>
-      </div>   <!-- main_body -->
-   
-     </div>    <!-- main_content -->
-   </div>   <!-- bees-contents -->
-				
-			</div>
-			<div class="col-1"></div>
+ 	
+		<div class="head" >첨부 모아보기</div>
+	
+		<div class="main_head" style="height:135px"> 
+			  <div class="tab_title">
+			    <div class="on" style="width:50%;">파일</div>
+			    <div style="width:50%;">투표</div>
+			  </div>
+			   <div class="cont_searchBox">
+			            <form action>  
+			                      <input type="text" id="search" autocomplete="off">
+			                      <button type="submit" id="search_btn">
+			                      <img src="/resources/image/search.png" style="width:20px; height:20px"/>
+			                      </button>
+			            </form>
+			   </div>
+        </div>
+		<div class="tab_cont" >
+		    <div class="on">
+		      <ul>
+					<li>파일내용1</li>
+					<li>파일내용2</li>
+			  </ul>
+		    </div>
+		    <div>
+		      <ul>
+					<li>투표1</li>
+					<li>투표2</li>
+			  </ul>
+		    </div>
+  		</div>
+		<div class="tab_foot" >
 		</div>
-	</div>
-	<jsp:include page="/common/footer.jsp" flush="true"/>
- <script>
-     //투표 버튼 클릭
-     $('.vote_off').click(function(){
-        $('.file_cont').hide(); //파일 내용숨기기
-     
-     $('.vote_cont').css({'display' : 'flex',});   //투표내용 나타내기
-     
-     
-     $(this).attr('class','vote_on');  //투표 버튼 css변경
+
+
+
+
+
+
+
+</div><!-- main_content" -->
+</div><!-- bees-contents -->
+</div><!-- <div class="col-7 p-0"> -->
+</div><!-- row"> -->
+
+</div><!-- container pt-3 -->
+<jsp:include page="/common/footer.jsp" flush="true"/>
+
+      <script>
+      $(document).ready(function() {
+    	  $(".tab_title div").click(function() {
+    	    var idx = $(this).index();
+    	    $(".tab_title div").removeClass("on");
+    	    $(".tab_title div").eq(idx).addClass("on");
+    	    $(".tab_cont > div").hide();
+    	    $(".tab_cont > div").eq(idx).show();
+    	  })
+    	});
       
-     $('.file_on').attr('class','file_off');  //파일버튼 css변경
-   
-     }); 
-     
-     
-     //파일 버튼 클릭
-     $('.file_on').click(function(){    //파일클릭시
-        $('.file_cont').show();          //파일내용 보여줘
-     
-     $('.vote_cont').hide();       //투표내용 숨겨
-     
-     $(this).attr('class','file_on');     //파일버튼 css변경
-      
-     $('.vote_on').attr('class','vote_off');   //투표 버튼 변경
-       
-     });
-       
-       
-       
-       
-       </script>
+     </script>
 </body>
 </html>
 
