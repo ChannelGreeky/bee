@@ -32,4 +32,68 @@ user_seq.nextval, #{beesNo}, #{memberNo}, #{userName}, default, default, default
 <select id="selectAllBeesNo" resultType="int">
 select bees_no from bees_user where member_no=#{memberNo}
 </select>
+
+<!-- 수정예정 -->
+<update id="updateBeesUserRefusal" >
+		update bees_user
+		set user_auth_yn='N'
+		where user_name=#{userName}
+	</update>
+	
+	<update id="updateBeesUserApproval" >
+		update bees_user
+		set user_auth_yn='Y', user_auth_date=systimestamp
+		where user_name=#{userName} and user_block_yn='N'
+	</update>
+	
+	<select id="selectBeesUserClass" parameterType="beesUser" resultType="beesUser">
+	
+		select
+		USER_NO as userNo,
+		BEES_NO as beesNo,
+		MEMBER_NO as memberNo,
+		USER_NAME as userName,
+		USER_CLASS as userClass,
+		USER_BLOCK_YN as userBlockYN,
+		USER_DEL_YN as userDelYN,
+		USER_AUTH_YN as userAuthYN,
+      	USER_ASK_DATE as userAskDate,
+        USER_AUTH_DATE as userAuthDate
+        FROM BEES_USER WHERE MEMBER_NO=#{memberNo} AND BEES_NO='28'
+        
+	</select>
+	
+	<select id="selectBeesUserWaiters" parameterType="beesUser" resultType="beesUser">
+		select
+		USER_NO as userNo,
+		BEES_NO as beesNo,
+		MEMBER_NO as memberNo,
+		USER_NAME as userName,
+		USER_CLASS as userClass,
+		USER_BLOCK_YN as userBlockYN,
+		USER_DEL_YN as userDelYN,
+		USER_AUTH_YN as userAuthYN,
+      	USER_ASK_DATE as userAskDate,
+        USER_AUTH_DATE as userAuthDate
+        FROM BEES_USER WHERE USER_AUTH_YN='W' AND BEES_NO='28'
+	</select>
+	
+	<select id="selectUserNo" parameterType="beesUser" resultType="beesUser" >
+		select
+		BEES_USER.USER_NO as userNo,
+		BEES_USER.BEES_NO as beesNo,
+		BEES_USER.MEMBER_NO as memberNo,
+		BEES_USER.USER_NAME as userName,
+		BEES_USER.USER_CLASS as userClass,
+		BEES_USER.USER_BLOCK_YN as userBlockYN,
+		BEES_USER.USER_DEL_YN as userDelYN,
+		BEES_USER.USER_AUTH_YN as userAuthYN,
+      	BEES_USER.USER_ASK_DATE as userAskDate,
+        BEES_USER.USER_AUTH_DATE as userAuthDate
+		from member left join bees_user on member.member_no=bees_user.member_no
+		where BEES_USER.member_no=#{memberNo} and BEES_USER.bees_no='28'
+
+	</select>
+	
+
 </mapper>
