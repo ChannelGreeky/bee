@@ -9,7 +9,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Bee 로그인</title>
+<title>Bee 추천비즈</title>
 <%@ include file="/common/cdnLib.jsp"%>
 <link rel="stylesheet" type="text/css" href="/resources/css/beesRecommend.css">
 </head>
@@ -21,17 +21,9 @@
 	ArrayList<Bees> myBees = (ArrayList<Bees>) request.getAttribute("myBees");
 	String category =  (String) request.getAttribute("category");
 	DecimalFormat formatter = new DecimalFormat("###,###");
+	int endNo = (int) request.getAttribute("endNo");
 	%>
 	<%@include file="/include/headerUser.jsp" %>
-	<div id="header">
-		<div class="nav m-auto">
-	        <ul>
-	            <a href="#"><li id="rad1">내 비즈 소식</li></a>
-	            <a href="#"><li>인기글</li></a>
-	            <a href="/beesRecommend.do"><li>추천비즈</li></a>
-	        </ul>
-	    </div>
-    </div>
     
 	<div class="container pt-3">
 		<div class="row">
@@ -60,7 +52,7 @@
 					%>
 					<div class="row m-0">
 						<div class="d-none d-md-block col-md-3 p-1">
-							<a href="#?beesName=<%=b.getBeesName() %>">
+							<a href="/beesSelectOne.do?beesNo=<%=b.getBeesNo() %>&memberNo=<%=m.getMemberNo()%>">
 								<div class="m-auto beesImage" style="width:30px; height:30px;
 								background: url('<%=b.getBeesCover() %>') no-repeat;
 								background-size: cover;">
@@ -68,7 +60,7 @@
 							</a>
 						</div>
 						<div class="col-12 col-md-9 py-2 px-0">
-							<a href="#?beesName=<%=b.getBeesName() %>" class="myBees"><%=b.getBeesName() %></a>
+							<a href="/beesSelectOne.do?beesNo=<%=b.getBeesNo() %>&memberNo=<%=m.getMemberNo()%>" class="myBees"><%=b.getBeesName() %></a>
 						</div>
 					</div>
 					<% 		}
@@ -92,7 +84,7 @@
 					</div>
 					<div class="row m-0">
 						<div class="col-4 col-md-4 col-lg-2">
-							<a href="/beesCategoryRecommend.do?category=meet" class="category">
+							<a href="/beesCategoryRecommend.do?category=meet&endNo=10" class="category">
 								<div class="m-auto categoryImg text-center" style="width:100%; height:80px;
 								background: url('/resources/image/category_meet.jpg') no-repeat;
 								background-size: cover;">
@@ -103,7 +95,7 @@
 							</a>
 						</div>
 						<div class="col-4 col-md-4 col-lg-2">
-							<a href="/beesCategoryRecommend.do?category=study" class="category">
+							<a href="/beesCategoryRecommend.do?category=study&endNo=10" class="category">
 								<div class="m-auto categoryImg text-center" style="width:100%; height:80px;
 								background: url('/resources/image/category_study.jpg') no-repeat;
 								background-size: cover;">
@@ -114,7 +106,7 @@
 							</a>
 						</div>
 						<div class="col-4 col-md-4 col-lg-2">
-							<a href="/beesCategoryRecommend.do?category=game" class="category">
+							<a href="/beesCategoryRecommend.do?category=game&endNo=10" class="category">
 								<div class="m-auto categoryImg text-center" style="width:100%; height:80px;
 								background: url('/resources/image/category_game.jpg') no-repeat;
 								background-size: cover;">
@@ -125,7 +117,7 @@
 							</a>
 						</div>
 						<div class="col-4 col-md-4 col-lg-2">
-							<a href="/beesCategoryRecommend.do?category=exercise" class="category">
+							<a href="/beesCategoryRecommend.do?category=exercise&endNo=10" class="category">
 								<div class="m-auto categoryImg text-center" style="width:100%; height:80px;
 								background: url('/resources/image/category_exercise.jpg') no-repeat;
 								background-size: cover;">
@@ -136,7 +128,7 @@
 							</a>
 						</div>
 						<div class="col-4 col-md-4 col-lg-2">
-							<a href="/beesCategoryRecommend.do?category=area" class="category">
+							<a href="/beesCategoryRecommend.do?category=area&endNo=10" class="category">
 								<div class="m-auto categoryImg text-center" style="width:100%; height:80px;
 								background: url('/resources/image/category_area.jpg') no-repeat;
 								background-size: cover;">
@@ -147,7 +139,7 @@
 							</a>
 						</div>
 						<div class="col-4 col-md-4 col-lg-2">
-							<a href="/beesCategoryRecommend.do?category=etc" class="category">
+							<a href="/beesCategoryRecommend.do?category=etc&endNo=10" class="category">
 								<div class="m-auto categoryImg text-center" style="width:100%; height:80px;
 								background: url('/resources/image/category_etc.png') no-repeat;
 								background-size: cover;">
@@ -177,29 +169,53 @@
 					<div class="row mt-1 m-0">
 						<!-- 반복 -->
 						<%if(!recommendBees.isEmpty()) {
-							for(BeesUserCount b : recommendBees) {%>
-							<div class="d-none d-md-block col-md-2 p-1 py-3">
-								<a href="#?beesName=<%=b.getBeesName() %>">
-									<div class="m-auto beesImage" style="width:60px; height:60px;
-									background: url('<%=b.getBeesCover() %>') no-repeat;
-									background-size: cover;">
+							if(recommendBees.size() < endNo-10) {
+								for(BeesUserCount b : recommendBees) {%>
+									<div class="d-none d-md-block col-md-2 p-1 py-3">
+										<a href="/beesSelectOne.do?beesNo=<%=b.getBeesNo() %>&memberNo=<%=m.getMemberNo()%>">
+											<div class="m-auto beesImage" style="width:60px; height:60px;
+											background: url('<%=b.getBeesCover() %>') no-repeat;
+											background-size: cover;">
+											</div>
+										</a>
 									</div>
-								</a>
-							</div>
-							<div class="col-6 col-md-4 py-2 px-0">
-								<a href="#?beesName=<%=b.getBeesName() %>" class="recommend"><%=b.getBeesName() %></a>
-								<span class="recommendCategory"><%=b.getBeesCategory() %></span>
-								<br>
-								<span class="beesInfo">비즈장 : <%=b.getBeesHost() %></span><br>
-								<span class="beesInfo">인원수 :  <%=formatter.format(b.getBeesUserCount()+1) %>명</span>
-							</div>
-							<% } %>
-						<% } %>
+									<div class="col-6 col-md-4 py-2 px-0">
+										<a href="/beesSelectOne.do?beesNo=<%=b.getBeesNo() %>&memberNo=<%=m.getMemberNo()%>" class="recommend"><%=b.getBeesName() %></a>
+										<span class="recommendCategory"><%=b.getBeesCategory() %></span>
+										<br>
+										<span class="beesInfo">비즈장 : <%=b.getBeesHost() %></span><br>
+										<span class="beesInfo">인원수 : <%=formatter.format(b.getBeesUserCount()+1) %>명</span>
+									</div>
+							<% 	}
+							} else {
+								for(int i=0; i < endNo-10; i++) {
+									BeesUserCount b = recommendBees.get(i);
+							%>
+									<div class="d-none d-md-block col-md-2 p-1 py-3">
+										<a href="/beesSelectOne.do?beesNo=<%=b.getBeesNo() %>&memberNo=<%=m.getMemberNo()%>">
+											<div class="m-auto beesImage" style="width:60px; height:60px;
+											background: url('<%=b.getBeesCover() %>') no-repeat;
+											background-size: cover;">
+											</div>
+										</a>
+									</div>
+									<div class="col-6 col-md-4 py-2 px-0">
+										<a href="/beesSelectOne.do?beesNo=<%=b.getBeesNo() %>&memberNo=<%=m.getMemberNo()%>" class="recommend"><%=b.getBeesName() %></a>
+										<span class="recommendCategory"><%=b.getBeesCategory() %></span>
+										<br>
+										<span class="beesInfo">비즈장 : <%=b.getBeesHost() %></span><br>
+										<span class="beesInfo">인원수 : <%=formatter.format(b.getBeesUserCount()+1) %>명</span>
+									</div>
+						<% 		}
+							}
+						} %>
 					</div>
-					<%if(!recommendBees.isEmpty() && recommendBees.size() > 10) { %>
+					
+					
+					<%if (recommendBees.size() > endNo-10) { %>
 					<div class="row mt-3 m-0">
 						<div class="col-12">
-							<a class="viewMoreBtn btn w-100 py-2" href="#">+ 더보기</a>
+							<a id="moreView" class="viewMoreBtn btn w-100 py-2" href="/beesCategoryRecommend.do?category=<%=category %>&endNo=<%=endNo%>">+ 더보기</a>
 						</div>
 					</div>
 					<% } else if (recommendBees.isEmpty()){ %>

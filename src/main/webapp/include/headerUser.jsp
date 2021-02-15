@@ -21,10 +21,11 @@
 	       		<img src="resources/image/beeLogo.png" alt="로고이미지"/>	
  	  		</a>
             </span>
-            <form action>
+           <form action="/beesSearchResult.do" method="get">
                <fieldset>
                     <div class="searchBox">
-                      <input type="text" id="input_searchBox" autocomplete="off">
+                      <input type="text" id="input_searchBox" name="searchData" autocomplete="off">
+                      <input type="hidden" name="endNo" value=10 />
                       <button type="submit" id="btn_search">
                       <img src="/resources/image/search.png" style="width:20px; height:20px"/>
                       </button>
@@ -78,7 +79,7 @@
 	                            <a href="#">공지사항</a>
 	                        </li>
 	                        <li>
-	                        	<a href="/main.jsp">로그아웃</a>
+	                        	<a href="/memberLogout.do">로그아웃</a>
 	                        </li>
 	                     </ul>
             		
@@ -104,7 +105,7 @@
      	       <a href="#"  >인기글</a>
 	    </li>	
 	    <li class="navi_menu_item">
-     	       <a href="/beesRecommend.do">추천비즈</a>
+     	       <a href="/beesRecommend.do?endNo=10">추천비즈</a>
 	    </li>	
 	</ul>
 </div>

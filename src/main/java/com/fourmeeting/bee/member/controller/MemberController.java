@@ -54,7 +54,7 @@ public class MemberController {
 			HttpSession session = request.getSession();
 			session.setAttribute("member", member);
 
-			return "redirect:/index.jsp";
+			return "redirect:/myBeesPage.do?memberNo="+member.getMemberNo();
 		} else {
 			return "user/beforeLogin/memberLoginFail";
 		}
@@ -64,7 +64,7 @@ public class MemberController {
 	public String memberLogout(HttpSession session) {
 		session.invalidate();
 
-		return "redirect:/main.jsp";
+		return "redirect:/index.jsp";
 
 	}
 

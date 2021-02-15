@@ -25,7 +25,7 @@ public class UserPageController {
 	private UserPageService uService;
 	
 	@RequestMapping(value = "/beesRecommend.do")
-	public ModelAndView beesRecommend (HttpSession session) {
+	public ModelAndView beesRecommend (HttpSession session, @RequestParam int endNo) {
 		Member m = (Member)session.getAttribute("member");
 		String [] interest = m.getInterest().split("/");
 		
@@ -36,20 +36,22 @@ public class UserPageController {
 		
 		ArrayList<BeesUserCount> rb = uService.selectRecommendBees(temp);
 		ArrayList<Bees> mb = uService.selectMyBees(m); 
-		
+
 		ModelAndView mav = new ModelAndView();
 
 		mav.addObject("recommendBees", rb);
 		mav.addObject("myBees", mb);
-		mav.addObject("currentPageCount", 10);
+		mav.addObject("endNo", endNo+10);
 		
 		mav.setViewName("user/main/beesRecommend");
+		
 
 		return mav;
 	}
 	
+	
 	@RequestMapping(value = "/beesCategoryRecommend.do")
-	public ModelAndView beesCategoryRecommend (@RequestParam String category, HttpSession session) {
+	public ModelAndView beesCategoryRecommend (@RequestParam String category, @RequestParam int endNo, HttpSession session) {
 		Member m = (Member)session.getAttribute("member");
 		
 		CategoryRecommendBees temp = new CategoryRecommendBees();
@@ -64,8 +66,27 @@ public class UserPageController {
 		mav.addObject("recommendBees", rb);
 		mav.addObject("myBees", mb);
 		mav.addObject("category", category);
+		mav.addObject("endNo", endNo+10);
 		
 		mav.setViewName("user/main/beesCategoryRecommend");
+
+		return mav;
+	}
+	
+	@RequestMapping(value = "/beesSearchResult.do")
+	public ModelAndView beesSearchResult (@RequestParam String searchData, @RequestParam int endNo, HttpSession session) {
+		Member m = (Member)session.getAttribute("member");
+		
+		ArrayList<BeesUserCount> rb = uService.selectBeesSearchResult(searchData);
+		ArrayList<Bees> mb = uService.selectMyBees(m); 
+		ModelAndView mav = new ModelAndView();
+		
+		mav.addObject("resultBees", rb);
+		mav.addObject("myBees", mb);
+		mav.addObject("endNo", endNo+10);
+		mav.addObject("searchData", searchData);
+		
+		mav.setViewName("user/search/beesSearchResult");
 
 		return mav;
 	}

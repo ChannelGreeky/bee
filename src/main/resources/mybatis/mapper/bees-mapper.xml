@@ -98,7 +98,7 @@
 				#{interest}
 		</foreach>
 	AND B.BEES_NO != (SELECT BEES_NO FROM BEES_USER WHERE MEMBER_NO = #{sessionMemberNo})
-	AND B.BEES_PUBLIC_YN = 'N' AND ROWNUM <![CDATA[<]]>= 10
+	AND B.BEES_PUBLIC_YN = 'N'
 	</select>
 	
 	<select id="selectMyBees" parameterType="Member" resultType="bees">
@@ -148,8 +148,35 @@
 	ON B.BEES_NO = BU.BEES_NO
 	WHERE B.BEES_CATEGORY = #{category}
 	AND B.BEES_NO != (SELECT BEES_NO FROM BEES_USER WHERE MEMBER_NO = #{sessionMemberNo})
-	AND B.BEES_PUBLIC_YN = 'N' AND ROWNUM <![CDATA[<]]>= 10
+	AND B.BEES_PUBLIC_YN = 'N'
 	</select>
+	
+	<select id="selectBeesSearchResult" resultType="beesUserCount">
+	SELECT 
+		B.BEES_NO AS beesNo,
+	    B.BEES_NAME AS beesName,
+	    B.BEES_COVER AS beesCover,
+	    B.BEES_CATEGORY AS beesCategory,
+	    B.BEES_HOST AS beesHost,
+	    B.BEES_PUBLIC_YN AS beesPublicYN,
+	    B.BEES_CONT AS beesCont,
+	    B.BEES_USER_LIMIT AS beesUserLimit,
+	    B.BEES_DEL_YN AS beesDelYN,
+	    B.BEES_GENDER AS beesGender,
+	    B.BEES_MAX_BIRTH AS beesMaxBirth,
+	    B.BEES_MIN_BIRTH AS beesMinBirth,
+	    B.BEES_DATE AS beesDate,
+	    B.BEES_DEL_DATE AS beesDelDate,
+	    NVL(BU.COUNT, 0) as beesUserCount
+	FROM BEES B 
+	LEFT JOIN 
+    (SELECT BEES_NO, COUNT(*) AS COUNT FROM BEES_USER
+    GROUP BY BEES_NO ORDER BY COUNT(*) DESC) BU
+	ON B.BEES_NO = BU.BEES_NO
+	WHERE B.BEES_NAME like ('%'||#{searchData}||'%')
+	AND B.BEES_PUBLIC_YN = 'N'
+	</select>
+	
 	<select id="beesSelectOne" resultType="Bees">
 select
 bees_no as beesNo,

@@ -1,3 +1,8 @@
+<%@page import="java.text.DecimalFormat"%>
+<%@page import="com.fourmeeting.bee.bees.model.vo.Bees"%>
+<%@page import="com.fourmeeting.bee.bees.model.vo.BeesUserCount"%>
+<%@page import="java.util.ArrayList"%>
+<%@page import="com.fourmeeting.bee.member.model.vo.Member"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -10,14 +15,15 @@
 </head>
 
 <body>
-	<div id="header">
-		<div class="nav m-auto">
-	        <ul>
-	            <a href="#"><li id="rad1">비즈 검색 결과</li></a>
-	            <a href="#"><li>게시글</li></a>
-	        </ul>
-	    </div>
-    </div>
+	<%
+	Member m = (Member)session.getAttribute("member");
+	ArrayList<BeesUserCount> resultBees = (ArrayList<BeesUserCount>) request.getAttribute("resultBees");
+	ArrayList<Bees> myBees = (ArrayList<Bees>) request.getAttribute("myBees");
+	DecimalFormat formatter = new DecimalFormat("###,###");
+	int endNo = (int) request.getAttribute("endNo");
+	String searchData = (String) request.getAttribute("searchData");
+	%>
+	<%@include file="/include/headerUser.jsp" %>
     
 	<div class="container pt-3">
 		<div class="row">
@@ -39,63 +45,25 @@
 						</div>
 					</div>
 					
-					<!-- 반복 -->
+					<%
+						if(!myBees.isEmpty()) {
+							for(Bees b : myBees) {
+					%>
 					<div class="row m-0">
 						<div class="d-none d-md-block col-md-3 p-1">
-							<a href="#">
+							<a href="/beesSelectOne.do?beesNo=<%=b.getBeesNo() %>&memberNo=<%=m.getMemberNo()%>">
 								<div class="m-auto beesImage" style="width:30px; height:30px;
-								background: url('/resources/image/test.jpg') no-repeat;
+								background: url('<%=b.getBeesCover() %>') no-repeat;
 								background-size: cover;">
 								</div>
 							</a>
 						</div>
 						<div class="col-12 col-md-9 py-2 px-0">
-							<a href="#" class="myBees">여행에 미치다</a>
+							<a href="/beesSelectOne.do?beesNo=<%=b.getBeesNo() %>&memberNo=<%=m.getMemberNo()%>" class="myBees"><%=b.getBeesName() %></a>
 						</div>
 					</div>
-					<!-- 반복 -->
-					
-					<div class="row m-0">
-						<div class="d-none d-md-block col-md-3 p-1">
-							<a href="#">
-								<div class="m-auto beesImage" style="width:30px; height:30px;
-								background: url('/resources/image/test.jpg') no-repeat;
-								background-size: cover;">
-								</div>
-							</a>
-						</div>
-						<div class="col-12 col-md-9 py-2 px-0">
-							<a href="#" class="myBees">여행에 미치다</a>
-						</div>
-					</div>
-					
-					<div class="row m-0">
-						<div class="d-none d-md-block col-md-3 p-1">
-							<a href="#">
-								<div class="m-auto beesImage" style="width:30px; height:30px;
-								background: url('/resources/image/test.jpg') no-repeat;
-								background-size: cover;">
-								</div>
-							</a>
-						</div>
-						<div id="myBees-nameBox" class="col-12 col-md-9 py-2 px-0">
-							<a href="#" class="myBees">여행에 미치다</a>
-						</div>
-					</div>
-					
-					<div class="row m-0">
-						<div class="d-none d-md-block col-md-3 p-1">
-							<a href="#">
-								<div class="m-auto beesImage" style="width:30px; height:30px;
-								background: url('/resources/image/test.jpg') no-repeat;
-								background-size: cover;">
-								</div>
-							</a>
-						</div>
-						<div class="col-12 col-md-9 py-2 px-0">
-							<a href="#" class="myBees">여행에 미치다</a>
-						</div>
-					</div>
+					<% 		}
+						} %>
 					
 					<div class="row m-0">
 						<div class="col-12 py-2">
@@ -117,30 +85,62 @@
 
 					<div class="row mt-1 m-0">
 						<!-- 반복 -->
-						<% for(int i=0; i<10; i++) {%>
-							<div class="d-none d-md-block col-md-2 p-1 py-3">
-								<a href="#">
-									<div class="m-auto beesImage" style="width:60px; height:60px;
-									background: url('/resources/image/profile.png') no-repeat;
-									background-size: cover;">
+						<%if(!resultBees.isEmpty()) {
+							if(resultBees.size() < endNo-10) {
+								for(BeesUserCount b : resultBees) {%>
+									<div class="d-none d-md-block col-md-2 p-1 py-3">
+										<a href="/beesSelectOne.do?beesNo=<%=b.getBeesNo() %>&memberNo=<%=m.getMemberNo()%>">
+											<div class="m-auto beesImage" style="width:60px; height:60px;
+											background: url('<%=b.getBeesCover() %>') no-repeat;
+											background-size: cover;">
+											</div>
+										</a>
 									</div>
-								</a>
-							</div>
-							<div class="col-6 col-md-4 py-2 px-0">
-								<a href="#" class="recommend">여행에 미치다</a>
-								<span class="recommendCategory">취미</span>
-								<br>
-								<span class="beesInfo">비즈장 : 이승현</span><br>
-								<span class="beesInfo">인원수 : 1002명</span>
-							</div>
-						<%} %>
+									<div class="col-6 col-md-4 py-2 px-0">
+										<a href="/beesSelectOne.do?beesNo=<%=b.getBeesNo() %>&memberNo=<%=m.getMemberNo()%>" class="recommend"><%=b.getBeesName() %></a>
+										<span class="recommendCategory"><%=b.getBeesCategory() %></span>
+										<br>
+										<span class="beesInfo">비즈장 : <%=b.getBeesHost() %></span><br>
+										<span class="beesInfo">인원수 : <%=formatter.format(b.getBeesUserCount()+1) %>명</span>
+									</div>
+							<% 	}
+							} else {
+								for(int i=0; i < endNo-10; i++) {
+									BeesUserCount b = resultBees.get(i);
+							%>
+									<div class="d-none d-md-block col-md-2 p-1 py-3">
+										<a href="/beesSelectOne.do?beesNo=<%=b.getBeesNo() %>&memberNo=<%=m.getMemberNo()%>">
+											<div class="m-auto beesImage" style="width:60px; height:60px;
+											background: url('<%=b.getBeesCover() %>') no-repeat;
+											background-size: cover;">
+											</div>
+										</a>
+									</div>
+									<div class="col-6 col-md-4 py-2 px-0">
+										<a href="/beesSelectOne.do?beesNo=<%=b.getBeesNo() %>&memberNo=<%=m.getMemberNo()%>" class="recommend"><%=b.getBeesName() %></a>
+										<span class="recommendCategory"><%=b.getBeesCategory() %></span>
+										<br>
+										<span class="beesInfo">비즈장 : <%=b.getBeesHost() %></span><br>
+										<span class="beesInfo">인원수 : <%=formatter.format(b.getBeesUserCount()+1) %>명</span>
+									</div>
+						<% 		}
+							}
+						} %>
 					</div>
 					
+					<%if (resultBees.size() > endNo-10) { %>
 					<div class="row mt-3 m-0">
 						<div class="col-12">
-							<a class="viewMoreBtn btn w-100 py-2" href="#">+ 더보기</a>
+							<a id="moreView" class="viewMoreBtn btn w-100 py-2" href="/beesSearchResult.do?searchData=<%=searchData %>&endNo=<%=endNo%>">+ 더보기</a>
 						</div>
 					</div>
+					<% } else if (resultBees.isEmpty()){ %>
+						<div class="row mt-3 m-0">
+							<div class="col-12 text-center">
+								<img src="/resources/image/hide.png" width="50%" />
+							</div>
+						</div>
+					<%} %>
 					
 				</div>
 			</div>
@@ -148,7 +148,7 @@
 			</div>
 		</div>
 	</div>
-	
+	<%@ include file="/common/footer.jsp"%>
 	<script type="text/javascript" src="/resources/js/index.js"></script>
 		
 </body>

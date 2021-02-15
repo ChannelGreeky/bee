@@ -36,4 +36,11 @@ public class UserPageDAO {
 		
 		return (ArrayList<BeesUserCount>)list;
 	}
+	
+	public ArrayList<BeesUserCount> selectBeesSearchResult(SqlSessionTemplate sqlSession, String searchData) {
+		// TODO Auto-generated method stub
+		List list =sqlSession.selectList("bees.selectBeesSearchResult", searchData);
+		
+		return (ArrayList<BeesUserCount>)list;
+	}
 }

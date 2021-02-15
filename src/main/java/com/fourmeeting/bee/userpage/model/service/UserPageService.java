@@ -44,4 +44,11 @@ public class UserPageService {
 		
 		return recommendBees;
 	}
+	
+	public ArrayList<BeesUserCount> selectBeesSearchResult(String searchData) {
+		
+		ArrayList<BeesUserCount> resultBees = uDAO.selectBeesSearchResult(sqlSession, searchData);
+		
+		return resultBees;
+	}
 }
