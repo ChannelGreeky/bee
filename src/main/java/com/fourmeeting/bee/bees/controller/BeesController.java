@@ -2,25 +2,69 @@ package com.fourmeeting.bee.bees.controller;
 
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 
+import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.fourmeeting.bee.bees.model.service.BeesService;
 import com.fourmeeting.bee.bees.model.vo.Bees;
+import com.fourmeeting.bee.bees.model.vo.Setting;
+import com.fourmeeting.bee.beesuser.model.service.BeesUserService;
+import com.fourmeeting.bee.beesuser.model.vo.BeesUser;
 import com.fourmeeting.bee.beesuser.model.vo.BeesUserList;
+import com.fourmeeting.bee.board.model.service.BoardService;
+import com.fourmeeting.bee.board.model.vo.BoardLike;
+import com.fourmeeting.bee.board.model.vo.Feed;
+import com.fourmeeting.bee.comment.model.service.CommentService;
+import com.fourmeeting.bee.comment.model.vo.FeedComment;
+import com.fourmeeting.bee.file.model.service.FileService;
+import com.fourmeeting.bee.file.model.vo.BeesFile;
+import com.fourmeeting.bee.image.model.service.ImageService;
+import com.fourmeeting.bee.image.model.vo.Image;
+import com.fourmeeting.bee.member.model.vo.Member;
+import com.fourmeeting.bee.schedule.model.service.ScheduleService;
+import com.fourmeeting.bee.schedule.model.vo.Schedule;
+import com.fourmeeting.bee.vote.model.service.VoteService;
+import com.fourmeeting.bee.vote.model.vo.FeedVote;
 
 @Controller("beesController")
 public class BeesController {
+	
 	@Autowired
-	@Qualifier(value = "beesService")
+	@Qualifier(value = "BeesService")
 	private BeesService bService;
+	
+	@Resource(name="BeesUserService")
+	private BeesUserService userService;
+	
+	@Resource(name="BoardService")
+	private BoardService boardService;
+	
+	@Resource(name="CommentService")
+	private CommentService commentService;
+	
+	@Resource(name="VoteService")
+	private VoteService voteService;
+
+	@Resource(name="FileService")
+	private FileService fileService;
+	
+	@Resource(name="ImageService")
+	private ImageService imageService;
+	
+	@Resource(name="ScheduleService")
+	private ScheduleService scheduleService;
 	
 	@RequestMapping(value="/beeCreateMain.do")
 	public String beeCreateMain()
@@ -33,6 +77,764 @@ public class BeesController {
 	{
 			return "bees/beeCreate/Sub";
 		
+	}
+	
+	@RequestMapping(value="/beesSelectOne.do")
+	private String beesSelectOne(@RequestParam int beesNo, @RequestParam int memberNo, HttpServletRequest request, HttpSession session) throws Exception {
+		
+		Member member = new Member();
+		member.setMemberNo(memberNo);
+		request.getSession();
+		session.setAttribute("member", member);
+		
+		Bees bees = bService.beesSelectOne(beesNo);
+		request.setAttribute("bees", bees);
+		int userCount = userService.userCount(beesNo);
+		request.setAttribute("userCount", userCount);
+		
+		
+		ArrayList<Feed> feedList = boardService.boardSelectAll(beesNo);
+		request.setAttribute("feedList", feedList);
+		
+		
+		//댓글을 불러오자
+		ArrayList<FeedComment> commentAll=commentService.commentSelectAll(beesNo);
+		HashMap<Integer, ArrayList<FeedComment>> commentMap = new HashMap<Integer, ArrayList<FeedComment>>();
+		HashMap<Integer, ArrayList<FeedComment>> recommentMap = new HashMap<Integer, ArrayList<FeedComment>>();
+		for(int i=0; i<commentAll.size();i++) {
+			
+			FeedComment comment = commentAll.get(i);
+			
+			if(comment.getRecommentNo()>0) {
+				
+				if(recommentMap.get(comment.getRecommentNo())==null) {
+					
+					ArrayList<FeedComment> list = new ArrayList<FeedComment>();
+					list.add(comment);
+					recommentMap.put(comment.getRecommentNo(),list);
+				
+				}else {
+					
+					ArrayList<FeedComment> list = recommentMap.get(comment.getRecommentNo());
+					list.add(comment);
+					recommentMap.put(comment.getRecommentNo(),list);
+					
+				}
+				
+				
+			}else{
+				
+				if(commentMap.get(comment.getBoardNo())==null) {
+				
+					ArrayList<FeedComment> list = new ArrayList<FeedComment>();
+					list.add(comment);
+					commentMap.put(comment.getBoardNo(),list);
+				
+				}else {
+					
+					ArrayList<FeedComment> list = commentMap.get(comment.getBoardNo());
+					list.add(comment);
+					commentMap.put(comment.getBoardNo(),list);
+					
+				}			
+			}
+		}
+		request.setAttribute("commentMap", commentMap);
+		request.setAttribute("recommentMap", recommentMap);	
+		
+		//투표보여주기
+		ArrayList<FeedVote> voteList = voteService.voteSelectAll(beesNo);
+		HashMap<Integer, ArrayList<FeedVote>> voteMap = new HashMap<Integer, ArrayList<FeedVote>>();
+		for(FeedVote vote : voteList) {
+			if(voteMap.get(vote.getVoteNo())==null) {	
+				ArrayList<FeedVote> list = new ArrayList<FeedVote>();
+				list.add(vote);
+				voteMap.put(vote.getVoteNo(),list);
+			}else {
+				ArrayList<FeedVote> list = voteMap.get(vote.getVoteNo());
+				list.add(vote);
+				voteMap.put(vote.getVoteNo(),list);
+			}
+		}
+		request.setAttribute("voteMap", voteMap);
+		
+		//일정보여주기	
+		
+		
+		ArrayList<Schedule> scheduleList = scheduleService.scheduleSelectAll(beesNo);
+		HashMap<Integer, Schedule> scheduleMap = new HashMap<Integer, Schedule>();
+		for(Schedule sche : scheduleList) {
+			scheduleMap.put(sche.getBoardNo(),sche);
+		}
+		request.setAttribute("scheduleMap", scheduleMap);
+		
+		
+		//이미지보여주기
+		ArrayList<Image> imageList = imageService.imageSelectAll(beesNo);
+		HashMap<Integer, ArrayList<Image>> imageMap = new HashMap<Integer, ArrayList<Image>>();
+		for(Image image : imageList) {
+			if(imageMap.get(image.getBoardNo())==null) {	
+				ArrayList<Image> list = new ArrayList<Image>();
+				list.add(image);
+				imageMap.put(image.getBoardNo(),list);
+			}else {
+				ArrayList<Image> list = imageMap.get(image.getBoardNo());
+				list.add(image);
+				imageMap.put(image.getBoardNo(),list);
+			}
+		}
+		request.setAttribute("imageMap", imageMap);
+		
+		
+		//파일보여주기
+		ArrayList<BeesFile> fileList = fileService.fileSelectAll(beesNo);
+		HashMap<Integer, BeesFile> fileMap = new HashMap<Integer, BeesFile>();
+		for(int i=0; i<fileList.size(); i++) {
+			if(fileList.get(i).getFileNo()>0) {
+			fileMap.put(fileList.get(i).getBoardNo(),fileList.get(i));
+			}
+		}
+		request.setAttribute("fileMap",fileMap);
+		
+		//내가 좋아한 보드 리스트 보여주기
+		ArrayList<BoardLike> boardLikeList = boardService.selectAllLike(memberNo);
+		HashMap<Integer, Integer> myLikeMap = new HashMap<Integer, Integer>();
+		for(int i=0; i<boardLikeList.size();i++) {
+			myLikeMap.put(boardLikeList.get(i).getBoardNo(), boardLikeList.get(i).getBoardNo());
+		}
+		request.setAttribute("likeMap", myLikeMap);
+		
+		//유저 정보 불러오기
+		BeesUser user = userService.userSelectOne(memberNo, beesNo);
+		request.setAttribute("user", user);
+		
+		//세팅 정보 불러오기
+		Setting setting = bService.selectBeesSetting(beesNo);
+		request.setAttribute("setting", setting);
+		
+		return "/bees/main/beesMainPage";
+		
+	
+	}
+	
+	@RequestMapping(value="/beesSearchOne.do")
+	private String beesSearchOne(@RequestParam int beesNo, @RequestParam int memberNo, @RequestParam String keyword, HttpServletRequest request, HttpSession session) throws Exception {
+		
+		Member member = new Member();
+		member.setMemberNo(memberNo);
+		request.getSession();
+		session.setAttribute("member", member);
+		
+		request.setAttribute("keyword", keyword);
+		
+		Bees bees = bService.beesSelectOne(beesNo);
+		request.setAttribute("bees", bees);
+		int userCount = userService.userCount(beesNo);
+		request.setAttribute("userCount", userCount);
+		
+		ArrayList<Feed> feedList = boardService.boardSearchAll(beesNo,keyword);
+		request.setAttribute("feedList", feedList);
+
+		
+		//댓글을 불러오자
+		ArrayList<FeedComment> commentAll=commentService.commentSelectAll(beesNo);
+		HashMap<Integer, ArrayList<FeedComment>> commentMap = new HashMap<Integer, ArrayList<FeedComment>>();
+		HashMap<Integer, ArrayList<FeedComment>> recommentMap = new HashMap<Integer, ArrayList<FeedComment>>();
+		for(int i=0; i<commentAll.size();i++) {
+			
+			FeedComment comment = commentAll.get(i);
+			
+			if(comment.getRecommentNo()>0) {
+				
+				if(recommentMap.get(comment.getRecommentNo())==null) {
+					
+					ArrayList<FeedComment> list = new ArrayList<FeedComment>();
+					list.add(comment);
+					recommentMap.put(comment.getRecommentNo(),list);
+				
+				}else {
+					
+					ArrayList<FeedComment> list = recommentMap.get(comment.getRecommentNo());
+					list.add(comment);
+					recommentMap.put(comment.getRecommentNo(),list);
+					
+				}
+				
+				
+			}else{
+				
+				if(commentMap.get(comment.getBoardNo())==null) {
+				
+					ArrayList<FeedComment> list = new ArrayList<FeedComment>();
+					list.add(comment);
+					commentMap.put(comment.getBoardNo(),list);
+				
+				}else {
+					
+					ArrayList<FeedComment> list = commentMap.get(comment.getBoardNo());
+					list.add(comment);
+					commentMap.put(comment.getBoardNo(),list);
+					
+				}			
+			}
+		}
+		request.setAttribute("commentMap", commentMap);
+		request.setAttribute("recommentMap", recommentMap);	
+		
+		//투표보여주기
+		ArrayList<FeedVote> voteList = voteService.voteSelectAll(beesNo);
+		HashMap<Integer, ArrayList<FeedVote>> voteMap = new HashMap<Integer, ArrayList<FeedVote>>();
+		for(FeedVote vote : voteList) {
+			if(voteMap.get(vote.getVoteNo())==null) {	
+				ArrayList<FeedVote> list = new ArrayList<FeedVote>();
+				list.add(vote);
+				voteMap.put(vote.getVoteNo(),list);
+			}else {
+				ArrayList<FeedVote> list = voteMap.get(vote.getVoteNo());
+				list.add(vote);
+				voteMap.put(vote.getVoteNo(),list);
+			}
+		}
+		request.setAttribute("voteMap", voteMap);
+		
+		//일정보여주기	
+		
+		
+		ArrayList<Schedule> scheduleList = scheduleService.scheduleSelectAll(beesNo);
+		HashMap<Integer, Schedule> scheduleMap = new HashMap<Integer, Schedule>();
+		for(Schedule sche : scheduleList) {
+			scheduleMap.put(sche.getBoardNo(),sche);
+		}
+		request.setAttribute("scheduleMap", scheduleMap);
+		
+		
+		//이미지보여주기
+		ArrayList<Image> imageList = imageService.imageSelectAll(beesNo);
+		HashMap<Integer, ArrayList<Image>> imageMap = new HashMap<Integer, ArrayList<Image>>();
+		for(Image image : imageList) {
+			if(imageMap.get(image.getBoardNo())==null) {	
+				ArrayList<Image> list = new ArrayList<Image>();
+				list.add(image);
+				imageMap.put(image.getBoardNo(),list);
+			}else {
+				ArrayList<Image> list = imageMap.get(image.getBoardNo());
+				list.add(image);
+				imageMap.put(image.getBoardNo(),list);
+			}
+		}
+		request.setAttribute("imageMap", imageMap);
+		
+		
+		//파일보여주기
+		ArrayList<BeesFile> fileList = fileService.fileSelectAll(beesNo);
+		HashMap<Integer, BeesFile> fileMap = new HashMap<Integer, BeesFile>();
+		for(int i=0; i<fileList.size(); i++) {
+			if(fileList.get(i).getFileNo()>0) {
+			fileMap.put(fileList.get(i).getBoardNo(),fileList.get(i));
+			}
+		}
+		request.setAttribute("fileMap",fileMap);
+		
+		//내가 좋아한 보드 리스트 보여주기
+		ArrayList<BoardLike> boardLikeList = boardService.selectAllLike(memberNo);
+		HashMap<Integer, Integer> myLikeMap = new HashMap<Integer, Integer>();
+		for(int i=0; i<boardLikeList.size();i++) {
+			myLikeMap.put(boardLikeList.get(i).getBoardNo(), boardLikeList.get(i).getBoardNo());
+		}
+		request.setAttribute("likeMap", myLikeMap);
+		
+		//유저 정보 불러오기
+		BeesUser user = userService.userSelectOne(memberNo, beesNo);
+		request.setAttribute("user", user);
+		
+		//세팅 정보 불러오기
+		Setting setting = bService.selectBeesSetting(beesNo);
+		request.setAttribute("setting", setting);
+		
+		return "/bees/main/beesSearchPage";
+		
+	
+	}
+	
+	
+	@RequestMapping(value="/myPageBoard.do")
+	private String myPageBoard(@RequestParam int memberNo, HttpServletRequest request, HttpSession session) throws Exception {
+		
+		Member member = new Member();
+		member.setMemberNo(memberNo);
+		request.getSession();
+		session.setAttribute("member", member);
+		
+		
+		ArrayList<Feed> feedList = boardService.boardSelectMine(memberNo);
+		request.setAttribute("feedList", feedList);
+		
+		
+		List<Integer> beesNo = userService.selectAllBeesNo(memberNo);
+		
+		//댓글을 불러오자
+		ArrayList<FeedComment> commentAll=commentService.commentSelectAllMyBees(beesNo);
+		
+		
+		
+		
+		HashMap<Integer, ArrayList<FeedComment>> commentMap = new HashMap<Integer, ArrayList<FeedComment>>();
+		HashMap<Integer, ArrayList<FeedComment>> recommentMap = new HashMap<Integer, ArrayList<FeedComment>>();
+		for(int i=0; i<commentAll.size();i++) {
+			
+			FeedComment comment = commentAll.get(i);
+			
+			if(comment.getRecommentNo()>0) {
+				
+				if(recommentMap.get(comment.getRecommentNo())==null) {
+					
+					ArrayList<FeedComment> list = new ArrayList<FeedComment>();
+					list.add(comment);
+					recommentMap.put(comment.getRecommentNo(),list);
+				
+				}else {
+					
+					ArrayList<FeedComment> list = recommentMap.get(comment.getRecommentNo());
+					list.add(comment);
+					recommentMap.put(comment.getRecommentNo(),list);
+					
+				}
+				
+				
+			}else{
+				
+				if(commentMap.get(comment.getBoardNo())==null) {
+				
+					ArrayList<FeedComment> list = new ArrayList<FeedComment>();
+					list.add(comment);
+					commentMap.put(comment.getBoardNo(),list);
+				
+				}else {
+					
+					ArrayList<FeedComment> list = commentMap.get(comment.getBoardNo());
+					list.add(comment);
+					commentMap.put(comment.getBoardNo(),list);
+					
+				}			
+			}
+		}
+		request.setAttribute("commentMap", commentMap);
+		request.setAttribute("recommentMap", recommentMap);	
+		
+		
+		//투표보여주기
+		ArrayList<FeedVote> voteList = voteService.voteSelectAllMyBees(beesNo);
+		HashMap<Integer, ArrayList<FeedVote>> voteMap = new HashMap<Integer, ArrayList<FeedVote>>();
+		for(FeedVote vote : voteList) {
+			if(voteMap.get(vote.getVoteNo())==null) {	
+				ArrayList<FeedVote> list = new ArrayList<FeedVote>();
+				list.add(vote);
+				voteMap.put(vote.getVoteNo(),list);
+			}else {
+				ArrayList<FeedVote> list = voteMap.get(vote.getVoteNo());
+				list.add(vote);
+				voteMap.put(vote.getVoteNo(),list);
+			}
+		}
+		request.setAttribute("voteMap", voteMap);
+		
+		//일정보여주기	
+		
+		
+		ArrayList<Schedule> scheduleList = scheduleService.scheduleSelectAllMyBees(beesNo);
+		HashMap<Integer, Schedule> scheduleMap = new HashMap<Integer, Schedule>();
+		for(Schedule sche : scheduleList) {
+			scheduleMap.put(sche.getBoardNo(),sche);
+		}
+		request.setAttribute("scheduleMap", scheduleMap);
+		
+		
+		//이미지보여주기
+		ArrayList<Image> imageList = imageService.imageSelectAllMyBees(beesNo);
+		HashMap<Integer, ArrayList<Image>> imageMap = new HashMap<Integer, ArrayList<Image>>();
+		for(Image image : imageList) {
+			if(imageMap.get(image.getBoardNo())==null) {	
+				ArrayList<Image> list = new ArrayList<Image>();
+				list.add(image);
+				imageMap.put(image.getBoardNo(),list);
+			}else {
+				ArrayList<Image> list = imageMap.get(image.getBoardNo());
+				list.add(image);
+				imageMap.put(image.getBoardNo(),list);
+			}
+		}
+		request.setAttribute("imageMap", imageMap);
+		
+		
+		//파일보여주기
+		ArrayList<BeesFile> fileList = fileService.fileSelectAllMyBees(beesNo);
+		HashMap<Integer, BeesFile> fileMap = new HashMap<Integer, BeesFile>();
+		for(int i=0; i<fileList.size(); i++) {
+			if(fileList.get(i).getFileNo()>0) {
+			fileMap.put(fileList.get(i).getBoardNo(),fileList.get(i));
+			}
+		}
+		request.setAttribute("fileMap",fileMap);
+		
+		//내가 좋아한 보드 리스트 보여주기
+		ArrayList<BoardLike> boardLikeList = boardService.selectAllLike(memberNo);
+		HashMap<Integer, Integer> myLikeMap = new HashMap<Integer, Integer>();
+		for(int i=0; i<boardLikeList.size();i++) {
+			myLikeMap.put(boardLikeList.get(i).getBoardNo(), boardLikeList.get(i).getBoardNo());
+		}
+		request.setAttribute("likeMap", myLikeMap);
+		
+		return "/user/myPage/board";
+		
+	
+	}
+	
+	@RequestMapping(value="/myPageHeart.do")
+	private String myPageHeart(@RequestParam int memberNo, HttpServletRequest request, HttpSession session) throws Exception {
+		
+		Member member = new Member();
+		member.setMemberNo(memberNo);
+		request.getSession();
+		session.setAttribute("member", member);
+		
+		
+		ArrayList<Feed> feedList = boardService.boardSelectLiked(memberNo);
+		request.setAttribute("feedList", feedList);
+		
+		
+		List<Integer> beesNo = userService.selectAllBeesNo(memberNo);
+		
+		//댓글을 불러오자
+		ArrayList<FeedComment> commentAll=commentService.commentSelectAllMyBees(beesNo);
+		
+		
+		
+		
+		HashMap<Integer, ArrayList<FeedComment>> commentMap = new HashMap<Integer, ArrayList<FeedComment>>();
+		HashMap<Integer, ArrayList<FeedComment>> recommentMap = new HashMap<Integer, ArrayList<FeedComment>>();
+		for(int i=0; i<commentAll.size();i++) {
+			
+			FeedComment comment = commentAll.get(i);
+			
+			if(comment.getRecommentNo()>0) {
+				
+				if(recommentMap.get(comment.getRecommentNo())==null) {
+					
+					ArrayList<FeedComment> list = new ArrayList<FeedComment>();
+					list.add(comment);
+					recommentMap.put(comment.getRecommentNo(),list);
+				
+				}else {
+					
+					ArrayList<FeedComment> list = recommentMap.get(comment.getRecommentNo());
+					list.add(comment);
+					recommentMap.put(comment.getRecommentNo(),list);
+					
+				}
+				
+				
+			}else{
+				
+				if(commentMap.get(comment.getBoardNo())==null) {
+				
+					ArrayList<FeedComment> list = new ArrayList<FeedComment>();
+					list.add(comment);
+					commentMap.put(comment.getBoardNo(),list);
+				
+				}else {
+					
+					ArrayList<FeedComment> list = commentMap.get(comment.getBoardNo());
+					list.add(comment);
+					commentMap.put(comment.getBoardNo(),list);
+					
+				}			
+			}
+		}
+		request.setAttribute("commentMap", commentMap);
+		request.setAttribute("recommentMap", recommentMap);	
+		
+		
+		//투표보여주기
+		ArrayList<FeedVote> voteList = voteService.voteSelectAllMyBees(beesNo);
+		HashMap<Integer, ArrayList<FeedVote>> voteMap = new HashMap<Integer, ArrayList<FeedVote>>();
+		for(FeedVote vote : voteList) {
+			if(voteMap.get(vote.getVoteNo())==null) {	
+				ArrayList<FeedVote> list = new ArrayList<FeedVote>();
+				list.add(vote);
+				voteMap.put(vote.getVoteNo(),list);
+			}else {
+				ArrayList<FeedVote> list = voteMap.get(vote.getVoteNo());
+				list.add(vote);
+				voteMap.put(vote.getVoteNo(),list);
+			}
+		}
+		request.setAttribute("voteMap", voteMap);
+		
+		//일정보여주기	
+		
+		
+		ArrayList<Schedule> scheduleList = scheduleService.scheduleSelectAllMyBees(beesNo);
+		HashMap<Integer, Schedule> scheduleMap = new HashMap<Integer, Schedule>();
+		for(Schedule sche : scheduleList) {
+			scheduleMap.put(sche.getBoardNo(),sche);
+		}
+		request.setAttribute("scheduleMap", scheduleMap);
+		
+		
+		//이미지보여주기
+		ArrayList<Image> imageList = imageService.imageSelectAllMyBees(beesNo);
+		HashMap<Integer, ArrayList<Image>> imageMap = new HashMap<Integer, ArrayList<Image>>();
+		for(Image image : imageList) {
+			if(imageMap.get(image.getBoardNo())==null) {	
+				ArrayList<Image> list = new ArrayList<Image>();
+				list.add(image);
+				imageMap.put(image.getBoardNo(),list);
+			}else {
+				ArrayList<Image> list = imageMap.get(image.getBoardNo());
+				list.add(image);
+				imageMap.put(image.getBoardNo(),list);
+			}
+		}
+		request.setAttribute("imageMap", imageMap);
+		
+		
+		//파일보여주기
+		ArrayList<BeesFile> fileList = fileService.fileSelectAllMyBees(beesNo);
+		HashMap<Integer, BeesFile> fileMap = new HashMap<Integer, BeesFile>();
+		for(int i=0; i<fileList.size(); i++) {
+			if(fileList.get(i).getFileNo()>0) {
+			fileMap.put(fileList.get(i).getBoardNo(),fileList.get(i));
+			}
+		}
+		request.setAttribute("fileMap",fileMap);
+		
+		//내가 좋아한 보드 리스트 보여주기
+		ArrayList<BoardLike> boardLikeList = boardService.selectAllLike(memberNo);
+		HashMap<Integer, Integer> myLikeMap = new HashMap<Integer, Integer>();
+		for(int i=0; i<boardLikeList.size();i++) {
+			myLikeMap.put(boardLikeList.get(i).getBoardNo(), boardLikeList.get(i).getBoardNo());
+		}
+		request.setAttribute("likeMap", myLikeMap);
+		
+		return "/user/myPage/heart";
+		
+	
+	}
+	
+	@RequestMapping(value="/myBeesPage.do")
+	private String selectMainPage(@RequestParam int memberNo, HttpServletRequest request, HttpSession session) throws Exception {
+		
+		Member member = new Member();
+		member.setMemberNo(memberNo);
+		request.getSession();
+		session.setAttribute("member", member);
+		
+		List<Integer> beesNo = userService.selectAllBeesNo(memberNo);
+		
+		ArrayList<Feed> feedList = boardService.boardSelectAllBees(beesNo);
+		request.setAttribute("feedList", feedList);
+		
+		
+		
+		//댓글을 불러오자
+		ArrayList<FeedComment> commentAll=commentService.commentSelectAllMyBees(beesNo);
+		
+		
+		
+		
+		HashMap<Integer, ArrayList<FeedComment>> commentMap = new HashMap<Integer, ArrayList<FeedComment>>();
+		HashMap<Integer, ArrayList<FeedComment>> recommentMap = new HashMap<Integer, ArrayList<FeedComment>>();
+		for(int i=0; i<commentAll.size();i++) {
+			
+			FeedComment comment = commentAll.get(i);
+			
+			if(comment.getRecommentNo()>0) {
+				
+				if(recommentMap.get(comment.getRecommentNo())==null) {
+					
+					ArrayList<FeedComment> list = new ArrayList<FeedComment>();
+					list.add(comment);
+					recommentMap.put(comment.getRecommentNo(),list);
+				
+				}else {
+					
+					ArrayList<FeedComment> list = recommentMap.get(comment.getRecommentNo());
+					list.add(comment);
+					recommentMap.put(comment.getRecommentNo(),list);
+					
+				}
+				
+				
+			}else{
+				
+				if(commentMap.get(comment.getBoardNo())==null) {
+				
+					ArrayList<FeedComment> list = new ArrayList<FeedComment>();
+					list.add(comment);
+					commentMap.put(comment.getBoardNo(),list);
+				
+				}else {
+					
+					ArrayList<FeedComment> list = commentMap.get(comment.getBoardNo());
+					list.add(comment);
+					commentMap.put(comment.getBoardNo(),list);
+					
+				}			
+			}
+		}
+		request.setAttribute("commentMap", commentMap);
+		request.setAttribute("recommentMap", recommentMap);	
+		
+		
+		//투표보여주기
+		ArrayList<FeedVote> voteList = voteService.voteSelectAllMyBees(beesNo);
+		HashMap<Integer, ArrayList<FeedVote>> voteMap = new HashMap<Integer, ArrayList<FeedVote>>();
+		for(FeedVote vote : voteList) {
+			if(voteMap.get(vote.getVoteNo())==null) {	
+				ArrayList<FeedVote> list = new ArrayList<FeedVote>();
+				list.add(vote);
+				voteMap.put(vote.getVoteNo(),list);
+			}else {
+				ArrayList<FeedVote> list = voteMap.get(vote.getVoteNo());
+				list.add(vote);
+				voteMap.put(vote.getVoteNo(),list);
+			}
+		}
+		request.setAttribute("voteMap", voteMap);
+		
+		//일정보여주기	
+		
+		
+		ArrayList<Schedule> scheduleList = scheduleService.scheduleSelectAllMyBees(beesNo);
+		HashMap<Integer, Schedule> scheduleMap = new HashMap<Integer, Schedule>();
+		for(Schedule sche : scheduleList) {
+			scheduleMap.put(sche.getBoardNo(),sche);
+		}
+		request.setAttribute("scheduleMap", scheduleMap);
+		
+		
+		//이미지보여주기
+		ArrayList<Image> imageList = imageService.imageSelectAllMyBees(beesNo);
+		HashMap<Integer, ArrayList<Image>> imageMap = new HashMap<Integer, ArrayList<Image>>();
+		for(Image image : imageList) {
+			if(imageMap.get(image.getBoardNo())==null) {	
+				ArrayList<Image> list = new ArrayList<Image>();
+				list.add(image);
+				imageMap.put(image.getBoardNo(),list);
+			}else {
+				ArrayList<Image> list = imageMap.get(image.getBoardNo());
+				list.add(image);
+				imageMap.put(image.getBoardNo(),list);
+			}
+		}
+		request.setAttribute("imageMap", imageMap);
+		
+		
+		//파일보여주기
+		ArrayList<BeesFile> fileList = fileService.fileSelectAllMyBees(beesNo);
+		HashMap<Integer, BeesFile> fileMap = new HashMap<Integer, BeesFile>();
+		for(int i=0; i<fileList.size(); i++) {
+			if(fileList.get(i).getFileNo()>0) {
+			fileMap.put(fileList.get(i).getBoardNo(),fileList.get(i));
+			}
+		}
+		request.setAttribute("fileMap",fileMap);
+		
+		//내가 좋아한 보드 리스트 보여주기
+		ArrayList<BoardLike> boardLikeList = boardService.selectAllLike(memberNo);
+		HashMap<Integer, Integer> myLikeMap = new HashMap<Integer, Integer>();
+		for(int i=0; i<boardLikeList.size();i++) {
+			myLikeMap.put(boardLikeList.get(i).getBoardNo(), boardLikeList.get(i).getBoardNo());
+		}
+		request.setAttribute("likeMap", myLikeMap);
+		
+		return "/user/main/myBeesPage";
+		
+	
+	}
+	
+	@RequestMapping(value="/bestFeedPage.do")
+	private String bestFeedPage(@RequestParam int memberNo, HttpServletRequest request, HttpSession session) throws Exception {
+		
+		Member member = new Member();
+		member.setMemberNo(memberNo);
+		request.getSession();
+		session.setAttribute("member", member);
+		
+		List<Integer> beesNo = userService.selectAllBeesNo(memberNo);
+		
+		ArrayList<Feed> feedList = boardService.selectAllBestFeed();
+		request.setAttribute("feedList", feedList);
+		
+		//이미지보여주기
+		ArrayList<Image> imageList = imageService.imageSelectAllMyBees(beesNo);
+		HashMap<Integer, ArrayList<Image>> imageMap = new HashMap<Integer, ArrayList<Image>>();
+		for(Image image : imageList) {
+			if(imageMap.get(image.getBoardNo())==null) {	
+				ArrayList<Image> list = new ArrayList<Image>();
+				list.add(image);
+				imageMap.put(image.getBoardNo(),list);
+			}else {
+				ArrayList<Image> list = imageMap.get(image.getBoardNo());
+				list.add(image);
+				imageMap.put(image.getBoardNo(),list);
+			}
+		}
+		request.setAttribute("imageMap", imageMap);
+		
+		//내가 좋아한 보드 리스트 보여주기
+		ArrayList<BoardLike> boardLikeList = boardService.selectAllLike(memberNo);
+		HashMap<Integer, Integer> myLikeMap = new HashMap<Integer, Integer>();
+		for(int i=0; i<boardLikeList.size();i++) {
+			myLikeMap.put(boardLikeList.get(i).getBoardNo(), boardLikeList.get(i).getBoardNo());
+		}
+		request.setAttribute("likeMap", myLikeMap);
+		
+		return "/user/main/bestFeedPage";
+		
+	
+	}
+	
+	@RequestMapping(value="/feedSearchResult.do")
+	private String bestFeedPage(@RequestParam int memberNo, @RequestParam String keyword, HttpServletRequest request, HttpSession session) throws Exception {
+		
+		Member member = new Member();
+		member.setMemberNo(memberNo);
+		request.getSession();
+		session.setAttribute("member", member);
+		
+		List<Integer> beesNo = userService.selectAllBeesNo(memberNo);
+		
+		ArrayList<Feed> feedList = boardService.selectSerachAllFeed(keyword);
+		request.setAttribute("feedList", feedList);
+		
+		//이미지보여주기
+		ArrayList<Image> imageList = imageService.imageSelectAllMyBees(beesNo);
+		HashMap<Integer, ArrayList<Image>> imageMap = new HashMap<Integer, ArrayList<Image>>();
+		for(Image image : imageList) {
+			if(imageMap.get(image.getBoardNo())==null) {	
+				ArrayList<Image> list = new ArrayList<Image>();
+				list.add(image);
+				imageMap.put(image.getBoardNo(),list);
+			}else {
+				ArrayList<Image> list = imageMap.get(image.getBoardNo());
+				list.add(image);
+				imageMap.put(image.getBoardNo(),list);
+			}
+		}
+		request.setAttribute("imageMap", imageMap);
+		
+		//내가 좋아한 보드 리스트 보여주기
+		ArrayList<BoardLike> boardLikeList = boardService.selectAllLike(memberNo);
+		HashMap<Integer, Integer> myLikeMap = new HashMap<Integer, Integer>();
+		for(int i=0; i<boardLikeList.size();i++) {
+			myLikeMap.put(boardLikeList.get(i).getBoardNo(), boardLikeList.get(i).getBoardNo());
+		}
+		request.setAttribute("likeMap", myLikeMap);
+		
+		return "/user/search/feedSearchResult";
+		
+	
 	}
 	
 	@RequestMapping(value="/beeCreate.do")

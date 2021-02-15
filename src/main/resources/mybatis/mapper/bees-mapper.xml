@@ -150,5 +150,21 @@
 	AND B.BEES_NO != (SELECT BEES_NO FROM BEES_USER WHERE MEMBER_NO = #{sessionMemberNo})
 	AND B.BEES_PUBLIC_YN = 'N' AND ROWNUM <![CDATA[<]]>= 10
 	</select>
-	
+	<select id="beesSelectOne" resultType="Bees">
+select
+bees_no as beesNo,
+bees_name as beesName,
+bees_cover as beesCover,
+bees_category as beesCategory,
+bees_host as beesHost,
+bees_public_yn as beesPublicYN,
+bees_cont as beesCont,
+bees_user_limit as beesUserLimit,
+bees_del_yn as beesDelYN,
+bees_gender as beesGender,
+bees_max_birth as beesMaxBirth,
+bees_min_birth as beesMinBirth
+from bees
+where bees_no = #{bees_no} and bees_del_yn='N'
+</select>
 </mapper>

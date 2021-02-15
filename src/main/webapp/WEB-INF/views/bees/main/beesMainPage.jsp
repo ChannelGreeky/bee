@@ -1,12 +1,25 @@
+<%@page import="com.fourmeeting.bee.bees.model.vo.Setting"%>
+<%@page import="com.fourmeeting.bee.beesuser.model.vo.BeesUser"%>
+<%@page import="com.fourmeeting.bee.member.model.vo.Member"%>
+<%@page import="com.fourmeeting.bee.schedule.model.vo.Schedule"%>
+<%@page import="com.fourmeeting.bee.image.model.vo.Image"%>
+<%@page import="com.fourmeeting.bee.file.model.vo.BeesFile"%>
+<%@page import="java.util.StringTokenizer"%>
+<%@page import="com.fourmeeting.bee.vote.model.vo.FeedVote"%>
+<%@page import="com.fourmeeting.bee.comment.model.vo.FeedComment"%>
+<%@page import="java.util.HashMap"%>
+<%@page import="java.util.Locale"%>
+<%@page import="java.text.SimpleDateFormat"%>
+<%@page import="com.fourmeeting.bee.board.model.vo.Feed"%>
+<%@page import="java.util.ArrayList"%>
+<%@page import="com.fourmeeting.bee.bees.model.vo.Bees"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-</head>
-<body>
-	<%@ include file="/common/cdnLib.jsp"%>
+<%@ include file="/common/cdnLib.jsp"%>
 	<!--비즈 전체페이지 + 사이드 프로필 + 메인 컨텐츠 크기-->
 	<link rel="stylesheet" type="text/css" href="/resources/css/beesForm.css">
 	<script type="text/javascript" src="/resources/js/beesForm.js"></script>
@@ -22,8 +35,90 @@
 	<!--비즈 피드 수정 모달-->
 	<link rel="stylesheet" type="text/css" href="/resources/css/beesModifyModal.css">
 	<script type="text/javascript" src="/resources/js/beesModifyModal.js"></script>
+	<!-- 비즈 가입 모달 -->
+	<link rel="stylesheet" type="text/css" href="/resources/css/beesJoinModal.css">
 	<link rel="stylesheet" type="text/css" href="/common/common.css">
+	<script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
+</head>
+<body>
+
+<%
+	Member member = (Member)session.getAttribute("member");
+
+	Bees bees = (Bees)request.getAttribute("bees");
+	Setting setting = (Setting)request.getAttribute("setting");
+	int userCount = (int)request.getAttribute("userCount");
 	
+	String beesName = bees.getBeesName();
+	if(bees.getBeesName().length()>=5){
+	beesName = bees.getBeesName().substring(0,5)+"..";
+	}
+	
+	BeesUser user = (BeesUser)request.getAttribute("user");
+	
+	SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy년 MM월 dd일 a KK시 mm분", Locale.KOREA);
+	SimpleDateFormat scheFormat = new SimpleDateFormat("yyyy년 MM월 dd일 (E)", Locale.KOREA);
+	
+	ArrayList<Feed> feedList = (ArrayList<Feed>)request.getAttribute("feedList");
+	HashMap<Integer,Integer> likeMap = (HashMap <Integer,Integer>)request.getAttribute("likeMap");
+	HashMap<Integer, ArrayList<FeedComment>> commentMap =(HashMap<Integer, ArrayList<FeedComment>>)request.getAttribute("commentMap");
+	HashMap<Integer, ArrayList<FeedComment>> recommentMap =(HashMap<Integer, ArrayList<FeedComment>>)request.getAttribute("recommentMap");
+	HashMap<Integer, ArrayList<FeedVote>> voteMap = (HashMap<Integer, ArrayList<FeedVote>>)request.getAttribute("voteMap");
+	HashMap<Integer, BeesFile> fileMap = (HashMap<Integer, BeesFile>)request.getAttribute("fileMap");
+	HashMap<Integer, ArrayList<Image>> imageMap = (HashMap<Integer, ArrayList<Image>>)request.getAttribute("imageMap");
+	HashMap<Integer, Schedule> scheduleMap = (HashMap<Integer, Schedule>)request.getAttribute("scheduleMap");
+	
+%>
+<script>
+
+//피드페이징처리
+var currentPage = 1;
+var recordCountPerPage = 5;
+var start = currentPage*recordCountPerPage - (recordCountPerPage-1);
+var end = currentPage*recordCountPerPage;
+var feedTotalCount = <%=feedList.size()%>;
+var totalPage;
+
+if (feedTotalCount % recordCountPerPage > 0) {
+	totalPage = feedTotalCount / recordCountPerPage + 1;
+	// ex) pageTotalCount = 108 / 5 + 1 -> 22 Page
+} else {
+	totalPage = feedTotalCount / recordCountPerPage + 0;
+	// ex) pageTotalCount = 105 / 5 + 0 -> 21 Page
+};
+
+
+$(function(){
+for(var i=start-1;i<end;i++){
+			
+	$('.bees-feed').eq(i).css('display','block');
+			
+}
+	
+});
+
+$(window).scroll(function(){
+if($(window).scrollTop()==($(document).height()-$(window).height())){
+		       /*스크롤 끝까지 오면 이벤트*/
+		       
+		  if(currentPage<totalPage){
+		    	setTimeout(function(){
+		    	currentPage++;
+		       start = currentPage*recordCountPerPage - (recordCountPerPage-1);
+		       end = currentPage*recordCountPerPage;
+		    
+		       for(var i=start-1;i<end;i++){
+					$('.bees-feed').eq(i).css('display','block');
+					}
+		    	}, 1000);
+		  		}else{
+			  	alert("피드가 더이상 존재하지 않습니다.");
+		  		}
+		  }
+			
+	});
+</script>
+
 	
 	<div id="header">
 		<%@include file="/include/headerBee.jsp" %>
@@ -36,30 +131,63 @@
 					<div id="bees-side-profile">
 						<table>
 							<tr>
-								<td id="bees-cover" colspan="2"></td>
+								<td id="bees-cover" colspan="2" style="background-image:url('/resources/image/bees/cover/<%=bees.getBeesCover() %>')"></td>
 							</tr>
 							<tr>
-								<td id="bees-name" colspan="2">비즈이름</td>
+								<td id="bees-name" colspan="2"><%=bees.getBeesName() %></td>
 							</tr>
 							<tr>
 								<td id="bees-member-count">
-									멤버<b> 6 </b>
+									멤버<b> <%=userCount %> </b>
 								</td>
-								<td id="bees-invite">
+								<td id="bees-invite"><!-- 권한별 설정 -->
+								<%if(user!=null){%>
+								<%if((setting.getSetUserInvite()).equals("user")){%>
 									<a href=""><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="currentColor" class="bi bi-plus-circle" viewBox="0 0 16 19">
                 <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z" />
                 <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z" />
               </svg>초대</a>
+              <%}else if(((setting.getSetUserInvite()).equals("manager"))){
+              	if(!(user.getUserClass().equals("user"))){%>
+              <a href=""><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="currentColor" class="bi bi-plus-circle" viewBox="0 0 16 19">
+                <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z" />
+                <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z" />
+              </svg>초대</a>
+              <%}//if
+              }//elseif
+              else if(((setting.getSetUserInvite()).equals("host"))){
+              if((user.getUserClass().equals("host"))){%>
+              <a href=""><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="currentColor" class="bi bi-plus-circle" viewBox="0 0 16 19">
+                <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z" />
+                <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z" />
+              </svg>초대</a>
+              <%}
+              }
+              }//userIf%>
 								</td>
 							</tr>
 							<tr>
 								<td id="bees-note" colspan="2">
+								<%if(bees.getBeesCont()==null){%>
+								<%}else{
+								bees.getBeesCont();
+								} 
+								if(user!=null){
+								if(!(user.getUserClass()).equals("user")){%>
 									<a href="">비즈 소개 설정 </a>
+								<%} 
+								}%>
 								</td>
 							</tr>
+							<%if(bees.getBeesPublicYN() == 'N' && user==null){%>
 							<tr>
-								<td id="bees-public" colspan="2">비즈와 게시글이 공개되지 않습니다. 초대를 통해서만 가입할 수 있습니다.</td>
+								<td id="bees-public" colspan="2">
+								비즈와 게시글이 공개되지 않습니다. 초대를 통해서만 가입할 수 있습니다.
+								</td>
 							</tr>
+							<%}
+							if(user!=null){%>
+							<%if(!(user.getUserClass()).equals("user")){ %>
 							<tr>
 								<td class="innerline" colspan="2">
 									<hr>
@@ -67,6 +195,7 @@
 							</tr>
 							<tr>
 								<td id="bees-setting" colspan="2">
+								
 									<a href=""> <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="currentColor" class="bi bi-gear" viewBox="0 0 16 16">
                 <path d="M8 4.754a3.246 3.246 0 1 0 0 6.492 3.246 3.246 0 0 0 0-6.492zM5.754 8a2.246 2.246 0 1 1 4.492 0 2.246 2.246 0 0 1-4.492 0z" />
                 <path
@@ -74,22 +203,46 @@
 											/>
               </svg>&nbsp;비즈설정
 									</a>
+								
 								</td>
 							</tr>
+							<%} 
+							}%>
+							<%
+							if(bees.getBeesPublicYN()=='Y'){
+							if(user==null){%>
 							<tr>
 								<td id="join-box" colspan="2">
 									<button id="join-btn">비즈 가입하기</button>
 								</td>
 							</tr>
+							<%}else{ %>
+							<%} 
+							}%>
 						</table>
 					</div>
+					<%
+					if(bees.getBeesPublicYN()=='Y'){
+					if(user!=null){%>
 					<div id="bees-side-chatting">
 						<table>
 							<tr>
 								<td id="chatting-header">채팅</td>
 								<td id="new-chat">
-									<a class="chat-open-btn" href="#none" target="_blank" onclick="openPopup()">새 채팅</a>
-								</td>
+									
+								<%if((setting.getSetUserInvite()).equals("user")){%>
+								<a class="chat-open-btn" href="#none" target="_blank" onclick="openPopup()">새 채팅</a>	
+              					<%}else if(((setting.getSetUserInvite()).equals("manager"))){
+              					if(!(user.getUserClass().equals("user"))){%>
+							<a class="chat-open-btn" href="#none" target="_blank" onclick="openPopup()">새 채팅</a>
+             				<%}//if
+              				}//elseif
+              				else if(((setting.getSetUserInvite()).equals("host"))){
+              				if((user.getUserClass().equals("host"))){%>
+							<a class="chat-open-btn" href="#none" target="_blank" onclick="openPopup()">새 채팅</a>
+             				 <%}
+             				 }%>
+							</td>	
 							</tr>
 							<tr>
 								<td class="innerline" colspan="2">
@@ -97,31 +250,51 @@
 								</td>
 							</tr>
 							<tr>
-								<td class="chat-list" colspan="2">
-									<div class="chat-profile"></div>
-									<a class="chat-open-btn" href="#none" target="_blank" onclick="openPopup()" style="color: dimgray">사용자 이름</a>
-								</td>
-							</tr>
-							<tr>
 								<td colspan="2" style="padding: 10px 5px 0 5px; line-height: 10px;">
-									<div class="chat-profile"></div>
-									<a class="chat-open-btn" href="#none" target="_blank" onclick="openPopup()" style="color: dimgray">'비즈' 전체 채팅</a>
+									<div class="chat-profile" style="background-image:url('/resources/image/bees/cover/<%=bees.getBeesCover() %>')"></div>
+									<a class="chat-open-btn" href="#none" target="_blank" onclick="openPopup()" style="color: dimgray">
+									'<%=beesName %>' 전체 채팅
+									</a>
 								</td>
+								<script>
+								$('.chat-open-btn').click(
+										function() {
+											window.open("/chat.do?beesNo=${requestScope.bees.beesNo }&userName=${requestScope.user.userName }", '비즈 채팅',
+													'width=400px, height=600px, resizable=no');
+											return false;
+
+										});
+								</script>
 							</tr>
 						</table>
 					</div>
+					<%}else{ %>
+							<%} 
+							}%>
 				</div>
 			</div>
 			<div class="col-7 p-0">
 				<div id="bees-contents" class="container m-0 p-2">
-					<div id="bees-search-bar">
-						<input type="text" placeholder="글 내용, @작성자 검색">
+				<form action="/beesSearchOne.do?" method="get">
+				<input type="hidden" name="beesNo" value="<%=bees.getBeesNo() %>"/>
+				<input type="hidden" name="memberNo" value="1"/>
+				<div id="bees-search-bar">
+					<%if(user==null){%>
+						<input type="text" name="keyword" placeholder="비즈 회원만 검색이 가능합니다." disabled="true" style="background-color:white">
+						<button type="button" disabled="true">
+							<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="dimgray" class="bi bi-search" viewBox="0 0 16 18">
+        <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z" />
+    </svg></button>
+					<% }else{%>
+						<input type="text" name="keyword" placeholder="글 내용, @작성자 검색">
 						<button type="submit">
 							<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="dimgray" class="bi bi-search" viewBox="0 0 16 18">
         <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z" />
     </svg>
 						</button>
+					<%} %>
 					</div>
+					</form>
 					<div id="bees-write-box">
 						<div id="bees-typing-box">
 							<span class="write-modal-btn">새로운 소식을 남겨보세요</span>
@@ -154,172 +327,280 @@
           </svg></span>
 						</div>
 					</div>
+					<script>
+					$('.write-modal-btn').click(function () {
+						<%if(user!=null){%>
+						var setWrite = '<%=setting.getSetWrite()%>';
+						var userClass = '<%=user.getUserClass() %>';
+						
+						if(setWrite=='user'){
+							
+							// 모달 크기 변경 //
+							$.writeModalOpen();
+							
+						}else if(setWrite='manager'){
+							
+							// 모달 크기 변경 //
+							$.writeModalOpen();
+							
+							if(userClass!='user'){
+							alert("글쓰기 권한이 없습니다.");
+							}else{
+								$.writeModalOpen();
+							}
+						}else{
+							if(userClass=='host'){
+								
+								// 모달 크기 변경 //
+								$.writeModalOpen();
+							}else{
+								alert("글쓰기 권한이 없습니다.");
+							}
+						}
+						
+						<%}else{%>
+						alert("비즈 회원이 아닙니다. 글쓰기 권한이 없습니다.");
+						<%}%>
+					})
+					</script>
 					<%
-						for (int i = 0; i < 10; i++) {
+					if(!(feedList.isEmpty())){
+						for (int i = 0; i < feedList.size(); i++) {
+							
+							Feed feed = feedList.get(i);
+							
 					%>
-					<div class="bees-feed">
+					<div class="bees-feed" id="<%=feed.getBoardNo() %>">
+					<div>
 						<table class="feed-table">
 							<tr>
 								<td class="feed-writer-info" rowspan="2">
-									<div class="feed-writer-profile"></div>
+									<div class="feed-writer-profile" style="background-image:url('/resources/image/profile/<%=feed.getProfileImg() %>')"></div>
 								</td>
-								<td class="feed-writer-name">홍길동</td>
+								<td class="feed-writer-name"><%=feed.getUserName() %></td>
 								<td class="feed-setting" rowspan="2">
+								<%if(member.getMemberNo()==feed.getMemberNo()){%>
 									<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-three-dots-vertical" viewBox="0 0 16 16">
         <path d="M9.5 13a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0zm0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0zm0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0z" />
-    </svg>
+    </svg><%} %>
 								</td>
 							</tr>
 							<tr>
-								<td class="feed-timestamp">2021년 01월 23일 오후 1:04</td>
+								<td class="feed-timestamp"><%=dateFormat.format(feed.getBoardDate()) %></td>
 							</tr>
+							<%if(member.getMemberNo()==feed.getMemberNo()){%>
 							<tr style="visibility: hidden;">
+							<td rowspan="1"></td>
 								<td class="feed-navi" colspan="3">
 									<div class="feed-navi-block">
-										<div class="feed-modify">수정하기</div>
-										<div class="feed-delete">삭제하기</div>
+										<div class="feed-modify" id="fm<%=feed.getBoardNo() %>">수정하기</div>
+										<div class="feed-delete" id="fr<%=feed.getBoardNo() %>">삭제하기</div>
 									</div>
 								</td>
 							</tr>
+							<%} %>
 							<tr>
 								<td class="feed-cont" colspan="3">
 									<p class="board-cont">
-										동해물과 백두산이 마르고 닳도록 <br> 하느님이 보우하사 우리 나라 만세<br>
+										<%if(feed.getBoardCont()==null){ %>
+										<%}else{ %>
+											<%=feed.getBoardCont()%>
+										<%}%>
+										<%if((imageMap.get(feed.getBoardNo()))!=null) {
+										ArrayList<Image> imageList = imageMap.get(feed.getBoardNo());
+									for(int j=0; j<imageList.size(); j++){
+										Image image = imageList.get(j);
+									%>
+									<img src='/resources/image/bees/feedImage/<%=image.getChangeImageName() %>' style="margin:10px; max-width:80%;" >
+									<%} 
+									}%>
 									<p>
-										<!--일정-->
+									<% if(feed.getScheduleNo()>0) {
+										
+										if((scheduleMap.get(feed.getBoardNo()))!=null){
+											Schedule sche = scheduleMap.get(feed.getBoardNo());
+									%>
 									<div class="sche-box">
 										<div class="sche-icon-box">
 											<div class="sche-icon"></div>
 										</div>
-										<div class="sche-cont-box">
-											<p class="sche-title">기획안 발표</p>
-											<p class="sche-date">2021년 1월 25일 월요일</p>
+										<div class="sche-cont-box" id="<%=sche.getScheduleNo() %>">
+											<p class="sche-title"><%=sche.getScheduleTitle() %></p>
+											<p class="sche-date"><%if(sche.getScheduleStartDate()!=null && sche.getScheduleEndDate()!=null){%>
+												<%=scheFormat.format(sche.getScheduleStartDate()) %>  - <%= scheFormat.format(sche.getScheduleEndDate()) %>
+												<% }else{
+												if(sche.getScheduleStartDate()!=null){ %>
+													<%=scheFormat.format(sche.getScheduleStartDate()) %>
+												<%}else { %>
+													<%=scheFormat.format(sche.getScheduleEndDate())  %>
+												<%}
+												}
+												}%>
+											</p>
 										</div>
 									</div>
-									<!--파일-->
-									<br>
+									<%
+									}%>
+									<%if(feed.getFileNo()>0){
+										if((fileMap.get(feed.getBoardNo()))!=null){
+										BeesFile file = fileMap.get(feed.getBoardNo());
+										
+									%>
 									<div class="file-box">
 										<div class="file-icon-box">
-											<div class="file-icon"></div>
+											<div class="file-icon file-down-btn"></div>
 										</div>
 										<div class="file-cont-box">
-											<p class="file-info">파일</p>
-											<p class="file-title">한소희짱.png</p>
+											<p class="file-info file-down-btn">파일</p>
+											<p class="file-title file-down-btn" id="<%=file.getFileNo() %>"><%=file.getOriginalFileName() %></p>
 										</div>
 									</div>
-									<!--투표-->
-									<br>
-									<form action="" method="get">
-										<div class="vote-box">
+									<%}
+									}
+									//투표
+									if(feed.getVoteNo()>0){
+										
+										if(!((voteMap.get(feed.getVoteNo()).isEmpty()))){
+										ArrayList<FeedVote> voteList = voteMap.get(feed.getVoteNo());
+										ArrayList voteItems = new ArrayList();
+										FeedVote vote = null;
+										HashMap <String, Integer> voteAnswer = new HashMap<String,Integer>();
+										
+										//voteList.size() = 총 답변의 수
+										for(int k=0; k<voteList.size(); k++){
+											vote = voteList.get(k);
+											if(voteAnswer.get(vote.getVoteChoItem())==null){
+												voteAnswer.put(vote.getVoteChoItem(),1);
+											}else{
+												int count = voteAnswer.get(vote.getVoteChoItem());
+												count++;
+												voteAnswer.put(vote.getVoteChoItem(),count);
+											}
+										}
+										StringTokenizer st = new StringTokenizer(vote.getVoteItem(),",");
+										for(int j=0; st.hasMoreTokens(); j++){
+											voteItems.add(st.nextToken());
+										}
+										
+									%>
+										<div class="vote-box" id="all<%=voteList.size()%>">
 											<div class="vote-title-box">
 												<div class="vote-icon-box">
 													<div class="vote-icon"></div>
 												</div>
 												<div class="vote-info-box">
-													<p class="vote-state">투표 미완료</p>
-													<p class="vote-title">저녁 뭐 먹을래?</p>
+													<p class="vote-state" name="<%=vote.getVoteEndYN() %>"><%
+													if(vote.getVoteEndYN()=='N'){
+													%>투표 진행중<%
+													}else{
+													%>투표 완료<%
+													}
+													%></p>
+													<p class="vote-title"><%=vote.getVoteTitle() %></p>
 												</div>
 											</div>
 											<!--투표 선택 바-->
+											<%for(int j=0;j<voteItems.size();j++){
+											
+											String voteItem = String.valueOf(voteItems.get(j));
+											
+											%>
 											<div class="vote-items-box">
-												<div class="item-section">
+												<div class="item-section" id="<%=voteItems.get(j) %>">
 													<div class="item-select">
 														<!-- check box-->
-														<input type="checkbox" name="spaghetti" style="display: none;">
-														<label for="spaghetti"> <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="lightgray" class="item-select-btn bi bi-check-circle" viewBox="0 0 16 16">
-                <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z" />
+														<input type="checkbox" name="<%=voteItems.get(j) %>" style="display: none;">
+														<label for="<%=voteItems.get(j) %>"> 
+														<%if(vote.getVoteEndYN()=='N'){
+															%><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="lightgray" class="item-select-btn bi bi-check-circle" viewBox="0 0 16 16">
+                <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z" /><%
+															}else{
+															%><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="gray" class="item-select-btn bi bi-check-circle" viewBox="0 0 16 16">
+                <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z" /><%
+															}%>
+														
                 <path d="M10.97 4.97a.235.235 0 0 0-.02.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-1.071-1.05z" />
             </svg>
 														</label>
 													</div>
 													<div class="item-info">
-														<div class="item-name">스파게티</div>
+														<div class="item-name"><%=voteItems.get(j) %></div>
 														<div class="item-vote-num">
 															<svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" fill="lightgray" class="bi bi-person-fill" viewBox="0 0 16 16">
                 <path d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H3zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6z" />
             </svg>
-															<span class="vote-num">3</span>
+															<span class="vote-num"><%if(voteAnswer.get(voteItems.get(j))==null){%>0
+															<%}else{ %><%=voteAnswer.get(voteItems.get(j))%><%}%>
+															</span>
 														</div>
-														<div class="item-vote-bar">
+														<div class="item-vote-bar" id="<%=feed.getVoteNo() %>bar<%=j %>" >
 															<!-- width: 투표 결과에 따라-->
-															<p class="color-bar" style="width: 30%"></p>
+															<%if(vote.getVoteEndYN()=='N'){
+															%><p class="color-bar"></p><%
+															}else{
+															%><p class="color-bar" style="background-color:gray"></p><%
+															}%>
 															<p class="default-bar"></p>
 														</div>
 													</div>
 												</div>
 											</div>
-											<!--투표 바 2-->
-											<div class="vote-items-box">
-												<div class="item-section">
-													<div class="item-select">
-														<input type="checkbox" name="dduck" style="display: none;">
-														<label for="dduck"> <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="lightgray" class="item-select-btn bi bi-check-circle" viewBox="0 0 16 16">
-                    <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z" />
-                    <path d="M10.97 4.97a.235.235 0 0 0-.02.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-1.071-1.05z" />
-                </svg>
-														</label>
-													</div>
-													<div class="item-info">
-														<div class="item-name">떡볶이</div>
-														<div class="item-vote-num">
-															<svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" fill="lightgray" class="bi bi-person-fill" viewBox="0 0 16 16">
-                    <path d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H3zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6z" />
-                </svg>
-															<span class="vote-num">1</span>
-														</div>
-														<div class="item-vote-bar">
-															<!-- width: 투표 결과에 따라-->
-															<p class="color-bar" style="width: 10%"></p>
-															<p class="default-bar"></p>
-														</div>
-													</div>
-												</div>
-											</div>
-											<!--투표 바 3-->
-											<div class="vote-items-box">
-												<div class="item-section">
-													<div class="item-select">
-														<input type="checkbox" name="chicken" style="display: none;">
-														<label for="chicken"> <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="lightgray" class="item-select-btn bi bi-check-circle" viewBox="0 0 16 16">
-                    <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z" />
-                    <path d="M10.97 4.97a.235.235 0 0 0-.02.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-1.071-1.05z" />
-                </svg>
-														</label>
-													</div>
-													<div class="item-info">
-														<div class="item-name">치킨</div>
-														<div class="item-vote-num">
-															<svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" fill="lightgray" class="bi bi-person-fill" viewBox="0 0 16 16">
-                    <path d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H3zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6z" />
-                </svg>
-															<span class="vote-num">0</span>
-														</div>
-														<div class="item-vote-bar">
-															<!-- width: 투표 결과에 따라-->
-															<p class="color-bar"></p>
-															<p class="default-bar"></p>
-														</div>
-													</div>
-												</div>
-											</div>
+											<script>
+												var selector = "#"+<%=feed.getVoteNo() %>+'bar'+<%=j %>;
+												var voteCount = $(selector).prev().find('.vote-num').html();
+												var voteNum = Number(voteCount);
+												var all = Number(($(selector).closest('.vote-box').attr('id')).replace("all",""));
+												if(voteNum== '0'){
+													$(selector).children('.color-bar').css('width',"0%");
+												}else{
+													$(selector).children('.color-bar').css('width',Math.round((voteNum/all)*100)+"%");
+												}
+											</script>
+											<%} %>
 											<div class="vote-footer">
 												<hr>
 												<center>
+												<%if(user==null){
+												if(vote.getVoteEndYN()=='N'){%>
+												투표 권한이 없습니다.
+												<%}else{%>
+												종료된 투표입니다.
+												<%}} %>
+												<%if(member.getMemberNo()!=vote.getMemberNo()){
+													if(vote.getVoteEndYN()=='N'){%>
 													<button class="vote-reset" type="reset">취소하기</button>
-													<button class="vote-submit" type="submit">투표하기</button>
+													<button class="vote-submit" type="submit">투표하기</button><%}else{%>
+													종료된 투표입니다.
+													<%}
+													}else{%>
+													<%if(vote.getVoteEndYN()=='N'){
+													%><button class="vote-end" type="button" id="vn<%=vote.getVoteNo() %>">종료하기</button>
+													<button class="vote-submit" type="submit">투표하기</button><%
+													}else{
+													%>종료된 투표입니다.<%
+													}
+													}%>
 												</center>
 											</div>
 										</div>
-									</form>
 									<!--투표 끝-->
+									<%}
+						}//if %>
+						
 								</td>
 							</tr>
 							<tr>
 								<td colspan="2" style="padding-left: 50px; font-size: 0.9rem; font-weight: 300; padding-top: 30px;">
-									<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="red" class="feed-like-btn bi bi-heart-fill" viewBox="0 0 16 16">
-        <path fill-rule="evenodd" d="M8 1.314C12.438-3.248 23.534 4.735 8 15-7.534 4.736 3.562-3.248 8 1.314z" />
-    </svg>
-									<span class="feed-like-count"> 3 </span> &nbsp;&nbsp; 댓글 <span class="comment-count">2</span>
+									<%if(likeMap.get(feed.getBoardNo())==null){%>
+									<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="lightgray" class="feed-like-btn bi bi-heart-fill" viewBox="0 0 16 16">
+        <path fill-rule="evenodd" d="M8 1.314C12.438-3.248 23.534 4.735 8 15-7.534 4.736 3.562-3.248 8 1.314z" /> </svg>
+        							<%}else{%>
+        							<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="red" class="feed-like-btn bi bi-heart-fill" viewBox="0 0 16 16">
+        <path fill-rule="evenodd" d="M8 1.314C12.438-3.248 23.534 4.735 8 15-7.534 4.736 3.562-3.248 8 1.314z" /> </svg>
+        							<%} %>
+									<span class="feed-like-count"><%=feed.getLikeCount() %></span> 
+									&nbsp;&nbsp; 댓글 
+									<span class="comment-count"><%=feed.getCommentCount() %></span>
 								</td>
 								<td class="comment-box-btn" style="font-size: 0.9rem; font-weight: 300; padding-top: 30px;">
 									<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="comment-close bi bi-chevron-up" viewBox="0 0 15 15">
@@ -336,19 +617,72 @@
 								</td>
 							</tr>
 						</table>
-						<table class="comment-table">
+						
+						<table class="comment-table" id="c<%=feed.getBoardNo() %>">
+						<%
+							if(commentMap.get(feed.getBoardNo())!=null){
+							
+							ArrayList<FeedComment> commentList = commentMap.get(feed.getBoardNo());
+							
+							for(FeedComment comment : commentList){
+							if(comment.getCommentDelYN()=='N'){%>
 							<tr>
-								<td class="comment-writer" rowspan="3">
-									<div class="comment-writer-profile"></div>
+							<td rowspan="3" class="comment-writer">
+									<div class="comment-writer-profile" style="background-image:url('/resources/image/profile/<%=comment.getProfileImg() %>')"></div>
 								</td>
-								<td class="comment-writer-name">장발장</td>
+							
+							<td class="comment-writer-name"><%=comment.getUserName() %></td>
 							</tr>
 							<tr>
-								<td class="comment-cont">무궁화 삼천리 화려강산 대한사람 대한으로 길이 보존하세</td>
+								<td class="comment-cont"><%=comment.getCommentCont() %></td>
 							</tr>
 							<tr>
 								<td class="comment-date">
-									2021년 1월 24일 <span class="recomment-btn">답글쓰기</span>
+									<%=dateFormat.format(comment.getCommentDate()) %><%if(user!=null){ %><span class="recomment-btn">답글쓰기</span><%} if(member.getMemberNo()==comment.getMemberNo() ){%><span class="comment-modify-btn"> 수정하기 </span> <span class="comment-del-btn" id="cd<%=comment.getCommentNo()%>"> 삭제하기 </span><%} %>
+								</td>
+							</tr>
+							
+							<tr class="recomment-write-box">
+								<!--attr로 display 속성 없애기-->
+								<td>
+									<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="#6D6042" class="bi bi-plus-circle" viewBox="0 0 16 16">
+            <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z" />
+            <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z" />
+        </svg>						<div class="recomment-input-box">
+									<input class="recomment-input-text" type="text" placeholder="답글을 남겨주세요">
+									<span>1/200</span>
+									</div>
+									<input class="recomment-submit-btn" type="submit" value="보내기" id="rn<%=comment.getCommentNo() %>">
+									<button class="recomment-reset-btn" type="button">취소</button>
+								</td>
+							</tr>
+							<!--수정하기-->
+							<tr class="comment-textarea">
+								<td>
+									<textarea class="comment-cont-modify"><%=comment.getCommentCont() %></textarea>
+								</td>
+							</tr>
+							<tr class="comment-textarea-btn">
+								<td>
+									<input class="comment-modify-reset-btn" type="reset" value="취소">
+									<input class="comment-modify-submit-btn" id="mc<%=comment.getCommentNo() %>" type="submit" value="저장">
+									<p class="comment-modify-count">1/200</p>
+								</td>
+							</tr>
+							<!--수정하기-->
+							<%}else{%>
+							<tr>
+							<td rowspan="3" class="comment-writer">
+									<div class="comment-writer-profile" style="background-color:#6D6042; background-image:url()"></div>
+								</td>
+							
+							<td class="comment-writer-name"></td>
+							</tr>
+							<tr>
+								<td class="comment-cont">삭제된 댓글입니다.</td>
+							</tr>
+							<tr>
+								<td class="comment-date">
 								</td>
 							</tr>
 							<tr class="recomment-write-box">
@@ -361,27 +695,48 @@
 									<input class="recomment-input-text" type="text" placeholder="답글을 남겨주세요">
 									<span>1/200</span>
 									</div>
-									<input class="recomment-submit-btn" type="submit" value="보내기">
+									<input class="recomment-submit-btn" type="submit" value="보내기" id="rn<%=comment.getCommentNo() %>">
 									<button class="recomment-reset-btn" type="button">취소</button>
 								</td>
 							</tr>
+							<!--수정하기-->
+							<tr class="comment-textarea">
+								<td>
+									<textarea class="comment-cont-modify"><%=comment.getCommentCont() %></textarea>
+								</td>
+							</tr>
+							<tr class="comment-textarea-btn">
+								<td>
+									<input class="comment-modify-reset-btn" type="reset" value="취소">
+									<input class="comment-modify-submit-btn" id="mc<%=comment.getCommentNo() %>" type="submit" value="저장">
+									<p class="comment-modify-count">1/200</p>
+								</td>
+							</tr>
+							
+							
+							<%}
+							
+							if(recommentMap.get(comment.getCommentNo())!=null){
+							
+								ArrayList<FeedComment> recommentList = recommentMap.get(comment.getCommentNo());
+								
+								for(FeedComment recomment : recommentList){
+									if(recomment.getCommentDelYN()=='N'){%>
+							
 							<tr>
 								<td rowspan="2"></td>
 								<td class="recomment-cont">
 									<svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="currentColor" class="bi bi-arrow-return-right" viewBox="0 0 16 16">
   									<path fill-rule="evenodd" d="M1.5 1.5A.5.5 0 0 0 1 2v4.8a2.5 2.5 0 0 0 2.5 2.5h9.793l-3.347 3.346a.5.5 0 0 0 .708.708l4.2-4.2a.5.5 0 0 0 0-.708l-4-4a.5.5 0 0 0-.708.708L13.293 8.3H3.5A1.5 1.5 0 0 1 2 6.8V2a.5.5 0 0 0-.5-.5z" />
 									</svg>
-									<span class="recomment-writer-name" style="margin-right:10px;">장발장</span><span class="recomment-text" style="margin-right:40px;">무궁화 삼천리 화려강산 대한사람 대한으로 길이 보존하세
-									무궁화 삼천리 화려강산 대한사람 대한으로 길이 보존하세
-									무궁화 삼천리 화려강산 대한사람 대한으로 길이 보존하세
-									무궁화 삼천리 화려강산 대한사람 대한으로 길이 보존하세
-									무궁화 삼천리 화려강산 대한사람 대한으로 길이 보존하세
+									<span class="recomment-writer-name" style="margin-right:10px;"><%=recomment.getUserName() %></span><span class="recomment-text" style="margin-right:40px;">
+									<%=recomment.getCommentCont() %>
 									</span>
 								</td>
 							</tr>
 							<tr>
 								<td class="recomment-date">
-									2021년 1월 24일 <span class="recomment-btn">답글쓰기</span> <span class="recomment-modify-btn">수정하기</span> <span class="recomment-del-btn">삭제하기</span>
+									<%=dateFormat.format(recomment.getCommentDate()) %>&nbsp;&nbsp;<%if(member.getMemberNo()==recomment.getMemberNo()){%><span class="recomment-modify-btn"> 수정하기 </span> <span class="recomment-del-btn" id="cd<%=recomment.getCommentNo()%>"> 삭제하기 </span><%} %>
 								</td>
 							</tr>
 							<tr class="recomment-write-box">
@@ -394,7 +749,7 @@
 									<input class="recomment-input-text" type="text" placeholder="답글을 남겨주세요">
 									<span>1/200</span>
 									</div>
-									<input class="recomment-submit-btn" type="submit" value="보내기">
+									<input class="recomment-submit-btn" type="submit" value="보내기" id="rn<%=comment.getCommentNo() %>">
 									<button class="recomment-reset-btn" type="button">취소</button>
 								</td>
 							</tr>
@@ -402,30 +757,31 @@
 							<tr class="recomment-textarea">
 							<td></td>
 								<td>
-									<textarea class="recomment-cont-modify">무궁화 삼천리 화려강산 대한사람 대한으로 길이 보존하세무궁화 삼천리 화려강산 대한사람 대한으로 길이 보존하세무궁화 삼천리 화려강산 대한사람 대한으로 길이 보존하세무궁화 삼천리 화려강산 대한사람 대한으로 길이 보존하세무궁화 삼천리 화려강산 대한사람 대한으로 길이 보존하세</textarea>
+									<textarea class="recomment-cont-modify"><%=recomment.getCommentCont() %></textarea>
 								</td>
 							</tr>
 							<tr class="recomment-textarea-btn">
 							<td></td>
 								<td>
 									<input class="recomment-modify-reset-btn" type="reset" value="취소">
-									<input class="recomment-modify-submit-btn" type="submit" value="저장">
+									<input class="recomment-modify-submit-btn" id="mc<%=recomment.getCommentNo() %>" type="submit" value="저장">
 									<p class="recomment-modify-count">1/200</p>
 								</td>
 							</tr>
+							<%}else{%>
 							<tr>
-							<!--  -->
-								<td rowspan="3" class="comment-writer">
-									<div class="comment-writer-profile"></div>
+								<td rowspan="2"></td>
+								<td class="recomment-cont">
+									<svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="currentColor" class="bi bi-arrow-return-right" viewBox="0 0 16 16">
+  									<path fill-rule="evenodd" d="M1.5 1.5A.5.5 0 0 0 1 2v4.8a2.5 2.5 0 0 0 2.5 2.5h9.793l-3.347 3.346a.5.5 0 0 0 .708.708l4.2-4.2a.5.5 0 0 0 0-.708l-4-4a.5.5 0 0 0-.708.708L13.293 8.3H3.5A1.5 1.5 0 0 1 2 6.8V2a.5.5 0 0 0-.5-.5z" />
+									</svg>
+									<span class="recomment-writer-name" style="margin-right:10px;"></span><span class="recomment-text" style="margin-right:40px;">
+									삭제된 댓글입니다.
+									</span>
 								</td>
-								<td class="comment-writer-name">홍길동</td>
 							</tr>
 							<tr>
-								<td class="comment-cont">무궁화 삼천리 화려강산 대한사람 대한으로 길이 보존하세</td>
-							</tr>
-							<tr>
-								<td class="comment-date">
-									2021년 1월 24일 <span class="recomment-btn">답글쓰기</span><span class="comment-modify-btn">수정하기</span> <span class="comment-del-btn">삭제하기</span>
+								<td class="recomment-date">
 								</td>
 							</tr>
 							<tr class="recomment-write-box">
@@ -438,46 +794,286 @@
 									<input class="recomment-input-text" type="text" placeholder="답글을 남겨주세요">
 									<span>1/200</span>
 									</div>
-									<input class="recomment-submit-btn" type="submit" value="보내기">
+									<input class="recomment-submit-btn" type="submit" value="보내기" id="rn<%=comment.getCommentNo() %>">
 									<button class="recomment-reset-btn" type="button">취소</button>
 								</td>
 							</tr>
-							<!--수정하기-->
-							<tr class="comment-textarea">
+							<!-- 대댓글 수정하기 -->
+							<tr class="recomment-textarea">
+							<td></td>
 								<td>
-									<textarea class="comment-cont-modify">무궁화 삼천리 화려강산 대한사람 대한으로 길이 보존하세</textarea>
+									<textarea class="recomment-cont-modify"><%=recomment.getCommentCont() %></textarea>
 								</td>
 							</tr>
-							<tr class="comment-textarea-btn">
+							<tr class="recomment-textarea-btn">
+							<td></td>
 								<td>
-									<input class="comment-modify-reset-btn" type="reset" value="취소">
-									<input class="comment-modify-submit-btn" type="submit" value="저장">
-									<p class="comment-modify-count">1/200</p>
+									<input class="recomment-modify-reset-btn" type="reset" value="취소">
+									<input class="recomment-modify-submit-btn" id="mc<%=recomment.getCommentNo() %>" type="submit" value="저장">
+									<p class="recomment-modify-count">1/200</p>
 								</td>
 							</tr>
-							<!--수정하기-->
+							<%
+							}
+							}//대댓글//대댓글전체
+							}//지우지
+							}//마
+							}%>
+							<!-- 테이블 양식  -->
+							<tr style="visible:hidden; height:0px;">
+							<td rowspan="3" class="comment-writer" style="visible:hidden;">
+								</td>
+								<td class="comment-writer-name"></td>
+							</tr>
+							<tr style="visible:hidden; height:0px;">
+								<td class="comment-cont"></td>
+							</tr>
+							<tr style="visible:hidden; height:0px;">
+								<td class="comment-date"></td>
+							</tr>
+							<!-- 끝 -->
 							<tr>
 								<td class="comment-write-box" colspan="3">
 									<div>
+									<%if(user!=null){
+									if(setting.getSetComment().equals("user")){%>
 									<input class="comment-input-box" type="text" placeholder="댓글을 남겨주세요">
+									<%}else if(setting.getSetComment().equals("manager")){
+									if(!(user.getUserClass().equals("user"))){%>
+									<input class="comment-input-box" type="text" placeholder="댓글을 남겨주세요">
+									<%}else{%>
+									<input class="comment-input-box" type="text" placeholder="댓글 작성 권한이 없습니다." disabled="true" style="background-color:white;">	
+									<%}
+									}else if(setting.getSetComment().equals("host")){
+									if((user.getUserClass().equals("host"))){%>
+									<input class="comment-input-box" type="text" placeholder="댓글을 남겨주세요">
+									<% 
+									}else{%>
+									<input class="comment-input-box" type="text" placeholder="댓글 작성 권한이 없습니다." disabled="true" style="background-color:white;">	
+									<%}
+									}
+									}else{%>
+									<input class="comment-input-box" type="text" placeholder="댓글 작성 권한이 없습니다." disabled="true" style="background-color:white;">
+									<%}%>
 									<span>1/200</span>
 									</div>
-									<input class="comment-submit-btn" type="submit" value="보내기">
+									<input class="comment-submit-btn" type="button" value="보내기">
 								</td>
 							</tr>
 						</table>
+						</div>
 					</div>
-					<%
+					<%}// if(=null)
+						}// bees-feed }// bees-feed 
+						else{%>
+					<div style="margin-top:30px; width:100%; height:500px; line-height:500px;">
+					</div>
+					<%} %>
+					<script>
+					//투표 처리하는 ajax;
+					$('.vote-submit').click(function(){
+		var state = $(this).parent().parent().parent().find('.vote-state').attr('name');
+		if(state!='Y'){
+		var items = $(this).parent().parent().parent().find('.item-select-btn');
+		console.log(items.length);
+		var boardNo = $(this).closest('.bees-feed').attr('id');
+		//var memberNo = ${sessionScope.member.memberNo};
+		var selectItem;
+		$(items).each(function(index, item){
+			if($(item).attr('fill')!='lightgray'){
+				selectItem = $(this).parent().prev().attr('name');
+				$.ajax({
+					url:"/voteInsertItem.do",
+					type:"get",
+					data:{"selectItem":selectItem,"boardNo":boardNo,"memberNo":3},
+					success:function(data){
+						if(data>0){
+						var selector = '#'+selectItem;
+						var voteNum = Number($(selector).find('.vote-num').html())+1;
+						$(selector).find('.vote-num').html(Number(voteNum));
+						var all = Number(($(selector).closest('.vote-box').attr('id')).replace("all",""));
+						$(selector).find('.color-bar').css('width', Math.round((voteNum/(all+1))*100)+"%");
+						location.reload();
+						}else{
+							alert("투표가 진행되지 않았습니다. 다시 진행해주세요.");
 						}
-					%>
-					<div style="height: 45px;">
-						<button id="feed-add-btn">+ 더보기</button>
-					</div>
+						var labels = $('.vote-box').find('.item-select-btn');
+						labels.attr('fill','lightgray');
+					},
+					error:function(){
+					}
+				});
+			}
+		})
+		
+		}else if(state=='Y'){
+			alert("이미 완료된 투표입니다.");
+		}
+		
+	})
+	
+	
+	$('.vote-end').click(function(){
+		var voteNoV = $(this).attr('id');
+		var voteNo = voteNoV.replace("vn","")
+		if(confirm('투표를 종료하시겠습니까?')){
+		$.ajax({
+		url:"/voteEnd.do",
+		data:{"voteNo":voteNo},
+		success:function(data){
+			if(data>0){
+				alert("종료되었습니다.");
+				var selector = '#vn'+voteNo;
+				$(selector).parent().parent().parent().find('.item-select-btn').attr('fill','gray');
+				$(selector).parent().parent().parent().find('.color-bar').css('background-color','gray');
+				$(selector).prev().css('display','none');
+				$(selector).css('display','none');
+				$(selector).parent().html('<center>종료된 투표입니다.</center>');
+			}else{
+			}
+		},
+		error:function(){
+		}
+		});
+		}
+	})
+			$('.comment-submit-btn').click(function(){
+				var commentCont = $(this).prev().children().eq('0').val();
+				//var memberNo = ${sessionScope.member.memberNo};
+				var boardNo = $(this).closest('.bees-feed').attr('id');
+				//var beesNo = ${requestScope.bees.beesNo};
+				$.ajax({
+					url:"/insertComment.do",
+					type:"get",
+					data:{"commentCont":commentCont,"memberNo":1,"boardNo":boardNo},
+					success:function(data){
+						if(data>0){
+							alert("댓글이 성공적으로 등록되었습니다.");
+							location.reload();
+						}else{
+							alert("댓글 등록에 실패하였습니다. ");
+							location.reload();
+						}
+					},
+					error:function(){
+					}
+				})
+			})
+			$('.recomment-submit-btn').click(function(){
+				var commentCont = $(this).prev().children().eq('0').val();
+				//var memberNo = ${sessionScope.member.memberNo};
+				var recommentNo = ($(this).attr('id')).replace("rn","");
+				var boardNo = $(this).closest('.bees-feed').attr('id');
+				$.ajax({
+					url:"/insertRecomment.do",
+					type:"get",
+					data:{"commentCont":commentCont,"memberNo":1,"boardNo":boardNo, "recommentNo":recommentNo},
+					success:function(data){
+						if(data>0){
+							alert("댓글이 성공적으로 등록되었습니다.");
+							location.reload();
+						}else{
+							alert("댓글 등록에 실패하였습니다. ");
+							location.reload();
+						}
+					},
+					error:function(){
+					}
+				})
+			})
+			$('.feed-delete').click(function() {
+			
+			if (confirm("피드를 정말 삭제하시겠습니까?")) {
+				$('.feed-navi').parent().css('visibility', 'hidden');
+				var boardNo = $(this).closest('.bees-feed').attr('id');
+				console.log(boardNo);
+				// 삭제하는 로직 구현
+				$.ajax({
+					url:"/deleteFeed.do",
+					data:{"boardNo":boardNo},
+					type:"post",
+					success:function(data){
+						
+						if(data>0){
+							alert("게시글이 성공적으로 삭제되었습니다.");
+							location.reload();
+						}else{
+							alert("게시글 삭제에 실패하였습니다. ");
+							location.reload();
+						}
+						
+					},
+					error:function(){
+						
+					}
+				})
+
+			}
+
+				})
+							</script>
 				</div>
 			</div>
 			<div class="col-1"></div>
 		</div>
 	</div>
+	<script>		
+	
+		$('.feed-like-btn').click(
+				function() {
+					var boardNo = $(this).closest('.bees-feed').attr('id');
+					//var memberNo = ${sessionScope.member.memberNo};
+					if ($(this).attr('fill') == 'red') {
+						$.ajax({
+							url : "/deleteBoardLike.do",
+							data : {
+								"boardNo" : boardNo,
+								"memberNo" : 1
+							},
+							success : function(data) {
+								if (data > 0) {
+									
+								} else {
+									alert("다시 시도해주세요");
+								}
+
+							},
+							error : function() {
+
+							}
+						})
+						$(this).attr('fill', 'lightgray');
+						$(this).next().html(Number($(this).next().html()) - 1);
+
+					} else if ($(this).attr('fill') == 'lightgray') {
+
+						$.ajax({
+							url : "/insertBoardLike.do",
+							data : {
+								"boardNo" : boardNo,
+								"memberNo" : 1
+							},
+							success : function(data) {
+
+								if (data > 0) {
+									
+								} else {
+									alert("다시 시도해주세요");
+								}
+
+							},
+							error : function() {
+
+							}
+							
+						})
+						// 좋아요 추가하는 로직
+						$(this).attr('fill', 'red');
+						$(this).next().html(Number($(this).next().html()) + 1);
+					}
+
+				});
+	</script>
 	<!--글쓰기 모달-->
 	<!--form태그로 묶임. -->
 	<!--모달 부분 -->
@@ -486,7 +1082,7 @@
 		<div id="write-modal">
 			<div id="write-modal-header">
 				<span style="margin-left: 30px;">글쓰기</span>
-				<button id="write-modal-close">
+				<button id="write-modal-close" type="button">
 					<svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="#F7D078" class="bi bi-x" viewBox="0 0 16 16">
                 <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z" />
             </svg>
@@ -499,7 +1095,7 @@
 			<div id="write-modal-footer">
 				<div class="write-function-box">
 					<p class="write-function-tag">사진</p>
-					<span class="write-function-icon"> <input type="file" style="display: none;" id="input-image" multiple> <label for="input-image"><svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="gray" class="bi bi-image-fill" viewBox="0 0 16 16">
+					<span class="write-function-icon"> <form id="inputImageForm" method="post" enctype="multipart/form-data" style="display:none;"><input type="file" style="display: none;" name="image[]" id="input-image" multiple="multiple"><input type="hidden" name="imageNo" id="input-imageNo"></form><label for="input-image"><svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="gray" class="bi bi-image-fill" viewBox="0 0 16 16">
                     <path d="M.002 3a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2h-12a2 2 0 0 1-2-2V3zm1 9v1a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V9.5l-3.777-1.947a.5.5 0 0 0-.577.093l-3.71 3.71-2.66-1.772a.5.5 0 0 0-.63.062L1.002 12zm5-6.5a1.5 1.5 0 1 0-3 0 1.5 1.5 0 0 0 3 0z" />
                 </svg> </label>
 					</span>
@@ -513,7 +1109,7 @@
 				</div>
 				<div class="write-function-box">
 					<p class="write-function-tag">파일</p>
-					<span class="write-function-icon"> <input type="file" style="display: none" id="input-file"> <label for="input-file"><svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="gray" class="bi bi-paperclip" viewBox="0 0 16 16">
+					<span class="write-function-icon"><form id="inputFileForm" method="post" enctype="multipart/form-data" style="display:none;"><input type="file" style="display: none" id="input-file" name="file"></form><label for="input-file"><svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="gray" class="bi bi-paperclip" viewBox="0 0 16 16">
                     <path d="M4.5 3a2.5 2.5 0 0 1 5 0v9a1.5 1.5 0 0 1-3 0V5a.5.5 0 0 1 1 0v7a.5.5 0 0 0 1 0V3a1.5 1.5 0 1 0-3 0v9a2.5 2.5 0 0 0 5 0V5a.5.5 0 0 1 1 0v7a3.5 3.5 0 1 1-7 0V3z" />
                 </svg> </label>
 					</span>
@@ -525,7 +1121,7 @@
                     <path d="M3.5 0a.5.5 0 0 1 .5.5V1h8V.5a.5.5 0 0 1 1 0V1h1a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2h1V.5a.5.5 0 0 1 .5-.5zM1 4v10a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V4H1z" />
                 </svg></span>
 				</div>
-				<button id="write-modal-submit" type="submit">게시</button>
+				<button id="write-modal-submit" type="button" name="0">게시</button>
 			</div>
 		</div>
 		<div id="dual-modal-bg"></div>
@@ -554,7 +1150,7 @@
 					항목 추가
 				</button>
 				<div id="vote-setting" style="width: 100%; height: 40px; text-align: left; margin-bottom: 10px;">
-					<input type="checkbox" name="anonymous-selection" style="display: none;">
+					<input type="checkbox" id="anonymous-selection" style="display: none;">
 					<label for="anonymous-selection" style="padding-left: 22px;"> <svg class="anonymous-btn" xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="lightgray" class="item-select-btn bi bi-check-circle" viewBox="0 0 16 16">
                 <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z" />
                 <path d="M10.97 4.97a.235.235 0 0 0-.02.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-1.071-1.05z" />
@@ -606,6 +1202,242 @@
 			</div>
 		</div>
 	</form>
+	<script>
+	
+	$('.file-down-btn').click(function(){
+		var fileName = $('.file-title').html();
+		var fileNo = $('.file-title').attr('id');
+		if(confirm(fileName+"을 다운로드 하시겠습니까?")){
+			$.ajax({
+				url:"/downloadBeesFile.do",
+				data:{"fileNo":fileNo},
+				type:"POST",
+				beforeSend : function(xhr){
+				xhr.setRequestHeader("Authorization", window.localStorage['accessToken']);
+				},
+				success: function(data, status, xhr) {
+					var filename = xhr.getResponseHeader("Filename");
+					var _blob = new Blob([data], {type : 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'});
+					var link = document.createElement('a');
+					link.href = window.URL.createObjectURL(_blob);
+					link.download = filename;
+					link.click();
+					
+					
+					},
+				error: function() {
+					console.log("error");
+				}
+			})
+		}
+			
+	});
+	
+	
+	$.insertSchedule = function(boardNo, scheduleNo){
+		var scheduleTitle = $('#sche-modal-title').val();
+		var scheduleCont = $('#sche-modal-note').val();
+		var scheduleStartDate = $('#sche-start-date').val()+" 00:00:00";
+		var scheduleEndDate=$('#sche-end-date').val()+" 00:00:00";
+		console.log(scheduleStartDate);
+		//var userNo = ${requestScope.user.userNo};
+		var beesNo = ${requestScope.bees.beesNo};
+		$.ajax({
+			url:"/insertSchedule.do",
+			data:{"scheduleTitle":scheduleTitle,
+				"boardNo":boardNo,
+				"scheduleNo":scheduleNo,
+				"scheduleCont":scheduleCont, 
+				"scheduleStartDate":scheduleStartDate, 
+				"scheduleEndDate":scheduleEndDate,
+				"userNo":1,
+				"beesNo":beesNo},
+			type:"post",
+			success:function(data){
+				console.log("일정등록완료");
+			},
+			error:function(data){
+				
+			}
+			
+		})
+		
+		
+	};
+	
+	$.insertVote = function(boardNo, voteNo){
+		
+		var modalItemArr = new Array();
+		
+		$('.vote-modal-items').each(function(){
+
+		    if($(this).val()!=''){
+		        modalItemArr.push($(this).val());
+		    }
+		 })
+
+		var voteTitle = $('.vote-modal-title').val(); 
+		var voteItem;// DB에 들어가는 String 
+		var votePublicYN = 'N';
+		var beesNo = ${requestScope.bees.beesNo};
+		
+		if($('.anonymous-btn').attr('fill')!='lightgray'){
+			votePublicYN = 'Y';
+		}
+		
+		$(modalItemArr).each(function(index, item){
+			
+			if(index==0){
+				voteItem = item+",";
+			}else if(index<modalItemArr.length-1){
+				voteItem = voteItem+item+",";
+			}else if(index==modalItemArr.length-1){
+				voteItem = voteItem+item;
+			}
+			
+		})
+		
+		$.ajax({
+			url:"/insertVote.do",
+			data:{"voteTitle":voteTitle, "voteItem":voteItem, "votePublicYN":votePublicYN, "beesNo":beesNo, "boardNo":boardNo, "voteNo":voteNo},
+			type:"post",
+			success:function(data){
+				console.log("투표등록성공");
+			},
+			error: function(){
+				
+			}
+			
+		})
+		
+		
+	};
+	
+	
+	$.insertImage = function(boardNo){
+		
+		var formData = new FormData();
+		var filesLength=document.getElementById('input-image').files.length;
+		for(var i=0;i<filesLength;i++){
+			formData.append("image[]", document.getElementById('input-image').files[i]);
+		}
+		
+		var imageList=document.getElementById('input-imageNo').value;
+		console.log(imageList);
+		formData.append("imageList",imageList);
+		formData.append("boardNo",boardNo);
+		
+		$.ajax({
+			type: "POST",
+			enctype: 'multipart/form-data',	// 필수
+			url: '/uploadBeesImages.do',
+			dataType:'json',
+			data: formData,		// 필수
+			processData: false,	// 필수
+			contentType: false,	// 필수
+			cache: false,
+			success: function (result) {
+			},
+			error: function (e) {
+			}
+		});
+		 
+
+		
+		
+	}
+	
+	$.insertFile = function(boardNo, fileNo){
+		
+		var formData = new FormData($('#inputFileForm')[0]); 
+		formData.append("fileNo",fileNo);
+		formData.append("boardNo",boardNo);
+		
+		
+		$.ajax({ 
+			type: "POST", 
+			enctype: 'multipart/form-data',
+			url: '/uploadBeesFile.do',
+			data: formData,
+			processData: false,
+			contentType: false,
+			cache: false,
+			success: function (data){ 
+				
+				if(data>0){
+					console.log('파일 업로드 완료');
+				}
+			},
+			error: function (e) { } 
+			
+		});
+		
+	}
+	
+	
+	
+	$('#input-file').change(function(){
+		$('#write-modal-submit').attr('name','file');
+	})
+	
+	$('#input-image').change(function(){
+		$('#write-modal-submit').attr('name','image');
+	})
+	
+	
+	
+	$('#write-modal-submit').click(function(){
+		var boardCont = $('#write-modal-cont-div').html();
+		//var memberNo = ${sessionScope.user.userNo};
+		var beesNo = ${requestScope.bees.beesNo};
+		var beesFunction = $('#write-modal-submit').attr('name');
+		var imageCount = 0;
+		if(beesFunction=='image'){
+			imageCount=document.getElementById('input-image').files.length;
+		}
+		$.ajax({
+			url:"/insertBoard.do",
+			data:{"boardCont":boardCont, "memberNo":1, "beesNo":beesNo, "beesFunction":beesFunction, "imageCount":imageCount},
+			type:"post",
+			success:function(data){
+				
+				if(data[0]!=null){
+					
+					console.log(beesFunction);
+					
+					if(beesFunction=='vote'){
+						$.insertVote(data[0].boardNo, data[0].voteNo);
+						location.reload();
+					}else if(beesFunction=='schedule'){
+						$.insertSchedule(data[0].boardNo, data[0].scheduleNo);
+						location.reload();
+					}else if(beesFunction=='file'){
+						$.insertFile(data[0].boardNo, data[0].fileNo);
+						location.reload();
+					}else if(beesFunction=='image'){
+						$('#input-imageNo').val(data[1]);
+						$.insertImage(data[0].boardNo);
+						location.reload();
+					}else{
+						location.reload();
+					}
+					
+					
+				}else{
+					
+				}
+				
+			},
+			error:function(){
+				
+			}
+			
+		})
+		
+		
+	});
+	
+	</script>
 	<!--일정 모달 끝-->
 	<!--전체 모달 거대한 form태그로 묶기-->
 	<!--글 수정 모달 -->
@@ -614,7 +1446,7 @@
 		<div id="modify-modal">
 			<div id="modify-modal-header">
 				<span style="margin-left: 30px;">글 수정하기</span>
-				<button id="modify-modal-close">
+				<button id="modify-modal-close"  type="button">
 					<svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="#F7D078" class="bi bi-x" viewBox="0 0 16 16">
                         <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z" />
                     </svg>
@@ -627,7 +1459,7 @@
 			<div id="modify-modal-footer">
 				<div class="modify-function-box">
 					<p class="modify-function-tag">사진</p>
-					<span class="modify-function-icon"> <input type="file" style="display: none;" id="modify-input-image" multiple> <label for="modify-input-image"><svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="gray" class="bi bi-image-fill" viewBox="0 0 16 16">
+					<span class="modify-function-icon"> <input type="file" style="display: none;" id="modify-input-image" multiple> <label><svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="gray" class="bi bi-image-fill" viewBox="0 0 16 16">
                             <path d="M.002 3a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2h-12a2 2 0 0 1-2-2V3zm1 9v1a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V9.5l-3.777-1.947a.5.5 0 0 0-.577.093l-3.71 3.71-2.66-1.772a.5.5 0 0 0-.63.062L1.002 12zm5-6.5a1.5 1.5 0 1 0-3 0 1.5 1.5 0 0 0 3 0z" />
                         </svg> </label>
 					</span>
@@ -641,7 +1473,7 @@
 				</div>
 				<div class="modify-function-box">
 					<p class="modify-function-tag">파일</p>
-					<span class="modify-function-icon"> <input type="file" style="display: none" id="modify-input-file"> <label for="modify-input-file"><svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="gray" class="bi bi-paperclip" viewBox="0 0 16 16">
+					<span class="modify-function-icon"> <input type="file" style="display: none" id="modify-input-file"> <label><svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="gray" class="bi bi-paperclip" viewBox="0 0 16 16">
                             <path d="M4.5 3a2.5 2.5 0 0 1 5 0v9a1.5 1.5 0 0 1-3 0V5a.5.5 0 0 1 1 0v7a.5.5 0 0 0 1 0V3a1.5 1.5 0 1 0-3 0v9a2.5 2.5 0 0 0 5 0V5a.5.5 0 0 1 1 0v7a3.5 3.5 0 1 1-7 0V3z" />
                         </svg> </label>
 					</span>
@@ -653,10 +1485,12 @@
                             <path d="M3.5 0a.5.5 0 0 1 .5.5V1h8V.5a.5.5 0 0 1 1 0V1h1a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2h1V.5a.5.5 0 0 1 .5-.5zM1 4v10a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V4H1z" />
                         </svg></span>
 				</div>
-				<button id="modify-modal-submit" type="submit">게시</button>
+				<button id="modify-modal-submit" type="button">수정</button>
+				<input id="modify-del-function" type="hidden" value="-1"/>
+				<input id="modify-image-del-function" type="hidden"/>
 			</div>
 		</div>
-		<div id="modify-vote-modal">
+		<!-- <div id="modify-vote-modal">
 			<div id="modify-vote-modal-header">
 				<span style="margin-left: 50px;">투표</span>
 				<button id="modify-vote-modal-close" type="button">
@@ -731,8 +1565,60 @@
 			<div id="modify-sche-modal-footer">
 				<button id="modify-sche-modal-submit" type="button">완료</button>
 			</div>
-		</div>
+		</div> -->
 	</form>
+	<script>
+	
+
+	
+	
+	$('#modify-modal-submit').click(function(){
+		
+		var boardCont = ($('#modify-modal-cont-div').html());
+		var boardNo = ($('#modify-modal').attr('name'));
+		var delFunction = $('#modify-del-function').val();
+		var imageArr = (($('#modify-image-del-function').val()).replace(/undefined/g,"")).split(',');
+		var delImage = "";
+		
+		$(imageArr).each(function(index, item){
+			
+			if(index==0){
+				delImage = item+",";
+			}else if(index<imageArr.length-1){
+				delImage = delImage+item+",";
+			}else if(index==imageArr.length-1){
+				delImage = delImage+item;
+			}
+			
+		})
+		
+		console.log(delImage);
+		
+		//백에서 >0이면 기능 삭제하기
+		//백에서 <div> 앞까지 자르는 작업
+		
+		$.ajax({
+			url:"/updateBoard.do",
+			data:{"boardCont":boardCont,"boardNo":boardNo,"delFunction":delFunction,"delImage":delImage},
+			success:function(data){
+				if(data>0){
+					alert("피드 수정이 완료되었습니다.");
+					location.reload();
+				}else{
+					alert("수정에 실패하였습니다.");
+					location.reload();
+				}
+				
+			},
+			error:function(){
+				
+			}
+		})
+		
+		
+		
+	})
+	</script>
 	<!--수정 모달 -->
 	<!--상세일정모달 부분 -->
 	<div id="feed-modal-bg"></div>
@@ -746,20 +1632,78 @@
 		</div>
 		<form>
 			<div id="sche-detail-modal-cont">
-				<div id="sche-detail-title">기획안 발표</div>
-				<div id="sche-detail-date">2021.01.29 (월) - 2021.01.30 (금)</div>
+				<div id="sche-detail-title"></div>
+				<div id="sche-detail-date"></div>
 				<div id="sche-detail-writer-info">
 					<div id="sche-detail-writer-profile"></div>
-					<span>홍길동</span>
+					<span></span>
 				</div>
-				<div id="sche-detail-note">4모임 개인 블로그 + SNS 사이트 웹 사이트 기획안 발표하는 날</div>
+				<div id="sche-detail-note"></div>
 			</div>
 			<div id="sche-detail-modal-footer"></div>
 		</form>
 	</div>
 	<!--상세일정 모달부분-->
+	<!--비즈가입 부분 -->
+    <!---->
+    <div id="join-modal-bg"></div>
+    <form>
+    <div id="join-modal">
+        <div id="join-modal-header">
+            <span style="margin-left: 70px;">비즈 가입하기</span>
+            <button id="join-modal-close" type="button">
+                <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="#F7D078" class="bi bi-x"
+                    viewBox="0 0 16 16">
+                    <path
+                        d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z" />
+                </svg>
+            </button>
+        </div>
+        <div id="join-modal-cont" style="text-align: center;">
+        	<p style="color: #6d6042;font-size: 1rem;font-weight: 500; margin-top:20px; height:auto;"><%=bees.getBeesName() %></p>
+        	<p style="color: #6d6042;font-size: 0.9rem;font-weight: 300; margin-top:-10px; padding:0px;">이 비즈에서 사용할 이름을 입력해주세요</p>
+            <input id="join-modal-name" type="text" placeholder="이름을 입력해주세요" maxlength="10"><br>
+        </div>
+        <div id="join-modal-footer">
+            <button id="join-modal-submit" type="button">비즈 가입하기</button>
+        </div>
+    </div>
+    </form>
+    <!--모달 끝 form태그로 묶어야함. -->
 	<div id="footer">
 	<%@include file="/common/footer.jsp"%>
 	</div>
+<script>
+$('#join-modal-submit').click(function(){
+
+	var userName = $('#join-modal-name').val();
+	if(userName=" "){
+		alert("이름을 입력하세요.");
+	}else{
+	
+	//var memberNo = ${sessionScope.member.memberNo};
+	var beesNo = ${requestScope.bees.beesNo};
+	$.ajax({
+		url:"/insertBeesUser.do",
+		data:{"userName":userName,"memberNo":1001,"beesNo":beesNo},
+		success:function(data){
+			if(data>0){
+				alert("가입 신청이 완료되었습니다. 관리자 승인시 가입이 완료됩니다.");
+				location.reload();
+			}else{
+				alert("가입에 실패하였습니다.");
+				location.reload();
+			}
+		},
+		error:function(){
+		
+		}
+	
+	});
+	}
+	
+	
+});
+</script>
 </body>
 </html>

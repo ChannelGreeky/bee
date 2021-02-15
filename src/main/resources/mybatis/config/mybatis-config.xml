@@ -11,5 +11,20 @@
 <typeAlias type="com.fourmeeting.bee.beesuser.model.vo.BeesUser" alias="beesUser"></typeAlias>
 <typeAlias type="com.fourmeeting.bee.notice.model.vo.Notice" alias="notice"></typeAlias>
 <typeAlias type="com.fourmeeting.bee.beesuser.model.vo.BeesUserList" alias="BeesUserList"></typeAlias>
+<typeAlias type="com.fourmeeting.bee.beesuser.model.vo.UserSelect" alias="userSelect"></typeAlias>
+<typeAlias type="com.fourmeeting.bee.board.model.vo.Board" alias="board"></typeAlias>
+<typeAlias type="com.fourmeeting.bee.board.model.vo.BoardLike" alias="boardLike"></typeAlias>
+<typeAlias type="com.fourmeeting.bee.board.model.vo.BoardPaging" alias="boardPaging"></typeAlias>
+<typeAlias type="com.fourmeeting.bee.board.model.vo.Feed" alias="feed"></typeAlias>
+<typeAlias type="com.fourmeeting.bee.board.model.vo.ModifyFeed" alias="modifyfeed"></typeAlias>
+<typeAlias type="com.fourmeeting.bee.comment.model.vo.FeedComment" alias="feedComment"></typeAlias>
+<typeAlias type="com.fourmeeting.bee.comment.model.vo.BeesComment" alias="beesComment"></typeAlias>
+<typeAlias type="com.fourmeeting.bee.vote.model.vo.FeedVote" alias="feedVote"></typeAlias>
+<typeAlias type="com.fourmeeting.bee.vote.model.vo.Vote" alias="vote"></typeAlias>
+<typeAlias type="com.fourmeeting.bee.vote.model.vo.VoteChoice" alias="voteChoice"></typeAlias>
+<typeAlias type="com.fourmeeting.bee.file.model.vo.BeesFile" alias="beesFile"></typeAlias>
+<typeAlias type="com.fourmeeting.bee.image.model.vo.Image" alias="image"></typeAlias>
+<typeAlias type="com.fourmeeting.bee.schedule.model.vo.Schedule" alias="schedule"></typeAlias>
+<typeAlias type="com.fourmeeting.bee.schedule.model.vo.ScheduleDetail" alias="scheduleDetail"></typeAlias>
 </typeAliases>
 </configuration>

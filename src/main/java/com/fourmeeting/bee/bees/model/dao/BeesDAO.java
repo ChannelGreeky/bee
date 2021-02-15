@@ -7,6 +7,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
 import com.fourmeeting.bee.bees.model.vo.Bees;
+import com.fourmeeting.bee.bees.model.vo.Setting;
 import com.fourmeeting.bee.beesuser.model.vo.BeesUserList;
 
 @Repository("beesDAO")
@@ -51,6 +52,19 @@ public class BeesDAO {
 		List list = sqlSession.selectList("bees.selectBeesUser", beesNO);		
 		return (ArrayList<BeesUserList>)list;
 
+	}
+
+	public Bees beesSelectOne(SqlSessionTemplate sqlSession, int beesNo) {
+		// TODO Auto-generated method stub
+		
+		Bees bees = sqlSession.selectOne("bees.beesSelectOne",beesNo);
+		return bees;
+	}
+
+	public Setting selectBeesSetting(SqlSessionTemplate sqlSession, int beesNo) {
+		// TODO Auto-generated method stub
+		Setting setting = sqlSession.selectOne("setting.beesSetting",beesNo);
+		return setting;
 	}
 
 }

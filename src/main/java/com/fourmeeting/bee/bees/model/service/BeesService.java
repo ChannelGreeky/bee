@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import com.fourmeeting.bee.bees.model.dao.BeesDAO;
 import com.fourmeeting.bee.bees.model.vo.Bees;
+import com.fourmeeting.bee.bees.model.vo.Setting;
 import com.fourmeeting.bee.beesuser.model.vo.BeesUserList;
 
 @Service("beesService")
@@ -64,5 +65,18 @@ public class BeesService {
 		return list;
 
 	}
+	
+	public Bees beesSelectOne(int beesNo) {
+		// TODO Auto-generated method stub
+		Bees bees = bDAO.beesSelectOne(sqlSession,beesNo);
+		return bees;
+	}
+
+	public Setting selectBeesSetting(int beesNo) {
+		// TODO Auto-generated method stub
+		Setting setting = bDAO.selectBeesSetting(sqlSession,beesNo);
+		return setting;
+	}
+
 
 }

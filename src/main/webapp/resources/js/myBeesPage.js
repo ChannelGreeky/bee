@@ -1,5 +1,111 @@
 $(function() {
 
+	$('.comment-modify-submit-btn').click(function(){
+		var commentCont = $(this).parent().parent().prev().find('.comment-cont-modify').val();
+		var commentNo = ($(this).attr('id')).replace('mc','');
+		console.log(commentNo);
+		$.ajax({
+			url:"/updateComment.do",
+			type:"get",
+			data:{"commentCont":commentCont,"commentNo":commentNo},
+			success:function(data){
+				if(data>0){
+					alert("댓글이 성공적으로 수정되었습니다.");
+					location.reload();
+				}else{
+					alert("댓글 수정에 실패하였습니다. ");
+					location.reload();
+				}
+			},
+			error:function(){
+				
+			}
+			
+		})
+		
+	})
+	$('.recomment-modify-submit-btn').click(function(){
+		var commentCont = $(this).parent().parent().prev().find('.recomment-cont-modify').val();
+		var commentNo = ($(this).attr('id')).replace('mc','');
+		console.log(commentNo);
+		$.ajax({
+			url:"/updateComment.do",
+			type:"get",
+			data:{"commentCont":commentCont,"commentNo":commentNo},
+			success:function(data){
+				if(data>0){
+					alert("댓글이 성공적으로 수정되었습니다.");
+					location.reload();
+				}else{
+					alert("댓글 수정에 실패하였습니다. ");
+					location.reload();
+				}
+			},
+			error:function(){
+				
+			}
+			
+		})
+		
+	})
+	$('.comment-del-btn').click(function(){
+								
+									var commentNo = ($(this).attr('id')).replace("cd","");
+									if(confirm('댓글을 삭제하시겠습니까?')){
+									$.ajax({
+										url:"/deleteComment.do",
+										type:"get",
+										data:{"commentNo":commentNo},
+										success:function(data){
+											
+											if(data>0){
+												alert("댓글이 성공적으로 삭제되었습니다.");
+												location.reload();
+											}else{
+												alert("댓글 삭제에 실패하였습니다. ");
+												location.reload();
+											}
+											
+										},
+										error:function(){
+											
+										}
+										
+									})
+									
+								}else{
+									
+								}
+								
+							})
+							$('.recomment-del-btn').click(function(){
+							
+									var commentNo = Number(($(this).attr('id')).replace("cd",""));
+									if(confirm('댓글을 삭제하시겠습니까?')){
+									$.ajax({
+										url:"/deleteComment.do",
+										type:"get",
+										data:{"commentNo":commentNo},
+										success:function(data){
+											
+											if(data>0){
+												alert("댓글이 성공적으로 삭제되었습니다.");
+												location.reload();
+											}else{
+												alert("댓글 삭제에 실패하였습니다. ");
+												location.reload();
+											}
+											
+										},
+										error:function(){
+											
+										}
+										
+									})
+									
+								}
+								
+							})
 	$('.item-select-btn').click(function() {
 
 		if ($(this).attr('fill') == 'lightgray') {
@@ -16,24 +122,16 @@ $(function() {
 		}
 
 	})
+	
+	$('.vote-reset').click(function(){
+		var labels = $(this).closest('.vote-box').find('.item-select-btn');
+		labels.attr('fill','lightgray');
+		$(this).closest('.vote-box').find('checkbox').removeAttr('checked');
+								
+	})
+						
+						
 
-	$('.feed-like-btn').click(function() {
-
-		if ($(this).attr('fill') == 'red') {
-
-			$(this).attr('fill', 'lightgray');
-			//좋아요 취소하는 로직
-			$(this).next().html($(this).next().html() - 1);
-
-		} else {
-
-			$(this).attr('fill', 'red');
-
-			//좋아요 추가하는 로직
-			$(this).next().html(Number($(this).next().html()) + 1);
-		}
-
-	});
 
 	$('.comment-open').click(function() {
 
@@ -90,7 +188,7 @@ $(function() {
 
 			})
 			
-			$('.recomment-modify-btn').click(
+	$('.recomment-modify-btn').click(
 			function() {
 				
 				$(this).parent().parent().prev().css('display', 'none');
@@ -134,20 +232,13 @@ $(function() {
 		var $feedNavi = $(this).parent().next().next()
 		if ($feedNavi.css('visibility') == 'hidden') {
 			$feedNavi.css('visibility', 'visible');
+			
 		} else {
 			$feedNavi.css('visibility', 'hidden');
 		}
 	})
 
-	$('.feed-delete').click(function() {
-
-		if (confirm("피드를 정말 삭제하시겠습니까?")) {
-
-			//삭제하는 로직 구현
-
-		}
-
-	})
+	
 
 	$('.write-function-icon').mouseover(function() {
 
@@ -160,47 +251,69 @@ $(function() {
 		$(this).prev().css('visibility', 'hidden');
 	})
 
-	$('.sche-box').find('p').click(
-			function() {
+	
+$('.sche-box').find('p').click(
+		function() {
+			
+			var scheduleNo = $('.sche-cont-box').attr('id');
+			
+			$.ajax({
+				url : '/scheduleSelectOne.do',
+				data : {'scheduleNo':scheduleNo},
+				type : "post",
+				success : function(data){
+					
+					$('#sche-detail-title').html(data.scheduleTitle);
+					
+					if(data.scheduleStartDate == " " || data.scheduleEndDate == " "){
+						if(data.scheduleEndDate == " "){
+							$('#sche-detail-date').html(data.transEndDate);
+						}else{
+							$('#sche-detail-date').html(data.transStartDate);
+						}
+					
+					}else{
+							$('#sche-detail-date').html(data.transStartDate+" - "+data.transEndDate);	
+					}
+					
+					$('#sche-detail-writer-profile').css('background','url(/resources/image/profile/'+data.profileImg+')');
+					$('#sche-detail-writer-profile').css('background-size','cover');
+					$('#sche-detail-writer-profile').next().html(data.userName);
+					$('#sche-detail-note').html(data.scheduleCont);
+					
+				},
+				error : function(){
+					
+					 console.log("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
 
-				$('#sche-detail-modal').css(
-						'top',
-						Math.max(0, (($(window).height() - $(
-								'#sche-detail-modal').outerHeight()) / 2)
-								+ $(window).scrollTop())
-								+ 'px');
-				$('#sche-detail-modal').css(
-						'left',
-						Math.max(0, (($(window).width() - $(
-								'#sche-detail-modal').outerWidth()) / 2)
-								+ $(window).scrollLeft())
-								+ 'px');
-				$('#feed-modal-bg').css('height',
-						($(window).height() + $(window).scrollTop()) + 'px');
-				$('#feed-modal-bg').css('display', 'block');
-				$('#sche-detail-modal').css('display', 'block');
+				}
+				
 			})
+			
+			$('#sche-detail-modal').css(
+					'top',
+					Math.max(0, (($(window).height() - $(
+							'#sche-detail-modal').outerHeight()) / 2)
+							+ $(window).scrollTop())
+							+ 'px');
+			$('#sche-detail-modal').css(
+					'left',
+					Math.max(0, (($(window).width() - $(
+							'#sche-detail-modal').outerWidth()) / 2)
+							+ $(window).scrollLeft())
+							+ 'px');
+			$('#feed-modal-bg').css('height',
+					($(window).height() + $(window).scrollTop()) + 'px');
+			$('#sche-detail-box').html()
+			
+			
+			$('#feed-modal-bg').css('display', 'block');
+			$('#sche-detail-modal').css('display', 'block');
+			
+			
+})
 
-	$('.sche-icon').click(
-			function() {
-
-				$('#sche-detail-modal').css(
-						'top',
-						Math.max(0, (($(window).height() - $(
-								'#sche-detail-modal').outerHeight()) / 2)
-								+ $(window).scrollTop())
-								+ 'px');
-				$('#sche-detail-modal').css(
-						'left',
-						Math.max(0, (($(window).width() - $(
-								'#sche-detail-modal').outerWidth()) / 2)
-								+ $(window).scrollLeft())
-								+ 'px');
-				$('#feed-modal-bg').css('height',
-						($(window).height() + $(window).scrollTop()) + 'px');
-				$('#feed-modal-bg').css('display', 'block');
-				$('#sche-detail-modal').css('display', 'block');
-			})
+	
 
 	$('#sche-detail-modal-close').click(function() {
 

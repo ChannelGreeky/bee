@@ -43,7 +43,8 @@ body {
 #bees-cover {
 	height: 130px;
 	border: 0.5px solid light-gray;
-	background-image: url("/resources/image/bees/cover/bees_cover_1.png");
+	background-position:center center;
+	background-repeat:no-repeat;
 	background-size: cover;
 }
 
@@ -133,7 +134,8 @@ body {
 	width: 25px;
 	height: 25px;
 	border-radius: 999px;
-	background: url("/resources/image/profile/p3.jpg");
+	background-position:center center;
+	background-repeat:no-repeat;
 	background-size: cover;
 }
 

@@ -1,17 +1,14 @@
 $(function(){
 
 
-$('.write-modal-btn').click(function () {
-
-// 모달 크기 변경 //
-$('#write-modal').css('top', Math.max(0,(($(window).height()-$('#write-modal').outerHeight())/2) + $(window).scrollTop())+'px'); 
-$('#write-modal').css('left', Math.max(0,(($(window).width()-$('#write-modal').outerWidth())/2) + $(window).scrollLeft())+'px');
-$('#write-modal-bg').css('height', ($(window).height() + $(window).scrollTop())+'px'); 
-$('#write-modal-bg').css('display', 'block');
-$('#write-modal').css('display', 'block');
-$('body').css('overflow','hidden');
-
-})
+$.writeModalOpen=function(){
+		$('#write-modal').css('top', Math.max(0,(($(window).height()-$('#write-modal').outerHeight())/2) + $(window).scrollTop())+'px'); 
+		$('#write-modal').css('left', Math.max(0,(($(window).width()-$('#write-modal').outerWidth())/2) + $(window).scrollLeft())+'px');
+		$('#write-modal-bg').css('height', ($(window).height() + $(window).scrollTop())+'px'); 
+		$('#write-modal-bg').css('display', 'block');
+		$('#write-modal').css('display', 'block');
+		$('body').css('overflow','hidden');
+};
 
 $('#write-modal-close').click(function () {
 
@@ -43,7 +40,7 @@ $('.write-function-icon').click(function(){
 
             $('#write-modal-cont-div').children('div').find('*').remove();
             $('#write-modal-cont-div').children('div').remove();
-            
+            $('#write-modal-submit').attr('name','0');
 
     }else{
 
@@ -150,7 +147,7 @@ function handlerFileSelect(e){
         
         var files = e.target.files;
         var fileArr = Array.prototype.slice.call(files);
-
+        
         fileArr.forEach(function(f){
 
             var fileName = f.name;
@@ -189,7 +186,7 @@ function handlerImgFileSelect(e){
             var reader = new FileReader();
             reader.onload = function(e){
 
-                var img_html = '<div style="height:100%" contentEditable="false"><button type="button" class="write-modal-del-btn">삭제</button><img src="'+e.target.result+'"class="modal-image-viewer" id="'+imgName+'"/></div>';
+                var img_html = '<div style="height:100%" contentEditable="false"><button type="button" class="write-modal-del-btn">삭제</button><img max-height="100%;" src="'+e.target.result+'"class="modal-image-viewer" id="'+imgName+'"/></div>';
                 $('#write-modal-cont').children().append(img_html);
 
             }
@@ -203,6 +200,8 @@ function handlerImgFileSelect(e){
     var scheData;
 
 $('#sche-modal-submit').click(function(){
+	
+$('#write-modal-submit').attr('name','schedule');
 
 if($('#sche-modal-title').val()!='' && $('#sche-modal-note').val()!='' && $('#sche-start-date').val()!='' && $('#sche-end-date')!=''){
 scheData = '<div class="modal-function-box" contentEditable="false"><button type="button" class="write-modal-del-btn" >삭제</button><div class="sche-icon-box"><div class="sche-icon"></div></div>'+
@@ -279,48 +278,46 @@ $('#write-modal-cont').children().click(function(){
 
     })
 
-
 })
 
 
+	var voteData;
 
-var voteData;
+	$('#vote-modal-submit').click(function(){
 
-$('#vote-modal-submit').click(function(){
+		$('#write-modal-submit').attr('name','vote');
 
-    var modalItemArr = new Array();
+		var modalItemArr = new Array();
+		
+	    $('.vote-modal-items').each(function(){
 
-    $('.vote-modal-items').each(function(){
+	    if($(this).val()!=''){
+	        modalItemArr.push($(this).val());
+	    }
+	    })
 
-        if($(this).val()!=''){
-        modalItemArr.push($(this).val());
-    }
-    })
+	    
+	if($('.vote-modal-title').val()!='' && modalItemArr.length>1){
+	voteData = '<div class="modal-function-box" contentEditable="false"><button type="button" class="write-modal-del-btn" >삭제</button><div class="vote-icon-box"><div class="vote-icon"></div></div><div class="vote-info-box">'+
+	        '<p class="vote-state">투표 등록</p><p class="vote-title">'+$('.vote-modal-title').val()+'</p></div></div></div>';
+	        
+	$('#write-modal-cont').children().append(voteData);
+	$('#vote-modal').css('display','none');
+	$('#dual-modal-bg').css('display','none');
 
-    console.log(modalItemArr.length)
+	}else{
 
-if($('.vote-modal-title').val()!='' && modalItemArr.length>1){
-voteData = '<div class="modal-function-box" contentEditable="false"><button type="button" class="write-modal-del-btn" >삭제</button><div class="vote-icon-box"><div class="vote-icon"></div></div><div class="vote-info-box">'+
-        '<p class="vote-state">투표 등록</p><p class="vote-title">'+$('.vote-modal-title').val()+'</p></div></div></div>';
-        
-$('#write-modal-cont').children().append(voteData);
-$('#vote-modal').css('display','none');
-$('#dual-modal-bg').css('display','none');
+	    if(modalItemArr.length<=1){
 
-}else{
+	        $('#vote-modal-items-message').css('display','block');
 
-    if(modalItemArr.length<=1){
+	    }else{
 
-        $('#vote-modal-items-message').css('display','block');
+	    alert("입력정보가 올바르지 않습니다. 다시 한번 확인해주세요.");
 
-    }else{
-
-    alert("입력정보가 올바르지 않습니다. 다시 한번 확인해주세요.");
-
-}
-
-}
-})
+	}
+	}
+	})
 
 
 
