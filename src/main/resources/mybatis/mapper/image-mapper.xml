@@ -55,6 +55,6 @@ update image set img_del_yn = 'Y' where img_no = #{imgNo}
 select img_seq.nextval as imageNo from dual
 </select>
 <insert id="insertImage" parameterType="image">
-insert into image values(#{imgNo}, #{boardNo}, #{originalImageName}, #{changeImageName}, #{imgPath}, #{imgSize}, default)
+insert into image values(#{imgNo}, #{boardNo}, #{originalImageName}, #{changeImageName}, #{imgPath}, #{imgSize}, default, default)
 </insert>
 </mapper>

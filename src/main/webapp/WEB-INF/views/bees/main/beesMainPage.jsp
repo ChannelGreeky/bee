@@ -278,7 +278,7 @@ if($(window).scrollTop()==($(document).height()-$(window).height())){
 				<div id="bees-contents" class="container m-0 p-2">
 				<form action="/beesSearchOne.do?" method="get">
 				<input type="hidden" name="beesNo" value="<%=bees.getBeesNo() %>"/>
-				<input type="hidden" name="memberNo" value="1"/>
+				<input type="hidden" name="memberNo" value="<%=member.getMemberNo() %>"/>
 				<div id="bees-search-bar">
 					<%if(user==null){%>
 						<input type="text" name="keyword" placeholder="비즈 회원만 검색이 가능합니다." disabled="true" style="background-color:white">
@@ -376,7 +376,10 @@ if($(window).scrollTop()==($(document).height()-$(window).height())){
 						<table class="feed-table">
 							<tr>
 								<td class="feed-writer-info" rowspan="2">
-									<div class="feed-writer-profile" style="background-image:url('/resources/image/profile/<%=feed.getProfileImg() %>')"></div>
+									<%if(feed.getProfileImg()==null){%>
+									<div class="feed-writer-profile" style="background-color:#f7d078;"></div>
+									<%}else{ %>
+									<div class="feed-writer-profile" style="background-image:url('/resources/image/profile/<%=feed.getProfileImg() %>')"></div><%} %>
 								</td>
 								<td class="feed-writer-name"><%=feed.getUserName() %></td>
 								<td class="feed-setting" rowspan="2">
@@ -1408,21 +1411,17 @@ if($(window).scrollTop()==($(document).height()-$(window).height())){
 					
 					if(beesFunction=='vote'){
 						$.insertVote(data[0].boardNo, data[0].voteNo);
-						location.reload();
 					}else if(beesFunction=='schedule'){
 						$.insertSchedule(data[0].boardNo, data[0].scheduleNo);
-						location.reload();
 					}else if(beesFunction=='file'){
 						$.insertFile(data[0].boardNo, data[0].fileNo);
-						location.reload();
 					}else if(beesFunction=='image'){
 						$('#input-imageNo').val(data[1]);
 						$.insertImage(data[0].boardNo);
-						location.reload();
 					}else{
-						location.reload();
 					}
 					
+					location.reload();
 					
 				}else{
 					
@@ -1491,82 +1490,6 @@ if($(window).scrollTop()==($(document).height()-$(window).height())){
 				<input id="modify-image-del-function" type="hidden"/>
 			</div>
 		</div>
-		<!-- <div id="modify-vote-modal">
-			<div id="modify-vote-modal-header">
-				<span style="margin-left: 50px;">투표</span>
-				<button id="modify-vote-modal-close" type="button">
-					<svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="#F7D078" class="bi bi-x" viewBox="0 0 16 16">
-                        <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z" />
-                    </svg>
-				</button>
-			</div>
-			<div id="modify-vote-modal-cont" style="text-align: center;">
-				<input type="text" class="modify-vote-modal-title" placeholder="투표 제목">
-				<br>
-				<input type="text" class="modify-vote-modal-items" placeholder="항목 입력">
-				<input type="button" class="modify-item-del-btn" value=" " disabled="true">
-				<br>
-				<input type="text" class="modify-vote-modal-items" placeholder="항목 입력">
-				<input type="button" class="modify-item-del-btn" value=" " disabled="true">
-				<br> <span id="modify-vote-modal-items-message" style="display: none; font-size: 0.7rem; color: rgb(247, 64, 64); position: absolute; left: 50%;">투표 항목은 2개 이상이어야 합니다.</span>
-				<button id="modify-item-add-btn" type="button" style="padding: 20px 0px 10px 0; margin-right: 240px; background-color: transparent; border: 0px solid white; font-size: 0.9rem; font-weight: 200;">
-					<svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="#6D6042" class="bi bi-plus" viewBox="0 0 16 16">
-                        <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z" />
-                    </svg>
-					항목 추가
-				</button>
-				<div id="modify-vote-setting" style="width: 100%; height: 40px; text-align: left; margin-bottom: 10px;">
-					<input type="checkbox" name="modify-anonymous-selection" style="display: none;">
-					<label for="modify-anonymous-selection" style="padding-left: 22px;"> <svg class="modify-anonymous-btn" xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="lightgray" class="item-select-btn bi bi-check-circle" viewBox="0 0 16 16">
-                        <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z" />
-                        <path d="M10.97 4.97a.235.235 0 0 0-.02.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-1.071-1.05z" />
-                    </svg> <span style="font-size: 0.9rem; font-weight: 300;">무기명 투표</span><br>
-					</label>
-				</div>
-			</div>
-			<div id="modify-vote-modal-footer">
-				<button id="modify-vote-modal-submit" type="button">게시</button>
-			</div>
-		</div>
-		<div id="modify-sche-modal">
-			<div id="modify-sche-modal-header">
-				<span style="margin-left: 50px;">일정 등록하기</span>
-				<button id="modify-sche-modal-close" type="button">
-					<svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="#F7D078" class="bi bi-x" viewBox="0 0 16 16">
-                        <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z" />
-                    </svg>
-				</button>
-			</div>
-			<div id="modify-sche-modal-cont" style="text-align: center;">
-				<table>
-					<tr>
-						<td colspan="2">
-							<input id="modify-sche-modal-title" type="text" placeholder="일정 제목">
-						</td>
-					</tr>
-					<tr>
-						<td colspan="2">
-							<textarea id="modify-sche-modal-note" placeholder="일정 설명"></textarea>
-						</td>
-					</tr>
-					<tr style="height: 15px; font-size: 0.9rem;">
-						<td>시작</td>
-						<td>종료</td>
-					</tr>
-					<tr>
-						<td style="text-align: right; padding-right: 5px;">
-							<input id="modify-sche-start-date" type="date">
-						</td>
-						<td style="text-align: left; padding-left: 5px;">
-							<input id="modify-sche-end-date" type="date">
-						</td>
-					</tr>
-				</table>
-			</div>
-			<div id="modify-sche-modal-footer">
-				<button id="modify-sche-modal-submit" type="button">완료</button>
-			</div>
-		</div> -->
 	</form>
 	<script>
 	
@@ -1594,9 +1517,6 @@ if($(window).scrollTop()==($(document).height()-$(window).height())){
 		})
 		
 		console.log(delImage);
-		
-		//백에서 >0이면 기능 삭제하기
-		//백에서 <div> 앞까지 자르는 작업
 		
 		$.ajax({
 			url:"/updateBoard.do",
@@ -1675,6 +1595,7 @@ if($(window).scrollTop()==($(document).height()-$(window).height())){
 	<%@include file="/common/footer.jsp"%>
 	</div>
 <script>
+
 $('#join-modal-submit').click(function(){
 
 	var userName = $('#join-modal-name').val();
@@ -1747,7 +1668,9 @@ $('#join-modal-submit').click(function(){
 			}
 		}
 		
+		}
 	}else{
+		
 		if(userCount<beesUserLimit){
 		if(userName=" "){
 			alert("이름을 입력하세요.");
@@ -1842,7 +1765,8 @@ $.joinMember = function(userName, memberNo, beesNo){
 		
 		}
 	})
-});
+}
+
 </script>
 </body>
 </html>

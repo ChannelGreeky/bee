@@ -275,9 +275,12 @@ $('.sche-box').find('p').click(
 					}else{
 							$('#sche-detail-date').html(data.transStartDate+" - "+data.transEndDate);	
 					}
-					
+					if(data.profileImg==null){
+					$('#sche-detail-writer-profile').css('background-color','coral');	
+					}else{
 					$('#sche-detail-writer-profile').css('background','url(/resources/image/profile/'+data.profileImg+')');
-					$('#sche-detail-writer-profile').css('background-size','cover');
+					$('#sche-detail-writer-profile').css('background-size','cover');}
+					
 					$('#sche-detail-writer-profile').next().html(data.userName);
 					$('#sche-detail-note').html(data.scheduleCont);
 					

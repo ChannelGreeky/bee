@@ -103,7 +103,9 @@ public class BeesController {
 		request.setAttribute("bees", bees);
 		int userCount = userService.userCount(beesNo);
 		request.setAttribute("userCount", userCount);
-		
+		//유저 정보 불러오기
+		BeesUser user = userService.userSelectOne(memberNo, beesNo);
+		request.setAttribute("user", user);
 		
 		ArrayList<Feed> feedList = boardService.boardSelectAll(beesNo);
 		request.setAttribute("feedList", feedList);
@@ -216,10 +218,6 @@ public class BeesController {
 		}
 		request.setAttribute("likeMap", myLikeMap);
 		
-		//유저 정보 불러오기
-		BeesUser user = userService.userSelectOne(memberNo, beesNo);
-		request.setAttribute("user", user);
-		
 		//세팅 정보 불러오기
 		Setting setting = bService.selectBeesSetting(beesNo);
 		request.setAttribute("setting", setting);
@@ -240,7 +238,9 @@ public class BeesController {
 		request.setAttribute("bees", bees);
 		int userCount = userService.userCount(beesNo);
 		request.setAttribute("userCount", userCount);
-		
+		//유저 정보 불러오기
+		BeesUser user = userService.userSelectOne(memberNo, beesNo);
+		request.setAttribute("user", user);
 		ArrayList<Feed> feedList = boardService.boardSearchAll(beesNo,keyword);
 		request.setAttribute("feedList", feedList);
 
@@ -352,9 +352,8 @@ public class BeesController {
 		}
 		request.setAttribute("likeMap", myLikeMap);
 		
-		//유저 정보 불러오기
-		BeesUser user = userService.userSelectOne(memberNo, beesNo);
-		request.setAttribute("user", user);
+		
+		
 		
 		//세팅 정보 불러오기
 		Setting setting = bService.selectBeesSetting(beesNo);

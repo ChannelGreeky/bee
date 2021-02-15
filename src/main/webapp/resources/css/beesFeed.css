@@ -229,7 +229,7 @@
 #sche-detail-writer-profile {
 	width: 30px;
 	height: 30px;
-	background-image: url("/resources/image/profile/p1.jpg");
+	/*background-image: url("/resources/image/profile/p1.jpg");*/
 	background-size: cover;
 	border-radius: 999px;
 	float: left;

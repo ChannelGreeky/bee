@@ -55,6 +55,7 @@
 	beesName = bees.getBeesName().substring(0,5)+"..";
 	}
 	
+	
 	BeesUser user = (BeesUser)request.getAttribute("user");
 	String keyword = (String)request.getAttribute("keyword");
 	
@@ -213,11 +214,7 @@ if($(window).scrollTop()==($(document).height()-$(window).height())){
 							<%
 							if(bees.getBeesPublicYN()=='Y'){
 							if(user==null){%>
-							<tr>
-								<td id="join-box" colspan="2">
-									<button id="join-btn">비즈 가입하기</button>
-								</td>
-							</tr>
+
 							<%}else{ %>
 							<%} 
 							}%>
@@ -371,7 +368,10 @@ if($(window).scrollTop()==($(document).height()-$(window).height())){
 						<table class="feed-table">
 							<tr>
 								<td class="feed-writer-info" rowspan="2">
-									<div class="feed-writer-profile" style="background-image:url('/resources/image/profile/<%=feed.getProfileImg() %>')"></div>
+									<%if(feed.getProfileImg()==null){%>
+									<div class="feed-writer-profile" style="background-color:#f7d078;"></div>
+									<%}else{ %>
+									<div class="feed-writer-profile" style="background-image:url('/resources/image/profile/<%=feed.getProfileImg() %>')"></div><%} %>
 								</td>
 								<td class="feed-writer-name"><%=feed.getUserName() %></td>
 								<td class="feed-setting" rowspan="2">
@@ -1408,21 +1408,18 @@ if($(window).scrollTop()==($(document).height()-$(window).height())){
 					
 					if(beesFunction=='vote'){
 						$.insertVote(data[0].boardNo, data[0].voteNo);
-						location.reload();
 					}else if(beesFunction=='schedule'){
 						$.insertSchedule(data[0].boardNo, data[0].scheduleNo);
-						location.reload();
 					}else if(beesFunction=='file'){
 						$.insertFile(data[0].boardNo, data[0].fileNo);
-						location.reload();
 					}else if(beesFunction=='image'){
 						$('#input-imageNo').val(data[1]);
 						$.insertImage(data[0].boardNo);
-						location.reload();
 					}else{
-						loacation.reload();
 					}
 					
+					alert("게시글이 성공적으로 등록되었습니다.");
+					location.reload();
 					
 				}else{
 					

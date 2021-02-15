@@ -5,23 +5,23 @@
 select count(*) as userCount
 from bees_user
 where bees_no = #{beesNo}
-and user_block='N'
+and user_block_yn='N'
 and user_del_yn='N'
 and user_auth_yn='Y'
 </select>
-<select id="userSelectOne" resultType="beesUser">
+<select id="userSelectOne" resultType="beesUser" parameterType="userSelect">
 select
 user_no as userNo,
 bees_no as beesNo,
 member_no as memberNo,
 user_name as userName,
 user_class as userClass,
-user_block as userBlock,
+user_block_yn as userBlockYN,
 user_del_yn as userDelYN
 from bees_user
 where member_no = #{memberNo}
 and bees_no = #{beesNo}
-and user_block='N'
+and user_block_yn='N'
 and user_del_yn='N'
 and user_auth_yn='Y'
 </select>
