@@ -32,5 +32,18 @@
 <typeAlias type="com.fourmeeting.bee.admin.model.vo.MemberManagement" alias="memberManagement"></typeAlias>
 <typeAlias type="com.fourmeeting.bee.admin.model.vo.Criteria" alias="criteria"></typeAlias>
 <typeAlias type="com.fourmeeting.bee.image.model.vo.AttachFileDTO" alias="attachFileDTO"></typeAlias>
+
+
+
+<typeAlias type="com.fourmeeting.bee.bees.model.vo.BeesAdmin" alias="beesAdmin"></typeAlias>
+<typeAlias type="com.fourmeeting.bee.bees.model.vo.BeesAdminSearch" alias="beesAdminSearch"></typeAlias>
+<typeAlias type="com.fourmeeting.bee.question.model.vo.QnA" alias="qna"></typeAlias>
+<typeAlias type="com.fourmeeting.bee.question.model.vo.Question" alias="question"></typeAlias>
+<typeAlias type="com.fourmeeting.bee.question.model.vo.AdminQuestionSearch" alias="adminQuestionSearch"></typeAlias>
+<typeAlias type="com.fourmeeting.bee.answer.model.vo.Answer" alias="answer"></typeAlias>
+<typeAlias type="com.fourmeeting.bee.beesuser.model.vo.MyBeesUser" alias="myBeesUser"></typeAlias>
+<typeAlias type="com.fourmeeting.bee.comment.model.vo.MyComment" alias="myComment"></typeAlias>
+<typeAlias type="com.fourmeeting.bee.PagingVO" alias="pagingVo"></typeAlias>
+
 </typeAliases>
 </configuration>

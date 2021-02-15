@@ -1,3 +1,6 @@
+<%@page import="com.fourmeeting.bee.bees.model.vo.BeesAdmin"%>
+<%@page import="java.text.SimpleDateFormat"%>
+<%@page import="java.util.ArrayList"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
@@ -8,44 +11,23 @@
 </head>
 <body>
 
+	<%@ include file="/common/cdnLib.jsp"%>
+	
 	<!-- 반응형 웹에 필요한 소스 -->
 	<meta name="viewport"
 		content="width=device-width, initial-scale=1, shrink-to-fit=no">
-	<link rel="stylesheet"
-		href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
-		integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2"
-		crossorigin="anonymous">
-	<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
-		integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
-		crossorigin="anonymous"></script>
-	<script
-		src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js"
-		integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx"
-		crossorigin="anonymous"></script>
-		
-	<!-- jQuery CDN -->
-	<script src="https://code.jquery.com/jquery-3.5.1.js" integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" crossorigin="anonymous"></script>
-		
+	
 	<!-- 폰트어썸 CDN -->	
 	<!-- reference your copy Font Awesome here (from our CDN or by hosting yourself) -->
 	<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css" rel="stylesheet">
-
-	<!-- 노토산스 폰트 -->
-	<link rel="preconnect" href="https://fonts.gstatic.com">
-	<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap" rel="stylesheet">
-
 
 
 <style>
 		
 	body{
 		font-family: 'Noto Sans KR', sans-serif;
-		/* background-color: #f9f9f9; */
+		height: 100%;
 	}
-	
-	div{
-	    /* border: 1px black solid;    */
-	}	
 	
 	.container{
 		width: 100%;
@@ -78,7 +60,19 @@
 	
 	
 	/* 삭제 or 복구 */
-	.dees_del_yn_btn{
+	.dees_del_y_btn{
+		color: white;
+		background-color: #50401B;
+		border-radius: 25px;
+		width: 80px;
+		height: 27px;
+		font-weight: 500;
+		font-size: 0.85rem;
+		line-height: 15px;
+		border: 0;
+	}
+	
+	.dees_del_n_btn{
 		color: #50401B;
 		background-color: #F7D078;
 		border-radius: 25px;
@@ -90,15 +84,139 @@
 		border: 0;
 	}
 	
-	.dees_del_yn_btn:focus{
+	.dees_del_y_btn, .dees_del_n_btn:focus{
 		outline: none;
 	}
 	
+	
+		/*검색바---------------------------------------------------------------------*/
+	.search_bar {
+	background-color: #F7D078;
+	margin-top: 15px;
+	height: 60px;
+}
+
+#search_title {
+	font-size: 1.5rem;
+	color: #50401B;
+	font-weight: bold;
+	margin-top: 20px;
+}
+
+#main-content div {
+	box-sizing: border-box;
+	border: 0;
+	padding: 0;
+	display: inline-block;
+	float: left;
+}
+
+#main-content form {
+	width: 100%;
+}
+
+.search_bar input {
+	display: inline-block;
+	border-radius: 30px;
+	height: 38px;
+	margin: 11px 10px;
+	padding-left: 20px;
+	padding-right: 15px;
+	width: 90%;
+	border: none;
+}
+
+.search_bar input:focus {
+	outline: none;
+}
+
+#search_btn {
+	width: 45px;
+	height: 35px;
+	background-color: white;
+	border: none;
+	border-radius: 100px;
+	float: right;
+	margin: 11px 10px 11px 0;
+}
+
+#search_btn img {
+	width: 70%;
+	height: 70%;
+}
+
+#search_btn:focus {
+	outline: none;
+}
+
+.search_bar select {
+	border-radius: 30px;
+	height: 38px;
+	display: inline-block;
+	margin: 11px 10px;
+	width: 90%;
+	border: none;
+	padding-left: 10px;
+	padding-right: 15px;
+}
+
+.search_bar select:focus {
+	outline: none;
+}
+
+#main-content div {
+	display: inline-block;
+}
+
+.admin_header {
+	width: 100%;
+}
+
+.search_bar_table{
+	width: 100%;
+	margin-top: 10px;
+}
+
+/* #footer{
+	position: absolute;
+	bottom: 0;
+} */
+
+#pageNavi{
+	text-align: center;
+	padding: 30px auto;
+	margin: 30px auto;
+	
+}
+
+#pageNavi a{
+	text-decoration: none;
+	color: #50401B;
+	font-size: 1.1rem;
+}
+	
 </style>
+
+	<%
+		ArrayList<BeesAdmin> baList = (ArrayList<BeesAdmin>)request.getAttribute("baList");
+		String sb = (String)request.getAttribute("sb");
+	%>
+
 
 	<script>
 		
 		$(function(){
+			
+			//footer위치조절
+			var higth = $("body").height();
+			if(higth<754){
+				$("#footer").css('position','absolute').css('bottom','0');
+			}
+			
+			
+			if($(".dees_del_yn_btn").val()=="복구"){
+				$(this).css('color','red');
+			}
 			
 			$(".answer_yn_btn").click(function(){
 				
@@ -108,26 +226,101 @@
 				
 			});
 			
-			$(".dees_del_yn_btn").click(function(){
+			//폐쇄 버튼 클릭시
+			$(".dees_del_n_btn").click(function(){
 				
-				if($(this).val()=="폐쇄"){
-					var result = confirm("정말 삭제하시겠습니까?");
+				var beesNo = $(this).nextAll(".beesNo").val();
+				
+				var result = confirm("정말 삭제하시겠습니까?");
 					if(result){
-						//삭제 로직 구현
-						$(this).css('background-color','#50401B').css('color','white').val("복구");
+						//bees 삭제 
+					 	$.ajax({
+							url : "/beesDelete.do",
+							data : {"beesNo" : beesNo}, //key:value
+							type : "post",
+							success: function(data){
+								if(data==0){
+									window.location.reload();
+								}else{
+									alert("실패");				
+								}
+							},
+							error : function(data){
+								alert("실패");
+							}
+						}); 
 					} 
-				}
-				else if($(this).val()=="복구"){
-					//if 복구 정상적 되면
-					$(this).css('background-color','#F7D078').css('color','#50401B').val("폐쇄");
-				} 
 				
+			});
+			
+			
+			//복구 버튼 클릭시
+			$(".dees_del_y_btn").click(function(){
+				var beesNo = $(this).nextAll(".beesNo").val();
+				
+				var result = confirm("정말 복구 하시겠습니까?");
+					if(result){
+						//bees 삭제 
+					 	$.ajax({
+							url : "/beesRollback.do",
+							data : {"beesNo" : beesNo}, //key:value
+							type : "post",
+							success: function(data){
+								if(data==0){
+									window.location.reload();
+								}else{
+									alert("실패");				
+								}
+							},
+							error : function(data){
+								alert("실패");
+							}
+						}); 
+					} 
 			});
 			
 		});
 	
 	</script>
 
+	<%@include file="/include/headerAdmin.jsp" %>
+
+	<!-- 검색바 -->
+	<div class="container pt-4">
+		<div class="row">
+			<div class="col-1"></div>
+			<div class="col-10">
+				<span id="search_title">모임관리</span>
+
+				<form action="/adminBeesSearch.do" method="post">
+					<table class="search_bar_table">
+						<tr>
+							<td class="search_bar"><input type="date" name="startDate"></td>
+							<td class="search_bar"><input type="date" name="endDate"></td>
+							<td class="search_bar">
+								<select name="searchSelect">
+									<option value="1">전체보기</option>
+									<option value="2">카테고리</option>
+									<option value="3">비즈이름</option>
+									<option value="4">비즈장ID</option>
+								</select>
+							</td>
+							<td class="search_bar">
+								<input type="text" style="width: 90%;" name="search">
+							</td>
+							<td class="search_bar">
+								<button type="submit" id="search_btn">
+									<img src="resources/image/search.png" />
+								</button>
+							</td>
+						</tr>
+					</table>
+				</form>
+			</div>
+			<div class="col-1"></div>
+		</div>
+	</div>
+	<!-- container -->
 
 		<div class="container pt-3">
 			<div class="row">
@@ -136,7 +329,6 @@
 				<div class="col-1"></div>
 				
 				<div class="col-10 beesManagement_div">
-					<p>모임관리</p>
 					<table border="1" class="beesManagement_table">
 						<tr>
 							<th>카테고리</th>
@@ -147,91 +339,44 @@
 							<th>폐쇄일자</th>
 							<th>폐쇄/복구</th>
 						</tr>
-						<tr>
-							<td>스터디</td>
-							<td>밤새는 개발자</td>
-							<td>bin99</td>
-							<td>99</td>
-							<td>21.01.29</td>
-							<td>21.02.19</td>
-							<td><input type="button" value="복구" class="dees_del_yn_btn"></td>
-						</tr>
-						<tr>
-							<td>스터디</td>
-							<td>밤새는 개발자</td>
-							<td>bin99</td>
-							<td>99</td>
-							<td>2021.01.29</td>
-							<td>-</td>
-							<td><input type="button" value="폐쇄" class="dees_del_yn_btn"></td>
-						</tr>
-						<tr>
-							<td></td>
-							<td></td>
-							<td></td>
-							<td></td>
-							<td></td>
-							<td></td>
-							<td></td>
-						</tr>
-						<tr>
-							<td></td>
-							<td></td>
-							<td></td>
-							<td></td>
-							<td></td>
-							<td></td>
-							<td></td>
-						</tr>						<tr>
-							<td></td>
-							<td></td>
-							<td></td>
-							<td></td>
-							<td></td>
-							<td></td>
-							<td></td>
-						</tr>						<tr>
-							<td></td>
-							<td></td>
-							<td></td>
-							<td></td>
-							<td></td>
-							<td></td>
-							<td></td>
-						</tr>						<tr>
-							<td></td>
-							<td></td>
-							<td></td>
-							<td></td>
-							<td></td>
-							<td></td>
-							<td></td>
-						</tr>						<tr>
-							<td></td>
-							<td></td>
-							<td></td>
-							<td></td>
-							<td></td>
-							<td></td>
-							<td></td>
-						</tr>						<tr>
-							<td></td>
-							<td></td>
-							<td></td>
-							<td></td>
-							<td></td>
-							<td></td>
-							<td></td>
-						</tr>						<tr>
-							<td></td>
-							<td></td>
-							<td></td>
-							<td></td>
-							<td></td>
-							<td></td>
-							<td></td>
-						</tr>
+						<%if(!baList.isEmpty()){ %>
+							<%for(BeesAdmin ba : baList){ %>
+								<tr>
+									<td><%=ba.getBeesCategory() %></td>
+									<td><%=ba.getBeesName() %></td>
+									<td><%=ba.getBeesHost() %></td>
+									<td><%=ba.getMemberCount() %></td>
+									<td>
+										<%SimpleDateFormat sdFormat = new SimpleDateFormat("yy.MM.dd"); %>
+										<%=sdFormat.format(ba.getBeesDate()) %>
+									</td>
+									<td>
+										<%if(ba.getBeesDelDate()!=null){ %>
+											<%=sdFormat.format(ba.getBeesDelDate()) %>
+										<%}else{ %>
+											-
+										<%} %>
+									</td>
+									<td>
+										<%if(ba.getBeesDelYN()=='N') {%>
+											<input type="button" value="폐쇄" class="dees_del_n_btn">
+										<%}else{ %>
+											<input type="button" value="복구" class="dees_del_y_btn">
+										<%} %>
+										<input type="hidden" class="beesNo" value="<%=ba.getBeesNo()%>"/>
+									</td>
+								</tr>
+							<%} %>
+						<%}else{ %>
+							<tr>
+								<td colspan="7" style="color:gray; height:50px;">등록된 bees가 없습니다.</td>
+							</tr>
+						<%} %>
 					</table>
+					
+					<!-- 페이징 처리 -->
+					<div id="pageNavi"><%=sb %></div>
+					
 				</div>
 				
 				<!-- 여백 -->
@@ -239,6 +384,7 @@
 				
 			</div>
 		</div>
+		<div><%@include file="/common/footer.jsp" %></div>
 
 </body>
 </html>

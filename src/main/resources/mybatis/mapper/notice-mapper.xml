@@ -177,4 +177,18 @@
 	
 	</select>
 	
+	
+	<!-- 정평주 -->
+	<select id="myNoticeList" resultType="notice">
+  		select 
+  			notice_no as noticeNo,
+  			member_no as memberNo,
+			notice_category as noticeCategory,
+			notice_title as  noticeTitle,
+			notice_cont as noticeCont,
+			notice_date as noticeDate,
+			notice_del_yn as noticeDelYN
+  		from notice where notice_del_yn='N' order by notice_date desc
+  	</select>
+	
 </mapper>

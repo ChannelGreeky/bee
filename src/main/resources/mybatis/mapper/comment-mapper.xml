@@ -71,4 +71,50 @@ update bees_comment set comment_del_yn='Y' where comment_no=#{commentNo}
 <update id="deleteCommentAll">
 update bees_comment set comment_del_yn='Y' where board_no=#{boardNo}
 </update>
+
+
+<!-- 마이페이지(정평주) -->
+<select id="mycomment" resultType="myComment">
+	select bees_no as beesNo,
+       bees_name as beesName,
+       member_no as memberNo,
+       user_name as userName,
+       comment_no as commentNo,
+       comment_cont as commentCont,
+       comment_date as commentDate,
+       comment_del_yn as commentDelYN,
+       board_cont as boardCont
+	from board
+	left join (select bees_no, user_no, comment_no, comment_cont, comment_date, comment_del_yn from bees_comment) using (bees_no)
+	left join (select user_no, user_name from bees_user) using(user_no)
+	left join (select bees_no, bees_name from bees) using (bees_no)
+	where member_no = #{memberNo}
+	and comment_del_yn = 'N'
+</select>
+
+<select id="myPageBeesComment" parameterType="myComment" resultType="myComment">
+	select bees_no as beesNo,
+       bees_name as beesName,
+       member_no as memberNo,
+       user_name as userName,
+       comment_no as commentNo,
+       comment_cont as commentCont,
+       comment_date as commentDate,
+       comment_del_yn as commentDelYN,
+       board_cont as boardCont
+	from board
+	left join (select bees_no, user_no, comment_no, comment_cont, comment_date, comment_del_yn from bees_comment) using (bees_no)
+	left join (select user_no, user_name from bees_user) using(user_no)
+	left join (select bees_no, bees_name from bees) using (bees_no)
+	where member_no = #{memberNo}
+	and comment_del_yn = 'N'
+  	<if test = 'beesName != "1" and beesName != "" '>
+ 		 and bees_name = #{beesName}
+ 	</if>
+</select>
+
+
+
+
+
 </mapper>

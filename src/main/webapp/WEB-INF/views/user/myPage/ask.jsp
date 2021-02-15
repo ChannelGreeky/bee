@@ -1,3 +1,4 @@
+<%@page import="com.fourmeeting.bee.member.model.vo.Member"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
@@ -8,46 +9,26 @@
 </head>
 <body>
 
-		<!-- 반응형 웹에 필요한 소스 -->
+
+	<%@ include file="/common/cdnLib.jsp"%>
+	
+	<!-- 반응형 웹에 필요한 소스 -->
 	<meta name="viewport"
 		content="width=device-width, initial-scale=1, shrink-to-fit=no">
-	<link rel="stylesheet"
-		href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
-		integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2"
-		crossorigin="anonymous">
-	<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
-		integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
-		crossorigin="anonymous"></script>
-	<script
-		src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js"
-		integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx"
-		crossorigin="anonymous"></script>
-		
-	<!-- jQuery CDN -->
-	<script src="https://code.jquery.com/jquery-3.5.1.js" integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" crossorigin="anonymous"></script>
-		
+	
 	<!-- 폰트어썸 CDN -->	
 	<!-- reference your copy Font Awesome here (from our CDN or by hosting yourself) -->
 	<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css" rel="stylesheet">
 
-	<!-- 노토산스 폰트 -->
-	<link rel="preconnect" href="https://fonts.gstatic.com">
-	<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap" rel="stylesheet">
-	
-	
+	<link rel="stylesheet" type="text/css" href="/resources/css/info.css">	
 	
 	<style>
 		
 		
-		/*커서 없애버려...*/
 		
 		body{
 			font-family: 'Noto Sans KR', sans-serif;
 			background-color: #f9f9f9;
-		}
-		
-		div{
-		 /* border: 1px black solid; */
 		}
 		
 		.container{
@@ -153,21 +134,62 @@
 			margin: 30px auto;
 		}
 		
-		.myhistroy_div textarea {
+		#myquestion_title_div{
+			border: 1px solid gray;
+			position: relative;
+			margin-bottom: 30px;
+		}
+		
+		#myquestion_title_div span{
+			color: gray;
+			font-size: 0.9rem;
+			position: absolute;
+			top: 7px;
+			right: 10px;
+		}
+		
+		#myquestion_title{
+			width: 90%;
+			height: 35px;
+			padding: 7px 15px 5px 15px;
+			overflow: auto;
+			resize: none;
+			color: #50401B;
+			font-size: 0.9rem;
+			border: 0;
+		}
+		
+		#myquestion_div{
+			border: 1px solid gray;
+		}
+		
+		#myquestion_div p{
+			text-align: right;
+			padding-top: 10px;
+			padding-right: 10px;
+			margin-bottom: 10px;
+			color: gray;
+			font-size: 0.9rem;
+		}
+		
+		#myquestion{
 			width: 100%;
-			height: 300px;
+			height: 250px;
 			overflow: auto;
 			resize: none;
 			padding: 15px 15px;
 			color: #50401B;
 			font-size: 0.9rem;
+			border: 0;
 		}
 		
-		textarea, select, input[type='submit'], input[type='reset']:focus{/*클릭시 아웃라인 없애기*/
+		
+		textarea, select, #ask_submit_btn, 
+		#myquestion_title, input[type='reset']:focus{/*클릭시 아웃라인 없애기*/
 			outline: none;
 		}
 		
-		.myhistroy_div input[type='submit'] {
+		#ask_submit_btn {
 			color: white;
 			background-color: #50401B;
 			border-radius: 25px;
@@ -189,27 +211,60 @@
 
 
   
-    </style>
-
-		
 	</style>
+	
+	
+	<%
+		Member m = (Member)session.getAttribute("member");
+	%>
+	
 	
 	<script>
 	
-		$(function(){
+	$(function(){
+		
+		//사이드 네비 초기값
+		$(".navi_li").eq(4).css('background','#F7D078').css('font-weight','700');
+		
+		$(".ask_select").click(function(){
+			$(this).eq(0).css('color','#50401B');
+		});
+		
+		
+		//제목 글자 수 제한
+		$("#myquestion_title").keyup(function(){
 			
-			//사이드 네비 초기값
-			$(".navi_li").eq(4).css('background','#F7D078').css('font-weight','700');
+			var text = $(this).val();
+			$(this).next().html(text.length+"/15");
 			
-			$(".ask_select").click(function(){
-				$(this).eq(0).css('color','#50401B');
-			});
+			if(text.length>15){
+				$(this).val(text.substring(0,15));
+				$(this).next().css('color','red');				
+			} else{
+				$(this).next().css('color','#50401B');
+			}
+		});
+		
+		$("#myquestion").keyup(function(){
 			
+			var text = $(this).val();
+			$(this).next().html(text.length+"/1000");
+			
+			if(text.length>1000){
+				$(this).val(text.substring(0,1000));
+				$(this).next().css('color','red');				
+			} else{
+				$(this).next().css('color','#50401B');
+			}
+		});
+		
 			
 		});
 	
 	</script>
 	
+	
+	<%@include file="/include/headerUser.jsp" %>
 			
 		<div class="container pt-3">
 			<div class="row">
@@ -220,12 +275,12 @@
 				<!-- mypage 사이드 네비 -->				
 				<div class="col-3 p-0 mypage_navi_div">
 					<ul id="mypage_navi_ul">
-						<li class="navi_li"><a href="/myinfo.do" id="myInfo">내 정보<i class="fas fa-angle-right"></i></a></li>
-						<li class="navi_li"><a href="/myboard.do" id="myHistory">내가 쓴 글<i class="fas fa-angle-right"></i></a></li>
-						<li class="navi_li"><a href='/myheart.do' id="myHeart">좋아요 누른 목록<i class="fas fa-angle-right"></i></a></li>
-						<li class="navi_li"><a href='/mybeesJoinQnas.do' id="myApprove">비즈 가입 확인<i class="fas fa-angle-right"></i></a></li>
-						<li class="navi_li"><a href='/myQnaHistory.do' id="myQuestion">문의사항<i class="fas fa-angle-right"></i></a></li>
-						<li class="navi_li"><a href='/mynotice.do' id="myNotice">공지사항<i class="fas fa-angle-right"></i></a></li>
+						<li class="navi_li"><a href="/myPageInfo.do" id="myInfo">내 정보<i class="fas fa-angle-right"></i></a></li>
+						<li class="navi_li"><a href="/myPageBoard.do" id="myHistory">내가 쓴 글<i class="fas fa-angle-right"></i></a></li>
+						<li class="navi_li"><a href='/myPageHeart.do' id="myHeart">좋아요 누른 목록<i class="fas fa-angle-right"></i></a></li>
+						<li class="navi_li"><a href='/myPageBeesJoinQnas.do' id="myApprove">비즈 가입 확인<i class="fas fa-angle-right"></i></a></li>
+						<li class="navi_li"><a href='/myPageQnaHistory.do' id="myQuestion">문의사항<i class="fas fa-angle-right"></i></a></li>
+						<li class="navi_li"><a href='/myPageNotice.do' id="myNotice">공지사항<i class="fas fa-angle-right"></i></a></li>
 					</ul>
 				</div>
 				<!-- mypage 사이드 네비 -->
@@ -237,8 +292,8 @@
 							<th colspan="2">문의사항</th>
 						</tr>
 						<tr class="myhistroy_categories">
-							<td><a href="/myQnaHistory.do">나의 문의 내역</a></td>
-							<td><a href="/myask.do">1:1 문의하기</a></td>
+							<td><a href="/myPageQnaHistory.do">나의 문의 내역</a></td>
+							<td><a href="/myPageAsk.do">1:1 문의하기</a></td>
 						</tr>
 						<tr class="myhistroy_categories_underbar">
 							<td></td>
@@ -246,9 +301,9 @@
 						</tr>
 					</table>
 						
-					<form action="#" method="post">
-						<p>분류<p>
-						<select class="ask_select">
+					<form action="/insertQuestion.do" method="post">
+						<p><i class="fas fa-tasks"></i> 분류<p>
+						<select class="ask_select" name="ask_select">
 							<option value="" disabled selected hidden>문의하고자 하는 분류를 선택해주세요</option>
 							<option value="1">비즈 건의사항</option>
 							<option value="2">비즈 오류</option>
@@ -256,12 +311,20 @@
 						</select>
 						<br><hr>
 						
-						<p>문의 내용<p>
-						<textarea name="myquestion"></textarea>
+						<p>제목<p>
+						<div id="myquestion_title_div">
+							<textarea type="text" id="myquestion_title" name="myquestion_title"></textarea>
+							<span>1/15</span>
+						</div>
 						
+						<p>문의 내용<p>
+						<div id="myquestion_div" >
+							<textarea id="myquestion" name="myquestion"></textarea>
+							<p>1/1000</p>
+						</div>
 						<br><br>
 						<center>
-						<input type="reset" value="취소"/> <input type="submit" value="작성완료"/>
+							<input type="reset" value="취소"/> <input type="submit" value="작성완료" id="ask_submit_btn"/>
 						</center>
 						<br>
 					</form>
@@ -274,6 +337,8 @@
 				<div class="col-1"></div>
 			</div>
 		</div>
+
+	<div><%@include file="/common/footer.jsp" %><div>
 
 </body>
 </html>

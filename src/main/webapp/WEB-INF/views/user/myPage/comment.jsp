@@ -1,3 +1,7 @@
+<%@page import="java.text.SimpleDateFormat"%>
+<%@page import="com.fourmeeting.bee.member.model.vo.Member"%>
+<%@page import="com.fourmeeting.bee.comment.model.vo.MyComment"%>
+<%@page import="java.util.ArrayList"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
@@ -8,46 +12,24 @@
 </head>
 <body>
 
-		<!-- 반응형 웹에 필요한 소스 -->
+	<%@ include file="/common/cdnLib.jsp"%>
+	
+	<!-- 반응형 웹에 필요한 소스 -->
 	<meta name="viewport"
 		content="width=device-width, initial-scale=1, shrink-to-fit=no">
-	<link rel="stylesheet"
-		href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
-		integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2"
-		crossorigin="anonymous">
-	<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
-		integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
-		crossorigin="anonymous"></script>
-	<script
-		src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js"
-		integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx"
-		crossorigin="anonymous"></script>
-		
-	<!-- jQuery CDN -->
-	<script src="https://code.jquery.com/jquery-3.5.1.js" integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" crossorigin="anonymous"></script>
-		
+	
 	<!-- 폰트어썸 CDN -->	
 	<!-- reference your copy Font Awesome here (from our CDN or by hosting yourself) -->
 	<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css" rel="stylesheet">
 
-	<!-- 노토산스 폰트 -->
-	<link rel="preconnect" href="https://fonts.gstatic.com">
-	<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap" rel="stylesheet">
-	
-	
 	
 	<style>
 		
 		
-		/*커서 없애버려...*/
 		
 		body{
 			font-family: 'Noto Sans KR', sans-serif;
 			background-color: #f9f9f9;
-		}
-		
-		div{
-		 /* border: 1px black solid; */
 		}
 		
 		.container{
@@ -92,7 +74,7 @@
 		/* 내가 쓴 글 피드 */
 		.myhistroy_div{
 			width: 100%;
-			height: 800px;
+			height: auto;
 			margin: 20px auto;
 		}
 		
@@ -196,13 +178,49 @@
 			$(".navi_li").eq(1).css('background','#F7D078').css('font-weight','700');
 			
 			$(".mycomments").click(function(){
-				alert("모달...떠라...");
+				alert("해당 페이지 모달 나오게 추후 구현 예정");
 			});
+			
+			//footer위치조절
+			var higth = $("body").height();
+			if(higth<754){
+				$("#footer").css('position','absolute').css('bottom','0');
+			}
+			
+			$("#beesList").on('change',function(){
+				var myBeesName = $(this).find(":selected").val();
+
+				//목록별 검색
+			 	$.ajax({
+					url : "/myPageBeesComment.do",
+					data : {"beesName" : myBeesName}, //key:value
+					type : "post",
+					success: function(mc){
+						$.each(mc, function(){
+							alert(mc[0].val(beesName));
+							$(".myhistroy_div").append('<table class="myhistroy_comment_table">'+
+															'<tr class="myhistroy_beesName">'+
+															'<td colspan="2"><a href="#">'+beesName+'</a></td>');
+						});
+					},
+					error : function(data){
+						alert("실패");
+					}
+				}); 
+			});
+			
+			
 			
 		});
 	
 	</script>
 	
+	<%
+		Member m = (Member)session.getAttribute("member");
+		ArrayList<MyComment> list = (ArrayList<MyComment>)request.getAttribute("list");
+	%>
+	
+	<%@include file="/include/headerUser.jsp" %>
 		
 		<div class="container pt-3">
 			<div class="row">
@@ -213,12 +231,12 @@
 				<!-- mypage 사이드 네비 -->				
 				<div class="col-3 p-0 mypage_navi_div">
 					<ul id="mypage_navi_ul">
-						<li class="navi_li"><a href="/myinfo.do" id="myInfo">내 정보<i class="fas fa-angle-right"></i></a></li>
-						<li class="navi_li"><a href="/myboard.do" id="myHistory">내가 쓴 글<i class="fas fa-angle-right"></i></a></li>
-						<li class="navi_li"><a href='/myheart.do' id="myHeart">좋아요 누른 목록<i class="fas fa-angle-right"></i></a></li>
-						<li class="navi_li"><a href='/mybeesJoinQnas.do' id="myApprove">비즈 가입 확인<i class="fas fa-angle-right"></i></a></li>
-						<li class="navi_li"><a href='/myQnaHistory.do' id="myQuestion">문의사항<i class="fas fa-angle-right"></i></a></li>
-						<li class="navi_li"><a href='/mynotice.do' id="myNotice">공지사항<i class="fas fa-angle-right"></i></a></li>
+						<li class="navi_li"><a href="/myPageInfo.do" id="myInfo">내 정보<i class="fas fa-angle-right"></i></a></li>
+						<li class="navi_li"><a href="/myPageBoard.do" id="myHistory">내가 쓴 글<i class="fas fa-angle-right"></i></a></li>
+						<li class="navi_li"><a href='/myPageHeart.do' id="myHeart">좋아요 누른 목록<i class="fas fa-angle-right"></i></a></li>
+						<li class="navi_li"><a href='/myPageBeesJoinQnas.do' id="myApprove">비즈 가입 확인<i class="fas fa-angle-right"></i></a></li>
+						<li class="navi_li"><a href='/myPageQnaHistory.do' id="myQuestion">문의사항<i class="fas fa-angle-right"></i></a></li>
+						<li class="navi_li"><a href='/myPageNotice.do' id="myNotice">공지사항<i class="fas fa-angle-right"></i></a></li>
 					</ul>
 				</div>
 				<!-- mypage 사이드 네비 -->
@@ -229,70 +247,61 @@
 						<tr>
 							<th>내가 쓴 글</th>
 							<th>
-								<select>
-									<option>비즈별 모아보기</option>
-									<option>초보 개발자 모임</option>
+								<select name="beesList" id="beesList">
+									<option value="1">비즈별 모아보기</option>
+									<%if(!list.isEmpty()){ %>
+										<%for(MyComment mc : list) {%>
+											<option value="<%=mc.getBeesName()%>"><%=mc.getBeesName() %></option>
+										<%} %>
+									<%} %>
 									<!-- 가입한 비즈 목록 불러오기 -->
 								</select>
 							</th>
 						</tr>
 						<tr class="myhistroy_categories">
-							<td><a href="/myboard.do">게시글</a></td>
-							<td><a href="/mycomment.do">댓글</a></td>
+							<td><a href="/myPageBoard.do">게시글</a></td>
+							<td><a href="/myPageComment.do">댓글</a></td>
 						</tr>
 						<tr class="myhistroy_categories_underbar">
 							<td></td>
 							<td></td>
 						</tr>
 					</table>
-					
-					<table class="myhistroy_comment_table">
-						<!-- 클릭하면 비즈로 이동 -->
-						<tr class="myhistroy_beesName">
-							<td colspan="2"><a href="#">초보 개발자 모임</a></td>
-						</tr>
-						<!-- 클릭하면 비즈로 이동 -->
+					<%if(!list.isEmpty()){ %>
+						<%for(MyComment mc : list){ %>
+						<table class="myhistroy_comment_table">
+							<!-- 클릭하면 비즈로 이동 -->
+							<tr class="myhistroy_beesName">
+								<td colspan="2"><a href="#"><%=mc.getBeesName() %></a></td>
+							</tr>
+							<!-- 클릭하면 비즈로 이동 -->
 						
-						<!-- 클릭하면 모달로 게시글 보여줌 -->
-						<tr class="mycomments mycomments1">
-							<td colspan="2">김철수 <span>댓글</span></td>
-						</tr>
-						<tr class="mycomments mycomments2">
-							<td colspan="2">(내가 쓴 댓글)알려주신 주소 보고 설치했어요 감사합니다!</td>
-						</tr>
-						<tr class="mycomments mycomments3">
-							<td colspan="2">(게시글 내용)내용 보여주기 너무 긴 글은...</td>
-						</tr>
-						<tr class="mycomments mycomments4">
-							<td colspan="2">2021년 01월 5일</td>
-						</tr>
-						<!-- 클릭하면 모달로 게시글 보여줌 -->
-					</table>
-					
-					
-					
-					<table class="myhistroy_comment_table">
-						<!-- 클릭하면 비즈로 이동 -->
-						<tr class="myhistroy_beesName">
-							<td colspan="2"><a href="/myboard.do">초보 개발자 모임</a></td>
-						</tr>
-						<!-- 클릭하면 비즈로 이동 -->
-						
-						<!-- 클릭하면 모달로 게시글 보여줌 -->
-						<tr class="mycomments mycomments1">
-							<td colspan="2">김철수 <span>댓글</span></td>
-						</tr>
-						<tr class="mycomments mycomments2">
-							<td colspan="2">(내가 쓴 댓글)알려주신 주소 보고 설치했어요 감사합니다!</td>
-						</tr>
-						<tr class="mycomments mycomments3">
-							<td colspan="2">(게시글 내용)내용 보여주기 너무 긴 글은...</td>
-						</tr>
-						<tr class="mycomments mycomments4">
-							<td colspan="2">2021년 01월 5일</td>
-						</tr>
-						<!-- 클릭하면 모달로 게시글 보여줌 -->
-					</table>
+							<!-- 클릭하면 모달로 게시글 보여줌 -->
+							<tr class="mycomments mycomments1">
+								<td colspan="2"><%=mc.getUserName() %> <span>댓글</span></td>
+							</tr>
+							<tr class="mycomments mycomments2">
+								<td colspan="2"><%=mc.getCommentCont() %></td>
+							</tr>
+							<tr class="mycomments mycomments3">
+								<td colspan="2"><%=mc.getBoardCont() %></td>
+							</tr>
+							<tr class="mycomments mycomments4">
+								<td colspan="2">
+									<%SimpleDateFormat sdFormat = new SimpleDateFormat("yyyy년 MM월 dd일"); %>
+									<%=sdFormat.format(mc.getCommentDate()) %>
+								</td>
+							</tr>
+							<!-- 클릭하면 모달로 게시글 보여줌 -->
+						</table>
+						<%} %>
+					<%}else{ %>
+						<table class="myhistroy_comment_table">
+							<tr>
+								<td style="text-align:center; padding: 20px 10px; color: gray;">등록한 댓글이 없습니다.</td>
+							</tr>
+						</table>
+					<%} %>
 					
 					
 				</div>
@@ -302,6 +311,8 @@
 				<div class="col-1"></div>
 			</div>
 		</div>
+
+	<div><%@include file="/common/footer.jsp" %><div>
 
 </body>
 </html>

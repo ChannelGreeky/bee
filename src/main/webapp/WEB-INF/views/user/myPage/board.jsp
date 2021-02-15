@@ -21,21 +21,15 @@
 </head>
 <body>
 
-
+	<%@ include file="/common/cdnLib.jsp"%>
+	
 	<!-- 반응형 웹에 필요한 소스 -->
-	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
-	<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
-	<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx" crossorigin="anonymous"></script>
-	<!-- jQuery CDN -->
-	<script src="https://code.jquery.com/jquery-3.5.1.js" integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" crossorigin="anonymous"></script>
-	<!-- 폰트어썸 CDN -->
+	<meta name="viewport"
+		content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	
+	<!-- 폰트어썸 CDN -->	
 	<!-- reference your copy Font Awesome here (from our CDN or by hosting yourself) -->
 	<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css" rel="stylesheet">
-	<!-- 노토산스 폰트 -->
-	<link rel="preconnect" href="https://fonts.gstatic.com">
-	<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap" rel="stylesheet">
-	<script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
 
 
 <%
@@ -110,7 +104,7 @@ if($(window).scrollTop()==($(document).height()-$(window).height())){
 
 
 <style>
-/*커서 없애버려...*/
+
 input{
 outline:none;
 }
@@ -120,10 +114,6 @@ body {
 	background-color: #f9f9f9;
 }
 
-div {
-	/* border: 1px black solid; */
-	
-}
 
 .container {
 	width: 100%;
@@ -237,20 +227,6 @@ select:focus {
 			
 			//사이드 네비 초기값
 			$(".navi_li").eq(1).css('background','#F7D078').css('font-weight','700');
-			
-/* 			//사이드 네비 hover css변경
-			$(".navi_li").hover(function(){
-				$(this).css('background','#fff3d8');
-				$(this).eq(0).css('font-weight','700');
-				$(this).siblings().css('background','white'); //siblings() 나를 제외한 형제 요소들 모두 선택
-				$(this).siblings().css('font-weight','400');
-			},function(){
-				$(".navi_li").eq(1).css('background','#F7D078').css('font-weight','700');
-				$(".navi_li").eq(1).siblings().css('background','white').css('font-weight','400');
-			}); */
-			
-
-			
 			
 		});
 	

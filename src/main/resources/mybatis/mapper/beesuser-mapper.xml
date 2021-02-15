@@ -95,5 +95,76 @@ select bees_no from bees_user where member_no=#{memberNo}
 
 	</select>
 	
+	
+	
+	<!-- 관리자페이지(정평주) -->
+	<select id="beesJoinAsk" resultType="myBeesUser">
+		select 
+			user_no as userNo,
+			bees_no as beesNo,
+			member_no as memberNo,
+			user_name as userName,
+			user_class as userClass,
+			user_block_yn as userBlockYN,
+			user_del_yn as userDelYN,
+			user_auth_yn as userAuthYN,
+			user_ask_date as userAskDate,
+			user_auth_date as userAuthDate,
+			host_name as hostName,
+			bees_name as beesName
+		from bees_user 
+		   left join (select bees_no, user_name as host_name 
+		   			from bees_user 
+				   	where user_class='host') 
+				using(bees_no) 
+			left join (select bees_no, bees_name as bees_name 
+					from bees) 
+				 using(bees_no) 
+		where member_no=#{memberNo}
+		and user_class!='host' 
+		and user_auth_yn='W'
+		order by user_ask_date desc
+	</select>
+	
+	<select id="beesJoinHistory" parameterType="myBeesUser" resultType="myBeesUser">
+	 select * from
+	(select rownum num, A.* from
+  		(select 
+			user_no as userNo,
+			bees_no as beesNo,
+			member_no as memberNo,
+			user_name as userName,
+			user_class as userClass,
+			user_block_yn as userBlockYN,
+			user_del_yn as userDelYN,
+			user_auth_yn as userAuthYN,
+			user_ask_date as userAskDate,
+			user_auth_date as userAuthDate,
+			host_name as hostName,
+			bees_name as beesName
+		from bees_user 
+		   left join (select bees_no, user_name as host_name 
+		   			from bees_user 
+				   	where user_class='host') 
+				using(bees_no) 
+			left join (select bees_no, bees_name as bees_name 
+					from bees) 
+				 using(bees_no) 
+		where member_no=#{memberNo}
+		and user_class!='host' 
+		order by user_ask_date desc) A) 
+    where num between #{start} and #{end}
+	</select>
+	
+	<select id="totalbeesJoinHistory" resultType="pagingVo">
+	 	 select count(*) as totalPage from bees_user 
+	 	 where member_no= #{memberNo}
+	 	 and user_class!='host'
+	</select>
+	
+	<delete id="joinQnaCancel">
+		delete from bees_user 
+		where user_no = #{userNo}
+	</delete>
 
 </mapper>

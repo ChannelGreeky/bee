@@ -1,3 +1,6 @@
+<%@page import="java.text.SimpleDateFormat"%>
+<%@page import="com.fourmeeting.bee.notice.model.vo.Notice"%>
+<%@page import="java.util.ArrayList"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
@@ -8,47 +11,25 @@
 </head>
 <body>
 
-		<!-- 반응형 웹에 필요한 소스 -->
+
+	<%@ include file="/common/cdnLib.jsp"%>
+	
+	<!-- 반응형 웹에 필요한 소스 -->
 	<meta name="viewport"
 		content="width=device-width, initial-scale=1, shrink-to-fit=no">
-	<link rel="stylesheet"
-		href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
-		integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2"
-		crossorigin="anonymous">
-	<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
-		integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
-		crossorigin="anonymous"></script>
-	<script
-		src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js"
-		integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx"
-		crossorigin="anonymous"></script>
-		
-	<!-- jQuery CDN -->
-	<script src="https://code.jquery.com/jquery-3.5.1.js" integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" crossorigin="anonymous"></script>
-		
+	
 	<!-- 폰트어썸 CDN -->	
 	<!-- reference your copy Font Awesome here (from our CDN or by hosting yourself) -->
 	<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css" rel="stylesheet">
 
-	<!-- 노토산스 폰트 -->
-	<link rel="preconnect" href="https://fonts.gstatic.com">
-	<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap" rel="stylesheet">
-	
-	
 	
 	<style>
 		
-		
-		/*커서 없애버려...*/
 		
 		body{
 			font-family: 'Noto Sans KR', sans-serif;
 			background-color: #f9f9f9;
 		}
-		
-	/* 	div{
-		 border: 1px black solid;
-		} */
 		
 		.container{
 			width: 100%;
@@ -92,7 +73,7 @@
 		/* 내가 쓴 글 피드 */
 		.myhistroy_div{
 			width: 100%;
-			height: 800px;
+			height: auto;
 			margin: 20px auto;
 		}
 		
@@ -168,6 +149,13 @@
 		
 	</style>
 	
+	
+	<%
+		ArrayList<Notice> list = (ArrayList<Notice>)request.getAttribute("list");
+	%>
+	
+	
+	
 	<script>
 	
 		$(function(){
@@ -175,10 +163,18 @@
 			//사이드 네비 초기값
 			$(".navi_li").eq(5).css('background','#F7D078').css('font-weight','700');
 			
+			//footer위치조절
+			var higth = $("body").height();
+			if(higth<754){
+				$("#footer").css('position','absolute').css('bottom','0');
+			}
+			
 		});
 	
 	</script>
 	
+	
+	<%@include file="/include/headerUser.jsp" %>
 		
 		<div class="container pt-3">
 			<div class="row">
@@ -189,12 +185,12 @@
 				<!-- mypage 사이드 네비 -->				
 				<div class="col-3 p-0 mypage_navi_div">
 					<ul id="mypage_navi_ul">
-						<li class="navi_li"><a href="/myinfo.do" id="myInfo">내 정보<i class="fas fa-angle-right"></i></a></li>
-						<li class="navi_li"><a href="/myboard.do" id="myHistory">내가 쓴 글<i class="fas fa-angle-right"></i></a></li>
-						<li class="navi_li"><a href='/myheart.do' id="myHeart">좋아요 누른 목록<i class="fas fa-angle-right"></i></a></li>
-						<li class="navi_li"><a href='/mybeesJoinQnas.do' id="myApprove">비즈 가입 확인<i class="fas fa-angle-right"></i></a></li>
-						<li class="navi_li"><a href='/myQnaHistory.do' id="myQuestion">문의사항<i class="fas fa-angle-right"></i></a></li>
-						<li class="navi_li"><a href='/mynotice.do' id="myNotice">공지사항<i class="fas fa-angle-right"></i></a></li>
+						<li class="navi_li"><a href="/myPageInfo.do" id="myInfo">내 정보<i class="fas fa-angle-right"></i></a></li>
+						<li class="navi_li"><a href="/myPageBoard.do" id="myHistory">내가 쓴 글<i class="fas fa-angle-right"></i></a></li>
+						<li class="navi_li"><a href='/myPageHeart.do' id="myHeart">좋아요 누른 목록<i class="fas fa-angle-right"></i></a></li>
+						<li class="navi_li"><a href='/myPageBeesJoinQnas.do' id="myApprove">비즈 가입 확인<i class="fas fa-angle-right"></i></a></li>
+						<li class="navi_li"><a href='/myPageQnaHistory.do' id="myQuestion">문의사항<i class="fas fa-angle-right"></i></a></li>
+						<li class="navi_li"><a href='/myPageNotice.do' id="myNotice">공지사항<i class="fas fa-angle-right"></i></a></li>
 					</ul>
 				</div>
 				<!-- mypage 사이드 네비 -->
@@ -208,46 +204,26 @@
 					</table>
 						
 					<div class="notice_div">
-					
-						<input type="checkbox" id="notice1">
-						<label for="notice1">
-							<b>다른 사람에게 비즈장을 위임하고 싶어요.</b><i class="fas fa-angle-up"></i><br>
-							2021년 1월 25일 오전 2:00
-						</label>
-						<div>
-							<p>
-							[리더인 경우] <br>
-							 1) 리더 권한을 활동중인 밴드의 멤버에게 위임하려면, <br>
-								개별 밴드의 [밴드 설정] > [리더 위임]에서 위임받을 멤버를 선택하세요. <br>
-							 2) 공동리더 권한을 지정/회수하려면, <br>
-								개별 밴드의 [밴드 설정] > [공동리더 관리]에서 지정/회수할 멤버를 선택하세요. <br>
-							[공동리더인 경우] <br>
-							공동리더는 다른 멤버에게 권한을 위임할 수없습니다. 밴드 리더에게 말씀하세요<br>
-							</p>
-						</div>
 						
-						<input type="checkbox" id="notice2">
-						<label for="notice2">
-							<b>책 추천 이벤트!</b><i class="fas fa-angle-up"></i><br>
-							2021년 1월 25일 오전 2:00
-						</label>
-					<div>
-						<p>이 책을 추천한 정신건강의학과 전문의 하지현 교수는 보통 ‘왜’에 집중하는 심리치유서들과 달리 이 책이
-							‘왜’를 과감히 생략하고 바로 ‘어떻게’로 시작한다는 점을 강조한다. 마음이 괴로운 사람에게 고통의 원인을 추궁하지
-							않고, 괴로우면 일단 따라 해보라고 손을 내미는 것이다. 하지현 교수의 추천처럼 이 책은 “우리가 살면서 겪는 자잘한
-							마음의 생채기에 붙일 각종 연고와 크기별 반창고가 빼곡히 들어 있는 구급상자”다. 저자는 개인적으로 힘든 일을 겪었던
-							시기에 자기 자신을 위해 이 책을 쓰기 시작했다. 그리고 실제로 이 책에 담긴 활동들이 자신의 삶을 지탱해주었다고
-							말한다. 살아가며 이런저런 괴로움을 겪을 때마다 너무 고민하지 말고 이 책의 활동 중 아무거나 한두 가지라도 해보길
-							바란다. 스트레스를 털어버리고 자신의 삶을 지지하고 긍정하며 그럭저럭 살아갈 수 있도록, 이 책이 당신을 도울
-							것이다.</p>
-					</div>
-
-					<input type="checkbox" id="notice3">
-						<label for="notice3">
-							<b>로그인 FAQ</b><i class="fas fa-angle-up"></i><br>
-							2021년 1월 25일 오전 2:00
-						</label>
-						<div><p>클릭하면 여기에 내용 나오게!</p></div>
+						<%if(!list.isEmpty()){ %>
+						    <%int i=1;%>
+						 	<% for(Notice n : list){%>
+							<input type="checkbox" id="notice<%=i%>">
+							<label for="notice<%=i%>">
+								<b><%=n.getNoticeTitle() %></b><i class="fas fa-angle-up"></i><br>
+								<%
+									String pattern = "yyyy년 MM월 dd일 a KK:mm";
+									SimpleDateFormat sdFormat = new SimpleDateFormat(pattern);
+								%>
+								<%=sdFormat.format(n.getNoticeDate())%>
+								<!-- 2021년 1월 25일 오전 2:00 -->
+							</label>
+							<div>
+								<p><%=n.getNoticeCont() %></p>
+							</div>
+							<% i++; }%>
+						<%} %>
+						
 					</div>
 					
 					
@@ -258,6 +234,8 @@
 				<div class="col-1"></div>
 			</div>
 		</div>
+
+	<div><%@include file="/common/footer.jsp" %><div>
 
 </body>
 </html>
