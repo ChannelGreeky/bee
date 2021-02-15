@@ -42,7 +42,7 @@ import com.fourmeeting.bee.vote.model.vo.FeedVote;
 public class BeesController {
 	
 	@Autowired
-	@Qualifier(value = "BeesService")
+	@Qualifier(value = "beesService")
 	private BeesService bService;
 	
 	@Resource(name="BeesUserService")
