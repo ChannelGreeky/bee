@@ -15,7 +15,7 @@ import com.fourmeeting.bee.bees.model.vo.Bees;
 @Controller
 public class chatController {
 	
-	@Resource(name="BeesService")
+	@Resource(name="beesService")
 	private BeesService beesService;
 	
 	
