@@ -7,7 +7,6 @@ import java.util.List;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -32,7 +31,6 @@ import com.fourmeeting.bee.file.model.service.FileService;
 import com.fourmeeting.bee.file.model.vo.BeesFile;
 import com.fourmeeting.bee.image.model.service.ImageService;
 import com.fourmeeting.bee.image.model.vo.Image;
-import com.fourmeeting.bee.member.model.vo.Member;
 import com.fourmeeting.bee.schedule.model.service.ScheduleService;
 import com.fourmeeting.bee.schedule.model.vo.Schedule;
 import com.fourmeeting.bee.vote.model.service.VoteService;
@@ -80,12 +78,7 @@ public class BeesController {
 	}
 	
 	@RequestMapping(value="/beesSelectOne.do")
-	private String beesSelectOne(@RequestParam int beesNo, @RequestParam int memberNo, HttpServletRequest request, HttpSession session) throws Exception {
-		
-		Member member = new Member();
-		member.setMemberNo(memberNo);
-		request.getSession();
-		session.setAttribute("member", member);
+	private String beesSelectOne(@RequestParam int beesNo, @RequestParam int memberNo, HttpServletRequest request) throws Exception {
 		
 		Bees bees = bService.beesSelectOne(beesNo);
 		request.setAttribute("bees", bees);
@@ -218,12 +211,9 @@ public class BeesController {
 	}
 	
 	@RequestMapping(value="/beesSearchOne.do")
-	private String beesSearchOne(@RequestParam int beesNo, @RequestParam int memberNo, @RequestParam String keyword, HttpServletRequest request, HttpSession session) throws Exception {
+	private String beesSearchOne(@RequestParam int beesNo, @RequestParam int memberNo, @RequestParam String keyword, HttpServletRequest request) throws Exception {
 		
-		Member member = new Member();
-		member.setMemberNo(memberNo);
-		request.getSession();
-		session.setAttribute("member", member);
+		
 		
 		request.setAttribute("keyword", keyword);
 		
@@ -358,12 +348,9 @@ public class BeesController {
 	
 	
 	@RequestMapping(value="/myPageBoard.do")
-	private String myPageBoard(@RequestParam int memberNo, HttpServletRequest request, HttpSession session) throws Exception {
+	private String myPageBoard(@RequestParam int memberNo, HttpServletRequest request) throws Exception {
 		
-		Member member = new Member();
-		member.setMemberNo(memberNo);
-		request.getSession();
-		session.setAttribute("member", member);
+		
 		
 		
 		ArrayList<Feed> feedList = boardService.boardSelectMine(memberNo);
@@ -490,12 +477,7 @@ public class BeesController {
 	}
 	
 	@RequestMapping(value="/myPageHeart.do")
-	private String myPageHeart(@RequestParam int memberNo, HttpServletRequest request, HttpSession session) throws Exception {
-		
-		Member member = new Member();
-		member.setMemberNo(memberNo);
-		request.getSession();
-		session.setAttribute("member", member);
+	private String myPageHeart(@RequestParam int memberNo, HttpServletRequest request) throws Exception {
 		
 		
 		ArrayList<Feed> feedList = boardService.boardSelectLiked(memberNo);
@@ -622,12 +604,8 @@ public class BeesController {
 	}
 	
 	@RequestMapping(value="/myBeesPage.do")
-	private String selectMainPage(@RequestParam int memberNo, HttpServletRequest request, HttpSession session) throws Exception {
+	private String selectMainPage(@RequestParam int memberNo, HttpServletRequest request) throws Exception {
 		
-		Member member = new Member();
-		member.setMemberNo(memberNo);
-		request.getSession();
-		session.setAttribute("member", member);
 		
 		List<Integer> beesNo = userService.selectAllBeesNo(memberNo);
 		
@@ -754,12 +732,8 @@ public class BeesController {
 	}
 	
 	@RequestMapping(value="/bestFeedPage.do")
-	private String bestFeedPage(@RequestParam int memberNo, HttpServletRequest request, HttpSession session) throws Exception {
+	private String bestFeedPage(@RequestParam int memberNo, HttpServletRequest request) throws Exception {
 		
-		Member member = new Member();
-		member.setMemberNo(memberNo);
-		request.getSession();
-		session.setAttribute("member", member);
 		
 		List<Integer> beesNo = userService.selectAllBeesNo(memberNo);
 		
@@ -796,12 +770,7 @@ public class BeesController {
 	}
 	
 	@RequestMapping(value="/feedSearchResult.do")
-	private String bestFeedPage(@RequestParam int memberNo, @RequestParam String keyword, HttpServletRequest request, HttpSession session) throws Exception {
-		
-		Member member = new Member();
-		member.setMemberNo(memberNo);
-		request.getSession();
-		session.setAttribute("member", member);
+	private String bestFeedPage(@RequestParam int memberNo, @RequestParam String keyword, HttpServletRequest request) throws Exception {
 		
 		List<Integer> beesNo = userService.selectAllBeesNo(memberNo);
 		
