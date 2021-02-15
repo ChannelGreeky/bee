@@ -13,6 +13,7 @@ import java.util.List;
 import javax.annotation.Resource;
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,8 +24,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.fourmeeting.bee.PagingVO;
 import com.fourmeeting.bee.bees.model.service.BeesService;
 import com.fourmeeting.bee.bees.model.vo.Bees;
+import com.fourmeeting.bee.bees.model.vo.BeesAdmin;
+import com.fourmeeting.bee.bees.model.vo.BeesAdminSearch;
 import com.fourmeeting.bee.bees.model.vo.Setting;
 import com.fourmeeting.bee.beesuser.model.service.BeesUserService;
 import com.fourmeeting.bee.beesuser.model.vo.BeesUser;
@@ -1377,5 +1381,209 @@ public class BeesController {
 		return "bees/beeCreate/beeResult";	
 			
 	}
+	
+	
+	
+	
+	//정평주(관리자)--------------------------------------------------------------------------
+		//모임관리(bees 전체 리스트)
+		@RequestMapping(value="/beesManagement.do")
+		public String beesManagement(Model model,
+						    	     HttpServletRequest request){
+			
+			
+			//현재페이지 받아오기 ****************
+			int currentPage;
+					
+			if(request.getParameter("currentPage") == null){
+				currentPage = 1;
+			} else{
+				currentPage = Integer.parseInt(request.getParameter("currentPage"));
+			}
+					
+			int cntPage = 5;
+			int cntPerPage = 10; //recordPerPage
+			int start = currentPage*cntPerPage-(cntPerPage-1);
+			int end = currentPage*cntPerPage;
+					
+			PagingVO pv = new PagingVO();
+			pv.setCurrentPage(currentPage);
+			pv.setCntPage(cntPage);
+			pv.setCntPerPage(cntPerPage);
+			pv.setStart(start);
+			pv.setEnd(end);
+					
+					
+			//페이징 네비 ****************
+			int totalPage = bService.countBeesAdmin();
+					
+			int naviCntPerPage = 5; //페이징 네비에 보여줄 개수
+			int lastPage; 			//마지막 페이지를 저장하는 변수
+			if(totalPage % cntPerPage>0){
+				lastPage = totalPage / cntPerPage +1;
+			}else{
+				lastPage = totalPage / cntPerPage;
+			}
+					
+			//현재 페이지 중심으로 pageNavi를 계산 해야함
+			int startNavi = ((currentPage-1) / naviCntPerPage) * naviCntPerPage + 1;
+			int endNavi = startNavi + naviCntPerPage -1;
+					
+					
+			if(endNavi > lastPage){
+				endNavi = lastPage;
+			}
+					
+			//pageNavi 모양 구성 ****************
+			StringBuilder sb = new StringBuilder();
+					
+			if(startNavi != 1){
+				sb.append("<a href='/beesManagement.do?currentPage="+(startNavi-1)+"'>< </a> ");
+			}
+			for(int i=startNavi; i<=endNavi; i++){
+				if(i==currentPage){
+					sb.append("<a href='/beesManagement.do?currentPage="+i+"'><b> "+i+"</b></a> ");
+				}else{
+					sb.append("<a href='/beesManagement.do?currentPage="+i+"'> "+i+"</a> ");
+				}
+			}
+			if(endNavi != lastPage){
+				sb.append("<a href='/beesManagement.do?currentPage="+(endNavi+1)+"'> ></a> ");
+			}		
+			
+			//전체 리스트 ***************
+			ArrayList<BeesAdmin> list = bService.selectBeesAdminList(pv);
+			
+			model.addAttribute("sb",sb.toString());
+			model.addAttribute("baList",list);
+			return "admin/beesManagement";
+			
+		}
+		
+		//모임관리(bees 검색)
+		@RequestMapping(value="/adminBeesSearch.do")
+		public String adminBeesSearch(@RequestParam String startDate,
+									@RequestParam String endDate,
+									@RequestParam int searchSelect,
+									@RequestParam String search,
+									HttpServletRequest request,
+									Model model){
+			
+			
+			BeesAdminSearch bas = new BeesAdminSearch();
+			bas.setStartDate(startDate);
+			bas.setEndDate(endDate);
+			bas.setSearchSelect(searchSelect);
+			bas.setSearch(search);
+			
+			//전체 리스트 불러오기 ****************
+			ArrayList<BeesAdmin> list = bService.adminBeesSearch(bas);
+			System.out.println(list.size());
+			
+			//현재페이지 받아오기 ****************
+			int currentPage;
+							
+			if(request.getParameter("currentPage") == null){
+				currentPage = 1;
+			} else{
+				currentPage = Integer.parseInt(request.getParameter("currentPage"));
+			}
+					
+			int cntPage = 5;
+			int cntPerPage = 10; //recordPerPage
+			int start = currentPage*cntPerPage-(cntPerPage-1);
+			int end = currentPage*cntPerPage;
+							
+			PagingVO pv = new PagingVO();
+			pv.setCurrentPage(currentPage);
+			pv.setCntPage(cntPage);
+			pv.setCntPerPage(cntPerPage);
+			pv.setStart(start);
+			pv.setEnd(end);
+							
+							
+			//페이징 네비 ****************
+			int totalPage = list.size();
+							
+			int naviCntPerPage = 5; //페이징 네비에 보여줄 개수
+			int lastPage; 			//마지막 페이지를 저장하는 변수
+			if(totalPage % cntPerPage>0){
+				lastPage = totalPage / cntPerPage +1;
+			}else{
+				lastPage = totalPage / cntPerPage;
+			}
+							
+			//현재 페이지 중심으로 pageNavi를 계산 해야함
+			int startNavi = ((currentPage-1) / naviCntPerPage) * naviCntPerPage + 1;
+			int endNavi = startNavi + naviCntPerPage -1;
+							
+							
+			if(endNavi > lastPage){
+				endNavi = lastPage;
+			}
+							
+			//pageNavi 모양 구성 ****************
+			StringBuilder sb = new StringBuilder();
+						
+			if(startNavi != 1){
+				sb.append("<a href='/beesManagement.do?currentPage="+(startNavi-1)+"'>< </a> ");
+			}
+			for(int i=startNavi; i<=endNavi; i++){
+				if(i==currentPage){
+					sb.append("<a href='/beesManagement.do?currentPage="+i+"'><b> "+i+"</b></a> ");
+				}else{
+					sb.append("<a href='/beesManagement.do?currentPage="+i+"'> "+i+"</a> ");
+				}
+			}
+			if(endNavi != lastPage){
+				sb.append("<a href='/beesManagement.do?currentPage="+(endNavi+1)+"'> ></a> ");
+			}		
+			
+			
+			model.addAttribute("sb",sb.toString());
+			model.addAttribute("baList",list);
+			
+			return "admin/beesManagement";
+			
+		};
+		
+		
+		
+		//모임관리(bees 삭제)
+		@RequestMapping(value="/beesDelete.do")
+		public void beesDelete(@RequestParam int beesNo,
+							   HttpServletResponse response) throws IOException{
+			
+			int result = bService.beesDelete(beesNo);
+			if(result>0){
+				response.getWriter().print(0);
+			}else{
+				response.getWriter().print(1);
+			}
+			
+		}
+		
+		//모임관리(bees 삭제)
+		@RequestMapping(value="/beesRollback.do")
+		public void beesRollback(@RequestParam int beesNo,
+							   HttpServletResponse response) throws IOException{
+			
+			int result = bService.beesRollback(beesNo);
+			if(result>0){
+				response.getWriter().print(0);
+			}else{
+				response.getWriter().print(1);
+			}
+			
+		}
+		
+
+		
+		
+	
+	
+	
+	
+	
 	
 }

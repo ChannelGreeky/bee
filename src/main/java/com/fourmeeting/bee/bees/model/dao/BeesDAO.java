@@ -6,7 +6,10 @@ import java.util.List;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
+import com.fourmeeting.bee.PagingVO;
 import com.fourmeeting.bee.bees.model.vo.Bees;
+import com.fourmeeting.bee.bees.model.vo.BeesAdmin;
+import com.fourmeeting.bee.bees.model.vo.BeesAdminSearch;
 import com.fourmeeting.bee.bees.model.vo.Setting;
 import com.fourmeeting.bee.beesuser.model.vo.BeesUserList;
 
@@ -140,5 +143,61 @@ public class BeesDAO {
 		Setting setting = sqlSession.selectOne("setting.beesSetting",beesNo);
 		return setting;
 	}
+	
+	
+	
+	
+	
+	
+	//정평주(관리자)--------------------------------------------------------------------------
+		//모임관리
+		public ArrayList<BeesAdmin> selectBeesAdminList(SqlSessionTemplate sqlSession, PagingVO pv) {
+			
+			List list = sqlSession.selectList("beesAdmin.selectBeesAdminList", pv);
+			
+			return (ArrayList<BeesAdmin>)list;
+			
+		}
+		
+		
+		//페이징처리(bees전체 개수)
+		public int countBeesAdmin(SqlSessionTemplate sqlSession) {
+			
+			PagingVO pv = sqlSession.selectOne("beesAdmin.countBeesAdmin");
+			
+			int totalPage = pv.getTotalPage();
+			System.out.println(totalPage);
+			
+			return totalPage;
+		}
+		
+		
+		//모임관리(bees 삭제)
+		public int beesDelete(SqlSessionTemplate sqlSession, int beesNo) {
+			
+			int result = sqlSession.update("beesAdmin.beesDelete",beesNo);
+			return result;
+			
+		}
+
+		//모임관리(bees 삭제)
+		public int beesRollback(SqlSessionTemplate sqlSession, int beesNo) {
+
+			int result = sqlSession.update("beesAdmin.beesRollback",beesNo);
+			return result;
+			
+		}
+
+		
+		//모임관리(bees 검색)
+		public ArrayList<BeesAdmin> adminBeesSearch(SqlSessionTemplate sqlSession, BeesAdminSearch bas) {
+			
+			List list = sqlSession.selectList("beesAdmin.adminBeesSearch",bas);
+			
+			return (ArrayList<BeesAdmin>)list;
+			
+		}
+	
+	
 
 }

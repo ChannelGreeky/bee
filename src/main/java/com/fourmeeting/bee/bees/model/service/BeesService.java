@@ -7,8 +7,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
+import com.fourmeeting.bee.PagingVO;
 import com.fourmeeting.bee.bees.model.dao.BeesDAO;
 import com.fourmeeting.bee.bees.model.vo.Bees;
+import com.fourmeeting.bee.bees.model.vo.BeesAdmin;
+import com.fourmeeting.bee.bees.model.vo.BeesAdminSearch;
 import com.fourmeeting.bee.bees.model.vo.Setting;
 import com.fourmeeting.bee.beesuser.model.vo.BeesUserList;
 
@@ -152,5 +155,57 @@ public class BeesService {
 		return setting;
 	}
 
+	
+	
+	
+	
+	
+		//정평주(관리자)--------------------------------------------------------------------------
+		//모임관리
+		public ArrayList<BeesAdmin> selectBeesAdminList(PagingVO pv) {
+			
+			ArrayList<BeesAdmin> list = bDAO.selectBeesAdminList(sqlSession, pv);
+			
+			return list;
+			
+		}
+		
+		//페이징처리(bees전체 개수)
+		public int countBeesAdmin() {
+
+			int totalPage = bDAO.countBeesAdmin(sqlSession);
+			
+			return totalPage;
+		}
+
+
+		//모임관리(bees 삭제)
+		public int beesDelete(int beesNo) {
+			
+			int result = bDAO.beesDelete(sqlSession, beesNo);
+			
+			return result;
+			
+		}
+
+		//모임관리(bees 삭제)
+		public int beesRollback(int beesNo) {
+			
+			int result = bDAO.beesRollback(sqlSession, beesNo);
+			
+			return result;
+		}
+
+		
+		//모임관리(bees 검색)
+		public ArrayList<BeesAdmin> adminBeesSearch(BeesAdminSearch bas) {
+			
+			ArrayList<BeesAdmin> list = bDAO.adminBeesSearch(sqlSession, bas);
+			
+			return list;
+		}
+
+	
+	
 
 }
