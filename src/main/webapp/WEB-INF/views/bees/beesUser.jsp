@@ -1,4 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page import="com.fourmeeting.bee.beesuser.model.vo.BeesUserList" %>
+<%@ page import="com.fourmeeting.bee.beesuser.model.vo.BeesUser" %>
+<%@ page import="java.util.ArrayList" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -28,8 +31,46 @@ return false;
 
 });
 </script>
+<%
+	//memberPage 들어왔을 때 보이는 멤버 목록 List 
+	ArrayList<BeesUserList> list = (ArrayList<BeesUserList>)request.getAttribute("list"); 
+	ArrayList<BeesUserList> WaitersList = (ArrayList<BeesUserList>)request.getAttribute("WaitersList"); 	
+	
+	String keyword = (String)request.getAttribute("keyword");
+	if(keyword==null)keyword="";
+	
+	String option = (String)request.getAttribute("option");
+	if(option==null)option="user_name";
+	
+  	System.out.println("==================================");
+  	System.out.println(option);
+  	
+
+	BeesUser BU = (BeesUser)session.getAttribute("BeesUser");
+
+	//member검색했을 때 보이는 멤버 목록 List 
+	//ArrayList<BeesUserList> SearchList = (ArrayList<BeesUserList>)request.getAttribute("SearchList");
+
+%>
+
+
 
 <link rel="stylesheet" type="text/css" href="resources/css/beesMember.css">
+<style>
+#notFound{
+color : #50401B;
+font-size : 0.9rem;
+width : 100%;
+margin-top : 40%;
+margin-bottom : 40%;
+margin-left : 85%;
+}
+
+#memberList-outline{
+ margin-top : 15%;
+}
+</style>
+
 	<div>
 		<%@include file="/include/headerBee.jsp" %>
 	</div>		
@@ -87,28 +128,156 @@ return false;
 			<div class="col-7 p-0">
 				<div id="bees-contents" class="container m-0 p-2">
 				<div class="row"  id="feed">
-						<div class="col-md-12" id="feed-top">멤버 <b>6</b></div>
-						<from action="#" method="post" id="search-outLine">
-						<div class="col-md-12"  >
-						<input type="text" id="search" placeholder="&nbsp;&nbsp;&nbsp;멤버검색"/><button type="submit" id="searchBtn"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-zoom-in" viewBox="0 0 16 16">
+						<div class="col-md-12" id="feed-top">멤버 <b><%= list.size() %></b></div>
+						<form action="/beesUserSearch.do" method="post" id="search-outLine">
+						<div class="col-md-12">
+						<input type="text" id="search" placeholder="&nbsp;&nbsp;&nbsp;멤버검색" name="keyword" value='<%=keyword%>'/><button type="submit" id="searchBtn"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-zoom-in" viewBox="0 0 16 16">
   <path fill-rule="evenodd" d="M6.5 12a5.5 5.5 0 1 0 0-11 5.5 5.5 0 0 0 0 11zM13 6.5a6.5 6.5 0 1 1-13 0 6.5 6.5 0 0 1 13 0z"/>
   <path d="M10.344 11.742c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1 6.538 6.538 0 0 1-1.398 1.4z"/>
   <path fill-rule="evenodd" d="M6.5 3a.5.5 0 0 1 .5.5V6h2.5a.5.5 0 0 1 0 1H7v2.5a.5.5 0 0 1-1 0V7H3.5a.5.5 0 0 1 0-1H6V3.5a.5.5 0 0 1 .5-.5z"/>
 </svg></button>
+					</form>	
 						
-						<div id="applicant"><a href="/beesApplicant.do">가입 신청자 <span>3</span> ></a> </div>
+				
+			<%System.out.println("비즈 :"+ BU.getUserClass()); %>
+			
+			<%if(BU.getUserClass().equals("manager") || BU.getUserClass().equals("host") ){ %>
+						<div id="applicant"><a href="/beesApplicant.do">가입 신청자 <span><%= WaitersList.size() %></span> ></a> </div>
+			<%} %>		
+			
+					<%--
+						<script>
+							$(function(){
+								var test = $('#applicant').children().children('span').text(su);
+								var su = <%= WaitersList.size() %>;
+							alert(su);
+							})
+						</script>
+						 --%>
 						<div class="col-md-12" id="line3"></div>
-						<div class="col-md-12" id="search-select"><select>
-							<option>이름순</option>
-							<option>가입일순</option></select></div>
-					
-						</div>
-							</from>
+						<div class="col-md-12" id="search-select">
+	
+						<select id="memberListSort" name="Opt">
 						
-						<div class="row" id="memberList-outline">
-							<div class="col-md-12 p-0, memberList" ><img src="/resources/image/p6.png" class="memberListImg"/>본인 <span>user1</span></div>  
+							<%if(option.equals("user_name")){ %>
 							
+							 <option value="user_name" name="user_name" selected>이름순</option>
+							<option value="user_auth_date" name="user_auth_date">가입일순</option>
+							<%}else{ %>
+							<option value="user_name" name="user_name" >이름순</option>
+							<option value="user_auth_date" name="user_auth_date" selected>가입일순</option>
+							<%} %>
+						</select></div>
+						 
+	
 						</div>
+							<script>
+							
+							
+							$(function(){
+									$('#memberListSort').change(function(){
+
+										var option = $('#memberListSort').val();
+										var keyword = $('#search').val();
+
+										location.replace("/beesUserSearch.do?keyword="+keyword+"&option="+option);
+										
+										
+									});
+									
+									});
+							</script>
+							
+							
+								<!--  
+									
+										*/
+										$(function(){
+								
+								
+								$('#memberListSort').change(function(){
+									//var option = $('#memberListSort option').val();
+									var option = $(this).val();
+									console.log(option);
+								
+									
+									$.ajax({
+										url : "beesMember.do",
+										type: "post",
+										data : {"option":option},
+										success : function(){
+											
+										},
+										error : function(){
+											alert("ajax통신실패")
+										}
+									});
+									
+									
+									
+									
+									
+							})
+							})
+							/* 		
+										//var option = $(this).children().val();
+										var option = $('#memberListSort').val();
+										var keyword = $('#search').val();
+										
+										console.log(option);
+										console.log(keyword);
+										
+										$.ajax({
+											url : "/beesUserSearch.do",
+											type: "post",
+											data : {"keyword":keyword,"option" : option},
+											success : function(){
+												
+											},
+											error : function(){
+												alert("ajax통신실패")
+											}
+										});
+										*/
+									 -->
+							
+						
+						
+							
+						<div class="row" id="memberList-outline">
+						
+						
+						<%if(!list.isEmpty()){ %>
+						
+						<!-- memberPage 열렸을 때 보이는 memberList -->
+						<%for(BeesUserList BUList : list){ %>
+							<div class="col-md-12 p-0, memberList" ><img src="/resources/image/p6.png" class="memberListImg"/><%= BUList.getUserName() %> <span> <%= BUList.getMemberId() %></span></div>  
+						<%} %>
+						<%}else{ %>
+						  <div class="col-md-12 p-0" id="notFound">입력하신 멤버에 대한 정보가 없습니다.</div>
+						<%} %>
+					   
+						
+						<!-- memberPage에서 검색했을 시 열리는 memberList -->
+						
+						<%-- 
+						<% if(SearchList != null && !SearchList.isEmpty()){ %>
+						
+							<%for(BeesUserList BUList : SearchList){ %>
+								<div class="col-md-12 p-0, memberList" ><img src="/resources/image/p6.png" class="memberListImg"/><%= BUList.getUserName() %> <span> <%= BUList.getMemberId() %></span></div>  
+							<%} %>
+							
+							 
+						<%}else{%>
+							 <div>입력하신 멤버에 대한 정보가 없습니다.</div>
+							<%=SearchList %>
+							<%=list%>
+						<%} %>
+					   
+					--%>
+						
+						</div>
+						
 						
 						<div class="col-md-12" id="line3"></div>
 						<div class="col-md-12" id="memberInviteBtn"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-person-plus" viewBox="0 0 16 16">
@@ -119,8 +288,10 @@ return false;
     
 				
 				</div>
+				
 			</div>	
-		</div>		
+		</div>	
+		
 	</div>	
 
 	<div id="footer">
@@ -128,3 +299,5 @@ return false;
 	</div>
 </body>
 </html>
+
+
