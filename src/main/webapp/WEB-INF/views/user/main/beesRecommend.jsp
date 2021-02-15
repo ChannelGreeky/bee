@@ -175,7 +175,7 @@
 										<span class="recommendCategory"><%=b.getBeesCategory() %></span>
 										<br>
 										<span class="beesInfo">비즈장 : <%=b.getBeesHost() %></span><br>
-										<span class="beesInfo">인원수 : <%=formatter.format(b.getBeesUserCount()+1) %>명</span>
+										<span class="beesInfo">인원수 : <%=formatter.format(b.getBeesUserCount()) %>명</span>
 									</div>
 							<% 	}
 							} else {
@@ -195,7 +195,7 @@
 										<span class="recommendCategory"><%=b.getBeesCategory() %></span>
 										<br>
 										<span class="beesInfo">비즈장 : <%=b.getBeesHost() %></span><br>
-										<span class="beesInfo">인원수 : <%=formatter.format(b.getBeesUserCount()+1) %>명</span>
+										<span class="beesInfo">인원수 : <%=formatter.format(b.getBeesUserCount()) %>명</span>
 									</div>
 						<% 		}
 							}

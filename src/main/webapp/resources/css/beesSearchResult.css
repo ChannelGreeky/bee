@@ -118,3 +118,27 @@ hr {
 	border-radius: 8px;
 	padding: 2px;
 }
+
+.btn {
+	font-size:0.7em;
+	font-weight: bold;
+	text-decoration: none;
+	color: white;
+	padding: 5px 10px;
+	display: inline-block;
+	border: 1px solid #50401B;
+	border-radius: 25px;
+	background-color: #50401B;
+}
+
+.btn:hover {
+	font-size:0.7em;
+	font-weight: bold;
+	text-decoration: none;
+	color: #50401B;
+	padding: 5px 10px;
+	display: inline-block;
+	border: 1px solid #50401B;
+	border-radius: 25px;
+	background-color: white;
+}

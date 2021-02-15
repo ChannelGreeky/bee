@@ -78,7 +78,9 @@
 
 					<div class="row mt-4 m-0">
 						<div class="col-12">
-							<span id="main-content-title">비즈 검색 결과</span>
+							<span id="main-content-title">'<%=searchData %>' 검색 결과(비즈)</span>
+							<a class="btn ml-3" href="#">비즈 검색</a>
+							<a class="btn" href="#">게시글 검색</a>
 						</div>
 					</div>
 					
@@ -101,7 +103,7 @@
 										<span class="recommendCategory"><%=b.getBeesCategory() %></span>
 										<br>
 										<span class="beesInfo">비즈장 : <%=b.getBeesHost() %></span><br>
-										<span class="beesInfo">인원수 : <%=formatter.format(b.getBeesUserCount()+1) %>명</span>
+										<span class="beesInfo">인원수 : <%=formatter.format(b.getBeesUserCount()) %>명</span>
 									</div>
 							<% 	}
 							} else {
@@ -121,7 +123,7 @@
 										<span class="recommendCategory"><%=b.getBeesCategory() %></span>
 										<br>
 										<span class="beesInfo">비즈장 : <%=b.getBeesHost() %></span><br>
-										<span class="beesInfo">인원수 : <%=formatter.format(b.getBeesUserCount()+1) %>명</span>
+										<span class="beesInfo">인원수 : <%=formatter.format(b.getBeesUserCount()) %>명</span>
 									</div>
 						<% 		}
 							}

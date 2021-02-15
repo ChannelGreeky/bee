@@ -230,7 +230,7 @@
 		<foreach item="interest" collection="interest" open="(" separator="," close=")">
 				#{interest}
 		</foreach>
-	AND B.BEES_NO != (SELECT BEES_NO FROM BEES_USER WHERE MEMBER_NO = #{sessionMemberNo})
+	AND B.BEES_NO NOT IN (SELECT BEES_NO FROM BEES_USER WHERE MEMBER_NO = #{sessionMemberNo})
 	AND B.BEES_PUBLIC_YN = 'N'
 	</select>
 	
@@ -280,7 +280,7 @@
     GROUP BY BEES_NO ORDER BY COUNT(*) DESC) BU
 	ON B.BEES_NO = BU.BEES_NO
 	WHERE B.BEES_CATEGORY = #{category}
-	AND B.BEES_NO != (SELECT BEES_NO FROM BEES_USER WHERE MEMBER_NO = #{sessionMemberNo})
+	AND B.BEES_NO NOT IN (SELECT BEES_NO FROM BEES_USER WHERE MEMBER_NO = #{sessionMemberNo})
 	AND B.BEES_PUBLIC_YN = 'N'
 	</select>
 	
