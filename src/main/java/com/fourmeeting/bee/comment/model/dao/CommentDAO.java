@@ -9,6 +9,7 @@ import org.springframework.stereotype.Repository;
 import com.fourmeeting.bee.bees.model.vo.Bees;
 import com.fourmeeting.bee.comment.model.vo.BeesComment;
 import com.fourmeeting.bee.comment.model.vo.FeedComment;
+import com.fourmeeting.bee.comment.model.vo.MyComment;
 
 @Repository("CommentDAO")
 public class CommentDAO {
@@ -57,4 +58,27 @@ public class CommentDAO {
 		return (ArrayList<FeedComment>)list;
 	}
 
+	
+	
+	
+		//사용자 마이페이지
+		//내가쓴 댓글 리스트
+		public ArrayList<MyComment> mycomment(SqlSessionTemplate sqlSession, int memberNo) {
+			
+			List list = sqlSession.selectList("comment.mycomment", memberNo);
+			
+			return (ArrayList<MyComment>)list;
+		}
+		
+		
+		//내가 쓴 댓글 비즈 모아보기
+		public ArrayList<MyComment> myPageBeesComment(SqlSessionTemplate sqlSession, MyComment mc) {
+			
+			List list = sqlSession.selectList("comment.myPageBeesComment", mc);
+			
+			return (ArrayList<MyComment>)list;
+			
+		}
+	
+	
 }

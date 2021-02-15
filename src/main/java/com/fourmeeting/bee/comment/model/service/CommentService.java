@@ -12,6 +12,7 @@ import com.fourmeeting.bee.bees.model.vo.Bees;
 import com.fourmeeting.bee.comment.model.dao.CommentDAO;
 import com.fourmeeting.bee.comment.model.vo.BeesComment;
 import com.fourmeeting.bee.comment.model.vo.FeedComment;
+import com.fourmeeting.bee.comment.model.vo.MyComment;
 
 @Service("CommentService")
 public class CommentService {
@@ -65,5 +66,26 @@ public class CommentService {
 		ArrayList<FeedComment> commentList = commentDAO.commentSelectAllMyBees(sqlSession, beesNo);
 		return commentList;
 	}
+	
+		
+	
+	
+		//사용자 마이페이지
+		//내가쓴 댓글 리스트
+		public ArrayList<MyComment> mycomment(int memberNo) {
+			
+			ArrayList<MyComment> list = commentDAO.mycomment(sqlSession,memberNo);
+			
+			return list;
+			
+		}
+
+		//내가 쓴 댓글 비즈 모아보기
+		public ArrayList<MyComment> myPageBeesComment(MyComment mc) {
+			
+			ArrayList<MyComment> list = commentDAO.myPageBeesComment(sqlSession,mc);
+			return list;
+		}
+	
 	
 }
