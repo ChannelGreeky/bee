@@ -13,6 +13,7 @@ import java.util.List;
 import javax.annotation.Resource;
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -37,8 +38,10 @@ import com.fourmeeting.bee.file.model.service.FileService;
 import com.fourmeeting.bee.file.model.vo.BeesFile;
 import com.fourmeeting.bee.image.model.service.ImageService;
 import com.fourmeeting.bee.image.model.vo.Image;
+import com.fourmeeting.bee.member.model.vo.Member;
 import com.fourmeeting.bee.schedule.model.service.ScheduleService;
 import com.fourmeeting.bee.schedule.model.vo.Schedule;
+import com.fourmeeting.bee.userpage.model.service.UserPageService;
 import com.fourmeeting.bee.vote.model.service.VoteService;
 import com.fourmeeting.bee.vote.model.vo.FeedVote;
 import com.oreilly.servlet.MultipartRequest;
@@ -48,6 +51,10 @@ import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
 public class BeesController {
 	@Autowired
 	ServletContext context;
+	
+	@Autowired
+	@Qualifier(value = "userPageService")
+	private UserPageService uService;
 	
 	@Autowired
 	@Qualifier(value = "beesService")
@@ -616,7 +623,11 @@ public class BeesController {
 	}
 	
 	@RequestMapping(value="/myBeesPage.do")
-	private String selectMainPage(@RequestParam int memberNo, HttpServletRequest request) throws Exception {
+	private String selectMainPage(@RequestParam int memberNo, HttpServletRequest request, HttpSession session) throws Exception {
+
+		Member m = (Member)session.getAttribute("member");
+		ArrayList<Bees> beesList = uService.selectMyBees(m);
+		request.setAttribute("beesList", beesList);
 		
 		
 		List<Integer> beesNo = userService.selectAllBeesNo(memberNo);
@@ -744,7 +755,11 @@ public class BeesController {
 	}
 	
 	@RequestMapping(value="/bestFeedPage.do")
-	private String bestFeedPage(@RequestParam int memberNo, HttpServletRequest request) throws Exception {
+	private String bestFeedPage(@RequestParam int memberNo, HttpServletRequest request, HttpSession session) throws Exception {
+
+		Member m = (Member)session.getAttribute("member");
+		ArrayList<Bees> beesList = uService.selectMyBees(m);
+		request.setAttribute("beesList", beesList);
 		
 		
 		List<Integer> beesNo = userService.selectAllBeesNo(memberNo);
@@ -782,7 +797,11 @@ public class BeesController {
 	}
 	
 	@RequestMapping(value="/feedSearchResult.do")
-	private String bestFeedPage(@RequestParam int memberNo, @RequestParam String keyword, HttpServletRequest request) throws Exception {
+	private String feedSearchResult(@RequestParam int memberNo, @RequestParam String keyword, HttpServletRequest request, HttpSession session) throws Exception {
+
+		Member m = (Member)session.getAttribute("member");
+		ArrayList<Bees> beesList = uService.selectMyBees(m);
+		request.setAttribute("beesList", beesList);
 		
 		List<Integer> beesNo = userService.selectAllBeesNo(memberNo);
 		

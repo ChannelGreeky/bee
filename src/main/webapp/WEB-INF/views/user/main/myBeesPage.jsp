@@ -1,3 +1,4 @@
+<%@page import="com.fourmeeting.bee.bees.model.vo.Bees"%>
 <%@page import="java.util.StringTokenizer"%>
 <%@page import="com.fourmeeting.bee.schedule.model.vo.Schedule"%>
 <%@page import="com.fourmeeting.bee.file.model.vo.BeesFile"%>
@@ -30,7 +31,7 @@
 <%
 	Member member = (Member)session.getAttribute("member");
 	ArrayList<Feed> feedList = (ArrayList<Feed>)request.getAttribute("feedList");
-	
+	ArrayList<Bees> myBees = (ArrayList<Bees>) request.getAttribute("beesList");
 	
 	SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy년 MM월 dd일 a KK시 mm분", Locale.KOREA);
 	SimpleDateFormat scheFormat = new SimpleDateFormat("yyyy년 MM월 dd일 (E)", Locale.KOREA);
@@ -112,53 +113,33 @@ if($(window).scrollTop()==($(document).height()-$(window).height())){
 						</div>
 					</div>
 					<!-- 반복 -->
+					<%
+						if(!myBees.isEmpty()) {
+							for(Bees b : myBees) {
+					%>
 					<div class="row m-0">
 						<div class="d-none d-md-block col-md-3 p-1">
-							<a href="#">
-								<div class="m-auto beesImage" style="width: 30px; height: 30px; background: url('/resources/image/test.jpg') no-repeat; background-size: cover;"></div>
+							<a href="/beesSelectOne.do?beesNo=<%=b.getBeesNo() %>&memberNo=<%=member.getMemberNo()%>">
+								<div class="m-auto beesImage" style="width:30px; height:30px;
+								background: url('<%=b.getBeesCover() %>') no-repeat;
+								background-size: cover;">
+								</div>
 							</a>
 						</div>
 						<div class="col-12 col-md-9 py-2 px-0">
-							<a href="#" class="myBees">여행에 미치다</a>
+							<a href="/beesSelectOne.do?beesNo=<%=b.getBeesNo() %>&memberNo=<%=member.getMemberNo()%>" class="myBees"><%=b.getBeesName() %></a>
 						</div>
 					</div>
-					<!-- 반복 -->
-					<div class="row m-0">
-						<div class="d-none d-md-block col-md-3 p-1">
-							<a href="#">
-								<div class="m-auto beesImage" style="width: 30px; height: 30px; background: url('/resources/image/test.jpg') no-repeat; background-size: cover;"></div>
-							</a>
-						</div>
-						<div class="col-12 col-md-9 py-2 px-0">
-							<a href="#" class="myBees">여행에 미치다</a>
-						</div>
-					</div>
-					<div class="row m-0">
-						<div class="d-none d-md-block col-md-3 p-1">
-							<a href="#">
-								<div class="m-auto beesImage" style="width: 30px; height: 30px; background: url('/resources/image/test.jpg') no-repeat; background-size: cover;"></div>
-							</a>
-						</div>
-						<div id="myBees-nameBox" class="col-12 col-md-9 py-2 px-0">
-							<a href="#" class="myBees">여행에 미치다</a>
-						</div>
-					</div>
-					<div class="row m-0">
-						<div class="d-none d-md-block col-md-3 p-1">
-							<a href="#">
-								<div class="m-auto beesImage" style="width: 30px; height: 30px; background: url('/resources/image/test.jpg') no-repeat; background-size: cover;"></div>
-							</a>
-						</div>
-						<div class="col-12 col-md-9 py-2 px-0">
-							<a href="#" class="myBees">여행에 미치다</a>
-						</div>
-					</div>
+					<% 		}
+						} %>
+					
 					<div class="row m-0">
 						<div class="col-12 py-2">
 							<a class="makeBeesBtn btn w-100 py-2" href="#">+ 비즈 만들기</a>
 						</div>
 					</div>
 				</div>
+				
 			</div>
 			<div class="col-7 p-0 m-0">
 						<span id="main-content-title">내 비즈 소식</span>
@@ -638,13 +619,16 @@ if($(window).scrollTop()==($(document).height()-$(window).height())){
 					<%}// if(=null)
 						}// bees-feed }// bees-feed 
 						else{%>
-					<div style="margin-top:30px; width:100%; height:500px; line-height:500px;">
+					<div style="width:100%; height:700px;">
 					</div>
 					<%} %>
 				</div>
 			</div>
 			<div class="col-1"></div>
 		</div>
+	</div>
+	<div>
+	<%@include file="/common/footer.jsp"%>
 	</div>
 	<script>		
 	//투표 처리하는 ajax;
@@ -967,8 +951,5 @@ error:function(){
 	<!--상세일정 모달부분-->
 	<!--비즈가입 부분 -->
     <!---->
-<div id="footer">
-	<%@include file="/common/footer.jsp"%>
-	</div>
 </body>
 </html>

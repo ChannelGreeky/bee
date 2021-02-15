@@ -1,3 +1,4 @@
+<%@page import="com.fourmeeting.bee.bees.model.vo.Bees"%>
 <%@page import="com.fourmeeting.bee.member.model.vo.Member"%>
 <%@page import="com.fourmeeting.bee.board.model.vo.Feed"%>
 <%@page import="com.fourmeeting.bee.image.model.vo.Image"%>
@@ -22,6 +23,7 @@
 <%
 	Member member = (Member)session.getAttribute("member");
 	ArrayList<Feed> feedList = (ArrayList<Feed>)request.getAttribute("feedList");
+	ArrayList<Bees> myBees = (ArrayList<Bees>) request.getAttribute("beesList");
 	SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy년 MM월 dd일", Locale.KOREA);
 	HashMap<Integer,Integer> likeMap = (HashMap <Integer,Integer>)request.getAttribute("likeMap");
 	HashMap<Integer, ArrayList<Image>> imageMap = (HashMap<Integer, ArrayList<Image>>)request.getAttribute("imageMap");
@@ -46,58 +48,40 @@
 						</div>
 					</div>
 					<!-- 반복 -->
+					<%
+						if(!myBees.isEmpty()) {
+							for(Bees b : myBees) {
+					%>
 					<div class="row m-0">
 						<div class="d-none d-md-block col-md-3 p-1">
-							<a href="#">
-								<div class="m-auto beesImage" style="width: 30px; height: 30px; background: url('/resources/image/test.jpg') no-repeat; background-size: cover;"></div>
+							<a href="/beesSelectOne.do?beesNo=<%=b.getBeesNo() %>&memberNo=<%=member.getMemberNo()%>">
+								<div class="m-auto beesImage" style="width:30px; height:30px;
+								background: url('<%=b.getBeesCover() %>') no-repeat;
+								background-size: cover;">
+								</div>
 							</a>
 						</div>
 						<div class="col-12 col-md-9 py-2 px-0">
-							<a href="#" class="myBees">여행에 미치다</a>
+							<a href="/beesSelectOne.do?beesNo=<%=b.getBeesNo() %>&memberNo=<%=member.getMemberNo()%>" class="myBees"><%=b.getBeesName() %></a>
 						</div>
 					</div>
-					<!-- 반복 -->
-					<div class="row m-0">
-						<div class="d-none d-md-block col-md-3 p-1">
-							<a href="#">
-								<div class="m-auto beesImage" style="width: 30px; height: 30px; background: url('/resources/image/test.jpg') no-repeat; background-size: cover;"></div>
-							</a>
-						</div>
-						<div class="col-12 col-md-9 py-2 px-0">
-							<a href="#" class="myBees">여행에 미치다</a>
-						</div>
-					</div>
-					<div class="row m-0">
-						<div class="d-none d-md-block col-md-3 p-1">
-							<a href="#">
-								<div class="m-auto beesImage" style="width: 30px; height: 30px; background: url('/resources/image/test.jpg') no-repeat; background-size: cover;"></div>
-							</a>
-						</div>
-						<div id="myBees-nameBox" class="col-12 col-md-9 py-2 px-0">
-							<a href="#" class="myBees">여행에 미치다</a>
-						</div>
-					</div>
-					<div class="row m-0">
-						<div class="d-none d-md-block col-md-3 p-1">
-							<a href="#">
-								<div class="m-auto beesImage" style="width: 30px; height: 30px; background: url('/resources/image/test.jpg') no-repeat; background-size: cover;"></div>
-							</a>
-						</div>
-						<div class="col-12 col-md-9 py-2 px-0">
-							<a href="#" class="myBees">여행에 미치다</a>
-						</div>
-					</div>
+					<% 		}
+						} %>
+					
 					<div class="row m-0">
 						<div class="col-12 py-2">
 							<a class="makeBeesBtn btn w-100 py-2" href="#">+ 비즈 만들기</a>
 						</div>
 					</div>
 				</div>
+				
 			</div>
 			<div class="col-7 p-0">
 						<span id="main-content-title">인기글</span>
 					
-					<%for(int i=0; i<feedList.size(); i++){ 
+					<%
+					if(!(feedList.isEmpty())){
+					for(int i=0; i<feedList.size(); i++){ 
 							
 						Feed feed = feedList.get(i);
 							
@@ -154,6 +138,9 @@
 							}%>
 						</div>
 					</div>
+					<%}
+					}else{%>
+					<div style="width:100%; height:700px"></div>
 					<%} %>
 				<script>		
 				$('.feed-like-btn').click(
