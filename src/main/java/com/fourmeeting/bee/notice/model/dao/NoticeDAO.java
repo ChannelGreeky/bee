@@ -44,5 +44,18 @@ public class NoticeDAO {
 		int result = sqlSession.update("notice.modifyUpdate", n);
 		return result;
 	}
+	
+	
+	
+		//사용자 -------------------------------------------------------
+		//마이페이지 공지사항 리스트
+		public ArrayList<Notice> myNoticeList(SqlSessionTemplate sqlSession) {
+
+			List list = sqlSession.selectList("notice.myNoticeList");
+			
+			return (ArrayList<Notice>)list;
+			
+		}
+	
 
 }

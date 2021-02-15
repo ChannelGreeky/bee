@@ -168,4 +168,22 @@ public class NoticeController {
 		mav.setViewName("admin/adminNoticeBoard"); 	
 		return mav; 
 	}
+	
+	
+	
+	
+		//사용자 -------------------------------------------------------
+		//마이페이지 공지사항 리스트
+		@RequestMapping(value="/myPageNotice.do")
+		public String mynotice(Model model){
+			
+			ArrayList<Notice> list = nService.myNoticeList();
+			
+			model.addAttribute("list", list);
+			
+			return "user/myPage/notice";
+		}
+		
+	
+	
 }

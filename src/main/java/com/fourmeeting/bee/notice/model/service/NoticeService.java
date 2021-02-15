@@ -51,4 +51,17 @@ public class NoticeService {
 		return result;
 	}
 	
+	
+	
+		//사용자 -------------------------------------------------------
+		//마이페이지 공지사항 리스트
+		public ArrayList<Notice> myNoticeList() {
+			
+			ArrayList<Notice> list = nDAO.myNoticeList(sqlSession);
+			
+			return list;
+			
+		}
+	
+	
 }
