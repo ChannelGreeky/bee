@@ -73,4 +73,92 @@ public class MemberService {
 		
 		return result;
 	}
+	
+	
+	
+	
+	
+	//마이페이지-------------------------------------------------------
+	//프로필 수정
+	public int updateMemberProfile(Member m) {
+		
+		int result = mDAO.updateMemberProfile(sqlSession, m);
+		
+		return result;
+	}
+	
+	
+	//내 정보 수정(생일)
+	public int memberBirthModify(Member m) {
+		
+		int result = mDAO.memberBirthModify(sqlSession, m);
+		
+		return result;
+	}
+	
+	//내 정보 수정(성별)
+	public int memberGenderModify(Member m) {
+		
+		int result = mDAO.memberGenderModify(sqlSession, m);
+		
+		System.out.println("서비스////"+result);
+		
+		return result;
+	}
+	
+	//핸드폰번호 중복 확인
+	public Member myPhoneCheck(String memberPhone) {
+		
+		Member m = mDAO.myPhoneCheck(sqlSession, memberPhone);
+		
+		return m;
+	}
+	
+	//핸드폰번호 변경
+	public int memberPhoneModify(Member m) {
+
+		int result = mDAO.memberPhoneModify(sqlSession, m);
+		
+		return result;
+	}
+	
+	//내 정보 수정(이메일)
+	public int memberEmailModify(Member m) {
+		
+		int result = mDAO.memberEmailModify(sqlSession, m);
+		
+		System.out.println("서비스////"+result);
+		
+		return result;
+	}
+	
+	
+	//회원탈퇴(비밀번호 확인)
+	public Member memberPwCheck(Member m) {
+		
+		Member member = mDAO.memberPwCheck(sqlSession, m);
+		
+		return member;
+	}
+	
+	
+	//회원정보수정(비밀번호수정)
+	public int memberPwModify(Member m) {
+
+		int result = mDAO.memberPwModify(sqlSession,m);
+		
+		return result;
+	}
+	
+	//회원탈퇴
+	public int memberDelYN(int memberNo) {
+
+		int result = mDAO.memberDelYN(sqlSession, memberNo);
+		
+		return result;
+	}
+	
+	
+	
+	
 }

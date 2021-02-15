@@ -1,11 +1,13 @@
 package com.fourmeeting.bee.member.controller;
 
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
 
+import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -29,9 +31,12 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.SessionAttribute;
 
 import com.fourmeeting.bee.member.model.service.MemberService;
 import com.fourmeeting.bee.member.model.vo.Member;
+import com.oreilly.servlet.MultipartRequest;
+import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
 
 @Controller
 public class MemberController {
@@ -313,4 +318,299 @@ public class MemberController {
 
 		return "user/beforeLogin/memberResult";
 	}
+	
+	
+	
+	
+	
+	//마이페이지------------------------------------------------------
+	//내 정보
+	@RequestMapping(value="/myPageInfo.do")
+	public String myinfo(){
+		return "user/myPage/info";
+	}
+	
+	@Autowired
+	ServletContext sContext;
+	
+	//프로필 수정
+	@RequestMapping(value="/updateMemberProfile.do")
+	public String updateMemberProfile(HttpServletRequest request,
+								    HttpSession session) throws IOException{
+		
+		
+		//파일 업로드 되는 경로
+		String uploadPath = "/resources/image/profile/";
+		
+		//파일크기
+		int uploadeFileSizeLimit = 10*1024*1024; //최대 10MB
+		
+		String encType = "UTF-8";
+		
+		//실제 경로를 가져와야함
+		String realUploadPath = sContext.getRealPath(uploadPath);
+		
+		//MulitpartRequest객체 생성
+		MultipartRequest multi = new MultipartRequest(request,
+													  realUploadPath,
+													  uploadeFileSizeLimit,
+													  encType,
+													  new DefaultFileRenamePolicy());
+		
+		//실제 업로드된 파일 이름
+		String originalFileName = multi.getFilesystemName("file");
+		//File연결
+		File file = new File(realUploadPath+"\\"+originalFileName);
+		
+		
+		//이름 받아오기
+		String newMemberName = multi.getParameter("newMemberName");
+		
+		//세션에 있는 memberNo받아오기
+		Member member = (Member)session.getAttribute("member");
+		
+		//프로필이름 DB에 담기
+		Member m = new Member();
+		m.setProfileImg(originalFileName);
+		m.setMemberName(newMemberName);
+		m.setMemberNo(member.getMemberNo());
+		m.setMemberId(member.getMemberId());
+		m.setMemberPw(member.getMemberPw());
+		
+		
+		//비지니스 로직
+		int result = mService.updateMemberProfile(m);
+		if(result>0){
+			member = mService.selectLoginMember(m);
+			session.setAttribute("member", member);
+		}
+		
+		return "user/myPage/info";
+		
+	}
+	
+	
+	//내 정보 수정(생일)
+	@RequestMapping(value="/memberBirthModify.do")
+	public void memberBirthModify(@SessionAttribute("member")Member sessionMember,
+								  @RequestParam int memberBirth,
+								  HttpServletRequest request,
+								  HttpServletResponse response) throws IOException {
+		
+		
+		Member m = new Member();
+		m.setMemberNo(sessionMember.getMemberNo());
+		m.setMemberBirth(memberBirth);
+		m.setMemberId(sessionMember.getMemberId());
+		m.setMemberPw(sessionMember.getMemberPw());
+		
+		int result = mService.memberBirthModify(m);
+		
+		
+		Member member = mService.selectLoginMember(m);
+
+		if (member != null) {
+			HttpSession session = request.getSession();
+			session.setAttribute("member", member);
+		} 
+		
+		if (result>0) {
+			response.getWriter().print(0);
+		} else {
+			response.getWriter().print(1);
+		}
+	}
+	
+	//내 정보 수정(성별)
+	@RequestMapping(value="/memberGenderModify.do")
+	public void memberGenderModify(@SessionAttribute("member")Member sessionMember,
+								  @RequestParam char memberGender,
+								  HttpServletRequest request,
+								  HttpServletResponse response) throws IOException {
+		
+		
+		Member m = new Member();
+		m.setMemberNo(sessionMember.getMemberNo());
+		m.setMemberGender(memberGender);
+		m.setMemberId(sessionMember.getMemberId());
+		m.setMemberPw(sessionMember.getMemberPw());
+		
+		int result = mService.memberGenderModify(m);
+		
+		
+		Member member = mService.selectLoginMember(m);
+
+		if (member != null) {
+			HttpSession session = request.getSession();
+			session.setAttribute("member", member);
+		} 
+		
+		if (result>0) {
+			response.getWriter().print(0);
+		} else {
+			response.getWriter().print(1);
+		}
+	}
+	
+	
+	//핸드폰번호 중복 확인
+	@RequestMapping(value="/myPhoneCheck.do")
+	public void myPhoneCheck(@RequestParam String memberPhone,
+						     HttpServletResponse response) throws IOException {
+		
+		Member m = mService.myPhoneCheck(memberPhone);
+		if(m==null){
+			response.getWriter().print(0);
+		} else {
+			response.getWriter().print(1);
+		}
+		
+	}
+	
+	//핸드폰번호 변경
+	@RequestMapping(value="/memberPhoneModify.do")
+	public void memberPhoneModify(@RequestParam String memberPhone,
+							      @SessionAttribute("member")Member sessionMember,
+							      HttpServletRequest request,
+						          HttpServletResponse response) throws IOException {
+
+		
+		Member m = new Member();
+		m.setMemberNo(sessionMember.getMemberNo());
+		m.setMemberPhone(memberPhone);
+		m.setMemberId(sessionMember.getMemberId());
+		m.setMemberPw(sessionMember.getMemberPw());
+		
+		int result = mService.memberPhoneModify(m);
+		
+		Member member = mService.selectLoginMember(m);
+		
+		if(result>0){
+			HttpSession session = request.getSession();
+			session.setAttribute("member", member);
+			response.getWriter().print(2);
+		} else {
+			response.getWriter().print(3);
+		}
+		
+	}
+	
+	//내 정보 수정(이메일)
+	@RequestMapping(value="/memberEmailModify.do")
+	public void memberEmailModify(@SessionAttribute("member")Member sessionMember,
+								  @RequestParam String memberEmail,
+								  HttpServletRequest request,
+								  HttpServletResponse response) throws IOException {
+		
+		
+		Member m = new Member();
+		m.setMemberNo(sessionMember.getMemberNo());
+		m.setMemberEmail(memberEmail);
+		m.setMemberId(sessionMember.getMemberId());
+		m.setMemberPw(sessionMember.getMemberPw());
+		
+		int result = mService.memberEmailModify(m);
+		
+		
+		Member member = mService.selectLoginMember(m);
+
+		if (member != null) {
+			HttpSession session = request.getSession();
+			session.setAttribute("member", member);
+		} 
+		
+		if (result>0) {
+			response.getWriter().print(0);
+		} else {
+			response.getWriter().print(1);
+		}
+	}
+	
+	//회원정보수정(비밀번호)
+	@RequestMapping(value="/memberPwModify.do")
+	public void memberPwModify(@SessionAttribute("member")Member sessionMember,
+							   @RequestParam String memberPw,
+							  HttpServletResponse response) throws IOException {
+		
+		Member m = new Member();
+		m.setMemberNo(sessionMember.getMemberNo());
+		m.setMemberPw(memberPw);
+		
+		
+		int result = mService.memberPwModify(m);
+		
+		if (result>0) {
+			response.getWriter().print(0);
+		} else {
+			response.getWriter().print(1);
+		}
+	}
+	
+	
+	//회원탈퇴(비밀번호 확인)
+	@RequestMapping(value="/memberPwCheck.do")
+	public void memberPwCheck(@SessionAttribute("member")Member sessionMember,
+							  @RequestParam String memberPw,
+							  HttpServletRequest request,
+							  HttpServletResponse response) throws IOException {
+			
+		Member m = new Member();
+		m.setMemberNo(sessionMember.getMemberNo());
+		m.setMemberPw(memberPw);
+			
+		Member member = mService.memberPwCheck(m);
+		if(member!=null){
+			response.getWriter().print(0);
+		}else{
+			response.getWriter().print(1);
+		}
+			
+	}
+	
+	//회원탈퇴
+	@RequestMapping(value="/memberDelYN.do")
+	public String memberDelYN(@SessionAttribute("member")Member sessionMember,
+							HttpSession session){
+		
+		int memberNo = sessionMember.getMemberNo();
+		
+		int result = mService.memberDelYN(memberNo);
+		if(result>0){
+			session.invalidate();
+			return "redirect:/index.jsp";
+		}else{
+			return "user/myPage/info";
+		}
+			
+	}
+	
+	
+	
+	@RequestMapping(value="/myPageBoard.do")
+	public String myboard(){
+		return "user/myPage/board";
+	}
+	
+	@RequestMapping(value="/myPageHeart.do")
+	public String myheart(){
+		return "user/myPage/heart";
+	}
+	
+	@RequestMapping(value="/myPageBeesInvitation.do")
+	public String mybeesInvitation(){
+		return "my/beesInvitation";
+	}
+	
+	//관리자페이지------------------------------------------------------
+	@RequestMapping(value="/memberManagement.do")
+	public String memberManagement(){
+		return "admin/memberManagement";
+	}
+	@RequestMapping(value="/adminNotice.do")
+	public String adminNotice(){
+		return "admin/adminNotice";
+	}
+	
+	
+	
 }

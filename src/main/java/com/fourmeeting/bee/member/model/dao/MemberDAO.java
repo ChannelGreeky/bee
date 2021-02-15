@@ -62,4 +62,95 @@ public class MemberDAO {
 
 		return result;
 	}
+	
+	
+	
+	
+		//마이페이지-------------------------------------------------------
+		//프로필 수정
+		public int updateMemberProfile(SqlSessionTemplate sqlSession, Member m) {
+
+			int result = sqlSession.update("member.updateMemberProfile", m);
+			
+			return result;
+		}
+		
+		
+		//내 정보 수정(생일)
+		public int memberBirthModify(SqlSessionTemplate sqlSession, Member m) {
+			
+			int result = sqlSession.update("member.memberBirthModify", m);
+			
+			return result;
+		}
+		
+		//내 정보 수정(성별)
+		public int memberGenderModify(SqlSessionTemplate sqlSession, Member m) {
+			
+			int result = sqlSession.update("member.memberGenderModify", m);
+			
+			System.out.println("결과값////"+result);
+			
+			return result;
+		}
+		
+		
+		//핸드폰번호 중복 확인
+		public Member myPhoneCheck(SqlSessionTemplate sqlSession, String memberPhone) {
+			
+			Member m = sqlSession.selectOne("member.myPhoneCheck", memberPhone);
+			
+			return m;
+		}
+		
+		//핸드폰번호 변경
+		public int memberPhoneModify(SqlSessionTemplate sqlSession, Member m) {
+
+			int result = sqlSession.update("member.memberPhoneModify", m);
+			
+			return result;
+		}
+		
+		
+		//내 정보 수정(이메일)
+		public int memberEmailModify(SqlSessionTemplate sqlSession, Member m) {
+			
+			int result = sqlSession.update("member.memberEmailModify", m);
+			
+			System.out.println("결과값////"+result);
+			
+			return result;
+		}
+		
+		//회원탈퇴(비밀번호 확인)
+		public Member memberPwCheck(SqlSessionTemplate sqlSession, Member m) {
+			
+			Member member = sqlSession.selectOne("member.memberPwCheck", m);
+			
+			return member;
+		}
+		
+		
+		
+		//회원정보수정(비밀번호수정)
+		public int memberPwModify(SqlSessionTemplate sqlSession, Member m) {
+
+			int result = sqlSession.update("member.memberPwModify", m);		
+			
+			return result;
+		}
+		
+		//회원탈퇴
+		public int memberDelYN(SqlSessionTemplate sqlSession, int memberNo) {
+
+			int result = sqlSession.update("member.memberDelYN", memberNo);
+			
+			return result;
+		}
+		
+		
+
+	
+	
+	
 }
