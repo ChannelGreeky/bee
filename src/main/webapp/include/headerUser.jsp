@@ -58,25 +58,22 @@
             		
             		<ul class="menu-sub">
 	                        <li>
-	                        	<a href="/index.jsp">내 정보</a>
+	                        	<a href="/myPageInfo.do">내 정보</a>
 	                        </li>
 			   				<li>
-	                            <a href="/index.jsp">내가 쓴 글</a>
+	                            <a href="/myPageBoard.do">내가 쓴 글</a>
 	                        </li>
 			  				<li>
-	                            <a href="#">좋아요 목록</a>
+	                            <a href="/myPageHeart.do">좋아요 누른 목록</a>
 	                        </li>
 	 		  				<li>
-	                            <a href="#">내 정보</a>
-	                        </li>
-	                        <li>
-	                            <a href="#">비즈가입ㆍ초대 확인</a>
+	                            <a href="/myPageBeesJoinQnas.do">비즈 가입 확인</a>
 	                        </li>
 							<li>
-	                            <a href="#">문의사항</a>
+	                            <a href="/myPageQnaHistory.do">문의사항</a>
 	                        </li>
 							<li>
-	                            <a href="#">공지사항</a>
+	                            <a href="/myPageNotice.do">공지사항</a>
 	                        </li>
 	                        <li>
 	                        	<a href="/memberLogout.do">로그아웃</a>

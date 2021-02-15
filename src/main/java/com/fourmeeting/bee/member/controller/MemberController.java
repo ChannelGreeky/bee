@@ -586,7 +586,7 @@ public class MemberController {
 	
 	
 	
-	@RequestMapping(value="/myPageBoard.do")
+/*	@RequestMapping(value="/myPageBoard.do")
 	public String myboard(){
 		return "user/myPage/board";
 	}
@@ -599,17 +599,10 @@ public class MemberController {
 	@RequestMapping(value="/myPageBeesInvitation.do")
 	public String mybeesInvitation(){
 		return "my/beesInvitation";
-	}
+	}*/
 	
 	//관리자페이지------------------------------------------------------
-	@RequestMapping(value="/memberManagement.do")
-	public String memberManagement(){
-		return "admin/memberManagement";
-	}
-	@RequestMapping(value="/adminNotice.do")
-	public String adminNotice(){
-		return "admin/adminNotice";
-	}
+
 	
 	
 	
