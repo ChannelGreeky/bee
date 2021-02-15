@@ -12,6 +12,7 @@ import com.fourmeeting.bee.bees.model.vo.Bees;
 import com.fourmeeting.bee.beesuser.model.dao.BeesUserDAO;
 import com.fourmeeting.bee.beesuser.model.vo.BeesUser;
 import com.fourmeeting.bee.beesuser.model.vo.BeesUserList;
+import com.fourmeeting.bee.beesuser.model.vo.MyBeesUser;
 
 @Service("BeesUserService")
 public class BeesUserService {
@@ -109,4 +110,47 @@ public ArrayList<BeesUserList> selectBeesUser(String mainpage_option) {
 	}
 	
 
+	
+	
+	//사용자------------------------------------------------------------------------------
+	//비즈가입확인(가입 신청중인 비즈)
+	public ArrayList<MyBeesUser> beesJoinAsk(int memberNo) {
+
+		ArrayList<MyBeesUser> list = userDAO.beesJoinAsk(memberNo, sqlSession);
+		
+		return list;
+	}
+
+
+
+
+	//비즈가입확인(가입신청내역)
+	public ArrayList<MyBeesUser> beesJoinHistory(MyBeesUser mbu) {
+		
+		ArrayList<MyBeesUser> list = userDAO.beesJoinHistory(mbu, sqlSession);
+		
+		return list;
+		
+	}
+
+
+
+	//비즈가입취소
+	public int joinQnaCancel(int userNo) {
+		
+		int result = userDAO.joinQnaCancel(sqlSession,userNo);
+		return result;
+	}
+
+
+
+	//가입내역 페이징
+	public int totalbeesJoinHistory(int memberNo) {
+
+		int totalPage = userDAO.totalbeesJoinHistory(sqlSession,memberNo);
+		
+		return totalPage;
+	}
+	
+	
 }

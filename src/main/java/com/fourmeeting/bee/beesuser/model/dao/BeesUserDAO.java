@@ -6,10 +6,12 @@ import java.util.List;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
+import com.fourmeeting.bee.PagingVO;
 import com.fourmeeting.bee.bees.model.vo.Bees;
 import com.fourmeeting.bee.beesuser.model.vo.BeesUser;
 import com.fourmeeting.bee.beesuser.model.vo.BeesUserList;
 import com.fourmeeting.bee.beesuser.model.vo.BeesUserSelect;
+import com.fourmeeting.bee.beesuser.model.vo.MyBeesUser;
 import com.fourmeeting.bee.beesuser.model.vo.UserSelect;
 
 
@@ -121,6 +123,53 @@ public ArrayList<BeesUserList> selectBeesUser(SqlSessionTemplate splSession, Str
 		
 	}
 
+	
+	
+	
+	
+		//사용자------------------------------------------------------------------------------
+		//비즈가입확인(가입 신청중인 비즈)
+		public ArrayList<MyBeesUser> beesJoinAsk(int memberNo, SqlSessionTemplate sqlSession) {
+
+			List list = sqlSession.selectList("beesUser.beesJoinAsk", memberNo);
+			
+			return (ArrayList<MyBeesUser>)list;
+		}
+		
+		
+		//비즈가입확인(가입신청내역)
+		public ArrayList<MyBeesUser> beesJoinHistory(MyBeesUser mbu, SqlSessionTemplate sqlSession) {
+		
+			List list = sqlSession.selectList("beesUser.beesJoinHistory",mbu);
+			
+			return (ArrayList<MyBeesUser>)list;
+		}
+
+
+
+		
+		
+		//비즈가입취소
+		public int joinQnaCancel(SqlSessionTemplate sqlSession, int userNo) {
+			
+			int result = sqlSession.delete("beesUser.joinQnaCancel",userNo);
+			return result;
+		}
+
+		
+		
+		//가입내역 페이징
+		public int totalbeesJoinHistory(SqlSessionTemplate sqlSession, int memberNo) {
+
+			PagingVO pv = sqlSession.selectOne("beesUser.totalbeesJoinHistory",memberNo);
+			
+			int totalPage = pv.getTotalPage();
+			
+			return totalPage;
+		}
+		
+	
+	
 	
 
 }

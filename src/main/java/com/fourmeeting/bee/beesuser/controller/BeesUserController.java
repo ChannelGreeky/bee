@@ -10,13 +10,16 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.SessionAttribute;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.fourmeeting.bee.beesuser.model.service.BeesUserService;
 import com.fourmeeting.bee.beesuser.model.vo.BeesUser;
 import com.fourmeeting.bee.beesuser.model.vo.BeesUserList;
+import com.fourmeeting.bee.beesuser.model.vo.MyBeesUser;
 import com.fourmeeting.bee.member.model.vo.Member;
 import com.google.gson.Gson;
 
@@ -167,6 +170,108 @@ public class BeesUserController {
 			response.getWriter().print(false);
 		}
 	}
+	
+	
+	
+	
+	//사용자------------------------------------------------------------------------------
+		//비즈가입확인(가입 신청중인 비즈&가입신청내역)
+		@RequestMapping(value="/myPageBeesJoinQnas.do")
+		public String mybeesJoinQnas(@SessionAttribute("member") Member m,
+									  HttpServletRequest request,
+									  Model model){
+			
+			
+			//현재페이지 받아오기 ****************
+			int currentPage;
+			
+			if(request.getParameter("currentPage") == null){
+				currentPage = 1;
+			} else{
+				currentPage = Integer.parseInt(request.getParameter("currentPage"));
+			}
+			
+			int cntPage = 5;
+			int cntPerPage = 5; //recordPerPage
+			int start = currentPage*cntPerPage-(cntPerPage-1);
+			int end = currentPage*cntPerPage;
+			
+			
+			
+			int memberNo = m.getMemberNo();
+			
+			MyBeesUser mbu = new MyBeesUser();
+			mbu.setMemberNo(memberNo);
+			mbu.setStart(start);
+			mbu.setEnd(end);
+			
+			
+			ArrayList<MyBeesUser> askList = userService.beesJoinAsk(memberNo);
+			ArrayList<MyBeesUser> askHistroyList = userService.beesJoinHistory(mbu);
+			
+			model.addAttribute("askList", askList);
+			model.addAttribute("askHistroyList", askHistroyList);
+			
+
+			
+			
+			//페이징 네비 ****************
+			int totalPage = userService.totalbeesJoinHistory(memberNo);
+			
+			int naviCntPerPage = 5; //페이징 네비에 보여줄 개수
+			int lastPage; 			//마지막 페이지를 저장하는 변수
+			if(totalPage % cntPerPage>0){
+				lastPage = totalPage / cntPerPage +1;
+			}else{
+				lastPage = totalPage / cntPerPage;
+			}
+					
+			//현재 페이지 중심으로 pageNavi를 계산 해야함
+			int startNavi = ((currentPage-1) / naviCntPerPage) * naviCntPerPage + 1;
+			int endNavi = startNavi + naviCntPerPage -1;
+			
+			if(endNavi > lastPage){
+				endNavi = lastPage;
+			}
+					
+					
+			//pageNavi 모양 구성 ****************
+			StringBuilder sbH = new StringBuilder();
+			
+			if(startNavi != 1){
+				sbH.append("<a href='/myPageBeesJoinQnas.do?currentPage="+(startNavi-1)+"'>< </a> ");
+			}
+			for(int i=startNavi; i<=endNavi; i++){
+				if(i==currentPage){
+					sbH.append("<a href='/myPageBeesJoinQnas.do?currentPage="+i+"'><b> "+i+"</b></a> ");
+				}else{
+					sbH.append("<a href='/myPageBeesJoinQnas.do?currentPage="+i+"'> "+i+"</a> ");
+				}
+			}
+			if(endNavi != lastPage){
+				sbH.append("<a href='/myPageBeesJoinQnas.do?currentPage="+(endNavi+1)+"'> ></a> ");
+			}
+			
+			
+			model.addAttribute("sbH", sbH.toString());
+			return "user/myPage/beesJoinQnas";
+		}
+		
+		//비즈가입취소
+		@RequestMapping(value="/joinQnaCancel.do")
+		public void joinQnaCancel(@RequestParam int userNo,
+								HttpServletResponse response) throws IOException{
+			
+			
+			int result = userService.joinQnaCancel(userNo);
+			if(result>0){
+				response.getWriter().print(0);
+			}else{
+				response.getWriter().print(1);
+			}
+			
+		}
+	
 	
 	
 	
