@@ -32,6 +32,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttribute;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.fourmeeting.bee.member.model.service.MemberService;
 import com.fourmeeting.bee.member.model.vo.Member;
@@ -339,29 +341,25 @@ public class MemberController {
 								    HttpSession session) throws IOException{
 		
 		
+		MultipartHttpServletRequest multi =  (MultipartHttpServletRequest)request;
+		MultipartFile mf = multi.getFile("file");
 		//파일 업로드 되는 경로
 		String uploadPath = "/resources/image/profile/";
-		
-		//파일크기
-		int uploadeFileSizeLimit = 10*1024*1024; //최대 10MB
-		
 		String encType = "UTF-8";
 		
 		//실제 경로를 가져와야함
 		String realUploadPath = sContext.getRealPath(uploadPath);
 		
-		//MulitpartRequest객체 생성
-		MultipartRequest multi = new MultipartRequest(request,
-													  realUploadPath,
-													  uploadeFileSizeLimit,
-													  encType,
-													  new DefaultFileRenamePolicy());
+		//파일크기
+		int uploadeFileSizeLimit = 10*1024*1024; //최대 10MB
 		
 		//실제 업로드된 파일 이름
-		String originalFileName = multi.getFilesystemName("file");
+		String originalFileName = mf.getOriginalFilename();
+		
 		//File연결
 		File file = new File(realUploadPath+"\\"+originalFileName);
 		
+		System.out.println(realUploadPath+"//"+originalFileName);
 		
 		//이름 받아오기
 		String newMemberName = multi.getParameter("newMemberName");
