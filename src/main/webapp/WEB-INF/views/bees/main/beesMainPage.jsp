@@ -130,9 +130,19 @@ if($(window).scrollTop()==($(document).height()-$(window).height())){
 			<div class="col-3 p-0">
 				<div id="bees-side" class="container m-0 p-2">
 					<div id="bees-side-profile">
+					<% 
+    String coverPath = bees.getBeesCover();	
+	String beesCover = null;
+    if(coverPath.endsWith("_bee")){
+    	beesCover = "/resources/image/beeCreateProfile/"+coverPath;
+    }else{
+    	beesCover = coverPath;
+    }
+ %>  
 						<table>
 							<tr>
-								<td id="bees-cover" colspan="2" style="background-image:url('/resources/image/bees/cover/<%=bees.getBeesCover() %>')"></td>
+							
+								<td id="bees-cover" colspan="2" style="background-image:url('<%=beesCover %>')"></td>
 							</tr>
 							<tr>
 								<td id="bees-name" colspan="2"><%=bees.getBeesName() %></td>
@@ -252,7 +262,7 @@ if($(window).scrollTop()==($(document).height()-$(window).height())){
 							</tr>
 							<tr>
 								<td colspan="2" style="padding: 10px 5px 0 5px; line-height: 10px;">
-									<div class="chat-profile" style="background-image:url('/resources/image/bees/cover/<%=bees.getBeesCover() %>')"></div>
+									<div class="chat-profile" style="background-image:url('<%=beesCover %>'')"></div>
 									<a class="chat-open-btn" href="#none" target="_blank" onclick="openPopup()" style="color: dimgray">
 									'<%=beesName %>' 전체 채팅
 									</a>

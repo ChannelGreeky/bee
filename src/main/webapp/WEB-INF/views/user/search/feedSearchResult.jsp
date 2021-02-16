@@ -189,7 +189,7 @@ if($(window).scrollTop()==($(document).height()-$(window).height())){
 										Image image = imageList.get(0);
 							%>
 								<center>
-								<img src="<%=image.getImgPath() %>" style="margin:10px; max-width:80%;">
+								<img src="/resources/image/bees/feedImage/<%=image.getChangeImageName() %>" style="margin:10px; max-width:80%;">
 								</center><% 
 							}%>
 						</div>

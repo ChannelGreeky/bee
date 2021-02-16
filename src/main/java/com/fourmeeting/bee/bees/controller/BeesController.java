@@ -384,7 +384,11 @@ public class BeesController {
 		
 		
 		List<Integer> beesNo = userService.selectAllBeesNo(memberNo);
-		
+		if(beesNo.isEmpty()) {
+			beesNo.add(0);
+		}else {
+			
+		}
 		//댓글을 불러오자
 		ArrayList<FeedComment> commentAll=commentService.commentSelectAllMyBees(beesNo);
 		
@@ -514,7 +518,11 @@ public class BeesController {
 		
 		
 		List<Integer> beesNo = userService.selectAllBeesNo(memberNo);
-		
+		if(beesNo.isEmpty()) {
+			beesNo.add(0);
+		}else {
+			
+		}
 		//댓글을 불러오자
 		ArrayList<FeedComment> commentAll=commentService.commentSelectAllMyBees(beesNo);
 		
@@ -636,12 +644,18 @@ public class BeesController {
 	private String selectMainPage(HttpServletRequest request, HttpSession session) throws Exception {
 
 		Member m = (Member)session.getAttribute("member");
+		
 		ArrayList<Bees> beesList = uService.selectMyBees(m);
 		request.setAttribute("beesList", beesList);
 		
 		int memberNo = m.getMemberNo();
 		
 		List<Integer> beesNo = userService.selectAllBeesNo(memberNo);
+		if(beesNo.isEmpty()) {
+			beesNo.add(0);
+		}else {
+			
+		}
 		
 		ArrayList<Feed> feedList = boardService.boardSelectAllBees(beesNo);
 		request.setAttribute("feedList", feedList);
@@ -775,7 +789,11 @@ public class BeesController {
 		int memberNo = m.getMemberNo();
 		
 		List<Integer> beesNo = userService.selectAllBeesNo(memberNo);
-		
+		if(beesNo.isEmpty()) {
+			beesNo.add(0);
+		}else {
+			
+		}
 		ArrayList<Feed> feedList = boardService.selectAllBestFeed();
 		request.setAttribute("feedList", feedList);
 		
@@ -818,7 +836,11 @@ public class BeesController {
 		int memberNo = m.getMemberNo();
 		
 		List<Integer> beesNo = userService.selectAllBeesNo(memberNo);
-		
+		if(beesNo.isEmpty()) {
+			beesNo.add(0);
+		}else {
+			
+		}
 		ArrayList<Feed> feedList = boardService.selectSerachAllFeed(keyword);
 		request.setAttribute("keyword", keyword);
 		request.setAttribute("feedList", feedList);
