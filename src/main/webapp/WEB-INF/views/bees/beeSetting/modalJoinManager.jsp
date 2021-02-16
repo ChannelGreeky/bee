@@ -1,3 +1,4 @@
+<%@page import="com.fourmeeting.bee.bees.model.vo.Bees"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@page import="com.fourmeeting.bee.beesuser.model.vo.BeesUserList"%>
@@ -20,6 +21,7 @@
 </head>
 <body>
 <%
+	Bees beeResult = (Bees)request.getAttribute("beeResult");
 	ArrayList<BeesUserList> list = (ArrayList<BeesUserList>)request.getAttribute("list");
 	ArrayList<BeesUserList> listUser = (ArrayList<BeesUserList>)request.getAttribute("listUser");
 	/* Member sessionMember = (Member)session.getAttribute("member"); */
@@ -36,7 +38,20 @@
       <div class="modal-body">
       
 <div class="leaveMemberList">  
-<%for(BeesUserList bu : listUser){%> 
+<%  if(listUser.isEmpty()) { %>
+<div class="listWrap">
+        <ul class="cMemberList"><li data-viewname="DBandBlockMemberItemView" class="uFlexItem">
+<span class="body">
+    <span class="text -ellipsis">매니저에 추가할 멤버가 없습니다.</span>
+</span>
+</li></ul>
+        <p class="uEmpty _collectionEmptyMsgEl" style="height: 545px; display: none;">
+            <span class="gColorGr3 _collectionEmptyMsg"></span>
+        </p>
+    </div> 
+	
+<%}else{
+	for(BeesUserList bu : listUser){%> 
     <div class="listWrap">
         <ul class="cMemberList"><li data-viewname="DBandBlockMemberItemView" class="uFlexItem">
 <span class="body">
@@ -59,11 +74,12 @@
             <span class="gColorGr3 _collectionEmptyMsg"></span>
         </p>
     </div> 
-<%} %> 
+<%} 
+}%> 
 </div>
       </div>   
       <div class="modal-footer" style="margin: 0 auto;">
-         <button type="button" onclick="location.href='/beeSettingSubJoinManager.do?beesNo=<%=list.get(0).getBeesNo()%>'" class="uButton -sizeS -confirm2 beesModalCancle">취소</button>       
+         <button type="button" onclick="location.href='/beeSettingSubJoinManager.do?beesNo=<%=beeResult.getBeesNo()%>'" class="uButton -sizeS -confirm2 beesModalCancle">취소</button>       
       </div>   
     </div>  
   </div>
