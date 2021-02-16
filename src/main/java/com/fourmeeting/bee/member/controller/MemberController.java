@@ -364,9 +364,6 @@ public class MemberController {
 		/*mf.transferTo(new File(realUploadPath));*/
 		String safeFile = realUploadPath + System.currentTimeMillis() + originalFileName+"_bee";
         System.out.println("safeFile : " + safeFile);
-        String beeCreateProfile = System.currentTimeMillis() + originalFileName+"_bee";
-        System.out.println("beeCreateProfile : " + beeCreateProfile);
-
         
         System.out.println("safeFile : " + safeFile);
         try {
@@ -388,7 +385,7 @@ public class MemberController {
 		
 		//프로필이름 DB에 담기
 		Member m = new Member();
-		m.setProfileImg(originalFileName);
+		m.setProfileImg(safeFile);
 		m.setMemberName(newMemberName);
 		m.setMemberNo(member.getMemberNo());
 		m.setMemberId(member.getMemberId());
