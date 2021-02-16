@@ -39,10 +39,10 @@ public class FileController {
 	
 		
 	@RequestMapping(value = "/uploadBeesFile.do", method=RequestMethod.POST)
-    public void uploadBeesFile(HttpServletRequest request, HttpServletResponse response) throws Exception{
+    public void uploadBeesFile(HttpServletRequest request, HttpServletResponse response, HttpSession session) throws Exception{
         
          
-        String path = "/Users/seobokyung/FinalProject/bee_backup/src/main/webapp/resources/file/"; 
+        String path = session.getServletContext().getRealPath("/resources/file");
         //파일이 저장될 패스 생성
 
         	// MultipartHttpServletRequest 생성 
