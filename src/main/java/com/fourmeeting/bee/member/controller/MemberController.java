@@ -361,8 +361,23 @@ public class MemberController {
 		
 		System.out.println(realUploadPath+"//"+originalFileName);
 		
-		mf.transferTo(new File(realUploadPath));
-		
+		/*mf.transferTo(new File(realUploadPath));*/
+		String safeFile = realUploadPath + System.currentTimeMillis() + originalFileName+"_bee";
+        System.out.println("safeFile : " + safeFile);
+        String beeCreateProfile = System.currentTimeMillis() + originalFileName+"_bee";
+        System.out.println("beeCreateProfile : " + beeCreateProfile);
+
+        
+        System.out.println("safeFile : " + safeFile);
+        try {
+            mf.transferTo(new File(safeFile));
+        } catch (IllegalStateException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        } catch (IOException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
 		
 		
 		//이름 받아오기
