@@ -100,13 +100,13 @@
      	       <a href="/beesSelectOne.do?beesNo=${requestScope.bees.beesNo }" >전체글</a>
 	    </li>	
 	    <li class="navi_menu_item">
-     	       <a href="#"  >사진첩</a>
+     	       <a href="/selectAllImage.do?beesNo=${requestScope.bees.beesNo }"  >사진첩</a>
 	    </li>	
 	    <li class="navi_menu_item">
      	       <a href="/beesSchedule.do"  >일정</a>
 	    </li>	
         <li class="navi_menu_item">
-     	       <a href="#" >첨부</a>
+     	       <a href="/beesUploadFile.do?beesNo=${requestScope.bees.beesNo }" >첨부</a>
 	    </li>	
 	    <li class="navi_menu_item">
      	       <a href="/beesMember.do" >멤버</a>
