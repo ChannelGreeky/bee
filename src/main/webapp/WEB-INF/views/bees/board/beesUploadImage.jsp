@@ -14,7 +14,7 @@
 .uploadResult {
 width: 100%;
 margin-top:70px;
-background-color: yellow;
+background-color: white;
 height:70%;
  overflow:scroll;
 }
