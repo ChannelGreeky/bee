@@ -32,7 +32,6 @@
 	Member member = (Member)session.getAttribute("member");
 	ArrayList<Feed> feedList = (ArrayList<Feed>)request.getAttribute("feedList");
 	ArrayList<Bees> myBees = (ArrayList<Bees>) request.getAttribute("beesList");
-	
 	SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy년 MM월 dd일 a KK시 mm분", Locale.KOREA);
 	SimpleDateFormat scheFormat = new SimpleDateFormat("yyyy년 MM월 dd일 (E)", Locale.KOREA);
 	

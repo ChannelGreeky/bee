@@ -17,11 +17,11 @@
 <body>
 	<%@ include file="/common/cdnLib.jsp"%>
 	<link rel="stylesheet" type="text/css" href="/resources/css/feedSearchResult.css">
-	<script type="text/javascript" src="/resources/js/feedSearchResult.js"></script>
 <%
 	Member member = (Member)session.getAttribute("member");
 	ArrayList<Feed> feedList = (ArrayList<Feed>)request.getAttribute("feedList");
 	ArrayList<Bees> myBees = (ArrayList<Bees>) request.getAttribute("beesList");
+	ArrayList<Integer> beesNoList = (ArrayList<Integer>) request.getAttribute("beesNoList");
 	String keyword = (String)request.getAttribute("keyword");
 	SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy년 MM월 dd일", Locale.KOREA);
 	HashMap<Integer,Integer> likeMap = (HashMap <Integer,Integer>)request.getAttribute("likeMap");
@@ -143,7 +143,6 @@ if($(window).scrollTop()==($(document).height()-$(window).height())){
 					</div>
 					</div>
 					<%
-					
 					if(!(feedList.isEmpty())){
 					for(int i=0; i<feedList.size(); i++){ 
 							
@@ -152,14 +151,18 @@ if($(window).scrollTop()==($(document).height()-$(window).height())){
 					%>
 					<script>
 					$(function(){
-					var beesname = '<%=feed.getBeesName() %>';
-					if(beesname>11){
-					beesname = beesname.substring(0, 11);
-					$('.search-feed-bees-name').html(beesname + "..");
+					<%
+					String beesName = null;
+					if(feed.getBeesName().length()>15){
+						beesName=feed.getBeesName().substring(0,15);
 					}else{
-					$('.search-feed-bees-name').html(beesname);	
+						beesName=feed.getBeesName();
 					}
-
+					
+					%>
+					
+					/*인기 비즈 카테고리 */
+					
 					var maintext = "";
 					<%if(feed.getBoardCont()==null){%>
 					<%}else{%>
@@ -174,24 +177,27 @@ if($(window).scrollTop()==($(document).height()-$(window).height())){
 					}
 					});
 					</script>
-					<div class="search-feed">
+					<div class="search-feed" id="<%=feed.getBoardNo() %>">
 						<div class="search-feed-cont">
 							<div class="search-feed-title">
-								<a class="search-feed-bees-name"  href="/beesSelectOne.do?beesNo=<%=feed.getBeesNo() %>&memberNo=<%=feed.getMemberNo() %>"></a> <i class="fas fa-angle-left"></i> <span class="search-feed-writer"><%=feed.getUserName() %></span> <span class="search-feed-date"><%=dateFormat.format(feed.getBoardDate()) %></span>
+								<a class="search-feed-bees-name"  href="/beesSelectOne.do?beesNo=<%=feed.getBeesNo() %>&memberNo=<%=feed.getMemberNo() %>"><%=beesName %></a> <i class="fas fa-angle-left"></i> <span class="search-feed-writer"><%=feed.getUserName() %></span> <span class="search-feed-date"><%=dateFormat.format(feed.getBoardDate()) %></span>
 							</div>
 							<div class="search-feed-main">
 								<p class="search-feed-maintext"></p>
 							</div>
 							<div class="search-feed-footer">
-							
 								<span class="search-feed-like-btn" style="line-height: 20px; font-weight: 600; padding-left: 20px;"> 
-								<%if(likeMap.get(feed.getBoardNo())==null){%>
+								<%if(likeMap.get(feed.getBoardNo())==null){
+									if((beesNoList.indexOf(feed.getBeesNo()))<0){%>
+									<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="dimgray" class="none-like-btn bi bi-heart-fill" viewBox="0 0 16 16">
+							        <path fill-rule="evenodd" d="M8 1.314C12.438-3.248 23.534 4.735 8 15-7.534 4.736 3.562-3.248 8 1.314z" /> </svg>
+								<%}else{%>
 									<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="lightgray" class="feed-like-btn bi bi-heart-fill" viewBox="0 0 16 16">
-        <path fill-rule="evenodd" d="M8 1.314C12.438-3.248 23.534 4.735 8 15-7.534 4.736 3.562-3.248 8 1.314z" /> </svg>
-        							<%}else{%>
+       								 <path fill-rule="evenodd" d="M8 1.314C12.438-3.248 23.534 4.735 8 15-7.534 4.736 3.562-3.248 8 1.314z" /> </svg>
+        							<%}}else{%>
         							<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="red" class="feed-like-btn bi bi-heart-fill" viewBox="0 0 16 16">
-        <path fill-rule="evenodd" d="M8 1.314C12.438-3.248 23.534 4.735 8 15-7.534 4.736 3.562-3.248 8 1.314z" /> </svg>
-        							<%} %>
+       								 <path fill-rule="evenodd" d="M8 1.314C12.438-3.248 23.534 4.735 8 15-7.534 4.736 3.562-3.248 8 1.314z" /> </svg>
+        							<%}%>
 								</span> <span class="search-feed-like-count"><%=feed.getLikeCount() %></span> &nbsp;&nbsp; 댓글 <span class="search-feed-comment-count"><%=feed.getCommentCount() %></span>
 							</div>
 						</div>
@@ -213,12 +219,19 @@ if($(window).scrollTop()==($(document).height()-$(window).height())){
 					<%= member.getMemberName() %>님, <%=keyword %>에 관련된 글을 작성해보세요!<br>
 					</div>
 					<%}%>
-				<script>		
-				$('.feed-like-btn').click(
-				function() {
-					var boardNo = $(this).closest('.bees-feed').attr('id');
+				<script>
+				$('.none-like-btn').click(function(){
+					alert("해당 비즈의 가입회원이 아닙니다.");
+				});
+				
+				$('.feed-like-btn').click( function() {
+					
+					var boardNo = $(this).closest('.search-feed').attr('id');
 					var memberNo = ${sessionScope.member.memberNo};
+					
+										
 					if ($(this).attr('fill') == 'red') {
+						
 						$.ajax({
 							url : "/deleteBoardLike.do",
 							data : {
@@ -226,7 +239,7 @@ if($(window).scrollTop()==($(document).height()-$(window).height())){
 								"memberNo" : memberNo
 							},
 							success : function(data) {
-								if (data > 0) {
+								if (data>0) {
 									
 								} else {
 									alert("다시 시도해주세요");
@@ -236,9 +249,11 @@ if($(window).scrollTop()==($(document).height()-$(window).height())){
 							error : function() {
 
 							}
+							
 						})
+						
 						$(this).attr('fill', 'lightgray');
-						$(this).next().html(Number($(this).next().html()) - 1);
+						$(this).parent().next().html(Number($(this).parent().next().html()) - 1);
 
 					} else if ($(this).attr('fill') == 'lightgray') {
 
@@ -258,13 +273,12 @@ if($(window).scrollTop()==($(document).height()-$(window).height())){
 
 							},
 							error : function() {
-
 							}
 							
 						})
-						// 좋아요 추가하는 로직
+						
 						$(this).attr('fill', 'red');
-						$(this).next().html(Number($(this).next().html()) + 1);
+						$(this).parent().next().html(Number($(this).parent().next().html()) + 1);
 					}
 				
 				});

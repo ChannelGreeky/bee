@@ -184,14 +184,20 @@ if($(window).scrollTop()==($(document).height()-$(window).height())){
 								}%>
 								</td>
 							</tr>
-							<%if(bees.getBeesPublicYN() == 'N' && user==null){%>
+							<%if(bees.getBeesPublicYN() == 'N' && user==null ){%>
 							<tr>
 								<td id="bees-public" colspan="2">
 								비즈와 게시글이 공개되지 않습니다. 초대를 통해서만 가입할 수 있습니다.
 								</td>
 							</tr>
+							<%}else{%>
+							<tr>
+								<td id="bees-public" colspan="2">
+								<%=bees.getBeesCont() %>
+								</td>
+							</tr>
 							<%}
-							if(user!=null){%>
+							if(user!=null && user.getUserAuthYN()!='W'){%>
 							<%if(!(user.getUserClass()).equals("user")){ %>
 							<tr>
 								<td class="innerline" colspan="2">

@@ -17,20 +17,20 @@ member_no as memberNo,
 user_name as userName,
 user_class as userClass,
 user_block_yn as userBlockYN,
-user_del_yn as userDelYN
+user_del_yn as userDelYN,
+user_auth_yn as userAuthYN
 from bees_user
 where member_no = #{memberNo}
 and bees_no = #{beesNo}
 and user_block_yn='N'
 and user_del_yn='N'
-and user_auth_yn='Y'
 </select>
 <insert id="insertBeesUser" parameterType="beesUser">
 insert into bees_user values(
 user_seq.nextval, #{beesNo}, #{memberNo}, #{userName}, default, default, default, default, default, default)
 </insert>
 <select id="selectAllBeesNo" resultType="int">
-select bees_no from bees_user where member_no=#{memberNo}
+select bees_no from bees_user where member_no=#{memberNo} and user_auth_yn='Y'
 </select>
 
 <!-- 수정예정 -->

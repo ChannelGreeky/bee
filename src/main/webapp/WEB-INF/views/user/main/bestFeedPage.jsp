@@ -17,13 +17,13 @@
 <body>
 	<%@ include file="/common/cdnLib.jsp"%>
 	<link rel="stylesheet" type="text/css" href="/resources/css/bestFeedPage.css">
-	<script type="text/javascript" src="/resources/js/bestFeedPage.js"></script>
 	
 	
 <%
 	Member member = (Member)session.getAttribute("member");
 	ArrayList<Feed> feedList = (ArrayList<Feed>)request.getAttribute("feedList");
 	ArrayList<Bees> myBees = (ArrayList<Bees>) request.getAttribute("beesList");
+	ArrayList<Integer> beesNoList = (ArrayList<Integer>) request.getAttribute("beesNoList");
 	SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy년 MM월 dd일", Locale.KOREA);
 	HashMap<Integer,Integer> likeMap = (HashMap <Integer,Integer>)request.getAttribute("likeMap");
 	HashMap<Integer, ArrayList<Image>> imageMap = (HashMap<Integer, ArrayList<Image>>)request.getAttribute("imageMap");
@@ -78,23 +78,23 @@
 			</div>
 			<div class="col-7 p-0">
 						<span id="main-content-title">인기글</span>
-					
 					<%
 					if(!(feedList.isEmpty())){
 					for(int i=0; i<feedList.size(); i++){ 
 							
 						Feed feed = feedList.get(i);
-							
+						
+						String beesName = null;
+						if(feed.getBeesName().length()>15){
+							beesName=feed.getBeesName().substring(0,15);
+						}else{
+							beesName=feed.getBeesName();
+						}
 					%>
+					
 					<script>
 					$(function(){
-					var beesname = '<%=feed.getBeesName() %>';
-					if(beesname>11){
-					beesname = beesname.substring(0, 11);
-					$('.best-feed-bees-name').html(beesname + "..");
-					}else{
-					$('.best-feed-bees-name').html(beesname);	
-					}
+					
 					/*인기 비즈 카테고리 */
 					
 					var maintext = "";
@@ -110,26 +110,32 @@
 					$('.best-feed-maintext').html(maintext);	
 					}
 					});
+					
 					</script>
-					<div class="best-feed">
+					
+					<div class="best-feed" id="<%=feed.getBoardNo() %>">
 						<div class="best-feed-cont">
 							<div class="best-feed-title">
-								<a class="best-feed-bees-name" href="/beesSelectOne.do?beesNo=<%=feed.getBeesNo() %>&memberNo=<%=feed.getMemberNo() %>"></a> <i class="fas fa-angle-left"></i> <span class="best-feed-writer"><%=feed.getUserName() %></span> <span class="best-feed-date"><%=dateFormat.format(feed.getBoardDate()) %></span>
+								<a class="best-feed-bees-name" href="/beesSelectOne.do?beesNo=<%=feed.getBeesNo() %>&memberNo=<%=feed.getMemberNo() %>"><%=beesName %></a> <i class="fas fa-angle-left"></i> <span class="best-feed-writer"><%=feed.getUserName() %></span> <span class="best-feed-date"><%=dateFormat.format(feed.getBoardDate()) %></span>
 							</div>
 							<div class="best-feed-main">
 								<p class="best-feed-maintext"></p>
 							</div>
 							<div class="best-feed-footer">
-							
 								<span class="best-feed-like-btn" style="line-height: 20px; font-weight: 600; padding-left: 20px;"> 
-								<%if(likeMap.get(feed.getBoardNo())==null){%>
+									<%if(likeMap.get(feed.getBoardNo())==null){
+									if((beesNoList.indexOf(feed.getBeesNo()))<0){%>
+									<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="dimgray" class="none-like-btn bi bi-heart-fill" viewBox="0 0 16 16">
+							        <path fill-rule="evenodd" d="M8 1.314C12.438-3.248 23.534 4.735 8 15-7.534 4.736 3.562-3.248 8 1.314z" /> </svg>
+								<%}else{%>
 									<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="lightgray" class="feed-like-btn bi bi-heart-fill" viewBox="0 0 16 16">
-        <path fill-rule="evenodd" d="M8 1.314C12.438-3.248 23.534 4.735 8 15-7.534 4.736 3.562-3.248 8 1.314z" /> </svg>
-        							<%}else{%>
+       								 <path fill-rule="evenodd" d="M8 1.314C12.438-3.248 23.534 4.735 8 15-7.534 4.736 3.562-3.248 8 1.314z" /> </svg>
+        							<%}}else{%>
         							<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="red" class="feed-like-btn bi bi-heart-fill" viewBox="0 0 16 16">
-        <path fill-rule="evenodd" d="M8 1.314C12.438-3.248 23.534 4.735 8 15-7.534 4.736 3.562-3.248 8 1.314z" /> </svg>
-        							<%} %>
-								</span> <span class="best-feed-like-count"><%=feed.getLikeCount() %></span> &nbsp;&nbsp; 댓글 <span class="best-feed-comment-count"><%=feed.getCommentCount() %></span>
+       								 <path fill-rule="evenodd" d="M8 1.314C12.438-3.248 23.534 4.735 8 15-7.534 4.736 3.562-3.248 8 1.314z" /> </svg>
+        							<%}%>
+								</span>
+								<span class="best-feed-like-count"><%=feed.getLikeCount() %></span> &nbsp;&nbsp; 댓글 <span class="best-feed-comment-count"><%=feed.getCommentCount() %></span>
 							</div>
 						</div>
 						<div class="best-feed-image" class="col-4">
@@ -147,12 +153,19 @@
 					}else{%>
 					<div style="width:100%; height:720px"></div>
 					<%} %>
-				<script>		
-				$('.feed-like-btn').click(
-				function() {
-					var boardNo = $(this).closest('.bees-feed').attr('id');
+				<script>
+				$('.none-like-btn').click(function(){
+					alert("해당 비즈의 가입회원이 아닙니다.");
+				});
+				
+				$('.feed-like-btn').click( function() {
+					
+					var boardNo = $(this).closest('.best-feed').attr('id');
 					var memberNo = ${sessionScope.member.memberNo};
+					
+										
 					if ($(this).attr('fill') == 'red') {
+						
 						$.ajax({
 							url : "/deleteBoardLike.do",
 							data : {
@@ -160,7 +173,7 @@
 								"memberNo" : memberNo
 							},
 							success : function(data) {
-								if (data > 0) {
+								if (data>0) {
 									
 								} else {
 									alert("다시 시도해주세요");
@@ -170,9 +183,11 @@
 							error : function() {
 
 							}
+							
 						})
+						
 						$(this).attr('fill', 'lightgray');
-						$(this).next().html(Number($(this).next().html()) - 1);
+						$(this).parent().next().html(Number($(this).parent().next().html()) - 1);
 
 					} else if ($(this).attr('fill') == 'lightgray') {
 
@@ -192,13 +207,12 @@
 
 							},
 							error : function() {
-
 							}
 							
 						})
-						// 좋아요 추가하는 로직
+						
 						$(this).attr('fill', 'red');
-						$(this).next().html(Number($(this).next().html()) + 1);
+						$(this).parent().next().html(Number($(this).parent().next().html()) + 1);
 					}
 				
 				});

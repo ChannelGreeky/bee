@@ -657,6 +657,7 @@ public class BeesController {
 			
 		}
 		
+		
 		ArrayList<Feed> feedList = boardService.boardSelectAllBees(beesNo);
 		request.setAttribute("feedList", feedList);
 		
@@ -794,6 +795,8 @@ public class BeesController {
 		}else {
 			
 		}
+		
+		request.setAttribute("beesNoList", (ArrayList<Integer>)beesNo);
 		ArrayList<Feed> feedList = boardService.selectAllBestFeed();
 		request.setAttribute("feedList", feedList);
 		
@@ -841,6 +844,7 @@ public class BeesController {
 		}else {
 			
 		}
+		request.setAttribute("beesNoList", (ArrayList<Integer>)beesNo);
 		ArrayList<Feed> feedList = boardService.selectSerachAllFeed(keyword);
 		request.setAttribute("keyword", keyword);
 		request.setAttribute("feedList", feedList);

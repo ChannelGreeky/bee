@@ -154,7 +154,7 @@ if($(window).scrollTop()==($(document).height()-$(window).height())){
 									멤버<b> <%=userCount %> </b>
 								</td>
 								<td id="bees-invite"><!-- 권한별 설정 -->
-								<%if(user!=null){%>
+								<%if(user!=null && user.getUserAuthYN()=='W'){%>
 								<%if((setting.getSetUserInvite()).equals("user")){%>
 									<a href=""><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="currentColor" class="bi bi-plus-circle" viewBox="0 0 16 19">
                 <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z" />
@@ -192,14 +192,20 @@ if($(window).scrollTop()==($(document).height()-$(window).height())){
 								}%>
 								</td>
 							</tr>
-							<%if(bees.getBeesPublicYN() == 'N' && user==null){%>
+							<%if(bees.getBeesPublicYN() == 'N' && user==null ){%>
 							<tr>
 								<td id="bees-public" colspan="2">
 								비즈와 게시글이 공개되지 않습니다. 초대를 통해서만 가입할 수 있습니다.
 								</td>
 							</tr>
+							<%}else{%>
+							<tr>
+								<td id="bees-public" colspan="2">
+								<%=bees.getBeesCont() %>
+								</td>
+							</tr>
 							<%}
-							if(user!=null){%>
+							if(user!=null && user.getUserAuthYN()!='W'){%>
 							<%if(!(user.getUserClass()).equals("user")){ %>
 							<tr>
 								<td class="innerline" colspan="2">
@@ -223,20 +229,28 @@ if($(window).scrollTop()==($(document).height()-$(window).height())){
 							}%>
 							<%
 							if(bees.getBeesPublicYN()=='Y'){
-							if(user==null){%>
+							if(user==null || user.getUserAuthYN()=='W'){
+							if(user.getUserAuthYN()=='W'){%>
+							<tr>
+								<td id="join-box" colspan="2">
+									<button id="join-btn" disabled="true">승인 대기중</button>
+								</td>
+							</tr>
+							<%}else{%>
 							<tr>
 								<td id="join-box" colspan="2">
 									<button id="join-btn">비즈 가입하기</button>
 								</td>
 							</tr>
-							<%}else{ %>
-							<%} 
+							<%
+							}}else{
+							} 
 							}%>
 						</table>
 					</div>
 					<%
 					if(bees.getBeesPublicYN()=='Y'){
-					if(user!=null){%>
+					if(user!=null && user.getUserAuthYN()!='W'){%>
 					<div id="bees-side-chatting">
 						<table>
 							<tr>
@@ -264,7 +278,7 @@ if($(window).scrollTop()==($(document).height()-$(window).height())){
 							</tr>
 							<tr>
 								<td colspan="2" style="padding: 10px 5px 0 5px; line-height: 10px;">
-									<div class="chat-profile" style="background-image:url('<%=beesCover %>'')"></div>
+									<div class="chat-profile" style="background-image:url('<%=beesCover %>')"></div>
 									<a class="chat-open-btn" href="#none" target="_blank" onclick="openPopup()" style="color: dimgray">
 									'<%=beesName %>' 전체 채팅
 									</a>
@@ -292,7 +306,7 @@ if($(window).scrollTop()==($(document).height()-$(window).height())){
 				<input type="hidden" name="beesNo" value="<%=bees.getBeesNo() %>"/>
 				<input type="hidden" name="memberNo" value="<%=member.getMemberNo() %>"/>
 				<div id="bees-search-bar">
-					<%if(user==null){%>
+					<%if(user==null || user.getUserAuthYN()=='W'){%>
 						<input type="text" name="keyword" placeholder="비즈 회원만 검색이 가능합니다." disabled="true" style="background-color:white">
 						<button type="button" disabled="true">
 							<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="dimgray" class="bi bi-search" viewBox="0 0 16 18">
@@ -342,7 +356,7 @@ if($(window).scrollTop()==($(document).height()-$(window).height())){
 					</div>
 					<script>
 					$('.write-modal-btn').click(function () {
-						<%if(user!=null){%>
+						<%if(user!=null && user.getUserAuthYN()!='W'){%>
 						var setWrite = '<%=setting.getSetWrite()%>';
 						var userClass = '<%=user.getUserClass() %>';
 						
@@ -377,7 +391,7 @@ if($(window).scrollTop()==($(document).height()-$(window).height())){
 					})
 					</script>
 					<%
-					if(user!=null || bees.getBeesPublicYN()=='Y'){
+					if((user!=null && user.getUserAuthYN()!='W') || bees.getBeesPublicYN()=='Y'){
 					if(!(feedList.isEmpty())){
 						for (int i = 0; i < feedList.size(); i++) {
 							
@@ -852,7 +866,7 @@ if($(window).scrollTop()==($(document).height()-$(window).height())){
 							<tr>
 								<td class="comment-write-box" colspan="3">
 									<div>
-									<%if(user!=null){
+									<%if(user!=null && user.getUserAuthYN()!='W'){
 									if(setting.getSetComment().equals("user")){%>
 									<input class="comment-input-box" type="text" placeholder="댓글을 남겨주세요">
 									<%}else if(setting.getSetComment().equals("manager")){
@@ -1049,6 +1063,9 @@ if($(window).scrollTop()==($(document).height()-$(window).height())){
 	
 		$('.feed-like-btn').click(
 				function() {
+					<%
+					if(user!=null && user.getUserAuthYN()!='W'){%>
+						
 					var boardNo = $(this).closest('.bees-feed').attr('id');
 					var memberNo = ${sessionScope.member.memberNo};
 					if ($(this).attr('fill') == 'red') {
@@ -1099,7 +1116,11 @@ if($(window).scrollTop()==($(document).height()-$(window).height())){
 						$(this).attr('fill', 'red');
 						$(this).next().html(Number($(this).next().html()) + 1);
 					}
-
+					<%}else{%>
+						alert("회원이 아닙니다. 다시 시도해주세요.");
+					<%}
+					
+					%>
 				});
 	</script>
 	<!--글쓰기 모달-->
@@ -1231,7 +1252,6 @@ if($(window).scrollTop()==($(document).height()-$(window).height())){
 		</div>
 	</form>
 	<script>
-	
 	$('.file-down-btn').click(function(){
 		var fileName = $('.file-title').html();
 		var fileNo = $('.file-title').attr('id');
@@ -1268,7 +1288,12 @@ if($(window).scrollTop()==($(document).height()-$(window).height())){
 		var scheduleStartDate = $('#sche-start-date').val()+" 00:00:00";
 		var scheduleEndDate=$('#sche-end-date').val()+" 00:00:00";
 		console.log(scheduleStartDate);
-		var userNo = ${requestScope.user.userNo};
+		var userNo = 0;
+		<% if(user==null){%>
+		userNo = 0;
+		<%}else{%>
+		userNo = ${requestScope.user.userNo};
+		<%}%>
 		var beesNo = ${requestScope.bees.beesNo};
 		$.ajax({
 			url:"/insertSchedule.do",
@@ -1460,7 +1485,6 @@ if($(window).scrollTop()==($(document).height()-$(window).height())){
 		
 		
 	});
-	
 	</script>
 	<!--일정 모달 끝-->
 	<!--전체 모달 거대한 form태그로 묶기-->
@@ -1620,161 +1644,10 @@ if($(window).scrollTop()==($(document).height()-$(window).height())){
 	</div>
 <script>
 
-$('#join-modal-submit').click(function(){
-
-	var userName = $('#join-modal-name').val();
-	var beesUserLimit = ${requestScope.bees.beesUserLimit};
-	if(beesUserLimit=='0'){
-		
-		if(userName=" "){
-			alert("이름을 입력하세요.");
-		}else{
-		
-		var memberNo = ${sessionScope.member.memberNo};
-		var memberGender = ${sessionScope.member.memberGender};
-		var mBirth = ${sessionScope.member.memberBirth}
-		var memberBirth = mBirth.substring(0,3);
-		var beesNo = ${requestScope.bees.beesNo};
-		var beesMaxBirth = ${requestScope.bees.beesMaxBirth};
-		var beesMinBirth = ${requestScope.bees.beesMinBirth};
-		var beesGender = ${requestScope.bees.beesGender};
-		
-		if(beesGender!='N'){
-			
-			if(beesGender == memberGender){
-			if(beesMaxBirth!='0'){
-				if(memberBirth<=beesMaxBirth){
-					$.joinMember(userName, memberNo, beesNo);
-				}else{
-					alert("가입 가능한 연령이 아닙니다.");
-				}
-			}else if(beesMinBirth!='0'){
-				if(memberBirth>=beesMinBirth){
-					$.joinMember(userName, memberNo, beesNo);
-				}else{
-					alert("가입 가능한 연령이 아닙니다.");
-				}
-				
-			}else if(beesMaxBirth!='0' && beesMinBirth!='0'){
-				if(memberBirth>=beesMinBirth && memberBirth<=beesMaxBirth){
-					$.joinMember(userName, memberNo, beesNo);
-				}else{
-					alert("가입 가능한 연령이 아닙니다.");
-				}
-				
-			}
-			}else{
-				alert("가입 가능한 성별이 아닙니다.");
-			}
-			
-		}else{
-			
-			if(beesMaxBirth!='0'){
-				if(memberBirth<=beesMaxBirth){
-					$.joinMember(userName, memberNo, beesNo);
-				}else{
-					alert("가입 가능한 연령이 아닙니다.");
-				}
-			}else if(beesMinBirth!='0'){
-				if(memberBirth>=beesMinBirth){
-					$.joinMember(userName, memberNo, beesNo);
-				}else{
-					alert("가입 가능한 연령이 아닙니다.");
-				}
-				
-			}else if(beesMaxBirth!='0' && beesMinBirth!='0'){
-				if(memberBirth>=beesMinBirth && memberBirth<=beesMaxBirth){
-					$.joinMember(userName, memberNo, beesNo);
-				}else{
-					alert("가입 가능한 연령이 아닙니다.");
-				}
-				
-			}
-		}
-		
-		}
-	}else{
-		
-		if(userCount<beesUserLimit){
-		if(userName=" "){
-			alert("이름을 입력하세요.");
-		}else{
-		
-		var memberNo = ${sessionScope.member.memberNo};
-		var memberGender = ${sessionScope.member.memberGender};
-		var mBirth = ${sessionScope.member.memberBirth}
-		var memberBirth = mBirth.substring(0,3);
-		var beesNo = ${requestScope.bees.beesNo};
-		var beesMaxBirth = ${requestScope.bees.beesMaxBirth};
-		var beesMinBirth = ${requestScope.bees.beesMinBirth};
-		var beesGender = ${requestScope.bees.beesGender};
-		
-		if(beesGender!='N'){
-			
-			if(beesGender == memberGender){
-			if(beesMaxBirth!='0'){
-				if(memberBirth<=beesMaxBirth){
-					$.joinMember(userName, memberNo, beesNo);
-				}else{
-					alert("가입 가능한 연령이 아닙니다.");
-				}
-			}else if(beesMinBirth!='0'){
-				if(memberBirth>=beesMinBirth){
-					$.joinMember(userName, memberNo, beesNo);
-				}else{
-					alert("가입 가능한 연령이 아닙니다.");
-				}
-				
-			}else if(beesMaxBirth!='0' && beesMinBirth!='0'){
-				if(memberBirth>=beesMinBirth && memberBirth<=beesMaxBirth){
-					$.joinMember(userName, memberNo, beesNo);
-				}else{
-					alert("가입 가능한 연령이 아닙니다.");
-				}
-				
-			}
-			}else{
-				alert("가입 가능한 성별이 아닙니다.");
-			}
-			
-		}else{
-			
-			if(beesMaxBirth!='0'){
-				if(memberBirth<=beesMaxBirth){
-					$.joinMember(userName, memberNo, beesNo);
-				}else{
-					alert("가입 가능한 연령이 아닙니다.");
-				}
-			}else if(beesMinBirth!='0'){
-				if(memberBirth>=beesMinBirth){
-					$.joinMember(userName, memberNo, beesNo);
-				}else{
-					alert("가입 가능한 연령이 아닙니다.");
-				}
-				
-			}else if(beesMaxBirth!='0' && beesMinBirth!='0'){
-				if(memberBirth>=beesMinBirth && memberBirth<=beesMaxBirth){
-					$.joinMember(userName, memberNo, beesNo);
-				}else{
-					alert("가입 가능한 연령이 아닙니다.");
-				}
-				
-			}
-		}
-	
-	}
-		}else{
-			
-			alert("최대 가입인원을 초과하였습니다. 호스트에게 문의해주세요");
-		}
-}
-	
-	
-});
-
 $.joinMember = function(userName, memberNo, beesNo){
 	$.ajax({
 		url:"/insertBeesUser.do",
+		type:"POST",
 		data:{"userName":userName,"memberNo":memberNo,"beesNo":beesNo},
 		success:function(data){
 			if(data>0){
@@ -1786,12 +1659,145 @@ $.joinMember = function(userName, memberNo, beesNo){
 			}
 		},
 		error:function(){
-		
 		}
 	});
-}
+};
 
+$('#join-modal-submit').click(function(){
+
+	var userName = $('#join-modal-name').val();
+	var beesUserLimit = ${requestScope.bees.beesUserLimit};
+	var memberNo = ${sessionScope.member.memberNo};
+	var mBirth = '${sessionScope.member.memberBirth}';
+	var memberBirth =Number(mBirth.substring(0,4));
+	var beesNo = ${requestScope.bees.beesNo};
+	var beesMaxBirth = ${requestScope.bees.beesMaxBirth};
+	var beesMinBirth = ${requestScope.bees.beesMinBirth};
+	var beesGender='${requestScope.bees.beesGender}';
+	var userCount = ${requestScope.userCount};
+	
+	if(beesUserLimit=='0'){
+		if(beesGender=='N'){
+			if(beesMaxBirth!=0){
+				if(beesMinBirth!=0){
+					if(memberBirth<=beesMinBirth){
+						if(memberBirth>=beesMaxBirth){
+							$.joinMember(userName, memberNo, beesNo);
+						}else{
+							alert("가입 가능 연령이 아닙니다.");
+						}
+					}else{
+						alert("가입 가능 연령이 아닙니다.");
+					}
+				}else{
+					if(memberBirth>=beesMaxBirth){
+						$.joinMember(userName, memberNo, beesNo);
+					}else{
+						alert("가입 가능 연령이 아닙니다.");
+					}
+				}
+			}else if(beesMinBirth!=0){
+				if(memberBirth<=beesMinBirth){
+					$.joinMember(userName, memberNo, beesNo);
+				}else{
+					alert("가입 가능 연령이 아닙니다.");
+				}
+			}
+		}else{
+			if(beesGender==memberGender){
+				if(beesMaxBirth!=0){
+					if(beesMinBirth!=0){
+						if(memberBirth<=beesMinBirth){
+							if(memberBirth>=beesMaxBirth){
+								$.joinMember(userName, memberNo, beesNo);
+							}else{
+								alert("가입 가능 연령이 아닙니다.");
+							}
+						}else{
+							alert("가입 가능 연령이 아닙니다.");
+						}
+					}else{
+						if(memberBirth>=beesMaxBirth){
+							$.joinMember(userName, memberNo, beesNo);
+						}else{
+							alert("가입 가능 연령이 아닙니다.");
+						}
+					}
+				}else if(beesMinBirth!=0){
+					if(memberBirth<=beesMinBirth){
+						$.joinMember(userName, memberNo, beesNo);
+					}else{
+						alert("가입 가능 연령이 아닙니다.");
+					}
+				}
+			}else{
+				alert("가입 가능 성별이 아닙니다.");
+			}
+		}
+	}else{
+		if(beesUserLimit>userCount){
+			if(beesGender=='N'){
+				if(beesMaxBirth!=0){
+					if(beesMinBirth!=0){
+						if(memberBirth<=beesMinBirth){
+							if(memberBirth>=beesMaxBirth){
+								$.joinMember(userName, memberNo, beesNo);
+							}else{
+								alert("가입 가능 연령이 아닙니다.");
+							}
+						}else{
+							alert("가입 가능 연령이 아닙니다.");
+						}
+					}else{
+						if(memberBirth>=beesMaxBirth){
+							$.joinMember(userName, memberNo, beesNo);
+						}else{
+							alert("가입 가능 연령이 아닙니다.");
+						}
+					}
+				}else if(beesMinBirth!=0){
+					if(memberBirth<=beesMinBirth){
+						$.joinMember(userName, memberNo, beesNo);
+					}else{
+						alert("가입 가능 연령이 아닙니다.");
+					}
+				}
+			}else{
+				if(beesGender==memberGender){
+					if(beesMaxBirth!=0){
+						if(beesMinBirth!=0){
+							if(memberBirth<=beesMinBirth){
+								if(memberBirth>=beesMaxBirth){
+									$.joinMember(userName, memberNo, beesNo);
+								}else{
+									alert("가입 가능 연령이 아닙니다.");
+								}
+							}else{
+								alert("가입 가능 연령이 아닙니다.");
+							}
+						}else{
+							if(memberBirth>=beesMaxBirth){
+								$.joinMember(userName, memberNo, beesNo);
+							}else{
+								alert("가입 가능 연령이 아닙니다.");
+							}
+						}
+					}else if(beesMinBirth!=0){
+						if(memberBirth<=beesMinBirth){
+							$.joinMember(userName, memberNo, beesNo);
+						}else{
+							alert("가입 가능 연령이 아닙니다.");
+						}
+					}
+				}else{
+					alert("가입 가능 성별이 아닙니다.");
+				}
+			}
+		}else{
+			alert("가입 인원을 초과하였습니다.");
+		}
+	}
+});
 </script>
 </body>
-<%@include file="/common/footer.jsp"%>
 </html>
