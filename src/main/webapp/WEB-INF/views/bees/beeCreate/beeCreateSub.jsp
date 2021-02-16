@@ -156,7 +156,7 @@
             </div>
         </div>
         <div class="btnFooter">
-            <button type="button" class="_btnCancel uButton -sizeXL -cancel">취소</button>
+            <button type="button" onclick="location.href='/myBeesPage.do?memberNo=<%=sessionMember.getMemberNo() %>'" class="_btnCancel uButton -sizeXL -cancel">취소</button>
             <button type="submit" class="_btnConfirm uButton -sizeXL -disabled">완료</button>
         </div>
     </fieldset>
