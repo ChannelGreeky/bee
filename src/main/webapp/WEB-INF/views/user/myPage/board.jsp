@@ -95,7 +95,9 @@ if($(window).scrollTop()==($(document).height()-$(window).height())){
 					}
 		    	}, 1000);
 		  		}else{
-			  	alert("피드가 더이상 존재하지 않습니다.");
+		  			if($(document).height()>1200px){
+				  		alert("피드가 더이상 존재하지 않습니다.");
+			  			}
 		  		}
 		  }
 			
@@ -779,7 +781,7 @@ select:focus {
 					<%}// if(=null)
 						}// bees-feed }// bees-feed 
 						else{%>
-					<div style="margin-top:30px; width:100%; height:500px; line-height:500px;">
+					<div style="margin-top:30px; width:100%; height:620px; line-height:500px;">
 					</div>
 					<%} %>
 					

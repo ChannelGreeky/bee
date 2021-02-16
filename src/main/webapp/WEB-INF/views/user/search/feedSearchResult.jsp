@@ -71,7 +71,9 @@ if($(window).scrollTop()==($(document).height()-$(window).height())){
 					}
 		    	}, 1000);
 		  		}else{
-			  	alert("피드가 더이상 존재하지 않습니다.");
+		  			if($(document).height()>1200px){
+				  		alert("피드가 더이상 존재하지 않습니다.");
+			  			}
 		  		}
 		  }
 			
@@ -196,7 +198,7 @@ if($(window).scrollTop()==($(document).height()-$(window).height())){
 					</div>
 					<%}
 					}else{%>
-					<div style="width:100%; height:700px;">
+					<div style="width:100%; height:720px;">
 					</div>
 					<%}%>
 				<script>		

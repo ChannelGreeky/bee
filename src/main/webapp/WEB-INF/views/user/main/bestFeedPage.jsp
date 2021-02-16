@@ -140,7 +140,7 @@
 					</div>
 					<%}
 					}else{%>
-					<div style="width:100%; height:700px"></div>
+					<div style="width:100%; height:720px"></div>
 					<%} %>
 				<script>		
 				$('.feed-like-btn').click(
