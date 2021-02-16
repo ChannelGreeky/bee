@@ -377,6 +377,7 @@ if($(window).scrollTop()==($(document).height()-$(window).height())){
 					})
 					</script>
 					<%
+					if(user!=null || bees.getBeesPublicYN()=='Y'){
 					if(!(feedList.isEmpty())){
 						for (int i = 0; i < feedList.size(); i++) {
 							
@@ -879,12 +880,23 @@ if($(window).scrollTop()==($(document).height()-$(window).height())){
 						</table>
 						</div>
 					</div>
-					<%}// if(=null)
+					<%}//user가 null이 아닐때 
+						}// if(=null)
 						}// bees-feed }// bees-feed 
-						else{%>
-					<div style="margin-top:30px; width:100%; height:500px; line-height:500px;">
+						else{
+						
+						if(user==null){%>
+					<div style="text-align:center; margin-top:30px; margin-bottom:30px; width:100%; height:500px; background-color:white; font-size:1.2rem; font-weight:200; color:dimgray; padding-top:200px; ">
+					회원에게만 공개된 게시글입니다.<br>
+					비즈에 가입하여 확인해주세요<br>
 					</div>
-					<%} %>
+						<% }else{%>	
+					<div style="text-align:center; margin-top:30px; margin-bottom:30px; width:100%; height:500px; background-color:white; font-size:1.2rem; font-weight:200; color:dimgray; padding-top:200px; box-shadow: 1px 1px 2px rgb(230, 230, 230);">
+					게시글이 존재하지 않습니다.<br>
+					<%= user.getUserName() %>님, 글을 작성해보세요!<br>
+					</div>
+					<%}
+					} %>
 					<script>
 					//투표 처리하는 ajax;
 					$('.vote-submit').click(function(){
@@ -1776,9 +1788,10 @@ $.joinMember = function(userName, memberNo, beesNo){
 		error:function(){
 		
 		}
-	})
+	});
 }
 
 </script>
 </body>
+<%@include file="/common/footer.jsp"%>
 </html>

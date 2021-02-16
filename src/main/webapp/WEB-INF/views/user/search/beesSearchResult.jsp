@@ -78,8 +78,8 @@
 					<div class="row mt-2 m-0">
 						<div class="col-12">
 							<span id="main-content-title">'<%=searchData %>' 검색 결과 (비즈)</span>
-							<a class="btn ml-3" href="#">비즈 검색</a>
-							<a class="btn" href="/feedSearchResult.do?keyword=<%=searchData %>">게시글 검색</a>
+							<a class="categoryBtn btn ml-3" href="#">비즈 검색</a>
+							<a class="categoryBtn btn" href="/feedSearchResult.do?keyword=<%=searchData %>">게시글 검색</a>
 						</div>
 					</div>
 					<div class="row mt-1 m-0">
