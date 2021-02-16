@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
+import com.fourmeeting.bee.admin.model.vo.Criteria;
 import com.fourmeeting.bee.notice.model.dao.NoticeDAO;
 import com.fourmeeting.bee.notice.model.vo.Notice;
 
@@ -27,9 +28,9 @@ public class NoticeService {
 		return result;
 	}
 
-	public ArrayList<Notice> noticeSelectAll() {          //글 전체 조회
+	public ArrayList<Notice> noticeSelectAll(Criteria cri) {          //글 전체 조회
 		System.out.println("noticeSelectAll() 서비스");
-		ArrayList<Notice> list= nDAO.noticeSelectAll(sqlSession);
+		ArrayList<Notice> list= nDAO.noticeSelectAll(sqlSession,cri);
 		return list;
 	}
 
@@ -50,8 +51,22 @@ public class NoticeService {
 		int result = nDAO.modifyUpdate(n, sqlSession);
 		return result;
 	}
+
+	public int getTotal(Criteria cri) {
+		
+			int total = nDAO.getTotal(cri, sqlSession);
+			return total;
+		
+
+
+	}
 	
-	
+
+	public ArrayList<Notice> searchBtn(Criteria cri) {
+		ArrayList<Notice> list = nDAO.searchBtn(cri, sqlSession);
+		return list;
+		
+	}
 	
 		//사용자 -------------------------------------------------------
 		//마이페이지 공지사항 리스트

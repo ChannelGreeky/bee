@@ -1,5 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    <%@page import="com.fourmeeting.bee.member.model.vo.Member"%>
+<%@page import="java.util.ArrayList"%>
+<%@page import="java.text.SimpleDateFormat" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -53,11 +58,6 @@
 		background-color: white;
 	}
 	
-	.memberManagement_div p{
-		font-size: 1.5rem;
-		font-weight: 600;
-		color: #50401B;
-	}
 	
 	.memberManagement_table{
 		width: 100%;
@@ -77,9 +77,9 @@
 	}
 	
 	/* 탈퇴버튼 */
-	.member_del_y_btn{
-		color: #50401B;
-		background-color: #F7D078;
+	.member_del_yn_btn{
+	
+		
 		border-radius: 25px;
 		width: 80px;
 		height: 27px;
@@ -105,54 +105,69 @@
 	.member_del_y_btn, .member_del_n_btn:focus{
 		outline: none;
 	}
+	.pagination{
+	width:50%;
+	margin:20px auto;
+	padding-left:
+	}
+	
+	.pagination a{
+	color:#50401B;
+	margin:0 auto;
+	}
 	
 </style>
 
 	<script>
 		
-		$(function(){
-			
-				
-		/* 	
+	$(document).ready(function() {
+	
 			$(".member_del_yn_btn").click(function(){
+				var delVal = $(this).val();
+		
+				  var memberNum = $(this).attr('id');
 				
-				if($(this).val()==null){
-					var result = confirm("정말 탈퇴처리 하시겠습니까?");
-					if(result){
-						//삭제 로직 구현
-						$(this).css('background-color','#50401B').css('color','white').val("복구");
-					} 
-				}
-				else if($(this).val()=="복구"){
-					//if 복구 정상적 되면
-					var result = confirm("정말 복구 하시겠습니까?");
-					if(result){
-						$(this).css('background-color','#F7D078').css('color','#50401B').val("탈퇴");
+				if(delVal=='탈퇴'){    
+					var data1 = confirm("정말 탈퇴처리 하시겠습니까?");
+					if(data1){
+						
+						delVal = 'N';   
+				
 					}
-				} 
+				}else if(delVal=='복구'){  
+					var data2 = confirm("정말 복구 하시겠습니까?");
+					if(data2){
+			
+						delVal = 'Y';
+			
+					}
+				}
 				
-			}); */
-			
-			/* if($(".member_del_yn_btn").val()=="탈퇴"){ /// text
-				$(this).css('background-color','#F7D078').css('color','#50401B');
-			} else if($(".member_del_yn_btn").val()=="복구"){
-				$(this).css('background-color','#50401B').css('color','white');
-			} 
-			
-			if(탈퇴일자!=null){
-			<button class="탈퇴">탈퇴</button>
-			}else{
-			<button class="복구">복구</button>
-			}
-			
-			*/
-			
-			
+				var $btnObject = $(this);
+				$.ajax({
+					url:"/withdrawalBtnChange.do",
+					type: "get",
+					data : {"delVal":delVal, "memberNum":memberNum },
+					success : function(result){
+						
+					},
+					error : function(){
+						console.log("ajax 통신 실패");
+					}
+				});
+				
+			});
+	
 		});
 	
 	</script>
 
-
+  <%@ include file="/include/adminSearchForm.jsp"  %>
+  <%
+	ArrayList<Member> list=(ArrayList<Member>)request.getAttribute("list");
+	Member sessionMember = (Member)session.getAttribute("member");
+	
+%>
 		<div class="container pt-3">
 			<div class="row">
 				
@@ -160,114 +175,94 @@
 				<div class="col-1"></div>
 				
 				<div class="memberManagement_div col-10">
-					<p>회원관리</p>
-					<table border="1" class="memberManagement_table">
+					
+					<table border="1" class="memberManagement_table">  
 						<tr>
 							<th>회원번호</th>
 							<th>아이디</th>
-							<th>닉네임</th>
+							<th>이름</th>
 							<th>이메일</th>
 							<th>가입일자</th>
 							<th>탈퇴일자</th>
 							<th>탈퇴 / 복구</th>
 						</tr>
+		<%
+		
+		if (sessionMember != null) {
+	%>
+						
+				<%for(Member ml: list){ %>
 						<tr>
-							<td>0920</td>
-							<td>kim9</td>
-							<td>하하하</td>
-							<td>haha09@gmail.com</td>
-							<td>20.02.01</td>
-							<td>-</td>
+							<td><%=ml.getMemberNo() %></td>
+							<td><%=ml.getMemberId() %></td>
+							<td><%=ml.getMemberName() %></td>
+							<td><%=ml.getMemberEmail() %></td>
+							<%SimpleDateFormat sd1Format = new SimpleDateFormat("yy.MM.dd");
+							SimpleDateFormat sd2Format = new SimpleDateFormat("yy.MM.dd");
+							%>
+							
+							<td><%=sd1Format.format(ml.getMemberDate()) %></td>
+							<td><%if(ml.getMemberEndDate()==null){ %>
+									--
+							    <%}else{%>
+							 		<%=sd2Format.format(ml.getMemberEndDate()) %>
+							    <%} %>
+							</td>
 							<td>
-								<input type="button" value="탈퇴" class="member_del_y_btn">
-								<input type="hidden" value="복구" class="member_del_n_btn">
+								<%if(ml.getDelYN()=='N'){ %>
+									<input type="button" value="탈퇴" id="<%=ml.getMemberNo() %>" class="member_del_yn_btn"
+									style="background-color:#F7D078; color:#50401B;">
+								<%}else if(ml.getDelYN()=='Y'){ %>
+									<input type="button" value="복구" id="<%=ml.getMemberNo() %>" class="member_del_yn_btn"
+									style="background-color:#50401B; color:white;">
+								<%} %>
 							</td>
 						</tr>
-						<tr>
-							<td>0919</td>
-							<td>song55</td>
-							<td>송오리땅땅</td>
-							<td>song55@gmail.com</td>
-							<td>20.02.01</td>
-							<td>20.05.01</td>
-							<td>
-								<input type="hidden" value="탈퇴" class="member_del_y_btn">
-								<input type="button" value="복구" class="member_del_n_btn">
-							</td>
-						</tr>
-						<tr>
-							<td></td>
-							<td></td>
-							<td></td>
-							<td></td>
-							<td></td>
-							<td></td>
-							<td></td>
-						</tr>
-						<tr>
-							<td></td>
-							<td></td>
-							<td></td>
-							<td></td>
-							<td></td>
-							<td></td>
-							<td></td>
-						</tr>
-						<tr>
-							<td></td>
-							<td></td>
-							<td></td>
-							<td></td>
-							<td></td>
-							<td></td>
-							<td></td>
-						</tr>
-						<tr>
-							<td></td>
-							<td></td>
-							<td></td>
-							<td></td>
-							<td></td>
-							<td></td>
-							<td></td>
-						</tr>
-						<tr>
-							<td></td>
-							<td></td>
-							<td></td>
-							<td></td>
-							<td></td>
-							<td></td>
-							<td></td>
-						</tr>
-						<tr>
-							<td></td>
-							<td></td>
-							<td></td>
-							<td></td>
-							<td></td>
-							<td></td>
-							<td></td>
-						</tr>
-						<tr>
-							<td></td>
-							<td></td>
-							<td></td>
-							<td></td>
-							<td></td>
-							<td></td>
-							<td></td>
-						</tr>
-						<tr>
-							<td></td>
-							<td></td>
-							<td></td>
-							<td></td>
-							<td></td>
-							<td></td>
-							<td></td>
-						</tr>
+				<%} %>
+						
 					</table>
+					
+					
+					
+					<div class='navi'>
+					<ul class="pagination">
+
+			
+
+						<c:if test="${pageMaker.prev}">
+							<li class="paginate_button previous"><a
+								href="${pageMaker.startPage -1}"><img src="/resources/image/admin/angel-left.png" style="width:17px; height:17px;"></a></li>
+						</c:if>
+
+						<c:forEach var="num" begin="${pageMaker.startPage}"
+							end="${pageMaker.endPage}">
+							<li class="paginate_button  ${pageMaker.cri.pageNum == num ? "active":""} ">
+								<a href="${num}">${num}</a>
+							</li>
+						</c:forEach>
+
+						<c:if test="${pageMaker.next}">
+							<li class="paginate_button next"><a
+								href="${pageMaker.endPage +1 }"><img src="/resources/image/admin/angel-right.png" style="width:17px; height:17px;"></a></li>
+						</c:if>
+
+
+					</ul>
+				</div>
+				<!--  end Pagination -->
+			</div>
+					
+			<form id='actionForm' action="/memberManagement.do" method='get'>
+				<input type='hidden' name='pageNum' value='${pageMaker.cri.pageNum}'>
+				<input type='hidden' name='amount' value='${pageMaker.cri.amount}'>
+
+				
+
+			</form>
+					
+					
+					
+					
 				</div>
 				
 				<!-- 여백 -->
@@ -275,6 +270,63 @@
 				
 			</div>
 		</div>
+<script type="text/javascript">
+	$(document)
+			.ready(
+					function() {
 
+						var result = '<c:out value="${result}"/>';
+
+						checkModal(result);
+
+						history.replaceState({}, null, null);
+
+						function checkModal(result) {
+
+							if (result === '' || history.state) {
+								return;
+							}
+
+							if (parseInt(result) > 0) {
+								$(".modal-body").html(
+										"게시글 " + parseInt(result)
+												+ " 번이 등록되었습니다.");
+							}
+
+							$("#myModal").modal("show");
+						}
+
+						$("#regBtn").on("click", function() {
+
+							self.location = "/board/register";
+
+						});
+
+						var actionForm = $("#actionForm");
+
+						$(".paginate_button a").on(
+								"click",
+								function(e) {
+
+									e.preventDefault();
+
+									console.log('click');
+
+									actionForm.find("input[name='pageNum']")
+											.val($(this).attr("href"));
+									actionForm.submit();
+								});
+
+						
+
+					});
+	
+	
+</script>
+<%}else{ %>
+		
+	<script>location.href ="/index.jsp";</script>
+						
+<%} %>
 </body>
 </html>

@@ -12,6 +12,7 @@ import com.fourmeeting.bee.admin.model.vo.Criteria;
 import com.fourmeeting.bee.member.model.vo.Member;
 import com.fourmeeting.bee.notice.model.vo.Notice;
 
+
 @Service("adminBoardService")
 public class AdminBoardService {
 
@@ -41,6 +42,16 @@ public class AdminBoardService {
 		int total = abDAO.getTotal(cri, sqlSession);
 		return total;
 	}
+
+
+	
+
+
+	public ArrayList<Notice> searchbar(Criteria cri) {
+		ArrayList<Notice> list = abDAO.searchbar(cri, sqlSession);
+		return list;
+	}
+
 
 
 	

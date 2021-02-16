@@ -18,6 +18,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttribute;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.fourmeeting.bee.admin.model.vo.Criteria;
+import com.fourmeeting.bee.admin.model.vo.PageDTO;
 import com.fourmeeting.bee.member.model.vo.Member;
 import com.fourmeeting.bee.notice.model.service.NoticeService;
 import com.fourmeeting.bee.notice.model.vo.Notice;
@@ -33,10 +35,12 @@ public class NoticeController {
 	
 	
 	@RequestMapping(value="/adminNoticeBoard.do")    //공지사항 전체 게시글조회
-	public ModelAndView adminNoticeBoard(){
-		ArrayList<Notice> list= nService.noticeSelectAll();
+	public ModelAndView adminNoticeBoard(Criteria cri){
+		ArrayList<Notice> list= nService.noticeSelectAll(cri);
 		ModelAndView mav = new ModelAndView();
 		mav.addObject("list",list);
+		int total = nService.getTotal(cri);
+		mav.addObject("pageMaker", new PageDTO(cri,total));
 		mav.setViewName("admin/adminNoticeBoard"); 	
 		return mav; 
 	}	
@@ -65,7 +69,7 @@ public class NoticeController {
 	
 	
 	@RequestMapping(value="/noticeInsert.do")       //공지사항,FAQ 등록
-	public ModelAndView noticeInsert(Notice n, @SessionAttribute("member") Member m){
+	public ModelAndView noticeInsert(Notice n, @SessionAttribute("member") Member m,Criteria cri){
 		//세션에서 회원no가져와야함.
 //		System.out.println(n.getNoticeTitle());
 //		System.out.println(n.getNoticeCont());
@@ -92,7 +96,7 @@ public class NoticeController {
 		//결과처리
 		if(result>0){
 			System.out.println("글을 등록 하였습니다.");
-			ArrayList<Notice> list= nService.noticeSelectAll();
+			ArrayList<Notice> list= nService.noticeSelectAll(cri);
 			mav.addObject("list",list);
 			System.out.println(list.get(1));
 		}else{
@@ -145,7 +149,7 @@ public class NoticeController {
 	}
 	
 	@RequestMapping(value ="/modifyUpdate.do")
-	public ModelAndView modifyInsert(@RequestParam String modifyInsertCategory,@RequestParam String modifyInsertTitle,@RequestParam String modifyInsertCont,@RequestParam int modifyInsertNoticeNo){
+	public ModelAndView modifyInsert(@RequestParam String modifyInsertCategory,@RequestParam String modifyInsertTitle,@RequestParam String modifyInsertCont,@RequestParam int modifyInsertNoticeNo,Criteria cri){
 		
 		Notice n = new Notice();
 		n.setNoticeNo(modifyInsertNoticeNo);
@@ -159,7 +163,7 @@ public class NoticeController {
 		//결과처리
 		if(result>0){
 			System.out.println("글을 수정 하였습니다.");
-			ArrayList<Notice> list= nService.noticeSelectAll();
+			ArrayList<Notice> list= nService.noticeSelectAll(cri);
 			mav.addObject("list",list);
 			System.out.println(list.get(1));
 		}else{
@@ -169,8 +173,48 @@ public class NoticeController {
 		return mav; 
 	}
 	
+	@RequestMapping(value = "/searchbarBtn.do")  //공지사항 검색
+	public ModelAndView searchbarBtn(@RequestParam String btnKeyword,
+			@RequestParam String btnCategory,
+			@RequestParam String btnStartDate,
+			@RequestParam String btnEndDate,
+			 Criteria cri){
 	
+		if(btnCategory.equals("faq")){
+			
+			btnCategory = "F";
+			System.out.println(btnCategory);
+		}else if(btnCategory.equals("notice")){
+			
+			btnCategory = "N";
+			System.out.println(btnCategory);
+		}
+		System.out.println(btnStartDate);
+		
+		
+		System.out.println(btnCategory);   //faq 또는 notice
+		System.out.println(btnKeyword);       //text형태
 	
+		
+		cri.setStartDate(btnStartDate);
+		cri.setCategory(btnCategory);
+		cri.setEndDate(btnEndDate);
+		cri.setKeyword(btnKeyword);
+	
+			
+		
+		ArrayList<Notice> list = nService.searchBtn(cri);    
+		ModelAndView mav = new ModelAndView();     
+		
+		mav.addObject("list",list);
+		
+		int total = nService.getTotal(cri);
+		mav.addObject("pageMaker", new PageDTO(cri,total));
+		mav.setViewName("admin/adminNoticeBoard");  
+	
+		return mav; 
+		
+	}
 	
 		//사용자 -------------------------------------------------------
 		//마이페이지 공지사항 리스트

@@ -10,6 +10,7 @@ import com.fourmeeting.bee.admin.model.vo.Criteria;
 import com.fourmeeting.bee.member.model.vo.Member;
 import com.fourmeeting.bee.notice.model.vo.Notice;
 
+
 @Repository("adminBoardDAO")
 public class AdminBoardDAO {
 
@@ -30,11 +31,19 @@ public class AdminBoardDAO {
 	}
 
 	public int getTotal(Criteria cri, SqlSessionTemplate sqlSession) {
-		int total = sqlSession.selectOne("notice.totalCount",cri);
+		int total = sqlSession.selectOne("notice.totalNotice",cri);
 		System.out.println(total);
 		return total;
 	}
 
+	
+
+	public ArrayList<Notice> searchbar(Criteria cri, SqlSessionTemplate sqlSession) {
+		List list =sqlSession.selectList("notice.searchbar", cri);
+		return (ArrayList<Notice>)list;
+	}
+
+	
 	
 
 }

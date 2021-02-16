@@ -134,6 +134,7 @@
 	
 	
 	}
+
 	
 </style>
 
@@ -153,24 +154,21 @@
 			$(".qna_del_yn_btn").click(function(){
 				
 				var btnVal = $(this).val();
-				
-				// var boardNum = $(this).parents('tr').children().first().text(); //게시판 번호 받아오기
 				  var boardNum = $(this).attr('id');
 				
 				if(btnVal=="삭제"){
 					var result = confirm("정말 삭제하시겠습니까?");
 					if(result){
-						//삭제 로직 구현
-						btnVal = "N"; //삭제할거면 버튼 N으로 바꿔
-						alert(btnVal);
-						//$(this).css('background-color','#50401B').css('color','white').val("복구");
+						
+						btnVal = "N"; 
+						
+						
 					} 
 				}
 				else if(btnVal=="복구"){
-					//if 복구 정상적 되면
-					//$(this).css('background-color','#F7D078').css('color','#50401B').val("삭제");
-					btnVal = "Y"; //복구 할거면 버튼 Y로 바꿔
-					alert(btnVal);
+					
+					btnVal = "Y"; 
+					
 				} 
 				var $btnObject = $(this);
 				var $modifyObject = $(this).parent().prev();
@@ -181,15 +179,14 @@
 					success : function(data){
 						if(data=="true")
 						{
-							if(btnVal=='Y'){ //원래 상태가 Y였다면  삭제상태를 복구로...버튼은 정반대
-								//$(this).text('N'); //<--여기 this는 ajax를 나타냄. ajax안에서 사용하면 this가 button을 뜻하는게 아니라 ajax를 갸리킴
+							if(btnVal=='Y'){ 
+								
 								
 								$btnObject.css('background-color','#F7D078').css('color','#50401B').val("삭제");
 								$modifyObject.css('visibility','visible');
 								
 								
-							}else{			//원래 상태가 N였다면
-								//$(this).text('Y');
+							}else{			
 								
 								$btnObject.css('background-color','#50401B').css('color','white').val("복구");
 								$modifyObject.css('visibility','hidden');
@@ -224,7 +221,7 @@
 						console.log(data.cont);
 						console.log(num);
 						console.log(data.memberNo);
-					//	console.log(data.);
+				
 						$("#modify_category").val(data.category);
 						$("#modify_title").val(data.title);
 						$("#recipient-name").val(data.cont);
@@ -244,6 +241,8 @@
 				});
 			
 			});
+			
+			
 		});
 		
 	</script>
@@ -304,6 +303,46 @@
 						</tr>
 						<%} %> 
 					</table>
+					
+					<div class='navi'>
+					<ul class="pagination">
+
+			
+
+						<c:if test="${pageMaker.prev}">
+							<li class="paginate_button previous"><a
+								href="${pageMaker.startPage -1}"><img src="/resources/image/admin/angel-left.png" style="width:17px; height:17px;"></a></li>
+						</c:if>
+
+						<c:forEach var="num" begin="${pageMaker.startPage}"
+							end="${pageMaker.endPage}">
+							<li class="paginate_button  ${pageMaker.cri.pageNum == num ? "active":""} ">
+								<a href="${num}">${num}</a>
+							</li>
+						</c:forEach>
+
+						<c:if test="${pageMaker.next}">
+							<li class="paginate_button next"><a
+								href="${pageMaker.endPage +1 }"><img src="/resources/image/admin/angel-right.png" style="width:17px; height:17px;"></a></li>
+						</c:if>
+
+
+					</ul>
+				</div>
+				<!--  end Pagination -->
+				</div>
+					
+			<form id='actionForm' action="/adminNoticeBoard.do" method='get'>
+				<input type='hidden' name='pageNum' value='${pageMaker.cri.pageNum}'>
+				<input type='hidden' name='amount' value='${pageMaker.cri.amount}'>
+
+				
+
+			</form>
+						
+					
+					
+					
 				</div>
 				
 				<!-- 여백 -->
@@ -312,19 +351,59 @@
 			</div>
 		</div>
 
-<script>
-$(document).ready(function() {
-	
-});
+<script type="text/javascript">
+	$(document)
+			.ready(
+					function() {
 
+						var result = '<c:out value="${result}"/>';
 
+						checkModal(result);
+
+						history.replaceState({}, null, null);
+
+						function checkModal(result) {
+
+							if (result === '' || history.state) {
+								return;
+							}
+
+							if (parseInt(result) > 0) {
+								$(".modal-body").html(
+										"게시글 " + parseInt(result)
+												+ " 번이 등록되었습니다.");
+							}
+
+							$("#myModal").modal("show");
+						}
+
+						$("#regBtn").on("click", function() {
+
+							self.location = "/board/register";
+
+						});
+
+						var actionForm = $("#actionForm");
+
+						$(".paginate_button a").on(
+								"click",
+								function(e) {
+
+									e.preventDefault();
+
+									console.log('click');
+
+									actionForm.find("input[name='pageNum']")
+											.val($(this).attr("href"));
+									actionForm.submit();
+								});
+
+						
+
+					});
 </script>
 
 
-<%//for(int i=0; i < list.size();i++){ %>
-	<% 
-
-	%>
 
 <!-- 글 수정 Modal -->
 <div class="modal fade" id="modifyModal" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
@@ -423,7 +502,7 @@ $(document).ready(function() {
 
 <%}else{ %>
 		
-	location.replace('/index.jsp');			  <!--  -->		
+	<script>location.href ="/index.jsp";</script>
 						
 <%} %>
 											

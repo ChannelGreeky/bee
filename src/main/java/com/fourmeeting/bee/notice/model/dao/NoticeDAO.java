@@ -6,6 +6,7 @@ import java.util.List;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
+import com.fourmeeting.bee.admin.model.vo.Criteria;
 import com.fourmeeting.bee.notice.model.vo.Notice;
 
 @Repository("noticeDAO")
@@ -17,9 +18,9 @@ public class NoticeDAO {
 		return result;
 	}
 
-	public ArrayList<Notice> noticeSelectAll(SqlSessionTemplate sqlSession) {
+	public ArrayList<Notice> noticeSelectAll(SqlSessionTemplate sqlSession,Criteria cri) {
 		System.out.println("noticeSelectAll dao");
-		List list = sqlSession.selectList("notice.noticeSelectAll");
+		List list = sqlSession.selectList("notice.noticeSelectAll",cri);
 		return (ArrayList<Notice>)list;
 	}
 
@@ -44,7 +45,17 @@ public class NoticeDAO {
 		int result = sqlSession.update("notice.modifyUpdate", n);
 		return result;
 	}
-	
+
+	public int getTotal(Criteria cri, SqlSessionTemplate sqlSession) {
+		int total = sqlSession.selectOne("notice.totalNotice",cri);
+		System.out.println(total);
+		return total;
+	}
+	public ArrayList<Notice> searchBtn(Criteria cri, SqlSessionTemplate sqlSession) {
+		List list =sqlSession.selectList("notice.searchBtn", cri);
+		return (ArrayList<Notice>)list;
+		
+	}
 	
 	
 		//사용자 -------------------------------------------------------

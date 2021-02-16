@@ -30,23 +30,22 @@ public class AdminBoardController {
 	private AdminBoardService anService;
 	
 	
+	
+	
 	@RequestMapping(value="/beesUploadFile.do")
 	public String uploadFile(){
 		return "bees/board/beesFileBoard";
 	}
 	
 
-	
-	
-	@RequestMapping(value="/adminNoticeModification.do")
-	public String noticeModification(){
-		return "admin/adminNoticeModification";
-	}
-	
+
 	
 	///////////////////////////////////////////////////////////
 	@RequestMapping(value="/memberManagement.do")      //관리자 회원관리
 	public ModelAndView memberManagement(Criteria cri, Model model){
+		
+		//이게 처음 로딩할때!
+		//보면 ArrayList가 Member 타입이죠
 		ArrayList<Member> list= anService.selectMemberAllList(cri);
 		
 		ModelAndView mav = new ModelAndView();
@@ -55,7 +54,9 @@ public class AdminBoardController {
 		
 		int total = anService.getTotal(cri);
 		mav.addObject("pageMaker", new PageDTO(cri,total));
-		mav.setViewName("admin/memberManagement");
+		mav.setViewName("admin/memberManagement"); 
+		
+		//그리고 memberManagement page로 이동하구요
 		return mav; 
 	}
 	
@@ -89,6 +90,53 @@ public class AdminBoardController {
 	}
 	
 	
+	
+	@RequestMapping(value = "/searchbar.do")
+	public ModelAndView searchbar(@RequestParam String keyword,   //회원검색
+			@RequestParam String category,
+			@RequestParam String startDate,
+			@RequestParam String endDate,
+			 Criteria cri){
+	
+		
+		if(category.equals("idMember")){
+			
+			category = "I";
+			System.out.println(category );
+		}else if(category.equals("nameMember")){
+			
+			category = "N";
+			System.out.println(category );
+		}else if(category.equals("withdrawalMember")){
+			
+			category = "W";
+			System.out.println(category );
+		}else if(category.equals("joinMember")){
+			
+			category = "J";
+			System.out.println(category );
+		}
+		System.out.println(category);  //idMember 또는 nameMember 또는 withdrawalMember 또는 joinMember
+		System.out.println(keyword);       //text형태
+		System.out.println(startDate);   //2021-02-09이런 형태의 string
+		System.out.println(endDate);
+		
+		cri.setStartDate(startDate);
+		cri.setCategory(category);
+		cri.setEndDate(endDate);
+		cri.setKeyword(keyword);
+		
+		ArrayList<Notice> list = anService.searchbar(cri);    
+		ModelAndView mav = new ModelAndView();     
+		
+		mav.addObject("list",list);
+		
+		int total = anService.getTotal(cri);
+		mav.addObject("pageMaker", new PageDTO(cri,total));
+		mav.setViewName("admin/memberManagement");  
+	
+		return mav; 
+	}
 	
 	
 }
