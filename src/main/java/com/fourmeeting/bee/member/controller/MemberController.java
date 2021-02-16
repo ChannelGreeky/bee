@@ -137,7 +137,7 @@ public class MemberController {
 		} else {
 			model.addAttribute("msg", "회원가입 실패 지속적으로 실패 시 관리자에게 문의하세요.");
 		}
-		model.addAttribute("location", "/main.jsp");
+		model.addAttribute("location", "/index.jsp");
 
 		return "user/beforeLogin/memberResult";
 	}
@@ -316,7 +316,7 @@ public class MemberController {
 			model.addAttribute("msg", "비밀번호 변경 실패 지속적으로 실패 시 관리자에게 문의 주세요");
 		}
 		
-		model.addAttribute("location", "/main.jsp");
+		model.addAttribute("location", "/index.jsp");
 
 		return "user/beforeLogin/memberResult";
 	}
@@ -547,6 +547,7 @@ public class MemberController {
 		
 		Member m = new Member();
 		m.setMemberNo(sessionMember.getMemberNo());
+		m.setMemberId(sessionMember.getMemberId());
 		m.setMemberPw(memberPw);
 		
 		
@@ -569,6 +570,7 @@ public class MemberController {
 			
 		Member m = new Member();
 		m.setMemberNo(sessionMember.getMemberNo());
+		m.setMemberId(sessionMember.getMemberId());
 		m.setMemberPw(memberPw);
 			
 		Member member = mService.memberPwCheck(m);
