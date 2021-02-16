@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@page import="com.fourmeeting.bee.beesuser.model.vo.BeesUserList"%>
+<%@page import="com.fourmeeting.bee.bees.model.vo.Bees"%>
 <%@page import="java.util.ArrayList"%>
 <!DOCTYPE html>
 <html>
@@ -9,7 +10,9 @@
 </head>
 <body>
 <%
+	Bees beeResult = (Bees)request.getAttribute("beeResult");
 	ArrayList<BeesUserList> list = (ArrayList<BeesUserList>)request.getAttribute("list");
+	int userCount = (int)request.getAttribute("userCount");
 	/* Bees beeResult = (Bees)request.getAttribute("beeResult"); */
 	/* Member sessionMember = (Member)session.getAttribute("member"); */
 %>

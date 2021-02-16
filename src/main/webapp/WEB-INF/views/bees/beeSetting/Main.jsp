@@ -9,8 +9,10 @@
 <body>
 <%
 	Bees beeResult = (Bees)request.getAttribute("beeResult");
+	int userCount = (int)request.getAttribute("userCount");
 	/* Member sessionMember = (Member)session.getAttribute("member"); */
 %>
+ 
 	<%@ include file="/common/cdnLib.jsp"%>
 	<!--비즈 전체페이지 + 사이드 프로필 + 메인 컨텐츠 크기-->
 	<link rel="stylesheet" type="text/css" href="/resources/css/beesForm.css">

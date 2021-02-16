@@ -9,6 +9,7 @@
 <body>
 <%
 	Bees beeResult = (Bees)request.getAttribute("beeResult");
+	int userCount = (int)request.getAttribute("userCount");
 	/* Member sessionMember = (Member)session.getAttribute("member"); */
 %>
    <%@ include file="/common/cdnLib.jsp"%>

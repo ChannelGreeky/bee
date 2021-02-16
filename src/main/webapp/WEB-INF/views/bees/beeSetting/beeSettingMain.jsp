@@ -58,7 +58,7 @@
         </div>
         <div class="itemSide"> 
         <form id="beeSettingSubIntro" action="/beeSettingSubIntro.do" method="post">
-        <input type="hidden" id="beesNo" name="beesNo" value="<%=beeResult.getBeesNo()%>"/>   
+        <input type="hidden" id="beesNo" name="beesNo" value="<%=beeResult.getBeesNo()%>"/>  
             <a href="#" onclick="document.getElementById('beeSettingSubIntro').submit();" class="uButton -sizeS -confirm2">설정</a>
         </form>
         </div>
