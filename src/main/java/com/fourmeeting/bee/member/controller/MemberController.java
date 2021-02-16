@@ -361,6 +361,10 @@ public class MemberController {
 		
 		System.out.println(realUploadPath+"//"+originalFileName);
 		
+		mf.transferTo(new File(realUploadPath));
+		
+		
+		
 		//이름 받아오기
 		String newMemberName = multi.getParameter("newMemberName");
 		
