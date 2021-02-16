@@ -1,3 +1,4 @@
+<%@page import="com.fourmeeting.bee.member.model.vo.Member"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -11,7 +12,10 @@
 
 <body>
 	
-	
+	<%
+	Member m = (Member)session.getAttribute("member");
+	if(m == null) {
+	%>
 	<div class="container pt-5">
 
 		<div id="top-padding" class="row my-5">
@@ -58,6 +62,10 @@
 	</div>
 	
 	<script type="text/javascript" src="/resources/js/index.js"></script>
-		
+	<%} else { %>
+	<script>
+	location.replace("/myBeesPage.do?memberNo=<%=m.getMemberNo()%>");
+	</script>
+	<%} %>
 </body>
 </html>

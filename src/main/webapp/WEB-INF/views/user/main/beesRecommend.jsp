@@ -222,6 +222,11 @@
 		</div>
 	</div>
 	<%@ include file="/common/footer.jsp"%>
-
+	<script>
+	var higth = $("body").height();
+	if(higth<754){
+	   $("#footer").css('position','absolute').css('bottom','0');
+	}
+	</script>
 </body>
 </html>

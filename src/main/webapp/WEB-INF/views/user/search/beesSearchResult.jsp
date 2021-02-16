@@ -149,6 +149,11 @@
 	</div>
 	<%@ include file="/common/footer.jsp"%>
 	<script type="text/javascript" src="/resources/js/index.js"></script>
-		
+	<script>
+	var higth = $("body").height();
+	if(higth<754){
+	   $("#footer").css('position','absolute').css('bottom','0');
+	}
+	</script>
 </body>
 </html>
