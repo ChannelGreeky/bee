@@ -2,9 +2,8 @@
     pageEncoding="UTF-8"%>
     <%@page import="java.util.ArrayList"%>
     <%@page import="com.fourmeeting.bee.image.model.vo.AttachFileDTO" %>
-       <%@page import="com.fourmeeting.bee.member.model.vo.Member"%>
-      <%@ include file="/include/headerUser.jsp"  %>
-   
+    <%@page import="com.fourmeeting.bee.member.model.vo.Member" %>
+      <%@ include file="/include/headerBee.jsp"  %>
       
 <!DOCTYPE html>
 <html>
@@ -14,7 +13,10 @@
 <style>
 .uploadResult {
 width: 100%;
-background-color: gray;
+margin-top:70px;
+background-color: yellow;
+height:70%;
+ overflow:scroll;
 }
 
 .uploadResult ul {
@@ -24,18 +26,14 @@ justify-content: center;
 align-items: center;
 padding:0;
 }
-.uploadResult li{
-width:33%;
-min-width:190px;
 
-}
 .uploadResult ul li {
 list-style: none;
 padding: 10px;
 
 }
 
-.uploadResult ul li img {
+.uploadResult img {
 width: 80%;
 white-space:pre;
 }
@@ -48,7 +46,8 @@ white-space:pre;
   bottom:5%;
   width:100%;
   height:100%;
-  background-color: gray; 
+  min-height:500px;
+  background-color: white; 
   z-index: 100;
 }
 
@@ -59,7 +58,30 @@ white-space:pre;
   align-items: center;
 }
 
+.uploadResult div{
+ display:flex;
+ width:500px;
+ height:150px;
+width:33%;
+min-width:190px;
+ white-space:pre;
+}
+.modal-content{
+height:500px;
+}
+#Btn{
+float:right;
+background-image:url('/resources/image/header/plus.png'); 
+background-repeat: no-repeat;
+        border: none;
+        width: 32px;
+        height: 32px;
+        cursor: pointer;
+}
+.img_body{
+height:500px;
 
+}
 </style>
 </head>
 <body>
@@ -142,16 +164,52 @@ white-space:pre;
             <div class="img_content" style="min-height:600px;">
                <div class="img_head">
                   <H3>사진첩</H3>
-                  
+   <%
+	ArrayList<AttachFileDTO> list=(ArrayList<AttachFileDTO>)request.getAttribute("list");
+
+                  Member member = (Member)session.getAttribute("member");
+              	System.out.println(member.getMemberNo());	
+              	
+%>
+	
+
+<%
+		
+		if (member != null) {
+	%>
+
+                           
                   
                </div>
-               
+            <!--      <input type="file" id="upImgFiles" onChange="uploadImgs();" name='uploadFile' accept="image/*" multiple >  <!-- name="subImg" -->
                <div class="img_body">
                   <span>전체사진</span> 
-                     <span>                                                                 
-                         <input type="file" id="upImgFiles" onChange="uploadImgs();" name="subImg" accept="image/*" multiple >
-                         <button type="button" id="btn-upload"> <i class="fas fa-plus"></i> </button> 
-                      </span>
+                                                                                  
+              
+               <div class='bigPictureWrapper'>
+				  <div class='bigPicture'>
+				  </div>
+			</div> 
+              
+                         
+                      
+                         <div class='uploadDiv'>    
+                         <input type='file' name='uploadFile' multiple id="btn-upload">
+						</div>
+                   			 
+                     
+                     <div class='uploadResult'>  <!--  업로드 된 파일 목록으로 보여주기-->
+					<ul > 
+					    <%for(AttachFileDTO af : list){%>
+						<%System.out.println("/resources/file/"+af.getChangeFileName());%>
+						<div ><img src="<%="/resources/file/"+af.getChangeFileName()%>" width='150px' height='150px'>
+						<span data-file=\'"+fileCallPath+"\' data-type='image' data-name=\'"+fileName+"\'><img src='/resources/image/admin/error.png' style='width:20px; height:20px;'></span></div>
+						<%} %>
+			
+								
+					</ul>
+				</div>
+                     
                         <div class="row" id="spaceImage">
                               <div class="col-md-12"> 
                               <div id="imageviews"></div>
@@ -160,41 +218,49 @@ white-space:pre;
             
                </div> <!-- img_body -->
             <!-- 여기부터 실험 -->
-            <div class='bigPictureWrapper'>
-  <div class='bigPicture'>
-  </div>
-</div>
-            <div class='uploadDiv'>
-		<input type='file' name='uploadFile' multiple>
-	</div>
-<%
-	ArrayList<AttachFileDTO> list=(ArrayList<AttachFileDTO>)request.getAttribute("list");
-
- Member member = (Member)session.getAttribute("member");
-	System.out.println(member.getMemberNo());	
-	
-%>
-	
-
-<%
-		
-		if (member != null) {
-	%>
-	<div class='uploadResult'>  <!--  업로드 된 파일 목록으로 보여주기-->
-		<ul >
-			<%for(AttachFileDTO af : list){%>
-			<%System.out.println("/resources/file/"+af.getChangeFileName());%>
-		<li ><img src="<%="/resources/file/"+af.getChangeFileName()%>" width='150px' height='150px'>
-		<span data-file=\'"+fileCallPath+"\' data-type='image' data-name=\'"+fileName+"\'><img src='/resources/image/admin/error.png' style='width:20px; height:20px;'></span></li>
-	<%} %>
-			
-		</ul>
-	</div>
-
- <%} %>
-	<button id='uploadBtn'>Upload</button>
             
-   <script>
+            
+            
+          
+           
+
+		  <div class='uploadBtn'>
+				 <button type="button" id='uploadBtn' class="btn btn-modifys" style="margin:0 auto;width:80px; background-color:#FFF3D8;color:#50401B;border:none;border-radius:10px;">업로드</button>
+			</div>
+
+
+
+
+
+   
+            
+            <!-- 여기까지 실험 -->
+            </div> <!-- img_content -->
+            </div> <!-- main_content -->
+
+   </div>   <!-- bees-contents -->
+				
+			</div>
+			<div class="col-1"></div>
+		</div>
+	</div>
+	
+	
+
+	
+	
+	<%} %>		  
+	
+     
+      
+      
+       
+     
+	
+	
+	<jsp:include page="/common/footer.jsp" flush="true"/>
+	
+	<script>
 
 	function showImage(fileCallPath){
 	  
@@ -223,7 +289,7 @@ white-space:pre;
 	  var targetFile = $(this).data("file");
 	  var type = $(this).data("type");
  	  var name = $(this).data("name");	
-	  var targetLi = $(this).closest("li");
+	  var targetLi = $(this).closest("div");
 	  
 	  $.ajax({
 	    url: '/deleteFile.do',
@@ -241,22 +307,13 @@ white-space:pre;
             
   </script>          
             
-            
-            <!-- 여기까지 실험 -->
-            </div> <!-- img_content -->
-            </div> <!-- main_content -->
-
-   </div>   <!-- bees-contents -->
-				
-			</div>
-			<div class="col-1"></div>
-		</div>
-	</div>
-	<jsp:include page="/common/footer.jsp" flush="true"/>
  <script>
 
  $(document).ready(function(){
 	 
+      
+	 $('#uploadBtn').click(function(e){
+		 e.preventDefault();
 	 $.ajax({
 		 url: '/selectAllImage.do',
 		 processData: false,
@@ -265,7 +322,7 @@ white-space:pre;
 		 dataType:'json',
 		 success: function(result){
 			 console.log("re"+result);
-			 /*
+			 
 			 var str="";
 			 $(result).each(function(i, attachFileDTO){
 			 var fileCallPath = encodeURIComponent( attachFileDTO.uploadPath);
@@ -278,15 +335,15 @@ white-space:pre;
 			 str +"</li>";
 			 });
 			 $(".uploadResult ul").append(str);
-		 */
+		
 		 }
 		 });   //$.ajax
-	
+	 });
 	 
-	 
+	/*업로드*/	
 	 
 	 var cloneObj = $(".uploadDiv").clone();
-	 $("#uploadBtn").on("click", function(e){
+	 $('#uploadBtn').on("click", function(e){
 		 
 		 var regex = new RegExp("(.*?)\.(jpe?g|png|gif)$");
 			var maxSize = 5242880; //5MB
@@ -354,9 +411,9 @@ white-space:pre;
 		        var fileName = obj.uuid +"_"+obj.fileName;
 		        
 		        originPath = originPath.replace(new RegExp(/\\/g),"/");
-		        str += "<li><a href=\"javascript:showImage(\'"+originPath+"\')\">"+
+		        str += "<div><a href=\"javascript:showImage(\'"+originPath+"\')\">"+
 		        "<img src='/display.do?fileName="+fileCallPath+"'></a>"+
-		        "<span data-file=\'"+fileCallPath+"\' data-type='image' data-name=\'"+fileName+"\'><img src='/resources/image/admin/error.png' style='width:20px; height:20px;'></span></li>";
+		        "<span data-file=\'"+fileCallPath+"\' data-type='image' data-name=\'"+fileName+"\'><img src='/resources/image/admin/error.png' style='width:20px; height:20px;'></span></div>";
 		        
 		        
 		      
@@ -367,7 +424,7 @@ white-space:pre;
  });
  
  /*     $(document).ready(function(){
-                                 $('#btn-upload').click(function(e){
+                                 $('#uploadBtn').click(function(e){
                                     e.preventDefault();
                                     $('#upImgFiles').click();
                                  });

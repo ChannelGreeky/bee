@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="notice">
+
 	<insert id="noticeInsert" parameterType="Notice">
 		INSERT INTO NOTICE VALUES
 		(
@@ -16,21 +17,27 @@
 	
 
 	
-	<select id="noticeSelectAll" resultType="Notice">
-		
-		SELECT 
+	<select id="noticeSelectAll" parameterType="Criteria" resultType="Notice">
+		SELECT ROWNUM, tbl.* 
+		FROM        
+		(SELECT 
+            ROW_NUMBER() OVER(ORDER BY notice_category, notice_no desc) AS num,
    			notice_no as noticeNo, 
-    		member_id as memberId, 
+   			member_No as memberNo,
     		notice_category as noticeCategory, 
     		notice_title as noticeTitle,
     		notice_cont as noticeCont,
     		notice_date as noticeDate,
-    		notice_del_yn as noticeDelYN
+    		notice_del_yn as noticeDelYN,
+            member_id as memberId
 		from notice 
 		LEFT JOIN 
     		member 
-		USING(member_no)
+		USING(member_No))tbl
+        WHERE num BETWEEN (#{pageNum}-1) * #{amount} AND #{pageNum} * #{amount}
+		
 	</select>
+	
 	
 	<update id="modifyUpdate" parameterType="Notice">
 		update 
@@ -75,6 +82,7 @@
 	
 	 
 	</select>
+	
 	
 	
 	<update id="updateMemberDelYN" parameterType="Member">
@@ -160,6 +168,10 @@
 	
 	</select>
 	
+	<select id="totalNotice" resultType="int">
+		select count(*) from notice
+	
+	</select>
 	
 	<select id="selectAllImage" parameterType="int" resultType="AttachFileDTO">
 		SELECT 
@@ -175,6 +187,91 @@
 		WHERE 
 			member_no = #{memberNo}
 	
+	</select>
+	
+	
+	<select id="searchBtn" parameterType="Criteria" resultType="Notice">
+		SELECT ROWNUM, tbl.* 
+		FROM        
+			(SELECT 
+            ROW_NUMBER() OVER(ORDER BY notice_category, notice_no desc) AS num,
+   			notice_no as noticeNo, 
+    		member_No as memberNo,
+    		notice_category as noticeCategory, 
+    		notice_title as noticeTitle,
+    		notice_cont as noticeCont,
+    		notice_date as noticeDate,
+    		notice_del_yn as noticeDelYN,
+             member_id as memberId
+		from notice 
+		LEFT JOIN 
+    		member 
+		USING(member_No)
+       
+        <trim prefix="where"  prefixOverrides="AND|OR">
+				<if test="startDate != null">
+					(to_char(notice_date, 'YYYY-MM-DD') between #{startDate} and #{endDate})
+				</if>
+				<if test="category != null">
+						<choose>
+							<when test="category =='F'.toString()">
+								 and notice_category = 'FAQ'
+							</when>
+							<when test="category =='N'.toString()">
+								 and notice_category = '공지사항'
+							</when>
+						</choose>		
+				</if>
+				<if test="keyword != null">
+					and (notice_title like '%'||#{keyword}||'%'
+						or notice_cont like '%'||#{keyword}||'%')
+					
+				</if>
+		</trim>
+        )tbl
+         WHERE num BETWEEN (#{pageNum}-1) * #{amount} AND #{pageNum} * #{amount}
+	
+	
+	</select>
+
+	<select id="searchbar" parameterType="Criteria" resultType="Member">
+		SELECT ROWNUM, tbl.* 
+			FROM        
+			(SELECT 
+		            ROW_NUMBER() OVER(ORDER BY member_date desc) AS num,
+		   			member_no as memberNo,
+		       		member_id as memberId,
+		       		member_name as memberName, 
+		       		member_email as memberEmail, 
+		       		member_date as memberDate, 
+		       		member_end_date as memberEndDate, 
+		       		member_del_yn as delYN
+			from member
+		<![CDATA[	where (member_no >=1000) ]]>
+			<if test="startDate != null">
+					and (to_char(member_date, 'YYYY-MM-DD') between #{startDate} and #{endDate})
+				</if>
+				<if test="category != null">
+						<choose>
+							<when test="category =='I'.toString()">
+								 and (member_id like '%'||#{keyword}||'%')
+							</when>
+							<when test="category =='N'.toString()">
+								 and (member_name like '%'||#{keyword}||'%')
+							</when>
+							<when test="category =='W'.toString()">
+								 and ((member_del_yn = 'Y')
+								 and (member_name like '%'||#{keyword}||'%'))
+							</when>
+							<when test="category =='J'.toString()">
+								 and ((member_del_yn = 'N')
+								 and (member_name like '%'||#{keyword}||'%'))
+							</when>
+						</choose>		
+				</if>
+				
+		)tbl 
+		 WHERE num BETWEEN (#{pageNum}-1) * #{amount} AND #{pageNum} * #{amount}
 	</select>
 	
 	

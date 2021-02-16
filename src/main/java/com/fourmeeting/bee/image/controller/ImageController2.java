@@ -37,7 +37,7 @@ import org.springframework.web.bind.annotation.SessionAttribute;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
-
+import com.fourmeeting.bee.image.model.service.ImageService;
 import com.fourmeeting.bee.image.model.service.ImageService2;
 import com.fourmeeting.bee.image.model.vo.AttachFileDTO;
 import com.fourmeeting.bee.member.model.vo.Member;
@@ -64,22 +64,7 @@ public class ImageController2 {
 			int memberNo = m.getMemberNo();
 			System.out.println(memberNo);
 			ArrayList<AttachFileDTO> list = iService2.selectAllImage(memberNo);
-			/*Map<String, Object> map = new HashMap<String, Object>();
-			System.out.println();
-		
-			map.put("list", list);
-			for(AttachFileDTO a : list){
-				System.out.println("1."+ a.getUploadPath());
-				System.out.println("2."+a.getChangeFileName());
-				System.out.println("3"+a.getFileName());
-				System.out.println("4"+a.getThumbnailFileName());
-				System.out.println("5"+a.getMemberNo());
-				}
-				
-			response.setCharacterEncoding("UTF-8");
-			new Gson().toJson(list,response.getWriter());
-			
-			*/
+	
 			ModelAndView mav = new ModelAndView();
 			
 			mav.addObject("list", list);
@@ -89,105 +74,8 @@ public class ImageController2 {
 
 			
 		}
-/*	@RequestMapping(value="/selectAllImage.do")
-	 public void selectAllImage(@SessionAttribute("member") Member m){
-			int memberNo = m.getMemberNo();
-			System.out.println(memberNo);
-			ArrayList<AttachFileDTO> list = iService.selectAllImage(memberNo);
-			
-		String filePath="";
-			String changeFileName="";
-			
-			for(AttachFileDTO a : list){
-				filePath = a.getUploadPath();
-				changeFileName=a.getChangeFileName();
-				File file = new File(filePath, "s_" + changeFileName);
-				a.setUploadPath(file.getPath());
-				
-				FileOutputStream thumbnail = new FileOutputStream(file);
-	    		 
-	    		 Thumbnailator.createThumbnail(multipartfile.getInputStream(), thumbnail, 300, 300);
-	    		 
-	    		 thumbnail.close();
-	    		 if(!file.exists()){
-						continue;
-					}
-			}
-			
-	 }*/
-	/* 
-	 @PostMapping(value = "/uploadAjaxAction.do", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-		@ResponseBody
-		public ResponseEntity<List<AttachFileDTO>> uploadAjaxPost(MultipartFile[] uploadFile) {
-		
-		 List<AttachFileDTO> list = new ArrayList<>();
-		 String uploadFolder = "C:\\upload";
-		
-		 String uploadFolderPath = getFolder();
-		 // make folder --------
-		 File uploadPath = new File(uploadFolder, uploadFolderPath);
-		 System.out.println("upload path: " + uploadPath);
-		
-		 if (uploadPath.exists() == false) {
-		 uploadPath.mkdirs();
-		 }
-		// // make yyyy/MM/dd folder
-		
-		 for (MultipartFile multipartFile : uploadFile) {
-		
-			 AttachFileDTO attachDTO = new AttachFileDTO();
-		System.out.println("Upload File Name: " + multipartFile.getOriginalFilename());
-		System.out.println("Upload File Size: " + multipartFile.getSize());
-		
-		 String uploadFileName = multipartFile.getOriginalFilename();
-		
-		// // IE has file path
-		uploadFileName = uploadFileName.substring(uploadFileName.lastIndexOf("\\") + 1);
-		System.out.println("only file name: " + uploadFileName);
-		attachDTO.setFileName(uploadFileName);
-		//
-		
-		 UUID uuid = UUID.randomUUID();
-		 
-		 uploadFileName = uuid.toString() + "_" + uploadFileName;
-		 
-		 
-		 
-		
-		 try {
-			 File saveFile = new File(uploadPath, uploadFileName);
-		 multipartFile.transferTo(saveFile);
-		 
-		 attachDTO.setUuid(uuid.toString());
-			attachDTO.setUploadPath(uploadFolderPath);
-		 
-			attachDTO.setImage(true);
-		 FileOutputStream thumbnail = new FileOutputStream(new File(uploadPath, "s_" + uploadFileName));
-		 
-		 Thumbnailator.createThumbnail(multipartFile.getInputStream(), thumbnail, 100, 100);
-		 
-		 thumbnail.close();
-		 list.add(attachDTO);
-		 } catch (Exception e) {
-		 e.printStackTrace();
-		} // end catch
-		
-		} // end for
-		 return new ResponseEntity<>(list, HttpStatus.OK);
-		 }
-	 
-	 
-	 private String getFolder() {
 
-			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-
-			Date date = new Date();
-
-			String str = sdf.format(date);
-
-			return str.replace("-", File.separator);
-		}
-		*/
+	
 	 
 	 @PostMapping(value = "/uploadAjaxAction.do", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
 		@ResponseBody
@@ -239,7 +127,7 @@ public class ImageController2 {
 	    			attachDTO.setThumbnailFileName(thumbnailFileName.getPath());
 	    			FileOutputStream thumbnail = new FileOutputStream(thumbnailFileName);
 	    		 
-	    		 Thumbnailator.createThumbnail(multipartFile.getInputStream(), thumbnail, 300, 300);
+	    		 Thumbnailator.createThumbnail(multipartFile.getInputStream(), thumbnail, 500, 500);
 	    		 
 	    		 thumbnail.close();
 	    		 list.add(attachDTO);
