@@ -53,6 +53,12 @@ for(var i=start-1;i<end;i++){
 	$('.search-feed').eq(i).css('display','block');
 			
 }
+
+//footer위치조절
+var higth = $("body").height();
+if(higth<754){
+   $("#footer").css('position','absolute').css('bottom','0');
+}
 	
 });
 
@@ -131,8 +137,8 @@ if($(window).scrollTop()==($(document).height()-$(window).height())){
 			<div class="row mt-2 m-0">
 						<div class="col-12">
 							<span id="main-content-title">'<%=keyword %>' 검색 결과 (<%=feedList.size() %>)</span>
-							<a class="btn ml-3" href="/beesSearchResult.do?searchData=<%=keyword %>&endNo=10">비즈 검색</a>
-							<a class="btn" href="/feedSearchResult.do?keyword=<%=keyword %>">게시글 검색</a>
+							<a class="categoryBtn btn ml-3" href="/beesSearchResult.do?searchData=<%=keyword %>&endNo=10">비즈 검색</a>
+							<a class="categoryBtn btn" href="/feedSearchResult.do?keyword=<%=keyword %>">게시글 검색</a>
 						</div>
 					</div>
 					</div>
@@ -153,8 +159,12 @@ if($(window).scrollTop()==($(document).height()-$(window).height())){
 					}else{
 					$('.search-feed-bees-name').html(beesname);	
 					}
-					/*인기 비즈 카테고리 */
-					var maintext = '<%=feed.getBoardCont() %>';
+
+					var maintext = "";
+					<%if(feed.getBoardCont()==null){%>
+					<%}else{%>
+					maintext = '<%=feed.getBoardCont() %>';
+					<%}%>
 					
 					if(maintext>150){
 					maintext = maintext.substring(0, 150);
@@ -198,7 +208,9 @@ if($(window).scrollTop()==($(document).height()-$(window).height())){
 					</div>
 					<%}
 					}else{%>
-					<div style="width:100%; height:720px;">
+					<div style="text-align:center; margin-top:30px; margin-bottom:30px; width:100%; height:620px; background-color:white; font-size:1.2rem; font-weight:200; color:dimgray; padding-top:250px; box-shadow: 1px 1px 2px rgb(230, 230, 230);">
+					게시글이 존재하지 않습니다.<br>
+					<%= member.getMemberName() %>님, <%=keyword %>에 관련된 글을 작성해보세요!<br>
 					</div>
 					<%}%>
 				<script>		
@@ -262,6 +274,8 @@ if($(window).scrollTop()==($(document).height()-$(window).height())){
 			<div class="col-1"></div>
 		</div>
 	</div>
+	<div id="footer">
 	<%@include file="/common/footer.jsp"%>
+	</div>
 </body>
 </html>

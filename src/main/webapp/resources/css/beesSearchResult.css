@@ -118,8 +118,7 @@ hr {
 	border-radius: 8px;
 	padding: 2px;
 }
-
-.btn {
+.categoryBtn {
 	font-size:0.7em;
 	font-weight: bold;
 	text-decoration: none;
@@ -132,7 +131,7 @@ hr {
 	margin-bottom: 10px;
 }
 
-.btn:hover {
+.categoryBtn:hover {
 	font-size:0.7em;
 	font-weight: bold;
 	text-decoration: none;

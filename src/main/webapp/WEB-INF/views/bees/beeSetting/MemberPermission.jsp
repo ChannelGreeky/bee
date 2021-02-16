@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@page import="com.fourmeeting.bee.bees.model.vo.Setting"%>
+<%@page import="com.fourmeeting.bee.bees.model.vo.Bees"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -8,7 +9,9 @@
 </head>
 <body>
 <%
-	Setting settingResult = (Setting)request.getAttribute("settingResult");	
+	Bees beeResult = (Bees)request.getAttribute("beeResult");
+	Setting settingResult = (Setting)request.getAttribute("settingResult");
+	int userCount = (int)request.getAttribute("userCount");
 %>
    <%@ include file="/common/cdnLib.jsp"%>
    <!--비즈 전체페이지 + 사이드 프로필 + 메인 컨텐츠 크기-->

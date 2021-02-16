@@ -861,10 +861,13 @@ if($(window).scrollTop()==($(document).height()-$(window).height())){
 					</div>
 					<%}
 						}// bees-feed 
-						else{%>
-					<div style="margin-top:30px; width:100%; height:500px; line-height:500px;">
+					else{%>
+					<div style="text-align:center; margin-top:30px; margin-bottom:30px; width:100%; height:500px; background-color:white; font-size:1.2rem; font-weight:200; color:dimgray; padding-top:200px; box-shadow: 1px 1px 2px rgb(230, 230, 230);">
+					게시글이 존재하지 않습니다.<br>
+					<%= user.getUserName() %>님, <%=keyword %>에 관련된 글을 작성해보세요!<br>
 					</div>
-					<%} %>
+					<%
+					} %>
 					<script>
 					//투표 처리하는 ajax;
 					$('.vote-submit').click(function(){
@@ -1595,37 +1598,5 @@ if($(window).scrollTop()==($(document).height()-$(window).height())){
 	<div id="footer">
 	<%@include file="/common/footer.jsp"%>
 	</div>
-<script>
-$('#join-modal-submit').click(function(){
-
-	var userName = $('#join-modal-name').val();
-	if(userName=" "){
-		alert("이름을 입력하세요.");
-	}else{
-	
-	var memberNo = ${sessionScope.member.memberNo};
-	var beesNo = ${requestScope.bees.beesNo};
-	$.ajax({
-		url:"/insertBeesUser.do",
-		data:{"userName":userName,"memberNo":memberNo,"beesNo":beesNo},
-		success:function(data){
-			if(data>0){
-				alert("가입 신청이 완료되었습니다. 관리자 승인시 가입이 완료됩니다.");
-				location.reload();
-			}else{
-				alert("가입에 실패하였습니다.");
-				location.reload();
-			}
-		},
-		error:function(){
-		
-		}
-	
-	});
-	}
-	
-	
-});
-</script>
 </body>
 </html>

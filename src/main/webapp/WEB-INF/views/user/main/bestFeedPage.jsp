@@ -96,7 +96,12 @@
 					$('.best-feed-bees-name').html(beesname);	
 					}
 					/*인기 비즈 카테고리 */
-					var maintext = '<%=feed.getBoardCont() %>';
+					
+					var maintext = "";
+					<%if(feed.getBoardCont()==null){%>
+					<%}else{%>
+					maintext = '<%=feed.getBoardCont() %>';
+					<%}%>
 					
 					if(maintext>150){
 					maintext = maintext.substring(0, 150);

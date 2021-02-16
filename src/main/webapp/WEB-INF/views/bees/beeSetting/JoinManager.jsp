@@ -10,8 +10,10 @@
 </head>
 <body>
 <%
+	Bees beeResult = (Bees)request.getAttribute("beeResult");
 	ArrayList<BeesUserList> list = (ArrayList<BeesUserList>)request.getAttribute("list");
 	ArrayList<BeesUserList> listUser = (ArrayList<BeesUserList>)request.getAttribute("listUser");
+    int userCount = (int)request.getAttribute("userCount");
 	/* Bees beeResult = (Bees)request.getAttribute("beeResult");  */
 	/* Member sessionMember = (Member)session.getAttribute("member"); */
 %>
@@ -27,7 +29,7 @@
          <div class="col-1"></div>
          <div class="col-3 p-0">
             <div id="bees-side" class="container m-0 p-2">
-			<jsp:include page="beeSettingLeft.jsp"/>	
+			 <jsp:include page="beeSettingLeft.jsp"/>	 
 			</div>
          </div>
          <div class="col-7 p-0">

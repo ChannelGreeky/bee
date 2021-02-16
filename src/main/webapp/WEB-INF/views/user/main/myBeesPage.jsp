@@ -70,6 +70,7 @@ for(var i=start-1;i<end;i++){
 	$('.bees-feed').eq(i).css('display','block');
 			
 }
+
 	
 });
 
@@ -90,6 +91,7 @@ if($(window).scrollTop()==($(document).height()-$(window).height())){
 		  		}else{
 		  			if($(document).height()>1200){
 			  		alert("피드가 더이상 존재하지 않습니다.");
+			  		
 		  			}
 		  		}
 		  			
@@ -623,15 +625,18 @@ if($(window).scrollTop()==($(document).height()-$(window).height())){
 					<%}// if(=null)
 						}// bees-feed }// bees-feed 
 						else{%>
-					<div style="width:100%; height:720px;">
+					<div style="text-align:center; margin-top:30px; margin-bottom:60px; width:100%; height:620px; background-color:white; font-size:1.2rem; font-weight:200; color:dimgray; padding-top:250px; box-shadow: 1px 1px 2px rgb(230, 230, 230);">
+					가입된 비즈가 없습니다.<br>
+					<%=member.getMemberName() %>님, 비즈에 가입하여 글을 남겨주세요! <br>
 					</div>
 					<%} %>
 				</div>
 			</div>
 			<div class="col-1"></div>
 		</div>
-	</div>
-	<%@include file="/common/footer.jsp"%>
+		<div>
+		<%@include file="/common/footer.jsp"%>
+		</div>
 	<script>		
 	//투표 처리하는 ajax;
 	$('.vote-submit').click(function(){
@@ -953,5 +958,6 @@ error:function(){
 	<!--상세일정 모달부분-->
 	<!--비즈가입 부분 -->
     <!---->
+
 </body>
 </html>

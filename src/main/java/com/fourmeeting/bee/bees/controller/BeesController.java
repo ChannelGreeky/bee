@@ -1027,9 +1027,10 @@ public class BeesController {
 			bee.setBeesNo(Integer.parseInt(request.getParameter("beesNo")));
 			System.out.println("비즈 번호: "+bee.getBeesNo());
 			Bees beeResult = bService.selectBeeSetting(bee);
+			int userCount = userService.userCount(bee.getBeesNo());
 			
 			ModelAndView mav = new ModelAndView();
-			
+			mav.addObject("userCount",userCount);
 			mav.addObject("beeResult",beeResult);
 			mav.setViewName("bees/beeSetting/Main");  //ViewResolver에 의해서 경로가 최종 완성됨
 					
@@ -1060,9 +1061,10 @@ public class BeesController {
 		bee.setBeesNo(Integer.parseInt(request.getParameter("beesNo")));
 		System.out.println("타입변경 비즈 번호: "+bee.getBeesNo());
 		Bees beeResult = bService.selectBeeSetting(bee);
+		int userCount = userService.userCount(bee.getBeesNo());
 		
 		ModelAndView mav = new ModelAndView();
-		
+		mav.addObject("userCount",userCount);
 		mav.addObject("beeResult",beeResult);
 		mav.setViewName("bees/beeSetting/Type");  //ViewResolver에 의해서 경로가 최종 완성됨
 				
@@ -1098,9 +1100,10 @@ public class BeesController {
 		bee.setBeesNo(Integer.parseInt(request.getParameter("beesNo")));
 		System.out.println("소개변경 비즈 번호: "+bee.getBeesNo());
 		Bees beeResult = bService.selectBeeSetting(bee);
+		int userCount = userService.userCount(bee.getBeesNo());
 		
 		ModelAndView mav = new ModelAndView();
-		
+		mav.addObject("userCount",userCount);
 		mav.addObject("beeResult",beeResult);
 		mav.setViewName("bees/beeSetting/Intro");  //ViewResolver에 의해서 경로가 최종 완성됨
 				
@@ -1130,10 +1133,12 @@ public class BeesController {
 		bee.setBeesNo(Integer.parseInt(request.getParameter("beesNo")));
 		System.out.println("최대인원변경 비즈 번호: "+bee.getBeesNo());
 		Bees beeResult = bService.selectBeeSetting(bee);
+		int userCount = userService.userCount(bee.getBeesNo());
 		
 		ModelAndView mav = new ModelAndView();
 		
 		mav.addObject("beeResult",beeResult);
+		mav.addObject("userCount",userCount);
 		mav.setViewName("bees/beeSetting/MaxMember");  //ViewResolver에 의해서 경로가 최종 완성됨
 				
 		return mav;								
@@ -1163,9 +1168,11 @@ public class BeesController {
 		System.out.println("가입조건변경 비즈 번호: "+bee.getBeesNo());
 		Bees beeResult = bService.selectBeeSetting(bee);
 		System.out.println("가입조건변경 비즈 성별: "+beeResult.getBeesGender());
+		int userCount = userService.userCount(bee.getBeesNo());
 		ModelAndView mav = new ModelAndView();
 		
 		mav.addObject("beeResult",beeResult);
+		mav.addObject("userCount",userCount);
 		mav.setViewName("bees/beeSetting/JoinStandard");  //ViewResolver에 의해서 경로가 최종 완성됨
 				
 		return mav;										
@@ -1196,13 +1203,18 @@ public class BeesController {
 	public ModelAndView beeSettingSubJoinManager(Model model, HttpServletRequest request) throws UnsupportedEncodingException {	
 		Bees bee = new Bees(); 
 		int beesNO = Integer.parseInt(request.getParameter("beesNo"));
+		bee.setBeesNo(Integer.parseInt(request.getParameter("beesNo")));
 		System.out.println("매니저 관리 비즈 번호: "+beesNO);
 		ArrayList<BeesUserList> list = bService.selectBeesManager(beesNO);
 		ArrayList<BeesUserList> listUser = bService.selectBeesOnlyUser(beesNO);
+		Bees beeResult = bService.selectBeeSetting(bee);
+		int userCount = userService.userCount(bee.getBeesNo());
 		
 		ModelAndView mav = new ModelAndView();
 		mav.addObject("list", list);
 		mav.addObject("listUser", listUser);
+		mav.addObject("userCount",userCount);
+		mav.addObject("beeResult",beeResult);
 		mav.setViewName("bees/beeSetting/JoinManager"); //viewResolve를 통해 경로 최종 완성
 		
 		return mav;
@@ -1249,13 +1261,19 @@ public class BeesController {
 	@RequestMapping(value="/beeSettingSubMemberPermission.do")
 	public ModelAndView beeSettingSubMemberPermission(Model model, HttpServletRequest request) throws UnsupportedEncodingException {	
 		Setting setting = new Setting(); 
+		Bees bee = new Bees(); 
 		setting.setBeesNo(Integer.parseInt(request.getParameter("beesNo")));
+		bee.setBeesNo(Integer.parseInt(request.getParameter("beesNo")));
 		System.out.println("설정 확인 비즈 번호: "+setting.getBeesNo());
 		Setting settingResult = bService.selectBeeMemberPermission(setting);
+		int userCount = userService.userCount(setting.getBeesNo());
+		Bees beeResult = bService.selectBeeSetting(bee);
 		
 		ModelAndView mav = new ModelAndView();
 		
 		mav.addObject("settingResult",settingResult);
+		mav.addObject("userCount",userCount);
+		mav.addObject("beeResult",beeResult);
 		mav.setViewName("bees/beeSetting/MemberPermission");  //ViewResolver에 의해서 경로가 최종 완성됨
 				
 		return mav;				
@@ -1295,11 +1313,16 @@ public class BeesController {
 	public ModelAndView beeSettingSubMemberWithdraw(Model model, HttpServletRequest request) throws UnsupportedEncodingException {		
 		Bees bee = new Bees(); 
 		int beesNO = Integer.parseInt(request.getParameter("beesNo"));
+		bee.setBeesNo(Integer.parseInt(request.getParameter("beesNo")));
 		System.out.println("멤버 탈퇴 비즈 번호: "+beesNO);
 		ArrayList<BeesUserList> list = bService.selectBeesUser(beesNO);
+		int userCount = userService.userCount(bee.getBeesNo());
+		Bees beeResult = bService.selectBeeSetting(bee);
 		
 		ModelAndView mav = new ModelAndView();
 		mav.addObject("list", list);
+		mav.addObject("userCount",userCount);
+		mav.addObject("beeResult",beeResult);
 		mav.setViewName("bees/beeSetting/MemberWithdraw"); //viewResolve를 통해 경로 최종 완성
 		
 		return mav;
@@ -1350,11 +1373,16 @@ public class BeesController {
 		
 		Bees bee = new Bees(); 
 		int beesNO = Integer.parseInt(request.getParameter("beesNo"));
+		bee.setBeesNo(Integer.parseInt(request.getParameter("beesNo")));
 		System.out.println("멤버 탈퇴 비즈 번호: "+beesNO);
 		ArrayList<BeesUserList> list = bService.selectBeesBlock(beesNO);
+		int userCount = userService.userCount(bee.getBeesNo());
+		Bees beeResult = bService.selectBeeSetting(bee);
 		
 		ModelAndView mav = new ModelAndView();
 		mav.addObject("list", list);
+		mav.addObject("userCount",userCount);
+		mav.addObject("beeResult",beeResult);
 		mav.setViewName("bees/beeSetting/MemberWithdrawDo"); //viewResolve를 통해 경로 최종 완성
 		
 		return mav;

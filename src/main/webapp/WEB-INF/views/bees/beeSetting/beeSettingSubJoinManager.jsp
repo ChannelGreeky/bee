@@ -17,6 +17,7 @@
 <body>
 
 <%
+	Bees beeResult = (Bees)request.getAttribute("beeResult");
 	ArrayList<BeesUserList> list = (ArrayList<BeesUserList>)request.getAttribute("list");
 	ArrayList<BeesUserList> listUser = (ArrayList<BeesUserList>)request.getAttribute("listUser");
 	/* Bees beeResult = (Bees)request.getAttribute("beeResult"); */
@@ -84,12 +85,12 @@
 <div class="sSettingBand">
     <div class="linkMemeberPrower">
         <p class="text">매니저는 무엇을 할 수 있나요?<br>설정 메뉴에서 매니저의 권한을 설정할 수 있습니다.</p>
-        <a href="/beeSettingSubMemberPermission.do?beesNo=<%=list.get(0).getBeesNo()%>" class="moreLink">멤버들의 권한 설정 바로가기</a>
+        <a href="/beeSettingSubMemberPermission.do?beesNo=<%=beeResult.getBeesNo()%>" class="moreLink">멤버들의 권한 설정 바로가기</a>
     </div>
 </div>
 <div class="introOption">
       <div class="introOptionBox gTaC gPat15 gPab17">
-          <button type="button" onclick="location.href='/beeSettingMain.do?beesNo=<%=list.get(0).getBeesNo()%>'" class="uButton -confirm _btnSaveIntroDescription">완료</button>
+          <button type="button" onclick="location.href='/beeSettingMain.do?beesNo=<%=beeResult.getBeesNo()%>'" class="uButton -confirm _btnSaveIntroDescription">완료</button>
       </div>
 </div>
 </div>

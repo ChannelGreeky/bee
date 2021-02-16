@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@page import="com.fourmeeting.bee.beesuser.model.vo.BeesUserList"%>
+<%@page import="com.fourmeeting.bee.bees.model.vo.Bees"%>
 <%@page import="java.util.ArrayList"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -14,6 +15,7 @@
 <link rel="stylesheet" type="text/css" href="/resources/css/beeSetting/beeSettingSubMemberWithdrawDo.css">
 <body>
 <%
+	Bees beeResult = (Bees)request.getAttribute("beeResult");
 	ArrayList<BeesUserList> list = (ArrayList<BeesUserList>)request.getAttribute("list");
 	/* Bees beeResult = (Bees)request.getAttribute("beeResult"); */
 	/* Member sessionMember = (Member)session.getAttribute("member"); */
@@ -25,12 +27,13 @@
     </header>
 </div>
 <div class="uTabNav">
-    <button type="button" onclick="location.href='/beeSettingSubMemberWithdraw.do?beesNo=<%=list.get(0).getBeesNo()%>'" class="btn _moveToWithdrawalMemberPage sf_color">멤버 목록</button>
+    <button type="button" onclick="location.href='/beeSettingSubMemberWithdraw.do?beesNo=<%=beeResult.getBeesNo()%>'" class="btn _moveToWithdrawalMemberPage sf_color">멤버 목록</button>
     <button type="button" class="btn _moveToBlockMemberPage sf_color -on">차단 목록</button>
 </div>
 <div class="leaveMemberList">   
 <div class="listWrap">
-<%for(BeesUserList bu : list){%>
+<%  if(!list.isEmpty()) {
+for(BeesUserList bu : list){%>
 <ul class="cMemberList">
 <li data-viewname="DBandBlockMemberItemView" class="uFlexItem">
 		<span class="body">
@@ -45,7 +48,8 @@
 		</span>
 </li>
 </ul>
-<%} %> 
+<%}
+}%> 
         <p class="uEmpty _collectionEmptyMsgEl" style="height: 545px; display: none;">
             <span class="gColorGr3 _collectionEmptyMsg"></span>
         </p>
