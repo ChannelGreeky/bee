@@ -19,7 +19,7 @@
 		       	<div class="row h-100 w-100 p-0 m-0" >
 		           <div class="col-8 col-md-9 p-0 ">
 			           <span class="beeLogo">
-			            <a href="#" >
+			            <a href="/myBeesPage.do" >
 				       		<img src="resources/image/beeWhiteLogo.png" alt="로고이미지" style="height:40px; width:80px;"/>	
 			 	  		</a>
 			            </span>
@@ -97,7 +97,7 @@
 
 	<ul class="navi_menu">
 	    <li class="navi_menu_item">
-     	       <a href="#" >전체글</a>
+     	       <a href="/beesSelectOne.do?beesNo=${requestScope.bees.beesNo }" >전체글</a>
 	    </li>	
 	    <li class="navi_menu_item">
      	       <a href="#"  >사진첩</a>

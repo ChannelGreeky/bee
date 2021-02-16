@@ -102,8 +102,10 @@ public class BeesController {
 
 	
 	@RequestMapping(value="/beesSelectOne.do")
-	private String beesSelectOne(@RequestParam int beesNo, @RequestParam int memberNo, HttpServletRequest request) throws Exception {
+	private String beesSelectOne(@RequestParam int beesNo, HttpServletRequest request, HttpSession session) throws Exception {
 		
+		Member member = (Member)session.getAttribute("member");
+		int memberNo = member.getMemberNo();
 		Bees bees = bService.beesSelectOne(beesNo);
 		request.setAttribute("bees", bees);
 		int userCount = userService.userCount(beesNo);
@@ -817,6 +819,7 @@ public class BeesController {
 		List<Integer> beesNo = userService.selectAllBeesNo(memberNo);
 		
 		ArrayList<Feed> feedList = boardService.selectSerachAllFeed(keyword);
+		request.setAttribute("keyword", keyword);
 		request.setAttribute("feedList", feedList);
 		
 		//이미지보여주기

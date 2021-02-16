@@ -22,6 +22,7 @@
 	Member member = (Member)session.getAttribute("member");
 	ArrayList<Feed> feedList = (ArrayList<Feed>)request.getAttribute("feedList");
 	ArrayList<Bees> myBees = (ArrayList<Bees>) request.getAttribute("beesList");
+	String keyword = (String)request.getAttribute("keyword");
 	SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy년 MM월 dd일", Locale.KOREA);
 	HashMap<Integer,Integer> likeMap = (HashMap <Integer,Integer>)request.getAttribute("likeMap");
 	HashMap<Integer, ArrayList<Image>> imageMap = (HashMap<Integer, ArrayList<Image>>)request.getAttribute("imageMap");
@@ -117,14 +118,22 @@ if($(window).scrollTop()==($(document).height()-$(window).height())){
 					
 					<div class="row m-0">
 						<div class="col-12 py-2">
-							<a class="makeBeesBtn btn w-100 py-2" href="#">+ 비즈 만들기</a>
+							<a class="makeBeesBtn btn w-100 py-2" href="/beeCreateMain.do">+ 비즈 만들기</a>
 						</div>
 					</div>
 				</div>
 				
 			</div>
 			<div class="col-7 p-0">
-						<span id="main-content-title">게시글 검색 결과 (<%=feedList.size() %>)</span>
+			<div id="main-content" class="container m-0 p-2">
+			<div class="row mt-2 m-0">
+						<div class="col-12">
+							<span id="main-content-title">'<%=keyword %>' 검색 결과 (<%=feedList.size() %>)</span>
+							<a class="btn ml-3" href="/beesSearchResult.do?searchData=<%=keyword %>&endNo=10">비즈 검색</a>
+							<a class="btn" href="/feedSearchResult.do?keyword=<%=keyword %>">게시글 검색</a>
+						</div>
+					</div>
+					</div>
 					<%
 					
 					if(!(feedList.isEmpty())){
