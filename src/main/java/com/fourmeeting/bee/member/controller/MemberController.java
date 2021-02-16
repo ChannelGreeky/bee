@@ -362,10 +362,9 @@ public class MemberController {
 		System.out.println(realUploadPath+"//"+originalFileName);
 		
 		/*mf.transferTo(new File(realUploadPath));*/
-		String safeFile = realUploadPath + System.currentTimeMillis() + originalFileName+"_bee";
-        System.out.println("safeFile : " + safeFile);
+		String afterFile = System.currentTimeMillis() + originalFileName+"_bee";
+		String safeFile = realUploadPath + afterFile;
         
-        System.out.println("safeFile : " + safeFile);
         try {
             mf.transferTo(new File(safeFile));
         } catch (IllegalStateException e) {
@@ -385,7 +384,7 @@ public class MemberController {
 		
 		//프로필이름 DB에 담기
 		Member m = new Member();
-		m.setProfileImg(safeFile);
+		m.setProfileImg(afterFile);
 		m.setMemberName(newMemberName);
 		m.setMemberNo(member.getMemberNo());
 		m.setMemberId(member.getMemberId());
