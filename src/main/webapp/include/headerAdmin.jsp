@@ -39,17 +39,12 @@
 			            		</button>
 			            		
 			            		<ul class="menu-sub">
-				                        <li>
-				                        	<a href="/index.jsp">내 정보</a>
-				                        </li>
-						   				<li>
-				                            <a href="/index.jsp">내가 쓴 글</a>
-				                        </li>
+				                       
 						  				<li>
 				                            <a href="/memberManagement.do">회원관리</a>
 				                        </li>
 				                        <li>
-				                            <a href="#">모임관리</a>
+				                            <a href="/memberManagement.do">모임관리</a>
 				                        </li>
 				 		  				<li>
 				                            <a href="/adminNoticeBoard.do">공지사항</a>
