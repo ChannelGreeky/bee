@@ -97,8 +97,8 @@ hr {
 
 #main-content-title {
 	color: #50401B;
-	font-size: 1.7rem;
-	font-weight: bold;
+	font-size: 1.5rem;
+	font-weight: 300;
 }
 
 .search-feed {
@@ -107,7 +107,7 @@ hr {
 	padding: 10px 10px 10px 10px;
 	background-color: white;
 	box-shadow: 1px 1px 2px rgb(230, 230, 230);
-	display:none;
+	display: none;
 }
 
 .search-feed-cont {
@@ -127,7 +127,7 @@ hr {
 	line-height: 40px;
 	font-size: 1rem;
 	padding-left: 20px;
-	text-decoration:none;
+	text-decoration: none;
 }
 
 .search-feed-bees-name:hover {
@@ -135,7 +135,7 @@ hr {
 	line-height: 40px;
 	font-size: 1rem;
 	padding-left: 20px;
-	text-decoration:none;
+	text-decoration: none;
 }
 
 .search-feed-writer {
@@ -192,7 +192,7 @@ hr {
 }
 
 .categoryBtn {
-	font-size:0.7em;
+	font-size: 0.7em;
 	font-weight: bold;
 	text-decoration: none;
 	color: white;
@@ -205,7 +205,7 @@ hr {
 }
 
 .categoryBtn:hover {
-	font-size:0.7em;
+	font-size: 0.7em;
 	font-weight: bold;
 	text-decoration: none;
 	color: #50401B;

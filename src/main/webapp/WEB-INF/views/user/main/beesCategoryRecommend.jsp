@@ -75,15 +75,15 @@
 				
 			</div>
 			<div class="col-7 p-0">
-				<div id="main-content" class="container m-0 p-2">
+				<div id="main-content" class="container m-0 p-0">
 				
 					<div class="row m-0">
-						<div class="col-12">
+						<div class="col-12 p-0">
 							<span id="main-content-title">카테고리</span>
 						</div>
 					</div>
 					<div class="row m-0">
-						<div class="col-4 col-md-4 col-lg-2">
+						<div class="col-4 col-md-4 col-lg-2 p-0 pr-1">
 							<a href="/beesCategoryRecommend.do?category=meet&endNo=10" class="category">
 								<div class="m-auto categoryImg text-center" style="width:100%; height:80px;
 								background: url('/resources/image/category_meet.jpg') no-repeat;
@@ -94,7 +94,7 @@
 								</div>
 							</a>
 						</div>
-						<div class="col-4 col-md-4 col-lg-2">
+						<div class="col-4 col-md-4 col-lg-2 p-0 pr-1">
 							<a href="/beesCategoryRecommend.do?category=study&endNo=10" class="category">
 								<div class="m-auto categoryImg text-center" style="width:100%; height:80px;
 								background: url('/resources/image/category_study.jpg') no-repeat;
@@ -105,7 +105,7 @@
 								</div>
 							</a>
 						</div>
-						<div class="col-4 col-md-4 col-lg-2">
+						<div class="col-4 col-md-4 col-lg-2 p-0 pr-1">
 							<a href="/beesCategoryRecommend.do?category=game&endNo=10" class="category">
 								<div class="m-auto categoryImg text-center" style="width:100%; height:80px;
 								background: url('/resources/image/category_game.jpg') no-repeat;
@@ -116,7 +116,7 @@
 								</div>
 							</a>
 						</div>
-						<div class="col-4 col-md-4 col-lg-2">
+						<div class="col-4 col-md-4 col-lg-2 p-0 pr-1">
 							<a href="/beesCategoryRecommend.do?category=exercise&endNo=10" class="category">
 								<div class="m-auto categoryImg text-center" style="width:100%; height:80px;
 								background: url('/resources/image/category_exercise.jpg') no-repeat;
@@ -127,7 +127,7 @@
 								</div>
 							</a>
 						</div>
-						<div class="col-4 col-md-4 col-lg-2">
+						<div class="col-4 col-md-4 col-lg-2 p-0 pr-1">
 							<a href="/beesCategoryRecommend.do?category=area&endNo=10" class="category">
 								<div class="m-auto categoryImg text-center" style="width:100%; height:80px;
 								background: url('/resources/image/category_area.jpg') no-repeat;
@@ -138,7 +138,7 @@
 								</div>
 							</a>
 						</div>
-						<div class="col-4 col-md-4 col-lg-2">
+						<div class="col-4 col-md-4 col-lg-2 p-0 pr-1">
 							<a href="/beesCategoryRecommend.do?category=etc&endNo=10" class="category">
 								<div class="m-auto categoryImg text-center" style="width:100%; height:80px;
 								background: url('/resources/image/category_etc.png') no-repeat;
@@ -152,7 +152,7 @@
 					</div>
 					
 					<div class="row mt-4 m-0">
-						<div class="col-12">
+						<div class="col-12 p-0">
 							<span id="main-content-title">
 							<% if (category.equals("meet")){%>취미/동호회
 							<%} else if (category.equals("study")) { %>공부

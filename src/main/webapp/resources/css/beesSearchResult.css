@@ -97,8 +97,8 @@ hr {
 
 #main-content-title {
 	color: #50401B;
-	font-size: 1.7rem;
-	font-weight: bold;
+	font-size: 1.5rem;
+	font-weight: 300;
 }
 
 .categoryImg {
@@ -118,8 +118,9 @@ hr {
 	border-radius: 8px;
 	padding: 2px;
 }
+
 .categoryBtn {
-	font-size:0.7em;
+	font-size: 0.7em;
 	font-weight: bold;
 	text-decoration: none;
 	color: white;
@@ -132,7 +133,7 @@ hr {
 }
 
 .categoryBtn:hover {
-	font-size:0.7em;
+	font-size: 0.7em;
 	font-weight: bold;
 	text-decoration: none;
 	color: #50401B;

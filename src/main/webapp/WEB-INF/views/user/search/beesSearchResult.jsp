@@ -74,7 +74,7 @@
 				
 			</div>
 			<div class="col-7 p-0">
-				<div id="main-content" class="container m-0 p-2">
+				<div id="main-content" class="container m-0 p-0">
 					<div class="row mt-2 m-0">
 						<div class="col-12">
 							<span id="main-content-title">'<%=searchData %>' 검색 결과 (비즈)</span>
@@ -82,7 +82,7 @@
 							<a class="categoryBtn btn" href="/feedSearchResult.do?keyword=<%=searchData %>">게시글 검색</a>
 						</div>
 					</div>
-					<div class="row mt-1 m-0">
+					<div class="row m-0">
 						<!-- 반복 -->
 						<%if(!resultBees.isEmpty()) {
 							if(resultBees.size() < endNo-10) {
@@ -134,11 +134,10 @@
 						</div>
 					</div>
 					<% } else if (resultBees.isEmpty()){ %>
-						<div class="row mt-3 m-0">
-							<div class="col-12 text-center">
-								<img src="/resources/image/hide.png" width="50%" />
-							</div>
-						</div>
+					<div style="text-align:center; margin-top:30px; margin-bottom:30px; width:100%; height:620px; background-color:white; font-size:1.2rem; font-weight:200; color:dimgray; padding-top:250px; box-shadow: 1px 1px 2px rgb(230, 230, 230);">
+					<%=searchData %>와 관련된 비즈가 존재하지 않습니다.<br>
+					<%= m.getMemberName() %>님, <%=searchData %>에 관련된 비즈를 개설해보세요!<br>
+					</div>
 					<%} %>
 					
 				</div>

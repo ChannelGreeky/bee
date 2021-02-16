@@ -133,7 +133,7 @@ if($(window).scrollTop()==($(document).height()-$(window).height())){
 				
 			</div>
 			<div class="col-7 p-0">
-			<div id="main-content" class="container m-0 p-2">
+			<div id="main-content" class="container m-0 p-0">
 			<div class="row mt-2 m-0">
 						<div class="col-12">
 							<span id="main-content-title">'<%=keyword %>' 검색 결과 (<%=feedList.size() %>)</span>
