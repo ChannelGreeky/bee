@@ -13,7 +13,7 @@ $('.feed-modify').click(function () {
 		success: function(data){
 			
 			if((data.boardCont)==null){
-				$('#modify-modal-cont-div').html("");
+				$('#modify-modal-cont-div').html("<br>");
 			}else{
 				$('#modify-modal-cont-div').html(data.boardCont+"<br>");
 			}

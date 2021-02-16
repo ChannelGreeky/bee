@@ -56,6 +56,14 @@
 	}
 	
 	BeesUser user = (BeesUser)request.getAttribute("user");
+	String userAuth = null;
+	
+	if(user!=null){
+		if(user.getUserAuthYN()=='W'){
+			user = null;
+			userAuth = "W";
+		}
+	}
 	
 	SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy년 MM월 dd일 a KK시 mm분", Locale.KOREA);
 	SimpleDateFormat scheFormat = new SimpleDateFormat("yyyy년 MM월 dd일 (E)", Locale.KOREA);
@@ -133,14 +141,14 @@ if($(window).scrollTop()==($(document).height()-$(window).height())){
 				<div id="bees-side" class="container m-0 p-2">
 					<div id="bees-side-profile">
 					<% 
-    String coverPath = bees.getBeesCover();	
-	String beesCover = null;
-    if(coverPath.endsWith("_bee")){
-    	beesCover = "/resources/image/beeCreateProfile/"+coverPath;
-    }else{
-    	beesCover = coverPath;
-    }
- %>  
+   				 String coverPath = bees.getBeesCover();	
+					String beesCover = null;
+    			if(coverPath.endsWith("_bee")){
+    			beesCover = "/resources/image/beeCreateProfile/"+coverPath;
+    			}else{
+    				beesCover = coverPath;
+    				}
+					 %>  
 						<table>
 							<tr>
 							
@@ -154,7 +162,7 @@ if($(window).scrollTop()==($(document).height()-$(window).height())){
 									멤버<b> <%=userCount %> </b>
 								</td>
 								<td id="bees-invite"><!-- 권한별 설정 -->
-								<%if(user!=null && user.getUserAuthYN()=='W'){%>
+								<%if(user!=null){%>
 								<%if((setting.getSetUserInvite()).equals("user")){%>
 									<a href=""><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="currentColor" class="bi bi-plus-circle" viewBox="0 0 16 19">
                 <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z" />
@@ -176,17 +184,14 @@ if($(window).scrollTop()==($(document).height()-$(window).height())){
               </svg>초대</a>
               <%}
               }
-              }//userIf%>
+								}//userIf%>
 								</td>
 							</tr>
 							<tr>
 								<td id="bees-note" colspan="2">
-								<%if(bees.getBeesCont()==null){%>
-								<%}else{
-								bees.getBeesCont();
-								} 
+								<% 
 								if(user!=null){
-								if(!(user.getUserClass()).equals("user")){%>
+								if(!(user.getUserClass()).equals("user")){ %>
 									<a href="">비즈 소개 설정 </a>
 								<%} 
 								}%>
@@ -200,12 +205,15 @@ if($(window).scrollTop()==($(document).height()-$(window).height())){
 							</tr>
 							<%}else{%>
 							<tr>
-								<td id="bees-public" colspan="2">
+								<td id="bees-cont" colspan="2">
+								<%if(bees.getBeesCont()==null){%>
+								<%}else{ %>
 								<%=bees.getBeesCont() %>
+								<%} %>
 								</td>
 							</tr>
 							<%}
-							if(user!=null && user.getUserAuthYN()!='W'){%>
+							if(user!=null){%>
 							<%if(!(user.getUserClass()).equals("user")){ %>
 							<tr>
 								<td class="innerline" colspan="2">
@@ -226,11 +234,12 @@ if($(window).scrollTop()==($(document).height()-$(window).height())){
 								</td>
 							</tr>
 							<%} 
-							}%>
+							}
+							%>
 							<%
 							if(bees.getBeesPublicYN()=='Y'){
-							if(user==null || user.getUserAuthYN()=='W'){
-							if(user.getUserAuthYN()=='W'){%>
+							if(user==null){
+							if(userAuth!=null){%>
 							<tr>
 								<td id="join-box" colspan="2">
 									<button id="join-btn" disabled="true">승인 대기중</button>
@@ -242,15 +251,15 @@ if($(window).scrollTop()==($(document).height()-$(window).height())){
 									<button id="join-btn">비즈 가입하기</button>
 								</td>
 							</tr>
-							<%
-							}}else{
+							<%}
+							}
+							}else{
 							} 
-							}%>
+							%>
 						</table>
 					</div>
 					<%
-					if(bees.getBeesPublicYN()=='Y'){
-					if(user!=null && user.getUserAuthYN()!='W'){%>
+					if(user!=null){ %>
 					<div id="bees-side-chatting">
 						<table>
 							<tr>
@@ -295,9 +304,9 @@ if($(window).scrollTop()==($(document).height()-$(window).height())){
 							</tr>
 						</table>
 					</div>
-					<%}else{ %>
-							<%} 
-							}%>
+					<%}else{ 
+					} 
+							%>
 				</div>
 			</div>
 			<div class="col-7 p-0">
@@ -306,7 +315,7 @@ if($(window).scrollTop()==($(document).height()-$(window).height())){
 				<input type="hidden" name="beesNo" value="<%=bees.getBeesNo() %>"/>
 				<input type="hidden" name="memberNo" value="<%=member.getMemberNo() %>"/>
 				<div id="bees-search-bar">
-					<%if(user==null || user.getUserAuthYN()=='W'){%>
+					<%if(user==null){%>
 						<input type="text" name="keyword" placeholder="비즈 회원만 검색이 가능합니다." disabled="true" style="background-color:white">
 						<button type="button" disabled="true">
 							<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="dimgray" class="bi bi-search" viewBox="0 0 16 18">
@@ -356,7 +365,7 @@ if($(window).scrollTop()==($(document).height()-$(window).height())){
 					</div>
 					<script>
 					$('.write-modal-btn').click(function () {
-						<%if(user!=null && user.getUserAuthYN()!='W'){%>
+						<%if(user!=null){ %>
 						var setWrite = '<%=setting.getSetWrite()%>';
 						var userClass = '<%=user.getUserClass() %>';
 						
@@ -384,19 +393,17 @@ if($(window).scrollTop()==($(document).height()-$(window).height())){
 								alert("글쓰기 권한이 없습니다.");
 							}
 						}
-						
-						<%}else{%>
+							
+						<% }else{%>
 						alert("비즈 회원이 아닙니다. 글쓰기 권한이 없습니다.");
 						<%}%>
 					})
 					</script>
 					<%
-					if((user!=null && user.getUserAuthYN()!='W') || bees.getBeesPublicYN()=='Y'){
-					if(!(feedList.isEmpty())){
+					if(bees.getBeesPublicYN()!='Y' && user!=null){
+						if(!(feedList.isEmpty())){
 						for (int i = 0; i < feedList.size(); i++) {
-							
 							Feed feed = feedList.get(i);
-							
 					%>
 					<div class="bees-feed" id="<%=feed.getBoardNo() %>">
 					<div>
@@ -659,7 +666,11 @@ if($(window).scrollTop()==($(document).height()-$(window).height())){
 							if(comment.getCommentDelYN()=='N'){%>
 							<tr>
 							<td rowspan="3" class="comment-writer">
+							<%if(comment.getProfileImg()==null){%>
+								<div class="comment-writer-profile" style="background-color:#f7d078"></div>
+							<%}else{ %>
 									<div class="comment-writer-profile" style="background-image:url('/resources/image/profile/<%=comment.getProfileImg() %>')"></div>
+								<%} %>
 								</td>
 							
 							<td class="comment-writer-name"><%=comment.getUserName() %></td>
@@ -866,7 +877,7 @@ if($(window).scrollTop()==($(document).height()-$(window).height())){
 							<tr>
 								<td class="comment-write-box" colspan="3">
 									<div>
-									<%if(user!=null && user.getUserAuthYN()!='W'){
+									<%if(user!=null){
 									if(setting.getSetComment().equals("user")){%>
 									<input class="comment-input-box" type="text" placeholder="댓글을 남겨주세요">
 									<%}else if(setting.getSetComment().equals("manager")){
@@ -878,8 +889,7 @@ if($(window).scrollTop()==($(document).height()-$(window).height())){
 									}else if(setting.getSetComment().equals("host")){
 									if((user.getUserClass().equals("host"))){%>
 									<input class="comment-input-box" type="text" placeholder="댓글을 남겨주세요">
-									<% 
-									}else{%>
+									<%}else{%>
 									<input class="comment-input-box" type="text" placeholder="댓글 작성 권한이 없습니다." disabled="true" style="background-color:white;">	
 									<%}
 									}
@@ -894,23 +904,24 @@ if($(window).scrollTop()==($(document).height()-$(window).height())){
 						</table>
 						</div>
 					</div>
-					<%}//user가 null이 아닐때 
-						}// if(=null)
-						}// bees-feed }// bees-feed 
-						else{
-						
-						if(user==null){%>
-					<div style="text-align:center; margin-top:30px; margin-bottom:30px; width:100%; height:500px; background-color:white; font-size:1.2rem; font-weight:200; color:dimgray; padding-top:200px; ">
-					회원에게만 공개된 게시글입니다.<br>
-					비즈에 가입하여 확인해주세요<br>
-					</div>
-						<% }else{%>	
+					<%
+					}
+					}else if(feedList.isEmpty()&&user!=null){%>
 					<div style="text-align:center; margin-top:30px; margin-bottom:30px; width:100%; height:500px; background-color:white; font-size:1.2rem; font-weight:200; color:dimgray; padding-top:200px; box-shadow: 1px 1px 2px rgb(230, 230, 230);">
 					게시글이 존재하지 않습니다.<br>
-					<%= user.getUserName() %>님, 글을 작성해보세요!<br>
-					</div>
+					</div>	
 					<%}
-					} %>
+					}else if(user==null){// user==null%>
+					<div style="text-align:center; margin-top:30px; margin-bottom:30px; width:100%; height:500px; background-color:white; font-size:1.2rem; font-weight:200; color:dimgray; padding-top:200px; box-shadow: 1px 1px 2px rgb(230, 230, 230);">
+					비즈의 회원이 아닙니다.<br>
+					<%=member.getMemberName() %>님, 비즈에 가입하여 글을 남겨주세요! <br>
+					</div>
+					<%}else{%>
+					<div style="text-align:center; margin-top:30px; margin-bottom:30px; width:100%; height:500px; background-color:white; font-size:1.2rem; font-weight:200; color:dimgray; padding-top:200px; box-shadow: 1px 1px 2px rgb(230, 230, 230);">
+					비공개 비즈입니다.<br>
+					비즈 회원만 게시글을 조회할 수 있습니다.<br>
+					</div>
+					<%} %>
 					<script>
 					//투표 처리하는 ajax;
 					$('.vote-submit').click(function(){
@@ -1053,7 +1064,7 @@ if($(window).scrollTop()==($(document).height()-$(window).height())){
 			}
 
 				})
-							</script>
+			</script>
 				</div>
 			</div>
 			<div class="col-1"></div>
@@ -1063,9 +1074,6 @@ if($(window).scrollTop()==($(document).height()-$(window).height())){
 	
 		$('.feed-like-btn').click(
 				function() {
-					<%
-					if(user!=null && user.getUserAuthYN()!='W'){%>
-						
 					var boardNo = $(this).closest('.bees-feed').attr('id');
 					var memberNo = ${sessionScope.member.memberNo};
 					if ($(this).attr('fill') == 'red') {
@@ -1116,11 +1124,7 @@ if($(window).scrollTop()==($(document).height()-$(window).height())){
 						$(this).attr('fill', 'red');
 						$(this).next().html(Number($(this).next().html()) + 1);
 					}
-					<%}else{%>
-						alert("회원이 아닙니다. 다시 시도해주세요.");
-					<%}
 					
-					%>
 				});
 	</script>
 	<!--글쓰기 모달-->
@@ -1138,7 +1142,7 @@ if($(window).scrollTop()==($(document).height()-$(window).height())){
 				</button>
 			</div>
 			<div id="write-modal-cont">
-				<div id="write-modal-cont-div" contentEditable="true"></div>
+				<div id="write-modal-cont-div" contentEditable="true"><br></div>
 				<textarea style="display: none"></textarea>
 			</div>
 			<div id="write-modal-footer">

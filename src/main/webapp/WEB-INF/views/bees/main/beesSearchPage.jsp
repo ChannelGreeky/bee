@@ -55,8 +55,16 @@
 	beesName = bees.getBeesName().substring(0,5)+"..";
 	}
 	
-	
 	BeesUser user = (BeesUser)request.getAttribute("user");
+	String userAuth = null;
+	
+	if(user!=null){
+		if(user.getUserAuthYN()=='W'){
+			user = null;
+			userAuth = "W";
+		}
+	}
+	
 	String keyword = (String)request.getAttribute("keyword");
 	
 	SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy년 MM월 dd일 a KK시 mm분", Locale.KOREA);
@@ -134,9 +142,19 @@ if($(window).scrollTop()==($(document).height()-$(window).height())){
 			<div class="col-3 p-0">
 				<div id="bees-side" class="container m-0 p-2">
 					<div id="bees-side-profile">
+					<% 
+   				 String coverPath = bees.getBeesCover();	
+					String beesCover = null;
+    			if(coverPath.endsWith("_bee")){
+    			beesCover = "/resources/image/beeCreateProfile/"+coverPath;
+    			}else{
+    				beesCover = coverPath;
+    				}
+					 %>  
 						<table>
 							<tr>
-								<td id="bees-cover" colspan="2" style="background-image:url('/resources/image/bees/cover/<%=bees.getBeesCover() %>')"></td>
+							
+								<td id="bees-cover" colspan="2" style="background-image:url('<%=beesCover %>')"></td>
 							</tr>
 							<tr>
 								<td id="bees-name" colspan="2"><%=bees.getBeesName() %></td>
@@ -168,17 +186,14 @@ if($(window).scrollTop()==($(document).height()-$(window).height())){
               </svg>초대</a>
               <%}
               }
-              }//userIf%>
+								}//userIf%>
 								</td>
 							</tr>
 							<tr>
 								<td id="bees-note" colspan="2">
-								<%if(bees.getBeesCont()==null){%>
-								<%}else{
-								bees.getBeesCont();
-								} 
+								<% 
 								if(user!=null){
-								if(!(user.getUserClass()).equals("user")){%>
+								if(!(user.getUserClass()).equals("user")){ %>
 									<a href="">비즈 소개 설정 </a>
 								<%} 
 								}%>
@@ -192,12 +207,15 @@ if($(window).scrollTop()==($(document).height()-$(window).height())){
 							</tr>
 							<%}else{%>
 							<tr>
-								<td id="bees-public" colspan="2">
+								<td id="bees-cont" colspan="2">
+								<%if(bees.getBeesCont()==null){%>
+								<%}else{ %>
 								<%=bees.getBeesCont() %>
+								<%} %>
 								</td>
 							</tr>
 							<%}
-							if(user!=null && user.getUserAuthYN()!='W'){%>
+							if(user!=null){%>
 							<%if(!(user.getUserClass()).equals("user")){ %>
 							<tr>
 								<td class="innerline" colspan="2">
@@ -207,7 +225,7 @@ if($(window).scrollTop()==($(document).height()-$(window).height())){
 							<tr>
 								<td id="bees-setting" colspan="2">
 								
-									<a href=""> <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="currentColor" class="bi bi-gear" viewBox="0 0 16 16">
+									<a href="/beeSettingMain.do?beesNo=<%=bees.getBeesNo()%>"> <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="currentColor" class="bi bi-gear" viewBox="0 0 16 16">
                 <path d="M8 4.754a3.246 3.246 0 1 0 0 6.492 3.246 3.246 0 0 0 0-6.492zM5.754 8a2.246 2.246 0 1 1 4.492 0 2.246 2.246 0 0 1-4.492 0z" />
                 <path
 												d="M9.796 1.343c-.527-1.79-3.065-1.79-3.592 0l-.094.319a.873.873 0 0 1-1.255.52l-.292-.16c-1.64-.892-3.433.902-2.54 2.541l.159.292a.873.873 0 0 1-.52 1.255l-.319.094c-1.79.527-1.79 3.065 0 3.592l.319.094a.873.873 0 0 1 .52 1.255l-.16.292c-.892 1.64.901 3.434 2.541 2.54l.292-.159a.873.873 0 0 1 1.255.52l.094.319c.527 1.79 3.065 1.79 3.592 0l.094-.319a.873.873 0 0 1 1.255-.52l.292.16c1.64.893 3.434-.902 2.54-2.541l-.159-.292a.873.873 0 0 1 .52-1.255l.319-.094c1.79-.527 1.79-3.065 0-3.592l-.319-.094a.873.873 0 0 1-.52-1.255l.16-.292c.893-1.64-.902-3.433-2.541-2.54l-.292.159a.873.873 0 0 1-1.255-.52l-.094-.319zm-2.633.283c.246-.835 1.428-.835 1.674 0l.094.319a1.873 1.873 0 0 0 2.693 1.115l.291-.16c.764-.415 1.6.42 1.184 1.185l-.159.292a1.873 1.873 0 0 0 1.116 2.692l.318.094c.835.246.835 1.428 0 1.674l-.319.094a1.873 1.873 0 0 0-1.115 2.693l.16.291c.415.764-.42 1.6-1.185 1.184l-.291-.159a1.873 1.873 0 0 0-2.693 1.116l-.094.318c-.246.835-1.428.835-1.674 0l-.094-.319a1.873 1.873 0 0 0-2.692-1.115l-.292.16c-.764.415-1.6-.42-1.184-1.185l.159-.291A1.873 1.873 0 0 0 1.945 8.93l-.319-.094c-.835-.246-.835-1.428 0-1.674l.319-.094A1.873 1.873 0 0 0 3.06 4.377l-.16-.292c-.415-.764.42-1.6 1.185-1.184l.292.159a1.873 1.873 0 0 0 2.692-1.115l.094-.319z"
@@ -218,34 +236,48 @@ if($(window).scrollTop()==($(document).height()-$(window).height())){
 								</td>
 							</tr>
 							<%} 
-							}%>
+							}
+							%>
 							<%
 							if(bees.getBeesPublicYN()=='Y'){
-							if(user==null){%>
-
-							<%}else{ %>
-							<%} 
-							}%>
+							if(user==null){
+							if(userAuth!=null){%>
+							<tr>
+								<td id="join-box" colspan="2">
+									<button id="join-btn" disabled="true">승인 대기중</button>
+								</td>
+							</tr>
+							<%}else{%>
+							<tr>
+								<td id="join-box" colspan="2">
+									<button id="join-btn">비즈 가입하기</button>
+								</td>
+							</tr>
+							<%}
+							}
+							}else{
+							} 
+							%>
 						</table>
 					</div>
 					<%
-					if(bees.getBeesPublicYN()=='Y'){
-					if(user!=null){%>
+					if(user!=null){ %>
 					<div id="bees-side-chatting">
 						<table>
 							<tr>
 								<td id="chatting-header">채팅</td>
 								<td id="new-chat">
+									
 								<%if((setting.getSetUserInvite()).equals("user")){%>
-								<a class="chat-open-btn" href="#none" target="_blank" onclick="openPopup()">새 채팅</a>	
+								<a class="chat-open-btn" href="#none" target="_blank">새 채팅</a>	
               					<%}else if(((setting.getSetUserInvite()).equals("manager"))){
               					if(!(user.getUserClass().equals("user"))){%>
-							<a class="chat-open-btn" href="#none" target="_blank" onclick="openPopup()">새 채팅</a>
+							<a class="chat-open-btn" href="#none" target="_blank">새 채팅</a>
              				<%}//if
               				}//elseif
               				else if(((setting.getSetUserInvite()).equals("host"))){
               				if((user.getUserClass().equals("host"))){%>
-							<a class="chat-open-btn" href="#none" target="_blank" onclick="openPopup()">새 채팅</a>
+							<a class="chat-open-btn" href="#none" target="_blank">새 채팅</a>
              				 <%}
              				 }%>
 							</td>	
@@ -257,8 +289,8 @@ if($(window).scrollTop()==($(document).height()-$(window).height())){
 							</tr>
 							<tr>
 								<td colspan="2" style="padding: 10px 5px 0 5px; line-height: 10px;">
-									<div class="chat-profile" style="background-image:url('/resources/image/bees/cover/<%=bees.getBeesCover() %>')"></div>
-									<a class="chat-open-btn" href="#none" target="_blank" onclick="openPopup()" style="color: dimgray">
+									<div class="chat-profile" style="background-image:url('<%=beesCover %>')"></div>
+									<a class="chat-open-btn" href="#none" target="_blank" style="color: dimgray">
 									'<%=beesName %>' 전체 채팅
 									</a>
 								</td>
@@ -274,9 +306,9 @@ if($(window).scrollTop()==($(document).height()-$(window).height())){
 							</tr>
 						</table>
 					</div>
-					<%}else{ %>
-							<%} 
-							}%>
+					<%}else{ 
+					} 
+							%>
 				</div>
 			</div>
 			<div class="col-7 p-0">
@@ -364,7 +396,6 @@ if($(window).scrollTop()==($(document).height()-$(window).height())){
 					<%
 					if(!(feedList.isEmpty())){	
 					for (int i = 0; i < feedList.size(); i++) {
-							
 							Feed feed = feedList.get(i);
 							
 					%>
@@ -1094,7 +1125,7 @@ if($(window).scrollTop()==($(document).height()-$(window).height())){
 				</button>
 			</div>
 			<div id="write-modal-cont">
-				<div id="write-modal-cont-div" contentEditable="true"></div>
+				<div id="write-modal-cont-div" contentEditable="true"><br></div>
 				<textarea style="display: none"></textarea>
 			</div>
 			<div id="write-modal-footer">
@@ -1245,7 +1276,12 @@ if($(window).scrollTop()==($(document).height()-$(window).height())){
 		var scheduleStartDate = $('#sche-start-date').val()+" 00:00:00";
 		var scheduleEndDate=$('#sche-end-date').val()+" 00:00:00";
 		console.log(scheduleStartDate);
-		var userNo = ${requestScope.user.userNo};
+		var userNo = 0;
+		<% if(user==null){%>
+		userNo = 0;
+		<%}else{%>
+		userNo = ${requestScope.user.userNo};
+		<%}%>
 		var beesNo = ${requestScope.bees.beesNo};
 		$.ajax({
 			url:"/insertSchedule.do",

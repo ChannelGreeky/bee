@@ -121,7 +121,7 @@ div {
 	width: 40px;
 	height: 40px;
 	background-color: #f7d078;
-	background-image: url();
+	/*background-image: url();*/
 	background-size: cover;
 	border-radius: 999px;
 }
@@ -559,7 +559,7 @@ div {
 	border-radius: 999px;
 	height: 35px;
 	width: 35px;
-	background-image: url("/resources/image/profile/p1.jpg");
+	/*background-image: url("/resources/image/profile/p1.jpg");*/
 	background-size: cover;
 }
 

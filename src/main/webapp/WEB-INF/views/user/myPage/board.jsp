@@ -309,7 +309,10 @@ select:focus {
 						<table class="feed-table">
 							<tr>
 								<td class="feed-writer-info" rowspan="2">
-									<div class="feed-writer-profile" style="background-image:url('/resources/image/profile/<%=feed.getProfileImg() %>')"></div>
+									<%if(feed.getProfileImg()==null){%>
+									<div class="feed-writer-profile" style="background-color:#f7d078;"></div>
+									<%}else{ %>
+									<div class="feed-writer-profile" style="background-image:url('/resources/image/profile/<%=feed.getProfileImg() %>')"></div><%} %>
 								</td>
 								<td class="feed-writer-name"><%=feed.getUserName() %></td>
 								<td class="feed-setting" rowspan="2">
@@ -494,12 +497,6 @@ select:focus {
 											<div class="vote-footer">
 												<hr>
 												<center>
-												<%
-												if(vote.getVoteEndYN()=='N'){%>
-												투표 권한이 없습니다.
-												<%}else{%>
-												종료된 투표입니다.
-												<%} %>
 												<%if(member.getMemberNo()!=vote.getMemberNo()){
 													if(vote.getVoteEndYN()=='N'){%>
 													<button class="vote-reset" type="reset">취소하기</button>
@@ -562,7 +559,11 @@ select:focus {
 							if(comment.getCommentDelYN()=='N'){%>
 							<tr>
 							<td rowspan="3" class="comment-writer">
+									<%if(comment.getProfileImg()==null){%>
+								<div class="comment-writer-profile" style="background-color:#f7d078"></div>
+							<%}else{ %>
 									<div class="comment-writer-profile" style="background-image:url('/resources/image/profile/<%=comment.getProfileImg() %>')"></div>
+								<%} %>
 								</td>
 							
 							<td class="comment-writer-name"><%=comment.getUserName() %></td>
@@ -1038,6 +1039,9 @@ select:focus {
 		</div>
 	<script>
 	
+
+	
+	
 	$('#modify-modal-submit').click(function(){
 		
 		var boardCont = ($('#modify-modal-cont-div').html());
@@ -1059,9 +1063,6 @@ select:focus {
 		})
 		
 		console.log(delImage);
-		
-		//백에서 >0이면 기능 삭제하기
-		//백에서 <div> 앞까지 자르는 작업
 		
 		$.ajax({
 			url:"/updateBoard.do",

@@ -107,8 +107,10 @@ public class BeesController {
 		
 		Member member = (Member)session.getAttribute("member");
 		int memberNo = member.getMemberNo();
+		
 		Bees bees = bService.beesSelectOne(beesNo);
 		request.setAttribute("bees", bees);
+		System.out.println(bees);
 		int userCount = userService.userCount(beesNo);
 		request.setAttribute("userCount", userCount);
 		//유저 정보 불러오기
@@ -236,9 +238,9 @@ public class BeesController {
 	}
 	
 	@RequestMapping(value="/beesSearchOne.do")
-	private String beesSearchOne(@RequestParam int beesNo, @RequestParam int memberNo, @RequestParam String keyword, HttpServletRequest request) throws Exception {
+	private String beesSearchOne(@RequestParam int beesNo, HttpSession session, @RequestParam String keyword, HttpServletRequest request) throws Exception {
 		
-		
+		int memberNo = ((Member)session.getAttribute("member")).getMemberNo();
 		request.setAttribute("keyword", keyword);
 		
 		Bees bees = bService.beesSelectOne(beesNo);
