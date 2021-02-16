@@ -236,7 +236,6 @@ public class BeesController {
 	private String beesSearchOne(@RequestParam int beesNo, @RequestParam int memberNo, @RequestParam String keyword, HttpServletRequest request) throws Exception {
 		
 		
-		
 		request.setAttribute("keyword", keyword);
 		
 		Bees bees = bService.beesSelectOne(beesNo);
@@ -371,14 +370,11 @@ public class BeesController {
 	
 	
 	@RequestMapping(value="/myPageBoard.do")
-	private String myPageBoard(@RequestParam int memberNo, HttpServletRequest request) throws Exception {
+	private String myPageBoard(HttpSession session, HttpServletRequest request) throws Exception {
 		
 		
-		  /*
-		  @SessionAttribute("member")Member sessionMember
-		  int memberNo = sessionMember.getMemberNo();
-		  */
-		
+		Member member = (Member)session.getAttribute("member");
+		int memberNo = member.getMemberNo();
 		
 		ArrayList<Feed> feedList = boardService.boardSelectMine(memberNo);
 		request.setAttribute("feedList", feedList);
@@ -504,8 +500,11 @@ public class BeesController {
 	}
 	
 	@RequestMapping(value="/myPageHeart.do")
-	private String myPageHeart(@RequestParam int memberNo, HttpServletRequest request) throws Exception {
+	private String myPageHeart(HttpSession session, HttpServletRequest request) throws Exception {
 		
+		
+		Member member = (Member)session.getAttribute("member");
+		int memberNo = member.getMemberNo();
 		
 		ArrayList<Feed> feedList = boardService.boardSelectLiked(memberNo);
 		request.setAttribute("feedList", feedList);
@@ -631,12 +630,13 @@ public class BeesController {
 	}
 	
 	@RequestMapping(value="/myBeesPage.do")
-	private String selectMainPage(@RequestParam int memberNo, HttpServletRequest request, HttpSession session) throws Exception {
+	private String selectMainPage(HttpServletRequest request, HttpSession session) throws Exception {
 
 		Member m = (Member)session.getAttribute("member");
 		ArrayList<Bees> beesList = uService.selectMyBees(m);
 		request.setAttribute("beesList", beesList);
 		
+		int memberNo = m.getMemberNo();
 		
 		List<Integer> beesNo = userService.selectAllBeesNo(memberNo);
 		
@@ -763,12 +763,13 @@ public class BeesController {
 	}
 	
 	@RequestMapping(value="/bestFeedPage.do")
-	private String bestFeedPage(@RequestParam int memberNo, HttpServletRequest request, HttpSession session) throws Exception {
+	private String bestFeedPage(HttpServletRequest request, HttpSession session) throws Exception {
 
 		Member m = (Member)session.getAttribute("member");
 		ArrayList<Bees> beesList = uService.selectMyBees(m);
 		request.setAttribute("beesList", beesList);
 		
+		int memberNo = m.getMemberNo();
 		
 		List<Integer> beesNo = userService.selectAllBeesNo(memberNo);
 		
@@ -805,11 +806,13 @@ public class BeesController {
 	}
 	
 	@RequestMapping(value="/feedSearchResult.do")
-	private String feedSearchResult(@RequestParam int memberNo, @RequestParam String keyword, HttpServletRequest request, HttpSession session) throws Exception {
+	private String feedSearchResult(@RequestParam String keyword, HttpServletRequest request, HttpSession session) throws Exception {
 
 		Member m = (Member)session.getAttribute("member");
 		ArrayList<Bees> beesList = uService.selectMyBees(m);
 		request.setAttribute("beesList", beesList);
+		
+		int memberNo = m.getMemberNo();
 		
 		List<Integer> beesNo = userService.selectAllBeesNo(memberNo);
 		

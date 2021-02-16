@@ -228,7 +228,6 @@ if($(window).scrollTop()==($(document).height()-$(window).height())){
 							<tr>
 								<td id="chatting-header">채팅</td>
 								<td id="new-chat">
-									
 								<%if((setting.getSetUserInvite()).equals("user")){%>
 								<a class="chat-open-btn" href="#none" target="_blank" onclick="openPopup()">새 채팅</a>	
               					<%}else if(((setting.getSetUserInvite()).equals("manager"))){
@@ -359,8 +358,6 @@ if($(window).scrollTop()==($(document).height()-$(window).height())){
 					for (int i = 0; i < feedList.size(); i++) {
 							
 							Feed feed = feedList.get(i);
-							
-							
 							
 					%>
 					<div class="bees-feed" id="<%=feed.getBoardNo() %>">
@@ -1201,6 +1198,7 @@ if($(window).scrollTop()==($(document).height()-$(window).height())){
 		</div>
 	</form>
 	<script>
+	
 	$('.file-down-btn').click(function(){
 		var fileName = $('.file-title').html();
 		var fileNo = $('.file-title').attr('id');
@@ -1220,7 +1218,6 @@ if($(window).scrollTop()==($(document).height()-$(window).height())){
 					link.download = filename;
 					link.click();
 					
-				alert("파일 다운로드가 완료되었습니다.");
 					
 					},
 				error: function() {
@@ -1230,7 +1227,6 @@ if($(window).scrollTop()==($(document).height()-$(window).height())){
 		}
 			
 	});
-	
 	
 	
 	$.insertSchedule = function(boardNo, scheduleNo){
@@ -1311,9 +1307,6 @@ if($(window).scrollTop()==($(document).height()-$(window).height())){
 		
 		
 	};
-	
-	
-	
 	
 	
 	$.insertImage = function(boardNo){
@@ -1397,7 +1390,6 @@ if($(window).scrollTop()==($(document).height()-$(window).height())){
 		if(beesFunction=='image'){
 			imageCount=document.getElementById('input-image').files.length;
 		}
-		console.log(imageCount);
 		$.ajax({
 			url:"/insertBoard.do",
 			data:{"boardCont":boardCont, "memberNo":memberNo, "beesNo":beesNo, "beesFunction":beesFunction, "imageCount":imageCount},
@@ -1405,6 +1397,8 @@ if($(window).scrollTop()==($(document).height()-$(window).height())){
 			success:function(data){
 				
 				if(data[0]!=null){
+					
+					console.log(beesFunction);
 					
 					if(beesFunction=='vote'){
 						$.insertVote(data[0].boardNo, data[0].voteNo);
@@ -1418,7 +1412,6 @@ if($(window).scrollTop()==($(document).height()-$(window).height())){
 					}else{
 					}
 					
-					alert("게시글이 성공적으로 등록되었습니다.");
 					location.reload();
 					
 				}else{
@@ -1434,9 +1427,6 @@ if($(window).scrollTop()==($(document).height()-$(window).height())){
 		
 		
 	});
-	
-	
-	
 	
 	</script>
 	<!--일정 모달 끝-->
@@ -1495,6 +1485,7 @@ if($(window).scrollTop()==($(document).height()-$(window).height())){
 	<script>
 	
 
+
 	
 	
 	$('#modify-modal-submit').click(function(){
@@ -1518,9 +1509,6 @@ if($(window).scrollTop()==($(document).height()-$(window).height())){
 		})
 		
 		console.log(delImage);
-		
-		//백에서 >0이면 기능 삭제하기
-		//백에서 <div> 앞까지 자르는 작업
 		
 		$.ajax({
 			url:"/updateBoard.do",

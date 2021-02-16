@@ -96,10 +96,10 @@
   <div class="col-md-12 p-0 h-100 w-100"></div>
 	<ul class="navi_menu">
 	    <li class="navi_menu_item">
-     	       <a href="#" >내 비즈 소식</a>
+     	       <a href="/myBeesPage.do" >내 비즈 소식</a>
 	    </li>	
 	    <li class="navi_menu_item">
-     	       <a href="#"  >인기글</a>
+     	       <a href="/bestFeedPage.do" >인기글</a>
 	    </li>	
 	    <li class="navi_menu_item">
      	       <a href="/beesRecommend.do?endNo=10">추천비즈</a>
