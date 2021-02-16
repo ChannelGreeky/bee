@@ -22,7 +22,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.SessionAttribute;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.fourmeeting.bee.PagingVO;
@@ -55,7 +56,7 @@ import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
 @Controller("beesController")
 public class BeesController {
 	@Autowired
-	ServletContext context;
+	ServletContext beeCreateContext;
 	
 	@Autowired
 	@Qualifier(value = "userPageService")
@@ -852,55 +853,57 @@ public class BeesController {
 	}
 	
 	@RequestMapping(value="/beeCreate.do")
-	public String beeCreate(Model model, HttpServletRequest request) throws IOException, UnsupportedEncodingException {
-		String uploadPath = "/resources/image/beeCreateProfile/";
-		int uploadFileSizeLimit = 10*1024*1024;
-		String encType="UTF-8";
-		String realUploadPath = context.getRealPath(uploadPath);
-		System.out.println("완성된 실제 업로드 절대경로 : " + realUploadPath);
-		MultipartRequest multi = new MultipartRequest(request,realUploadPath,uploadFileSizeLimit,encType,new DefaultFileRenamePolicy());
+	public String requestupload1(Model model, HttpServletRequest mtfRequest) throws UnsupportedEncodingException {
+		
+		MultipartHttpServletRequest multipartRequest = (MultipartHttpServletRequest) mtfRequest;
+        MultipartFile mf = multipartRequest.getFile("imgInput");
+        String uploadPath = "/resources/image/beeCreateProfile/";
+        String encType="UTF-8";
+	    String realUploadPath = beeCreateContext.getRealPath(uploadPath);
 
-		String originalFileName = multi.getFilesystemName("imgInput");
-		
-		SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS"); 
-		long currentTime = Calendar.getInstance().getTimeInMillis(); 
-		Timestamp uploadTime = Timestamp.valueOf(formatter.format(currentTime));
-		
-		File file = new File(realUploadPath+"\\"+originalFileName);
-		
-		file.renameTo(new File(realUploadPath+"\\"+currentTime+"_bee"));
-		String changedFileName = currentTime+"_bee";
-		
-		File reNameFile = new File(realUploadPath+"\\"+changedFileName);
-		String filePath = reNameFile.getPath();
-		
-		long fileSize = reNameFile.length(); 
-		
-		System.out.println("파일 이름 (원본) : " + originalFileName);
-		System.out.println("파일 이름 (변경) : " + changedFileName);
-		System.out.println("파일 경로 : " + filePath);
-		System.out.println("파일 사이즈 : " + fileSize);
-		System.out.println("업로드 시간 : " + uploadTime);
-		
-			
-		char beesPublicYN = 0;
+        String path = realUploadPath;
+        System.out.println("path : " + path);
+
+        String originFileName = mf.getOriginalFilename(); // 원본 파일 명
+        long fileSize = mf.getSize(); // 파일 사이즈
+
+        System.out.println("originFileName : " + originFileName);
+        System.out.println("fileSize : " + fileSize);
+
+        String safeFile = path + System.currentTimeMillis() + originFileName+"_bee";
+        System.out.println("safeFile : " + safeFile);
+        String beeCreateProfile = System.currentTimeMillis() + originFileName+"_bee";
+        System.out.println("beeCreateProfile : " + beeCreateProfile);
+
+        
+        System.out.println("safeFile : " + safeFile);
+        try {
+            mf.transferTo(new File(safeFile));
+        } catch (IllegalStateException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        } catch (IOException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        char beesPublicYN = 0;
 		Bees bee = new Bees(); 
-		bee.setBeesName(multi.getParameter("beeName"));
+		bee.setBeesName(mtfRequest.getParameter("beeName"));
 		System.out.println("비즈이름 미리보기:"+bee.getBeesName());
-		String beeCover = multi.getParameter("beeCoverImage");
+		String beeCover = mtfRequest.getParameter("beeCoverImage");
 		
 		if(fileSize==0){
 		bee.setBeesCover(beeCover);
 		System.out.println("파일명 미리보기:"+bee.getBeesCover());
 		}else{
-		bee.setBeesCover(changedFileName);
+		bee.setBeesCover(beeCreateProfile);
 		System.out.println("파일명 미리보기:"+bee.getBeesCover());	
 		}
 	
-		bee.setBeesCategory(multi.getParameter("category"));	
-		bee.setBeesHost(multi.getParameter("beesHost"));
-		bee.setBeesHostNo(Integer.parseInt(multi.getParameter("beesHostNo")));
-		String beesPublic = multi.getParameter("beeType");
+		bee.setBeesCategory(mtfRequest.getParameter("category"));	
+		bee.setBeesHost(mtfRequest.getParameter("beesHost"));
+		bee.setBeesHostNo(Integer.parseInt(mtfRequest.getParameter("beesHostNo")));
+		String beesPublic = mtfRequest.getParameter("beeType");
 		if(beesPublic.equals("public")){
 			beesPublicYN ='Y';
 		}else{
@@ -921,52 +924,53 @@ public class BeesController {
 		} else {
 			model.addAttribute("msg", "비즈 생성이 실패하였습니다. 지속적으로 실패 시 관리자에게 문의하세요.");
 		}
-		model.addAttribute("location", "/index.jsp");
-
+		model.addAttribute("location", "/myBeesPage.do?memberNo="+bee.getBeesHostNo());
 	
 		return "/bees/beeCreate/beeResult";
-		
-	}
+       /* return "redirect:/";*/
+    }
 	
 	@RequestMapping(value="/coverUpdateSet.do")
-	public String coverUpdateSet(Model model, HttpServletRequest request) throws IOException, UnsupportedEncodingException {	
-			String uploadPath = "/resources/image/beeCreateProfile/";
-			int uploadFileSizeLimit = 10*1024*1024;
-			String encType="UTF-8";
-			String realUploadPath = context.getRealPath(uploadPath);
-			System.out.println("완성된 실제 업로드 절대경로 : " + realUploadPath);
-			
-			MultipartRequest multi = new MultipartRequest(request,realUploadPath,uploadFileSizeLimit,encType,new DefaultFileRenamePolicy());
-			String originalFileName = multi.getFilesystemName("imgInput");
-			
-			
-			SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS"); 
-			long currentTime = Calendar.getInstance().getTimeInMillis(); 
-			Timestamp uploadTime = Timestamp.valueOf(formatter.format(currentTime));
-			
-			File file = new File(realUploadPath+"\\"+originalFileName);
-			
-			file.renameTo(new File(realUploadPath+"\\"+currentTime+"_bee"));
-			String changedFileName = currentTime+"_bee";
-			
-			File reNameFile = new File(realUploadPath+"\\"+changedFileName);
-			String filePath = reNameFile.getPath();
-			
-			long fileSize = reNameFile.length(); 
-			
-			System.out.println("파일 이름 (원본) : " + originalFileName);
-			System.out.println("파일 이름 (변경) : " + changedFileName);
-			System.out.println("파일 경로 : " + filePath);
-			System.out.println("파일 사이즈 : " + fileSize);
-			System.out.println("업로드 시간 : " + uploadTime);
-		
+	public String coverUpdateSet(Model model, HttpServletRequest mtfRequest) throws IOException, UnsupportedEncodingException {	
+			MultipartHttpServletRequest multipartRequest = (MultipartHttpServletRequest) mtfRequest;
+	        MultipartFile mf = multipartRequest.getFile("imgInput");
+	        String uploadPath = "/resources/image/beeCreateProfile/";
+	        String encType="UTF-8";
+		    String realUploadPath = beeCreateContext.getRealPath(uploadPath);
+	
+	        String path = realUploadPath;
+	        System.out.println("path : " + path);
+	
+	        String originFileName = mf.getOriginalFilename(); // 원본 파일 명
+	        long fileSize = mf.getSize(); // 파일 사이즈
+	
+	        System.out.println("originFileName : " + originFileName);
+	        System.out.println("fileSize : " + fileSize);
+	
+	        String safeFile = path + System.currentTimeMillis() + originFileName+"_bee";
+	        System.out.println("safeFile : " + safeFile);
+	        String beeCreateProfile = System.currentTimeMillis() + originFileName+"_bee";
+	        System.out.println("beeCreateProfile : " + beeCreateProfile);
+	
+	        
+	        System.out.println("safeFile : " + safeFile);
+	        try {
+	            mf.transferTo(new File(safeFile));
+	        } catch (IllegalStateException e) {
+	            // TODO Auto-generated catch block
+	            e.printStackTrace();
+	        } catch (IOException e) {
+	            // TODO Auto-generated catch block
+	            e.printStackTrace();
+	        }
+							
 			Bees bee = new Bees(); 
-			bee.setBeesNo(Integer.parseInt(multi.getParameter("beesNo")));
-			bee.setBeesName(multi.getParameter("beeName"));
+			bee.setBeesNo(Integer.parseInt(mtfRequest.getParameter("beesNo")));
+			bee.setBeesName(mtfRequest.getParameter("beeName"));
 			System.out.println("비즈이름 미리보기:"+bee.getBeesName());
-			String beeCover = multi.getParameter("beeCoverImage");
-			String beeCover2 = multi.getParameter("beeCoverImage2");
-			String choiceCover = multi.getParameter("choiceCover");
+			String beeCover = mtfRequest.getParameter("beeCoverImage");
+			String beeCover2 = mtfRequest.getParameter("beeCoverImage2");
+			String choiceCover = mtfRequest.getParameter("choiceCover");
 			
 			if(fileSize==0){
 				if(choiceCover.equals("1")){
@@ -977,7 +981,7 @@ public class BeesController {
 					System.out.println("파일명 미리보기2:"+bee.getBeesCover());	
 				}
 			}else{				
-				bee.setBeesCover(changedFileName);
+				bee.setBeesCover(beeCreateProfile);
 				System.out.println("파일명 미리보기3:"+bee.getBeesCover());			
 			}
 				
