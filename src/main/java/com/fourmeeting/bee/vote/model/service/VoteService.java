@@ -8,6 +8,7 @@ import javax.annotation.Resource;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Service;
 
+
 import com.fourmeeting.bee.vote.model.dao.VoteDAO;
 import com.fourmeeting.bee.vote.model.vo.FeedVote;
 import com.fourmeeting.bee.vote.model.vo.Vote;
@@ -64,6 +65,13 @@ public class VoteService {
 		return voteList;
 	}
 
+	public ArrayList<Vote> selectAllVote(int beesNo) {
+		ArrayList<Vote> list = voteDAO.selectAllVote(sqlSession,beesNo);
+		return list;
+		
+	}
+
 	
+
 
 }

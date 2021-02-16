@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+
 import com.fourmeeting.bee.bees.model.service.BeesService;
 import com.fourmeeting.bee.beesuser.model.service.BeesUserService;
 import com.fourmeeting.bee.beesuser.model.vo.BeesUser;
@@ -89,5 +90,16 @@ public class VoteController {
 		
 	}
 	
+	@RequestMapping("/voteList.do")
+	@ResponseBody
+	public ArrayList<Vote> SelectAllVote(@RequestParam int beesNo){
+		System.out.println(beesNo);
+		
+		ArrayList<Vote> list = voteService.selectAllVote(beesNo);
+		System.out.println(list);
+		System.out.println(list.get(0));
+			
+			return list;
+	}
 	
 }

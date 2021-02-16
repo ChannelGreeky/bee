@@ -6,6 +6,7 @@ import java.util.List;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
+
 import com.fourmeeting.bee.vote.model.vo.FeedVote;
 import com.fourmeeting.bee.vote.model.vo.Vote;
 import com.fourmeeting.bee.vote.model.vo.VoteChoice;
@@ -56,6 +57,13 @@ public class VoteDAO {
 		List list = sqlSession.selectList("vote.voteSelectAllMyBees", beesNo);
 		return (ArrayList<FeedVote>)list;
 	}
+	public ArrayList<Vote> selectAllVote(SqlSessionTemplate sqlSession, int beesNo) {
+		List list = sqlSession.selectList("vote.selectAllVote", beesNo);
+		return (ArrayList<Vote>)list;
+	}
 
+	
+
+	
 
 }

@@ -7,6 +7,7 @@ import java.net.URLEncoder;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 
@@ -146,7 +147,25 @@ public class FileController {
 		
 	}
 	
-            
+	@RequestMapping(value="/fileList.do")
+	@ResponseBody
+	public HashMap<Integer, String> fileList(@RequestParam int beesNo){
+		HashMap<Integer,String> map = new HashMap<>();
+		
+		System.out.println(beesNo);
+		
+		ArrayList<BeesFile> fileList = fileService.fileSelectAll(beesNo);
+		System.out.println(fileList);
+		int i=1;
+		for(BeesFile f : fileList){
+			System.out.println(f.getOriginalFileName());
+			map.put(i, f.getOriginalFileName());
+			i++;
+		}
+			
+			return map;
+	}
+	      
 }
         
         

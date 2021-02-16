@@ -78,4 +78,15 @@ delete from vote where vote_no = #{voteNo}
 <insert id="insertVote" parameterType="vote">
 insert into vote values (#{voteNo}, #{voteTitle}, #{voteItem}, #{votePublicYN}, default, #{beesNo}, #{boardNo})
 </insert>
+<select id="selectAllVote" parameterType="int" resultType="Vote">
+select
+
+vote_title as voteTitle,
+
+vote_end_yn as voteEndYN
+
+from Vote
+where bees_no = #{beesNo}
+</select>
+
 </mapper>
