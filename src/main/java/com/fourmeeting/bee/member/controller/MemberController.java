@@ -397,12 +397,14 @@ public class MemberController {
 		m.setMemberNo(member.getMemberNo());
 		m.setMemberId(member.getMemberId());
 		m.setMemberPw(member.getMemberPw());
-		
+		System.out.println(member.getMemberPw());
 		
 		//비지니스 로직
 		int result = mService.updateMemberProfile(m);
 		if(result>0){
+			System.out.println(result);
 			member = mService.selectLoginMember(m);
+			System.out.println(member.getProfileImg());
 			session.setAttribute("member", member);
 		}
 		
