@@ -56,12 +56,20 @@ public class MemberController {
 		m.setMemberPw(memberPw);
 
 		Member member = mService.selectLoginMember(m);
-
+		
+		if(request.isRequestedSessionIdValid()){
+			request.getSession().invalidate();
+		}
+		
 		if (member != null) {
 			HttpSession session = request.getSession();
 			session.setAttribute("member", member);
-
-			return "redirect:/myBeesPage.do?memberNo="+member.getMemberNo();
+			
+			if (member.getMemberNo() >= 0 && member.getMemberNo() <= 999) {
+				return "redirect:/beesManagement.do";
+			} else {
+				return "redirect:/myBeesPage.do?memberNo="+member.getMemberNo();
+			}
 		} else {
 			return "user/beforeLogin/memberLoginFail";
 		}

@@ -54,7 +54,7 @@
 				                        </li>
 										
 				                        <li>
-				                        	<a href="/main.jsp">로그아웃</a>
+				                        	<a href="/index.jsp">로그아웃</a>
 				                        </li>
 				                     </ul>
 			            	</li>
