@@ -186,7 +186,7 @@ if($(window).scrollTop()==($(document).height()-$(window).height())){
 								<a class="search-feed-bees-name"  href="/beesSelectOne.do?beesNo=<%=feed.getBeesNo() %>&memberNo=<%=feed.getMemberNo() %>"><%=beesName %></a> <i class="fas fa-angle-left"></i> <span class="search-feed-writer"><%=feed.getUserName() %></span> <span class="search-feed-date"><%=dateFormat.format(feed.getBoardDate()) %></span>
 							</div>
 							<div class="search-feed-main">
-								<p class="search-feed-maintext"><%=maintext %></p>
+								<div class="search-feed-maintext"><%=maintext %></div>
 							</div>
 							<div class="search-feed-footer">
 								<span class="search-feed-like-btn" style="line-height: 20px; font-weight: 600; padding-left: 20px;"> 
