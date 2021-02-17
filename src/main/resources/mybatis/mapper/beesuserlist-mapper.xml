@@ -18,7 +18,9 @@
 		MEMBER.MEMBER_ID as memberId,
 		MEMBER.PROFILE_IMG as profileImg
 		from Bees_User left join member On bees_user.member_no=member.member_no
-		where bees_user.BEES_NO=28 and bees_user.user_del_yn='N' and bees_user.user_auth_yn='Y' order by bees_user.user_name ASC
+		where bees_user.BEES_NO=#{beeNo} and bees_user.user_del_yn='N' and bees_user.user_auth_yn='Y' order by bees_user.user_name ASC
+		
+	
 		
 		<!--  
 		<choose>
@@ -47,8 +49,9 @@
 		MEMBER.MEMBER_ID as memberId,
 		MEMBER.PROFILE_IMG as profileImg
 		from Bees_User left join member On bees_user.member_no=member.member_no
-		where bees_user.BEES_NO=28 and
+		where bees_user.BEES_NO=#{beesNo} and
 		(bees_user.user_name like '%'|| #{keyword} || '%' and bees_user.user_del_yn='N') and bees_user.user_auth_yn='Y' order by
+		
 		
 		<choose>
 			<when test="option.equals('user_name')">
@@ -61,8 +64,7 @@
 	</select>
 	
 	
-	<select id="selectBeesApplicant" parameterType="beesUserList" resultType="beesUserList">
-		
+	<select id="selectBeesApplicant"  resultType="beesUserList">
 		select
 		BEES_USER.USER_NO as userNo,
 		BEES_USER.BEES_NO as beesNo,
@@ -77,7 +79,7 @@
         MEMBER.MEMBER_ID as memberId,
 		MEMBER.PROFILE_IMG as profileImg
 		from Bees_User left join member on bees_user.member_no = member.member_no 
-		where user_block_yn='N' and user_auth_yn='W' and bees_no='28' and user_class='user'
+		where user_block_yn='N' and user_auth_yn='W' and bees_no=#{beesNo} and user_class='user'
 		
 	</select>
 </mapper>

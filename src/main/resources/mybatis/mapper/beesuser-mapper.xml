@@ -59,23 +59,25 @@ select bees_no from bees_user where member_no=#{memberNo} and user_auth_yn='Y'
 		USER_AUTH_YN as userAuthYN,
       	USER_ASK_DATE as userAskDate,
         USER_AUTH_DATE as userAuthDate
-        FROM BEES_USER WHERE MEMBER_NO=#{memberNo} AND BEES_NO='28'
+        FROM BEES_USER WHERE MEMBER_NO=#{memberNo} AND BEES_NO=#{beesNo}
         
 	</select>
 	
-	<select id="selectBeesUserWaiters" parameterType="beesUser" resultType="beesUser">
+	<select id="selectBeesUserWaiters" resultType="BeesUserList">
 		select
-		USER_NO as userNo,
-		BEES_NO as beesNo,
-		MEMBER_NO as memberNo,
-		USER_NAME as userName,
-		USER_CLASS as userClass,
-		USER_BLOCK_YN as userBlockYN,
-		USER_DEL_YN as userDelYN,
-		USER_AUTH_YN as userAuthYN,
-      	USER_ASK_DATE as userAskDate,
-        USER_AUTH_DATE as userAuthDate
-        FROM BEES_USER WHERE USER_AUTH_YN='W' AND BEES_NO='28'
+		BEES_USER.USER_NO as userNo,
+		BEES_USER.BEES_NO as beesNo,
+		BEES_USER.MEMBER_NO as memberNo,
+		BEES_USER.USER_NAME as userName,
+		BEES_USER.USER_CLASS as userClass,
+		BEES_USER.USER_BLOCK_YN as userBlockYN,
+		BEES_USER.USER_DEL_YN as userDelYN,
+		BEES_USER.USER_AUTH_YN as userAuthYN,
+        BEES_USER.USER_ASK_DATE as userAskDate,
+        BEES_USER.USER_AUTH_DATE as userAuthDate,
+        MEMBER.MEMBER_ID as memberId,
+		MEMBER.PROFILE_IMG as profileImg
+        FROM BEES_USER left join member on bees_user.member_no = member.member_no  WHERE USER_AUTH_YN='W' AND BEES_NO=#{beesNo}
 	</select>
 	
 	<select id="selectUserNo" parameterType="beesUser" resultType="beesUser" >
@@ -91,7 +93,7 @@ select bees_no from bees_user where member_no=#{memberNo} and user_auth_yn='Y'
       	BEES_USER.USER_ASK_DATE as userAskDate,
         BEES_USER.USER_AUTH_DATE as userAuthDate
 		from member left join bees_user on member.member_no=bees_user.member_no
-		where BEES_USER.member_no=#{memberNo} and BEES_USER.bees_no='28'
+		where BEES_USER.member_no=#{memberNo} and BEES_USER.bees_no='28' <!-- BeesNo -->
 
 	</select>
 	

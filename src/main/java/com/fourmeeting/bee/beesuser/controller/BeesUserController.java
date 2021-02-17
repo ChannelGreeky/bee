@@ -54,9 +54,13 @@ public class BeesUserController {
 	
 	@RequestMapping(value="/beesMember.do")
 	public ModelAndView selectBeesUser(HttpSession session, HttpServletRequest request) {
-
-		System.out.println("[beesUser-controller] 호출");
-		 String mainpage_option = request.getParameter("option");
+		
+		    //BeesNo Session에서 가져오기
+			int beesNo = (int)session.getAttribute("beesNo");
+			System.out.println("selectBeesUser BeesNo : "+ beesNo);
+			
+			System.out.println("[beesUser-controller] 호출");
+			String mainpage_option = request.getParameter("option");
 		    if(mainpage_option==null || mainpage_option.length()==0)
 		    {
 		    	mainpage_option="user_name";
@@ -68,19 +72,20 @@ public class BeesUserController {
 		//로그인한 memberNo 받아오는 코드
 		Member m = (Member)session.getAttribute("member");
 		int memberNo = m.getMemberNo();
-		
-		//memberNo 확인
-		System.out.println(memberNo);
+
+		BeesUser beesUserClass = new BeesUser();
+		beesUserClass.setBeesNo(beesNo);
+		beesUserClass.setMemberNo(memberNo);
 		
 		//memberNo를 통해 beesUser 정보 넘겨받는 코드
-		BeesUser beesUser = userService.selectBeesUserClass(memberNo);
+		BeesUser beesUser = userService.selectBeesUserClass(beesUserClass);
 		
 		//첫 페이지에서 보이는 BeesUser List 받아오는 코드
-		ArrayList<BeesUserList> list = userService.selectBeesUser(mainpage_option);
+		ArrayList<BeesUserList> list = userService.selectBeesUser(beesNo);
 		
 		//가입신청자 몇명 있는지 받아오는 코드
-		ArrayList<BeesUserList> WaitersList = userService.selectBeesUserWaiters();
-		
+		ArrayList<BeesUserList> WaitersList = userService.selectBeesUserWaiters(beesNo);
+		System.out.println("null확인 : "+ beesNo);
 		
 		ModelAndView mav = new ModelAndView();
 		mav.addObject("list", list);
@@ -94,9 +99,15 @@ public class BeesUserController {
 	}
 	
 	@RequestMapping(value="/beesApplicant.do")
-	public ModelAndView selectBeesApplicant() {
+	public ModelAndView selectBeesApplicant(HttpSession session) {
+		
+		
+		 //BeesNo Session에서 가져오기
+		int beesNo = (int)session.getAttribute("beesNo");
+		//System.out.println("[beesApplicant]selectBeesUser BeesNo : "+ beesNo);
+		
 		System.out.println("[beesApplicant-controller] 호출");
-		ArrayList<BeesUserList> list = userService.selectBeesApplicant();
+		ArrayList<BeesUserList> list = userService.selectBeesApplicant(beesNo);
 		
 		ModelAndView mav = new ModelAndView();
 		mav.addObject("list", list);
@@ -108,7 +119,12 @@ public class BeesUserController {
 	
 	
 	@RequestMapping(value="/beesUserSearch.do")
-	public ModelAndView selectBeesUserSearch(@RequestParam String keyword, HttpServletRequest request) {
+	// ------------------- BeesNo 있어야 함 ---------------------
+	
+	public ModelAndView selectBeesUserSearch(HttpSession session, @RequestParam String keyword, HttpServletRequest request) {
+		//BeesNo Session에서 가져오기
+		int beesNo = (int)session.getAttribute("beesNo");
+		System.out.println("selectBeesUser BeesNo : "+ beesNo);
 		
 		System.out.println("[beesUserSearch-Controller] 호출");
 		//System.out.println(beesMemberSearchKeyword);
@@ -122,10 +138,10 @@ public class BeesUserController {
 	    System.out.println(option);
 		
 	    //가입신청자 몇명 있는지 받아오는 코드
-	    ArrayList<BeesUserList> WaitersList = userService.selectBeesUserWaiters();
+	    ArrayList<BeesUserList> WaitersList = userService.selectBeesUserWaiters(beesNo);
 		
 
-		ArrayList<BeesUserList> SearchList = userService.selectBeesUserSearch(keyword, option);
+		ArrayList<BeesUserList> SearchList = userService.selectBeesUserSearch(keyword, option, beesNo);
 		
 		
 		

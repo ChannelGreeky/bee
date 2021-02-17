@@ -62,9 +62,8 @@ return false;
 <%
 	ArrayList<ScheduleList> list = (ArrayList<ScheduleList>)request.getAttribute("list");
 	BeesUser beesUser = (BeesUser)request.getAttribute("Buser");
-	int beesNo = Integer.parseInt(request.getParameter("beesNo"));
-	
-	System.out.println("BeesNo 확인 : "+ beesNo );
+	//int beesNo = Integer.parseInt(request.getParameter("beesNo"));
+	//System.out.println("BeesNo 확인 : "+ beesNo );
 	//System.out.println("스케줄 리스트 확인요 : "+ list);
 %>
 
@@ -990,13 +989,13 @@ margin-top : 3%;
 						var scheduleCont = $('#sche-detail-title-explanation2').val();
 						var scheduleStartDate = $('#sche-start-datepicker').datepicker().val()+" 00:00:00";
 						var scheduleEndDate = $('#sche-end-datepicker').datepicker().val()+" 01:00:00";
-						var beesNo = <%= beesNo %>
+						<%--var beesNo = <%= beesNo %>--%>
 						
 						
 						$.ajax({
 							url : "/scheDateInput.do",
 							type : "post",
-							data: {"scheduleTitle":scheduleTitle, "scheduleCont":scheduleCont, "scheduleStartDate":scheduleStartDate, "scheduleEndDate":scheduleEndDate, "beesNo":beesNo},
+							data: {"scheduleTitle":scheduleTitle, "scheduleCont":scheduleCont, "scheduleStartDate":scheduleStartDate, "scheduleEndDate":scheduleEndDate},
 							success : function(result){
 								
 								if(result=="true"){

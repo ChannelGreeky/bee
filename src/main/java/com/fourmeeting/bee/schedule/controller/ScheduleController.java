@@ -2,7 +2,6 @@ package com.fourmeeting.bee.schedule.controller;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.sql.Date;
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -13,12 +12,13 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import org.json.simple.JSONObject;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.fourmeeting.bee.bees.model.vo.Bees;
+import com.fourmeeting.bee.beesuser.model.service.BeesUserService;
 import com.fourmeeting.bee.beesuser.model.vo.BeesUser;
 import com.fourmeeting.bee.member.model.vo.Member;
 import com.fourmeeting.bee.schedule.model.service.ScheduleService;
@@ -34,6 +34,8 @@ public class ScheduleController {
 	@Resource(name="ScheduleService")
 	private ScheduleService scheduleService;
 	
+	@Resource(name="BeesUserService")
+	private BeesUserService userService;
 	
 	@RequestMapping("/scheduleSelectOne.do")
 	private void scheduleSelectOne(@RequestParam int scheduleNo, HttpServletRequest request, HttpServletResponse response) throws Exception {
@@ -73,24 +75,26 @@ public class ScheduleController {
 	
 	/*-------------------solm---------------------------*/
 	@RequestMapping(value="/beesSchedule.do")
-	public ModelAndView selectBeesSchedule(@RequestParam int beesNo, HttpSession session, HttpServletRequest request) throws Exception {
+	public ModelAndView selectBeesSchedule(HttpSession session, HttpServletRequest request) throws Exception {
 		
-
+		int beesNo = (int)session.getAttribute("beesNo");
+		
 		System.out.println("넘어오면 좋겠다: "+ beesNo);
 		
 		ArrayList<ScheduleList> list = scheduleService.selectBeesSchedule(beesNo);
-		
-		/*수정할 때 필요한 userNo 구하는 로직*/
 		Member m = (Member)session.getAttribute("member");
 		int memberNo = m.getMemberNo();
-		System.out.println("수정할 때 필요한 멤버넘버 :"+memberNo);
+	
+		/*수정할 때 필요한 userNo 구하는 로직*/
 		
+		System.out.println("수정할 때 필요한 멤버넘버 :"+memberNo);
+
 		BeesUser beesUser = new BeesUser();
 		beesUser.setBeesNo(beesNo);
 		beesUser.setMemberNo(memberNo);
 		
 		BeesUser Buser = scheduleService.selectBeesUserInfo(beesUser);
-		System.out.println("수정할 때 필요한 유저넘버 :"+  Buser.getUserNo());
+		//System.out.println("수정할 때 필요한 유저넘버 :"+  Buser.getUserNo());
 		
 		
 		ModelAndView mav = new ModelAndView();
@@ -107,9 +111,10 @@ public class ScheduleController {
 	@RequestMapping(value="/scheDateInput.do")
 	public void insertScheDate(@RequestParam String scheduleTitle, @RequestParam String scheduleCont,
 								@RequestParam String scheduleStartDate, @RequestParam String scheduleEndDate,
-								@RequestParam int beesNo, HttpSession session, HttpServletResponse response)throws IOException {
+								HttpSession session, HttpServletResponse response)throws IOException {
 	
-		
+		int beesNo = (int)session.getAttribute("beesNo");
+		System.out.println("넘어오면 좋겠다2: "+ beesNo);
 		
 		/*userNo 받아오기 위한 코드*/
 		Member m = (Member)session.getAttribute("member");

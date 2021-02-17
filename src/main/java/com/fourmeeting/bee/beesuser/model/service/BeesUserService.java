@@ -55,29 +55,29 @@ public class BeesUserService {
 	
 
 	/*------------solm----------*/
-public ArrayList<BeesUserList> selectBeesUser(String mainpage_option) {
+public ArrayList<BeesUserList> selectBeesUser(int beesNo) {
 		
 		System.out.println("[BeesUser-Service] 호출");
 		
-		ArrayList<BeesUserList> list = userDAO.selectBeesUser(sqlSession, mainpage_option);
+		ArrayList<BeesUserList> list = userDAO.selectBeesUser(sqlSession, beesNo);
 		
 		return list;
 		
 	}
 
 
-	public ArrayList<BeesUserList> selectBeesUserSearch(String keyword, String option) {
+	public ArrayList<BeesUserList> selectBeesUserSearch(String keyword, String option, int beesNo) {
 		System.out.println("[BeesUserSearch-Service] 호출");
 		
-		ArrayList<BeesUserList> list = userDAO.selectBeesUserSearch(sqlSession, keyword, option);
+		ArrayList<BeesUserList> list = userDAO.selectBeesUserSearch(sqlSession, keyword, option, beesNo);
 		return list;
 		
 	}
 
 
-	public ArrayList<BeesUserList> selectBeesApplicant() {
+	public ArrayList<BeesUserList> selectBeesApplicant(int beesNo) {
 		System.out.println("[beesApplicant-Service] 호출");
-		ArrayList<BeesUserList> list = userDAO.selectBeesApplicant(sqlSession);
+		ArrayList<BeesUserList> list = userDAO.selectBeesApplicant(sqlSession, beesNo);
 		return list;
 		
 	}
@@ -98,14 +98,14 @@ public ArrayList<BeesUserList> selectBeesUser(String mainpage_option) {
 	}
 
 
-	public BeesUser selectBeesUserClass(int memberNo) {
-		BeesUser beesUser = userDAO.selectBeesUserClass(sqlSession, memberNo);
+	public BeesUser selectBeesUserClass(BeesUser beesUserClass) {
+		BeesUser beesUser = userDAO.selectBeesUserClass(sqlSession, beesUserClass);
 		return beesUser;
 	}
 
 
-	public ArrayList<BeesUserList> selectBeesUserWaiters() {
-		ArrayList<BeesUserList> WaitersList = userDAO.selectBeesUserWaiters(sqlSession);
+	public ArrayList<BeesUserList> selectBeesUserWaiters(int beesNo) {
+		ArrayList<BeesUserList> WaitersList = userDAO.selectBeesUserWaiters(sqlSession, beesNo);
 		return (ArrayList<BeesUserList>)WaitersList;
 		
 	}

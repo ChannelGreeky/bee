@@ -33,6 +33,7 @@ return false;
 
 <%
 ArrayList<BeesUserList> list = (ArrayList<BeesUserList>)request.getAttribute("list");
+System.out.println("applicant List : " + list);
 
 %>
 

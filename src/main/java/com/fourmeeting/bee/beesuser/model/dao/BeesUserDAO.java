@@ -50,10 +50,10 @@ public class BeesUserDAO {
 	
 	/*------------solm----------*/
 	
-public ArrayList<BeesUserList> selectBeesUser(SqlSessionTemplate splSession, String mainpage_option) {
+public ArrayList<BeesUserList> selectBeesUser(SqlSessionTemplate splSession, int beesNo) {
 		
 		System.out.println("[BeesUser-DAO] 호출");
-		List list = splSession.selectList("beesUserList.selectBeesUser", mainpage_option);
+		List list = splSession.selectList("beesUserList.selectBeesUser", beesNo);
 		
 		System.out.println("----------------------------------------------");
 		for(BeesUserList b : (ArrayList<BeesUserList>)list)
@@ -66,12 +66,13 @@ public ArrayList<BeesUserList> selectBeesUser(SqlSessionTemplate splSession, Str
 		
 	}
 
-	public ArrayList<BeesUserList> selectBeesUserSearch(SqlSessionTemplate splSession, String keyword, String option) {
+	public ArrayList<BeesUserList> selectBeesUserSearch(SqlSessionTemplate splSession, String keyword, String option, int beesNo) {
 		System.out.println("[BeesUserSearch-DAO] 호출");
 		
 		BeesUserSelect buSelect = new BeesUserSelect();
 		buSelect.setKeyword(keyword);
 		buSelect.setOption(option);
+		buSelect.setBeesNo(beesNo);
 		
 		List list = splSession.selectList("beesUserList.selectBeesUserSearch", buSelect);
 		
@@ -87,9 +88,9 @@ public ArrayList<BeesUserList> selectBeesUser(SqlSessionTemplate splSession, Str
 		
 	}
 
-	public ArrayList<BeesUserList> selectBeesApplicant(SqlSessionTemplate splSession) {
+	public ArrayList<BeesUserList> selectBeesApplicant(SqlSessionTemplate splSession, int beesNo) {
 		System.out.println("[beesApplicant-DAO] 호출");
-		List list = splSession.selectList("beesUserList.selectBeesApplicant");
+		List list = splSession.selectList("beesUserList.selectBeesApplicant", beesNo);
 		
 		return (ArrayList<BeesUserList>)list;
 		
@@ -111,14 +112,14 @@ public ArrayList<BeesUserList> selectBeesUser(SqlSessionTemplate splSession, Str
 		return result;
 	}
 
-	public BeesUser selectBeesUserClass(SqlSessionTemplate splSession, int memberNo) {
+	public BeesUser selectBeesUserClass(SqlSessionTemplate splSession, BeesUser beesUserClass) {
 		
-		BeesUser beesUser = splSession.selectOne("beesUser.selectBeesUserClass", memberNo);
+		BeesUser beesUser = splSession.selectOne("beesUser.selectBeesUserClass", beesUserClass);
 		return beesUser;
 	}
 
-	public ArrayList<BeesUserList> selectBeesUserWaiters(SqlSessionTemplate splSession) {
-		List WaitersList = splSession.selectList("beesUser.selectBeesUserWaiters");
+	public ArrayList<BeesUserList> selectBeesUserWaiters(SqlSessionTemplate splSession, int beesNo) {
+		List WaitersList = splSession.selectList("beesUser.selectBeesUserWaiters", beesNo);
 		return (ArrayList<BeesUserList>)WaitersList;
 		
 	}

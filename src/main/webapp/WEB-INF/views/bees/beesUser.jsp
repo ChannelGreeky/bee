@@ -20,6 +20,8 @@
 <%
 	//memberPage 들어왔을 때 보이는 멤버 목록 List 
 	ArrayList<BeesUserList> list = (ArrayList<BeesUserList>)request.getAttribute("list"); 
+	
+
 	ArrayList<BeesUserList> WaitersList = (ArrayList<BeesUserList>)request.getAttribute("WaitersList"); 	
 	
 	String keyword = (String)request.getAttribute("keyword");
@@ -34,6 +36,10 @@
 
 	BeesUser BU = (BeesUser)session.getAttribute("BeesUser");
 
+	
+	//int beesNo = Integer.parseInt(request.getParameter("beesNo"));
+	//System.out.println("BeesNo 확인 : "+ beesNo );
+	
 	//member검색했을 때 보이는 멤버 목록 List 
 	//ArrayList<BeesUserList> SearchList = (ArrayList<BeesUserList>)request.getAttribute("SearchList");
 
