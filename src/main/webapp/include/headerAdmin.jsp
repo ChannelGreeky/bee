@@ -74,13 +74,13 @@ Member member3=(Member)session.getAttribute("member");
 			            		<button type="button" class="top_right_btn" id="set_btn" >
 			            		
 			            		
-			            		<% if(member3.getProfileImg() != null){ %>
-			            		
-			            			<img src="/resources/image/profile/<%=member3.getProfileImg() %>" style="border-radius:30px;">
+			            			<% if(member3.getProfileImg() == null){ %>
+			            		<img src="/resources/image/admin/profile.png" style="border-radius:30px;">
+			            			
 			            			
 			            			<%}else{ %>
+			            			<img src="/resources/image/profile/<%=member3.getProfileImg() %>" style="border-radius:30px;">
 			            			
-			            			<img src="/resources/image/profile/profile.png" style="border-radius:30px;">
 			            			<%} %>
 			            		</button>
 
