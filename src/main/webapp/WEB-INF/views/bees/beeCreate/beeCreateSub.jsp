@@ -118,7 +118,7 @@
                 </div>
             </div> 
             <div class="makeNoticeArea">
-                <p class="makeNoticeText">밴드이름과 사진은 개설 후에도 변경할 수 있어요</p>
+                <p class="makeNoticeText">비즈이름과 사진은 개설 후에도 변경할 수 있어요</p>
             </div>         
         </div>
    <div class="makeType">
