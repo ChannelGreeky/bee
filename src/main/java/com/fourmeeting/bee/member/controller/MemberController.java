@@ -66,7 +66,7 @@ public class MemberController {
 			session.setAttribute("member", member);
 			
 			if (member.getMemberNo() >= 0 && member.getMemberNo() <= 999) {
-				return "redirect:/beesManagement.do";
+				return "redirect:/memberManagement.do";
 			} else {
 				return "redirect:/myBeesPage.do?memberNo="+member.getMemberNo();
 			}
