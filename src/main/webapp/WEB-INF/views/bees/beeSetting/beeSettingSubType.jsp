@@ -24,7 +24,7 @@
 		<ul class="sSettingList -tbSpace">
 		<input type="hidden" id="beesNo" name="beesNo" value="<%=beeResult.getBeesNo() %>"/>
 		 <%if(beeResult.getBeesPublicYN()=='Y'){ %>
-			<li class="sSettingItem _openTypeWrapper">
+			<li class="sSettingItem _openTypeWrapper plusNoBoard" style="border-top-width: 0;">
 				<div class="itemContent">
 					<label for="check1" class="label _openTypeLabel -point">비공개
 						비즈</label> <span class="subTxt">비즈와 게시글이 공개되지 않습니다. 초대를 통해서만 가입할 수
