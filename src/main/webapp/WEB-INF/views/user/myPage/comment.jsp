@@ -197,21 +197,30 @@
 					data : {"beesName" : myBeesName}, //key:value
 					type : "post",
 					success: function(data){
-						$(".myhistroy_div").css('margin-bottom','200px');
+						$(".myhistroy_div").css('margin-bottom','230px');
 						$(".myhistroy_comment_table").remove();
+						
 						$.each(data, function(index, value){
+							
+							var bCont;
+							if(value.boardCont != null){
+								bCont = value.boardCont;								
+							}else{
+								bCont = " ";
+							}
+							
 							$(".myhistroy_div").append('<table class="myhistroy_comment_table">'+
 																'<tr class="myhistroy_beesName">'+
 																	'<td colspan="2"><a href="/beesSelectOne.do?beesNo='+value.beesNo+'&memberNo='+value.memberNo+'">'+value.beesName+'</a></td>'+ 
 																'</tr>'+
 																'<tr class="mycomments mycomments1">'+	
-																'<td colspan="2">'+value.userName+'<span>댓글</span></td>'+
+																'<td colspan="2">'+value.userName+'<span> 댓글</span></td>'+
 																'</tr>'+
 																'<tr class="mycomments mycomments2">'+
 																	'<td colspan="2">'+value.commentCont+'</td>'+
 																'</tr>'+
 																'<tr class="mycomments mycomments3">'+
-																	'<td colspan="2">'+value.boardCont+'</td>'+
+																	'<td colspan="2">'+bCont+'</td>'+
 																'</tr>'+
 																'<tr class="mycomments mycomments4">'+
 																	'<td colspan="2">'+value.commentDate +'</td>'+
