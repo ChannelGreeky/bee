@@ -20,6 +20,25 @@
 	FROM MEMBER WHERE MEMBER_ID = #{memberId} AND MEMBER_PW = #{memberPw} AND MEMBER_DEL_YN = 'N'
 	</select>
 	
+	<select id="selectLoginMemberNo" parameterType="Member" resultType="Member">
+	SELECT 
+		MEMBER_NO as memberNo,
+		MEMBER_ID as memberId,
+		MEMBER_PW as memberPw,
+		MEMBER_NAME as memberName,
+		MEMBER_EMAIL as memberEmail,
+		MEMBER_PHONE as memberPhone,
+		MEMBER_DATE as memberDate,
+		MEMBER_DEL_YN as delYN,
+		MEMBER_END_DATE memberEndDate,
+		MEMBER_BIRTH memberBirth,
+		MEMBER_ADDR as memberAddr,
+		INTEREST as interest,
+		PROFILE_IMG as profileImg,
+		MEMBER_GENDER as memberGender
+	FROM MEMBER WHERE MEMBER_NO = #{memberNo} AND MEMBER_DEL_YN = 'N'
+	</select>
+	
 	<insert id="insertMemberSignUp" parameterType="Member">
 		INSERT INTO MEMBER VALUES
 		(MEMBER_SEQ.NEXTVAL,

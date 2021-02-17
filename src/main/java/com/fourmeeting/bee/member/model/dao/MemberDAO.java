@@ -9,8 +9,21 @@ import com.fourmeeting.bee.member.model.vo.Member;
 public class MemberDAO {
 	public Member selectLoginMember(SqlSessionTemplate sqlSession, Member m) {
 		// TODO Auto-generated method stub
+		
 		Member member = sqlSession.selectOne("member.selectLoginMember", m);
-
+		
+		System.out.println(member.getMemberNo());
+		
+		return member;
+	}
+	
+	public Member selectLoginMemberNo(SqlSessionTemplate sqlSession, Member m) {
+		// TODO Auto-generated method stub
+		
+		Member member = sqlSession.selectOne("member.selectLoginMemberNo", m);
+		
+		System.out.println(member.getMemberNo());
+		
 		return member;
 	}
 

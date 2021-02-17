@@ -25,6 +25,13 @@ public class MemberService {
 		
 		return member;
 	}
+	
+	public Member selectLoginMemberNo(Member m) {
+		
+		Member member = mDAO.selectLoginMemberNo(sqlSession, m);
+		
+		return member;
+	}
 
 	public int insertMemberSignUp(Member m) {
 		int result = mDAO.insertMemberSignUp(sqlSession, m);
