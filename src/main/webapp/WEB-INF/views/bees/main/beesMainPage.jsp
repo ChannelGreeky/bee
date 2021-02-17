@@ -1461,7 +1461,9 @@ if($(window).scrollTop()==($(document).height()-$(window).height())){
 	
 	
 	$('#write-modal-submit').click(function(){
+		
 		var boardCont = $('#write-modal-cont-div').html();
+		
 		var memberNo = ${sessionScope.member.memberNo};
 		var beesNo = ${requestScope.bees.beesNo};
 		var beesFunction = $('#write-modal-submit').attr('name');
@@ -1469,6 +1471,7 @@ if($(window).scrollTop()==($(document).height()-$(window).height())){
 		if(beesFunction=='image'){
 			imageCount=document.getElementById('input-image').files.length;
 		}
+		console.log(imageCount);
 		$.ajax({
 			url:"/insertBoard.do",
 			data:{"boardCont":boardCont, "memberNo":memberNo, "beesNo":beesNo, "beesFunction":beesFunction, "imageCount":imageCount},

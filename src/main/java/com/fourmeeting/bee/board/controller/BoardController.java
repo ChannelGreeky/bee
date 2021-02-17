@@ -167,18 +167,24 @@ public class BoardController {
 		Board board = new Board();
 		board.setBeesNo(beesNo);
 		String boardContent = null;
+		
 		int number = boardCont.indexOf("div class");
 		if(number!=-1) {
 		boardContent = boardCont.substring(0, number-1);
-		boardContent = boardContent.replaceAll("/<div>/g", "<br>");
-		boardContent = boardContent.replaceAll("/</div>/g", "");
 		}else {
-		boardContent = boardCont;
-		boardContent = boardContent.replaceAll("/<div>/g", "<br>");
-		boardContent = boardContent.replaceAll("/</div>/g", "");
+			number = boardCont.indexOf("div style");
+			if(number!=-1) {
+				boardContent = boardCont.substring(0, number-1);
+			}else {
+			boardContent = boardCont;
+			}
 		}
+		System.out.println(number);
+		System.out.println("여기까지");
 		board.setBoardCont(boardContent);
+		System.out.println(boardContent);
 		board.setMemberNo(memberNo);
+		
 		String imageNo = "0" ;
 		for(int i=0; i<imageCount; i++) {
 			int imgNo = imageService.selectImageNo();
@@ -189,6 +195,7 @@ public class BoardController {
 			}	
 		}
 		board.setImgNo(imageNo);
+		System.out.println(imageNo);
 		
 		Board newBoard = boardService.insertBoard(board,beesFunction);
 		
@@ -227,17 +234,8 @@ public class BoardController {
 				int scheResult = scheduleService.deleteSchedule(board.getScheduleNo());
 				if(scheResult>0) {board.setScheduleNo(0);}
 				}else if(!(board.getImgNo().equals("0"))) {
-				int number = boardCont.indexOf("<div class");
-				String boardContent = "";
-				if(number!=-1) {
-				boardContent = boardCont.substring(0, number);
-				boardContent = boardContent.replaceAll("/<div>/g", "<br>");
-				boardContent = boardContent.replaceAll("/</div>/g", "");
-				}else {
-				boardContent = boardCont;
-				boardContent = boardContent.replaceAll("/<div>/g", "<br>");
-				boardContent = boardContent.replaceAll("/</div>/g", "");
-				}
+				int number = boardCont.indexOf("<div style");
+				String boardContent = boardCont.substring(0, number);
 				board.setBoardCont(boardContent);
 				StringTokenizer st = new StringTokenizer(delImage,",");
 				String imageList = board.getImgNo();
@@ -263,19 +261,18 @@ public class BoardController {
 			
 		}else {//글 내용만 수정 //boardCont<div>앞으로 자르기
 			
-			int number = boardCont.indexOf("div class");
 			String boardContent = boardCont;
+			int number = boardCont.indexOf("div class");
 			if(number!=-1) {
 			boardContent = boardCont.substring(0, number-1);
-			boardContent = boardContent.replace("/<div>/g", "<br>");
-			boardContent = boardContent.replace("/</div>/g", "");
 			}else {
-			boardContent = boardCont;
-			boardContent = boardContent.replace("/<div>/g", "<br>");
-			boardContent = boardContent.replace("/</div>/g", "");
+				number = boardCont.indexOf("div style");
+				if(number!=-1) {
+					boardContent = boardCont.substring(0, number-1);
+				}else {
+				boardContent = boardCont;
+				}
 			}
-			board.setBoardCont(boardContent);
-			board.setBoardNo(boardNo);
 			
 		}
 		
