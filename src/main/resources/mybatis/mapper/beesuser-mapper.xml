@@ -34,7 +34,7 @@ select bees_no from bees_user where member_no=#{memberNo} and user_auth_yn='Y'
 </select>
 
 <!-- 수정예정 -->
-<update id="updateBeesUserRefusal" >
+	<update id="updateBeesUserRefusal" >
 		update bees_user
 		set user_auth_yn='N'
 		where user_name=#{userName}

@@ -105,5 +105,9 @@ public class ScheduleService {
 		
 	}
 
+	public BeesUser selectBeesUserInfo(BeesUser beesUser) {
+		BeesUser Buser = scheduleDAO.selectBeesUserInfo(sqlSession, beesUser);
+		return Buser;
+	}
 
 }

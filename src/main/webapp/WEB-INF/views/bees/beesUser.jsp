@@ -16,21 +16,7 @@
 	<link rel="stylesheet" type="text/css" href="/resources/css/beesForm.css">
 	<script type="text/javascript" src="/resources/js/beesForm.js"></script>
 	
-<script>
 
-$(function(){
-
-//인풋태그 자동완성 X
-$('input').attr('autocomplete','off');
-
-$('.chat-open-btn').click(function(){    
-window.open("chatting-page.html", '비즈 채팅', 'width=400px, height=600px, resizable=no');
-return false;
-
-});
-
-});
-</script>
 <%
 	//memberPage 들어왔을 때 보이는 멤버 목록 List 
 	ArrayList<BeesUserList> list = (ArrayList<BeesUserList>)request.getAttribute("list"); 
@@ -69,6 +55,26 @@ margin-left : 85%;
 #memberList-outline{
  margin-top : 15%;
 }
+
+.memberListImg{
+	width: 38px;
+	height: 38px;
+	background-color: #ffd6e1;
+	border-radius: 999px;
+	float: left;
+}
+
+#host{
+background-color : #50401B;
+margin-left : 1.5%;
+color : white;
+font-size : 0.6rem;
+padding :0.6%;
+padding-left : 1%;
+padding-right : 1%;
+border-radius: 25px;
+}
+
 </style>
 
 	<div>
@@ -251,7 +257,16 @@ margin-left : 85%;
 						
 						<!-- memberPage 열렸을 때 보이는 memberList -->
 						<%for(BeesUserList BUList : list){ %>
-							<div class="col-md-12 p-0, memberList" ><img src="/resources/image/p6.png" class="memberListImg"/><%= BUList.getUserName() %> <span> <%= BUList.getMemberId() %></span></div>  
+							<div class="col-md-12 p-0, memberList" ><img src="/resources/image/profile/<%= BUList.getProfileImg() %>" class="memberListImg"/><%= BUList.getUserName() %> <span> <%= BUList.getMemberId() %></span>
+							
+							<% if(BUList.getUserClass().equals("host") ){%>
+								<span id="host">호스트 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person-fill" viewBox="0 0 16 16">
+  <path d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H3zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/>
+</svg></span>
+								
+							<%} %>
+							
+							</div>  
 						<%} %>
 						<%}else{ %>
 						  <div class="col-md-12 p-0" id="notFound">입력하신 멤버에 대한 정보가 없습니다.</div>

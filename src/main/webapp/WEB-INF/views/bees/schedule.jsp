@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ page import="com.fourmeeting.bee.schedule.model.vo.ScheduleList" %>
 <%@ page import="com.fourmeeting.bee.schedule.model.vo.ScheduleDetail" %>
+<%@ page import="com.fourmeeting.bee.beesuser.model.vo.BeesUser" %>
+<%@ page import="com.fourmeeting.bee.bees.model.vo.Bees" %>
 <%@ page import="java.util.ArrayList" %>
 
 <!DOCTYPE html>
@@ -59,7 +61,11 @@ return false;
 </script>
 <%
 	ArrayList<ScheduleList> list = (ArrayList<ScheduleList>)request.getAttribute("list");
-	System.out.println("스케줄 리스트 확인요 : "+ list);
+	BeesUser beesUser = (BeesUser)request.getAttribute("Buser");
+	int beesNo = Integer.parseInt(request.getParameter("beesNo"));
+	
+	System.out.println("BeesNo 확인 : "+ beesNo );
+	//System.out.println("스케줄 리스트 확인요 : "+ list);
 %>
 
 <!-- background-event.html 파일 default 설정 -->
@@ -640,22 +646,25 @@ margin-top : 3%;
         
          <form>
         <div id="sche-detail-modal-cont">
-            <div id="sche-detail-title">타이틀</div>
+            <div id="sche-detail-title"></div>
             <span id="sche-detail-start-date"></span><span> - <span></span><span id="sche-detail-end-date"></span>
             <div id="sche-detail-writer-info">
-                <div id="sche-detail-writer-profile"></div>
-                <span id="sche-detail-userName">susu</span><a href="" id="scheduleModify">수정하기</a> <a href="" id="scheduleDelete">삭제하기</a>
+            <%--style="background-image:url('/resources/image/profile/<%=bees.getBeesCover() %>')" 
+            	 onerror="this.style.display='none'"--%>
+                <img id="sche-detail-writer-profile"/>
+                <span id="sche-detail-userName"></span><a href="" id="scheduleModify">수정하기</a> <a href="" id="scheduleDelete">삭제하기</a>
                
           </div>
          <!--   <div id="sche-detail-note"> </div>-->
        
       	 <textarea id="sche-detail-note" style="resize: none;" readonly="readonly" >
-            내용내용
+           
        	 </textarea>
         <button tpye="submit" id="scheduleModifyEnd" style="display : none;">수정 완료</button>
         </div>
         <div id="sche-detail-modal-footer">
         </div>
+        <div id="userNo" style="display : none;"></div>
         </form>
         
         
@@ -745,10 +754,18 @@ margin-top : 3%;
 		<script>
 			$(function(){
 				
+				
+				
 				<%-- 수정하기 눌렀을 때 --%>
 				$('#scheduleModify').click(function(){
+					var userNo = $('#userNo').text();
+					var contUserNo = <%= beesUser.getUserNo() %>
+					if(userNo==contUserNo){
 					$('#sche-detail-note').removeAttr("readonly");
 					$('#scheduleModifyEnd').show();
+					}else{
+						alert("수정은 작성자만 가능합니다.");
+					}
 					return false
 				})
 				
@@ -798,9 +815,9 @@ margin-top : 3%;
 				})
 				
 				
-				
+					<%-- 등록되어있는 일정 눌렀을 때 --%>
 					$('.fc-daygrid-day-events').click(function(){
-						var title = $(this).text();
+						var title = $(this).text();	
 						var scheduleNo = title.substring(6,10);
 						
 					
@@ -814,10 +831,16 @@ margin-top : 3%;
 								$('#sche-detail-title').text(schedule.scheduleTitle);
 								$('#sche-detail-start-date').text(schedule.transStartDate);
 								$('#sche-detail-end-date').text(schedule.transEndDate);
-								$('#sche-detail-writer-profile').text(schedule.profileImg);
+								//var img = "background-image:url('/resources/image/profile/"+schedule.profileImg+"')";
+								var img = "/resources/image/profile/"+schedule.profileImg;
+								//alert(img);
+								
+								$('#sche-detail-writer-profile').attr("src",img);
+								
 								$('#sche-detail-note').text(schedule.scheduleCont);
 								$('#sche-detail-userName').text(schedule.userName);
 								$('#sche-detail-modal-footer').text(schedule.scheduleNo);
+								$('#userNo').text(schedule.userNo);
 							},
 							error : function(){
 								alert("ajax통신 실패애..");
@@ -932,6 +955,8 @@ margin-top : 3%;
 		            });                    
 		            
 		            //초기값을 오늘 날짜로 설정
+		            var selectDate = $('.fc-daygrid-day-number').val();
+		            
 		            $('#sche-start-datepicker').datepicker('setDate', 'today'); //(-1D:하루전, -1M:한달전, -1Y:일년전), (+1D:하루후, -1M:한달후, -1Y:일년후)   
 					
 		            
@@ -964,21 +989,23 @@ margin-top : 3%;
 						var scheduleTitle = $('#sche-detail-title-input2').val();
 						var scheduleCont = $('#sche-detail-title-explanation2').val();
 						var scheduleStartDate = $('#sche-start-datepicker').datepicker().val()+" 00:00:00";
-						var scheduleEndDate = $('#sche-end-datepicker').datepicker().val()+" 00:00:00";
+						var scheduleEndDate = $('#sche-end-datepicker').datepicker().val()+" 01:00:00";
+						var beesNo = <%= beesNo %>
 						
-
+						
 						$.ajax({
 							url : "/scheDateInput.do",
 							type : "post",
-							data: {"scheduleTitle":scheduleTitle, "scheduleCont":scheduleCont, "scheduleStartDate":scheduleStartDate, "scheduleEndDate":scheduleEndDate},
+							data: {"scheduleTitle":scheduleTitle, "scheduleCont":scheduleCont, "scheduleStartDate":scheduleStartDate, "scheduleEndDate":scheduleEndDate, "beesNo":beesNo},
 							success : function(result){
+								
 								if(result=="true"){
-									alert("일정 등록이 완료되었습니다.");
 									location.reload();
 							}
+								
 							},
 							error : function(){
-								alert("ajax 통신실패")
+								alert("입력정보가 올바르지 않습니다. 다시 한번 확인해주세요.");
 								
 							}
 							

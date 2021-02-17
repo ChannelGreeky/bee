@@ -2,6 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="beesUserList">
 
+	
 	<select id="selectBeesUser" parameterType="beesUserList" resultType="beesUserList">
 		select
 		BEES_USER.USER_NO as userNo,
@@ -79,7 +80,6 @@
 		where user_block_yn='N' and user_auth_yn='W' and bees_no='28' and user_class='user'
 		
 	</select>
-	
 </mapper>
 
 

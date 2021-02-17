@@ -122,10 +122,6 @@ public ArrayList<BeesUserList> selectBeesUser(SqlSessionTemplate splSession, Str
 		return (ArrayList<BeesUserList>)WaitersList;
 		
 	}
-
-	
-	
-	
 	
 		//사용자------------------------------------------------------------------------------
 		//비즈가입확인(가입 신청중인 비즈)

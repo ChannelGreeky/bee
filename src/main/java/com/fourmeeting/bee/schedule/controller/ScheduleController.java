@@ -73,14 +73,29 @@ public class ScheduleController {
 	
 	/*-------------------solm---------------------------*/
 	@RequestMapping(value="/beesSchedule.do")
-	public ModelAndView selectBeesSchedule() {
+	public ModelAndView selectBeesSchedule(@RequestParam int beesNo, HttpSession session, HttpServletRequest request) throws Exception {
 		
-		int beesNo = 28;
+
+		System.out.println("넘어오면 좋겠다: "+ beesNo);
+		
 		ArrayList<ScheduleList> list = scheduleService.selectBeesSchedule(beesNo);
-			
+		
+		/*수정할 때 필요한 userNo 구하는 로직*/
+		Member m = (Member)session.getAttribute("member");
+		int memberNo = m.getMemberNo();
+		System.out.println("수정할 때 필요한 멤버넘버 :"+memberNo);
+		
+		BeesUser beesUser = new BeesUser();
+		beesUser.setBeesNo(beesNo);
+		beesUser.setMemberNo(memberNo);
+		
+		BeesUser Buser = scheduleService.selectBeesUserInfo(beesUser);
+		System.out.println("수정할 때 필요한 유저넘버 :"+  Buser.getUserNo());
+		
 		
 		ModelAndView mav = new ModelAndView();
 		mav.addObject("list", list);
+		mav.addObject("Buser", Buser);
 		mav.setViewName("bees/schedule");
 		
 		return mav;
@@ -92,7 +107,10 @@ public class ScheduleController {
 	@RequestMapping(value="/scheDateInput.do")
 	public void insertScheDate(@RequestParam String scheduleTitle, @RequestParam String scheduleCont,
 								@RequestParam String scheduleStartDate, @RequestParam String scheduleEndDate,
-								HttpSession session, HttpServletResponse response)throws IOException {
+								@RequestParam int beesNo, HttpSession session, HttpServletResponse response)throws IOException {
+	
+		
+		
 		/*userNo 받아오기 위한 코드*/
 		Member m = (Member)session.getAttribute("member");
 		int memberNo = m.getMemberNo();
@@ -102,7 +120,6 @@ public class ScheduleController {
 		int userNo = BU.getUserNo();
 		System.out.println("유저 정보 : " + userNo);
 		
-		int beesNo = 28;
 		ScheduleInsert SI = new ScheduleInsert();
 		SI.setBeesNo(beesNo);
 		SI.setUserNo(userNo);
@@ -124,12 +141,13 @@ public class ScheduleController {
 		if(result>0) {
 			System.out.println("일정 등록 성공");
 			response.getWriter().print(true);
+			//response.sendRedirect("/beesSchedule.do?beesNo="+beesNo);
 			
 			
 		}else {
 			System.out.println("일정 등록 실패");
 			response.getWriter().print(false);
-			
+			//response.sendRedirect("/beesSchedule.do?beesNo="+beesNo);
 		}
 		
 		

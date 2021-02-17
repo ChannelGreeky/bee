@@ -53,6 +53,7 @@ public class BeesUserService {
 	
 	
 	
+
 	/*------------solm----------*/
 public ArrayList<BeesUserList> selectBeesUser(String mainpage_option) {
 		
@@ -108,8 +109,6 @@ public ArrayList<BeesUserList> selectBeesUser(String mainpage_option) {
 		return (ArrayList<BeesUserList>)WaitersList;
 		
 	}
-	
-
 	
 	
 	//사용자------------------------------------------------------------------------------

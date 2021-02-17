@@ -331,7 +331,7 @@ where bees_no = #{bees_no} and bees_del_yn='N'
 
 <!-- 수정예정 -->
 
-<select id="selectBeesSchedule" parameterType="ScheduleList"
+	<select id="selectBeesSchedule" parameterType="ScheduleList"
 		resultType="ScheduleList">
 
 		select
@@ -356,11 +356,8 @@ where bees_no = #{bees_no} and bees_del_yn='N'
 	<insert id="insertScheDate"
 		parameterType="com.fourmeeting.bee.schedule.model.vo.ScheduleInsert">
 		insert ALL
-		into board values(board_no_seq.nextval,
-		#{memberNo}, 28, systimestamp, '', '', schedule_seq.nextval, '', '',
-		'','N','N')
-		into schedule values(schedule_seq.currval, #{userNo},
-		#{beesNo}, #{scheduleTitle}, #{scheduleCont}, #{scheduleStartDate},
+		into board values(board_no_seq.nextval, #{memberNo}, #{beesNo}, systimestamp, '', '', schedule_seq.nextval, '', '', '','N','N')
+		into schedule values(schedule_seq.currval, #{userNo}, #{beesNo}, #{scheduleTitle}, #{scheduleCont}, #{scheduleStartDate},
 		#{scheduleEndDate}, BOARD_NO_SEQ.currval)
 		select * from DUAL
 
@@ -391,4 +388,18 @@ where bees_no = #{bees_no} and bees_del_yn='N'
 		update schedule set schedule_cont=#{scheduleCont} where schedule_no=#{scheduleNo}
 	</update>
 	
+	<select id="selectBeesUserInfo" parameterType="BeesUser" resultType="BeesUser">
+			select
+			user_no as userNo,
+			bees_no as beesNo,
+			member_no as memberNo,
+			user_name as userName,
+			user_class as userClass,
+			user_block_YN as userBlockYN,
+			user_del_YN as userDelYN,
+			user_auth_YN as userAuthYN,
+			user_auth_date as userAuthDate,
+			user_ask_date as userAskDate
+			from bees_user where member_no=#{memberNo} and bees_no=#{beesNo}
+	</select>
 </mapper>

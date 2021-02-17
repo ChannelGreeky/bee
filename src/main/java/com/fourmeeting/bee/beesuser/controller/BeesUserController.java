@@ -47,6 +47,10 @@ public class BeesUserController {
 	}
 	
 	/*------------solm----------*/
+	@RequestMapping(value="/inviteMember.do")
+	public String selectMemberInvite() {
+		return "bees/beesInvite";
+	}
 	
 	@RequestMapping(value="/beesMember.do")
 	public ModelAndView selectBeesUser(HttpSession session, HttpServletRequest request) {
@@ -170,8 +174,6 @@ public class BeesUserController {
 			response.getWriter().print(false);
 		}
 	}
-	
-	
 	
 	
 	//사용자------------------------------------------------------------------------------

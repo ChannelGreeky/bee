@@ -52,6 +52,8 @@ public class ScheduleDAO {
 		return (ArrayList<Schedule>)list;
 	}
 
+	/*---------------solm-----------------*/
+	
 	public ArrayList<ScheduleList> selectBeesSchedule(SqlSessionTemplate sqlSession, int beesNo) {
 		List list = sqlSession.selectList("bees.selectBeesSchedule", beesNo);
 		return (ArrayList<ScheduleList>) list;
@@ -89,4 +91,8 @@ public class ScheduleDAO {
 		return result;
 	}
 
+	public BeesUser selectBeesUserInfo(SqlSessionTemplate sqlSession, BeesUser beesUser) {
+		BeesUser Buser = sqlSession.selectOne("bees.selectBeesUserInfo", beesUser);
+		return Buser;
+	}
 }
