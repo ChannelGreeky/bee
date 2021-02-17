@@ -283,7 +283,7 @@
 						<table class="myhistroy_comment_table">
 							<!-- 클릭하면 비즈로 이동 -->
 							<tr class="myhistroy_beesName">
-								<td colspan="2"><a href="#"><%=mc.getBeesName() %></a></td>
+								<td colspan="2"><a href="/beesSelectOne.do?beesNo=<%=mc.getBeesNo()%>&memberNo=<%=mc.getMemberNo()%>"><%=mc.getBeesName() %></a></td>
 							</tr>
 							<!-- 클릭하면 비즈로 이동 -->
 						
