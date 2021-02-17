@@ -73,7 +73,7 @@
 						                            <a href="#">문의사항</a>
 						                        </li>
 												<li>
-						                            <a href="/adminNoticeBoard.do">공지사항</a>
+						                            <a href="#">공지사항</a>
 						                        </li>
 						                        <li>
 						                        	<a href="/memberLogout.do">로그아웃</a>
