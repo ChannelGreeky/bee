@@ -234,11 +234,10 @@
 						</div>
 					</div>
 					<% } else if (recommendBees.isEmpty()){ %>
-						<div class="row mt-3 m-0">
-							<div class="col-12 text-center">
-								<img src="/resources/image/hide.png" width="50%" />
-							</div>
-						</div>
+						<div style="text-align:center; margin-top:30px; margin-bottom:30px; width:100%; height:620px; background-color:white; font-size:1.2rem; font-weight:200; color:dimgray; padding-top:250px; box-shadow: 1px 1px 2px rgb(230, 230, 230);">
+					귀하께 추천드릴 비즈가 존재하지 않습니다.<br>
+					<%= m.getMemberName() %>님, 비즈를 개설해보세요!<br>
+					</div>
 					<%} %>
 				</div>
 			</div>

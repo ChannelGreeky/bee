@@ -22,6 +22,7 @@
 	String category =  (String) request.getAttribute("category");
 	DecimalFormat formatter = new DecimalFormat("###,###");
 	int endNo = (int) request.getAttribute("endNo");
+	String categoryKor;
 	%>
 	<%@include file="/include/headerUser.jsp" %>
     
@@ -162,12 +163,12 @@
 					<div class="row mt-4 m-0">
 						<div class="col-12 p-0">
 							<span id="main-content-title">
-							<% if (category.equals("meet")){%>취미/동호회
-							<%} else if (category.equals("study")) { %>공부
-							<%} else if (category.equals("game")) { %>게임
-							<%} else if (category.equals("exercise")) {%>운동
-							<%} else if (category.equals("area")) {%>지역
-							<%} else { %>기타
+							<% if (category.equals("meet")){ categoryKor = "취미/동호회";%>취미/동호회
+							<%} else if (category.equals("study")) { categoryKor = "공부";%>공부
+							<%} else if (category.equals("game")) { categoryKor = "게임";%>게임
+							<%} else if (category.equals("exercise")) { categoryKor = "운동";%>운동
+							<%} else if (category.equals("area")) { categoryKor = "지역";%>지역
+							<%} else { categoryKor = "기타";%>기타
 							<%} %>
 							</span>
 						</div>
@@ -243,11 +244,10 @@
 						</div>
 					</div>
 					<% } else if (recommendBees.isEmpty()){ %>
-						<div class="row mt-3 m-0">
-							<div class="col-12 text-center">
-								<img src="/resources/image/hide.png" width="50%" />
-							</div>
-						</div>
+						<div style="text-align:center; margin-top:30px; margin-bottom:30px; width:100%; height:620px; background-color:white; font-size:1.2rem; font-weight:200; color:dimgray; padding-top:250px; box-shadow: 1px 1px 2px rgb(230, 230, 230);">
+					'<%=categoryKor %>' 카테고리의 비즈가 존재하지 않습니다.<br>
+					<%= m.getMemberName() %>님, <%=categoryKor %>에 관련된 비즈를 개설해보세요!<br>
+					</div>
 					<%} %>
 				</div>
 			</div>
