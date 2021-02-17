@@ -254,7 +254,7 @@
 	WHERE BEES_NO IN 
 	(SELECT BEES_NO FROM BEES_USER 
 	WHERE MEMBER_NO = #{memberNo} AND USER_BLOCK_YN = 'N' 
-	AND USER_DEL_YN = 'N' AND USER_AUTH_YN = 'Y')
+	AND USER_DEL_YN = 'N' AND USER_AUTH_YN = 'Y') AND BEES_DEL_YN = 'N'
 	</select>
 	
 	<select id="selectCategoryRecommendBees" parameterType="categorySearch" resultType="beesUserCount">
