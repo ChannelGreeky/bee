@@ -49,12 +49,20 @@
 					<%
 						if(!myBees.isEmpty()) {
 							for(Bees b : myBees) {
+								
+								String coverPath = b.getBeesCover();	
+								String beesCover = null;
+				    			if(coverPath.endsWith("_bee")){
+				    			beesCover = "/resources/image/beeCreateProfile/"+coverPath;
+				    			}else{
+				    			beesCover = coverPath;
+				    				}
 					%>
 					<div class="row m-0">
 						<div class="d-none d-md-block col-md-3 p-1">
 							<a href="/beesSelectOne.do?beesNo=<%=b.getBeesNo() %>&memberNo=<%=m.getMemberNo()%>">
 								<div class="m-auto beesImage" style="width:30px; height:30px;
-								background: url('<%=b.getBeesCover() %>') no-repeat;
+								background: url('<%=beesCover %>') no-repeat;
 								background-size: cover;">
 								</div>
 							</a>
@@ -65,7 +73,7 @@
 					</div>
 					<% 		}
 						} %>
-
+					
 					<div class="row m-0">
 						<div class="col-12 py-2">
 							<a class="makeBeesBtn btn w-100 py-2" href="/beeCreateMain.do">+ 비즈 만들기</a>

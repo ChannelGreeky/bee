@@ -345,7 +345,7 @@ select:focus {
 							<%} %>
 							<tr>
 								<td class="feed-cont" colspan="3">
-									<p class="board-cont">
+									<div class="board-cont">
 										<%if(feed.getBoardCont()==null){ %>
 										<%}else{ %>
 											<%=feed.getBoardCont()%>
@@ -358,7 +358,7 @@ select:focus {
 									<img src='/resources/image/bees/feedImage/<%=image.getChangeImageName() %>' style="margin:10px; max-width:80%;" >
 									<%} 
 									}%>
-									<p>
+									<div>
 									<% if(feed.getScheduleNo()>0) {
 										
 										if((scheduleMap.get(feed.getBoardNo()))!=null){

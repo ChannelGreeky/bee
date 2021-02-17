@@ -186,7 +186,7 @@ function handlerImgFileSelect(e){
             var reader = new FileReader();
             reader.onload = function(e){
 
-                var img_html = '<div style="height:100%" contentEditable="false"><button type="button" class="write-modal-del-btn">삭제</button><img max-height="100%;" src="'+e.target.result+'"class="modal-image-viewer" id="'+imgName+'"/></div>';
+                var img_html = '<div class="function div" style="height:100%" contentEditable="false"><button type="button" class="write-modal-del-btn">삭제</button><img max-height="100%;" src="'+e.target.result+'"class="modal-image-viewer" id="'+imgName+'"/></div>';
                 $('#write-modal-cont').children().append(img_html);
 
             }

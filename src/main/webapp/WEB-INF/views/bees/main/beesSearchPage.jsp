@@ -436,7 +436,7 @@ if($(window).scrollTop()==($(document).height()-$(window).height())){
 							<%} %>
 							<tr>
 								<td class="feed-cont" colspan="3">
-									<p class="board-cont">
+									<div class="board-cont">
 										<%if(feed.getBoardCont()==null){ %>
 										<%}else{ %>
 											<%=feed.getBoardCont()%>
@@ -449,7 +449,7 @@ if($(window).scrollTop()==($(document).height()-$(window).height())){
 									<img src='/resources/image/bees/feedImage/<%=image.getChangeImageName() %>' style="margin:10px; max-width:80%;" >
 									<%} 
 									}%>
-									<p>
+									</div>
 									<% if(feed.getScheduleNo()>0) {
 										
 										if((scheduleMap.get(feed.getBoardNo()))!=null){

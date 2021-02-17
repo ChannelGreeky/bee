@@ -126,14 +126,25 @@ if($(window).scrollTop()==($(document).height()-$(window).height())){
 					</div>
 					<!-- 반복 -->
 					<%
-						if(!myBees.isEmpty()) {
-							for(Bees b : myBees) {
+					
+
+					if(!myBees.isEmpty()) {
+						for(Bees b : myBees) {
+					
+	   				String coverPath = b.getBeesCover();	
+					String beesCover = null;
+	    			if(coverPath.endsWith("_bee")){
+	    			beesCover = "/resources/image/beeCreateProfile/"+coverPath;
+	    			}else{
+	    			beesCover = coverPath;
+	    				}
+						 
 					%>
 					<div class="row m-0">
 						<div class="d-none d-md-block col-md-3 p-1">
 							<a href="/beesSelectOne.do?beesNo=<%=b.getBeesNo() %>&memberNo=<%=member.getMemberNo()%>">
 								<div class="m-auto beesImage" style="width:30px; height:30px;
-								background: url('<%=b.getBeesCover() %>') no-repeat;
+								background: url('<%=beesCover %>') no-repeat;
 								background-size: cover;">
 								</div>
 							</a>
@@ -197,7 +208,7 @@ if($(window).scrollTop()==($(document).height()-$(window).height())){
 							<%} %>
 							<tr>
 								<td class="feed-cont" colspan="3">
-									<p class="board-cont">
+									<div class="board-cont">
 										<%if(feed.getBoardCont()==null){ %>
 										<%}else{ %>
 											<%=feed.getBoardCont()%>
@@ -210,7 +221,7 @@ if($(window).scrollTop()==($(document).height()-$(window).height())){
 									<img src='/resources/image/bees/feedImage/<%=image.getChangeImageName() %>' style="margin:10px; max-width:80%;" >
 									<%} 
 									}%>
-									<p>
+									<div>
 									<% if(feed.getScheduleNo()>0) {
 										Schedule sche = scheduleMap.get(feed.getBoardNo());
 										if(sche!=null){

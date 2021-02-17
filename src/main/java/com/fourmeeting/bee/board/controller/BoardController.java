@@ -167,11 +167,15 @@ public class BoardController {
 		Board board = new Board();
 		board.setBeesNo(beesNo);
 		String boardContent = null;
-		int number = boardCont.indexOf("<di");
+		int number = boardCont.indexOf("div class");
 		if(number!=-1) {
-		boardContent = boardCont.substring(0, number);
+		boardContent = boardCont.substring(0, number-1);
+		boardContent = boardContent.replaceAll("/<div>/g", "<br>");
+		boardContent = boardContent.replaceAll("/</div>/g", "");
 		}else {
 		boardContent = boardCont;
+		boardContent = boardContent.replaceAll("/<div>/g", "<br>");
+		boardContent = boardContent.replaceAll("/</div>/g", "");
 		}
 		board.setBoardCont(boardContent);
 		board.setMemberNo(memberNo);
@@ -223,8 +227,17 @@ public class BoardController {
 				int scheResult = scheduleService.deleteSchedule(board.getScheduleNo());
 				if(scheResult>0) {board.setScheduleNo(0);}
 				}else if(!(board.getImgNo().equals("0"))) {
-				int number = boardCont.indexOf("<di");
-				String boardContent = boardCont.substring(0, number);
+				int number = boardCont.indexOf("<div class");
+				String boardContent = "";
+				if(number!=-1) {
+				boardContent = boardCont.substring(0, number);
+				boardContent = boardContent.replaceAll("/<div>/g", "<br>");
+				boardContent = boardContent.replaceAll("/</div>/g", "");
+				}else {
+				boardContent = boardCont;
+				boardContent = boardContent.replaceAll("/<div>/g", "<br>");
+				boardContent = boardContent.replaceAll("/</div>/g", "");
+				}
 				board.setBoardCont(boardContent);
 				StringTokenizer st = new StringTokenizer(delImage,",");
 				String imageList = board.getImgNo();
@@ -250,10 +263,16 @@ public class BoardController {
 			
 		}else {//글 내용만 수정 //boardCont<div>앞으로 자르기
 			
-			int number = boardCont.indexOf("<div");
+			int number = boardCont.indexOf("div class");
 			String boardContent = boardCont;
-			if(number>-1) {
-			boardContent = boardCont.substring(0, number);
+			if(number!=-1) {
+			boardContent = boardCont.substring(0, number-1);
+			boardContent = boardContent.replace("/<div>/g", "<br>");
+			boardContent = boardContent.replace("/</div>/g", "");
+			}else {
+			boardContent = boardCont;
+			boardContent = boardContent.replace("/<div>/g", "<br>");
+			boardContent = boardContent.replace("/</div>/g", "");
 			}
 			board.setBoardCont(boardContent);
 			board.setBoardNo(boardNo);
