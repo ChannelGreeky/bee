@@ -8,6 +8,7 @@
    
 </head>
 <body>
+
 <link rel="stylesheet" type="text/css" href="resources/css/headerBee.css">
 	<div class="container-fluid p-0">
 	<div class="container">
@@ -97,19 +98,19 @@
 
 	<ul class="navi_menu">
 	    <li class="navi_menu_item">
-     	       <a href="/beesSelectOne.do?beesNo=${requestScope.bees.beesNo }" >전체글</a>
+     	       <a href="/beesSelectOne.do?beesNo=${sessionScope.beesNo }" >전체글</a>
 	    </li>	
 	    <li class="navi_menu_item">
-     	       <a href="/selectAllImage.do?beesNo=${requestScope.bees.beesNo }"  >사진첩</a>
+     	       <a href="/selectAllImage.do?beesNo=${sessionScope.beesNo }"  >사진첩</a>
 	    </li>	
 	    <li class="navi_menu_item">
-     	       <a href="/beesSchedule.do?beesNo=${requestScope.bees.beesNo }"  >일정</a>
+     	       <a href="/beesSchedule.do?beesNo=${sessionScope.beesNo }"  >일정</a>
 	    </li>	
         <li class="navi_menu_item">
-     	       <a href="/beesUploadFile.do?beesNo=${requestScope.bees.beesNo }" >첨부</a>
+     	       <a href="/beesUploadFile.do?beesNo=${sessionScope.beesNo }" >첨부</a>
 	    </li>	
 	    <li class="navi_menu_item">
-     	       <a href="/beesMember.do?beesNo=${requestScope.bees.beesNo }" >멤버</a>
+     	       <a href="/beesMember.do?beesNo=${sessionScope.beesNo }" >멤버</a>
 	    </li>	
 	</ul>
          </div>  <!-- navi -->

@@ -47,6 +47,10 @@
 	Member member = (Member)session.getAttribute("member");
 
 	Bees bees = (Bees)request.getAttribute("bees");
+	//모든 페이지에 추가해주세요.
+	session.setAttribute("beesNo",bees.getBeesNo());	
+	
+	
 	Setting setting = (Setting)request.getAttribute("setting");
 	int userCount = (int)request.getAttribute("userCount");
 	
