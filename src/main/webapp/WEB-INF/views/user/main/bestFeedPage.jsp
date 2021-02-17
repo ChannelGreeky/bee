@@ -146,7 +146,7 @@
 										Image image = imageList.get(0);
 									%>
 								<center>
-								<img src="/resources/image/bees/feedImage/<%=image.getChangeImageName() %>" style="margin:10px; max-width:80%;">
+								<img src="/resources/image/bees/feedImage/<%=image.getChangeImageName() %>" style="max-width:80%; max-height:80%;">
 								</center><% 
 							}%>
 						</div>

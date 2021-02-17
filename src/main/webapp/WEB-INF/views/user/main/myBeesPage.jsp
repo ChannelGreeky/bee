@@ -421,14 +421,13 @@ if($(window).scrollTop()==($(document).height()-$(window).height())){
 							if(commentMap.get(feed.getBoardNo())!=null){
 							
 							ArrayList<FeedComment> commentList = commentMap.get(feed.getBoardNo());
-							
 							for(FeedComment comment : commentList){
 							if(comment.getCommentDelYN()=='N'){%>
 							<tr>
 							<td rowspan="3" class="comment-writer">
 									<%if(comment.getProfileImg()==null){%>
-								<div class="comment-writer-profile" style="background-color:#f7d078"></div>
-							<%}else{ %>
+									<div class="comment-writer-profile" style="background-color:#f7d078"></div>
+							<%}else{%>
 									<div class="comment-writer-profile" style="background-image:url('/resources/image/profile/<%=comment.getProfileImg() %>')"></div>
 								<%} %>
 								</td>

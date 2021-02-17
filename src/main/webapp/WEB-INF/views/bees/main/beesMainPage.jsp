@@ -682,13 +682,13 @@ if($(window).scrollTop()==($(document).height()-$(window).height())){
 							if(comment.getCommentDelYN()=='N'){%>
 							<tr>
 							<td rowspan="3" class="comment-writer">
-							<%if(comment.getProfileImg()==null){%>
-								<div class="comment-writer-profile" style="background-color:#f7d078"></div>
+							<%if(comment.getProfileImg()==null){
+							%>
+								<div class="comment-writer-profile" style="background-color:#f7d078; background-image:url()"></div>
 							<%}else{ %>
-									<div class="comment-writer-profile" style="background-image:url('/resources/image/profile/<%=comment.getProfileImg() %>')"></div>
+								<div class="comment-writer-profile" style="background-image:url('/resources/image/profile/<%=comment.getProfileImg() %>')"></div>
 								<%} %>
-								</td>
-							
+							</td>
 							<td class="comment-writer-name"><%=comment.getUserName() %></td>
 							</tr>
 							<tr>
