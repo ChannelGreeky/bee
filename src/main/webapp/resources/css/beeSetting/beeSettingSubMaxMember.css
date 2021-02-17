@@ -20,7 +20,7 @@ figcaption, figure, main {
 *, :after, :before {
     -webkit-box-sizing: border-box;
     box-sizing: border-box;
-    font-family: 'Noto Sans KR', sans-serif;
+    /* font-family: 'Noto Sans KR', sans-serif; */
 }
 main {
     display: block;
@@ -458,7 +458,7 @@ body, h1, h2, h3, h4, h5, h6 {
 *, :after, :before {
     -webkit-box-sizing: border-box;
     box-sizing: border-box;
-    font-family: 'Noto Sans KR', sans-serif;
+    /* font-family: 'Noto Sans KR', sans-serif; */
 }
 main {
     display: block;
