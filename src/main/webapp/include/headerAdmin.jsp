@@ -17,7 +17,7 @@
 	       		<div class="row h-100 w-100 p-0" >
 	           		<div class="col-2 col-md-2 p-0 d-xs-none">
 	           			<span class="beeLogo" style="margin-left:20px;">
-	            		<a href="#" >
+	            		<a href="/myBeesPage.do" >
 		       			<img src="resources/image/beeLogo.png" alt="로고이미지" />	
 	 	  				</a>
 	            		</span>
@@ -26,9 +26,9 @@
 	         		<div class="col-md-8 p-0">
 		         		<ul class="admin_menu">
 		         			<li><a href="/memberManagement.do">회원관리</a></li>
-		         			<li><a href="#">모임관리</a></li>
-		         			<li><a href="/adminNoticeBoard.do">공지사항</a></li>
-		         			<li><a href="#">1:1문의</a></li>
+							<li><a href="/beesManagement.do">모임관리</a></li>
+							<li><a href="/adminNoticeBoard.do">공지사항</a></li>
+							<li><a href="/adminQuestion.do">문의사항</a></li>
 		         		</ul>
 	         		</div>
 	            	<div class="col-2 col-md-2 p-0" >
@@ -37,27 +37,16 @@
 			            		<button type="button" class="top_right_btn" id="set_btn" >
 			            			<img src="/resources/image/profile.png" style="border-radius:30px;">
 			            		</button>
-			            		
-			            		<ul class="menu-sub">
-				                       
-						  				<li>
-				                            <a href="/memberManagement.do">회원관리</a>
-				                        </li>
-				                        <li>
-				                            <a href="/memberManagement.do">모임관리</a>
-				                        </li>
-				 		  				<li>
-				                            <a href="/adminNoticeBoard.do">공지사항</a>
-				                        </li>
-				                       	<li>
-				                            <a href="#">문의사항</a>
-				                        </li>
-										
-				                        <li>
-				                        	<a href="/index.jsp">로그아웃</a>
-				                        </li>
-				                     </ul>
-			            	</li>
+
+									<ul class="menu-sub">
+										<li><a href="/memberManagement.do">회원관리</a></li>
+										<li><a href="/beesManagement.do">모임관리</a></li>
+										<li><a href="/adminNoticeBoard.do">공지사항</a></li>
+										<li><a href="/adminQuestion.do">문의사항</a></li>
+										<li><a href="/memberLogout.do">로그아웃</a></li>
+									</ul>
+									
+								</li>
 			            </ul>
 	            	</div>  <!-- col-2 col-md-2 p-0 -->
 	             </div> <!-- row h-100 w-100 p-0 -->

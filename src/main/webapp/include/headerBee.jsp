@@ -54,33 +54,16 @@
 					            		</button>	
 					            		 
 						                    <ul class="menu-sub">
-						                        <li>
-						                        	<a href="/index.jsp">내 정보</a>
-						                        </li>
-								   				<li>
-						                            <a href="/index.jsp">내가 쓴 글</a>
-						                        </li>
-								  				<li>
-						                            <a href="#">좋아요 목록</a>
-						                        </li>
-						 		  				<li>
-						                            <a href="#">내 정보</a>
-						                        </li>
-						                        <li>
-						                            <a href="#">비즈가입ㆍ초대 확인</a>
-						                        </li>
-												<li>
-						                            <a href="#">문의사항</a>
-						                        </li>
-												<li>
-						                            <a href="#">공지사항</a>
-						                        </li>
-						                        <li>
-						                        	<a href="/memberLogout.do">로그아웃</a>
-						                        </li>
-						                     </ul>
-					                      
-			            	</li>
+												<li><a href="/myPageInfo.do">내 정보</a></li>
+												<li><a href="/myPageBoard.do">내가 쓴 글</a></li>
+												<li><a href="/myPageHeart.do">좋아요 누른 목록</a></li>
+												<li><a href="/myPageBeesJoinQnas.do">비즈 가입 확인</a></li>
+												<li><a href="/myPageQnaHistory.do">문의사항</a></li>
+												<li><a href="/myPageNotice.do">공지사항</a></li>
+												<li><a href="/memberLogout.do">로그아웃</a></li>
+											</ul>
+
+								</li>
 			             </ul>  
 		          	</div>  <!-- col-4 col-md-3 p-0 -->
 	             </div> <!-- row h-100 w-100 p-0 -->
