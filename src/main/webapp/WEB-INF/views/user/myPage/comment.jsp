@@ -1,3 +1,4 @@
+<%@page import="java.util.TreeSet"%>
 <%@page import="java.text.SimpleDateFormat"%>
 <%@page import="com.fourmeeting.bee.member.model.vo.Member"%>
 <%@page import="com.fourmeeting.bee.comment.model.vo.MyComment"%>
@@ -249,11 +250,21 @@
 							<th>
 								<select name="beesList" id="beesList">
 									<option value="1">비즈별 모아보기</option>
-									<%if(!list.isEmpty()){ %>
-										<%for(MyComment mc : list) {%>
-											<option value="<%=mc.getBeesName()%>"><%=mc.getBeesName() %></option>
-										<%} %>
-									<%} %>
+									<%if(!list.isEmpty()){ 
+										ArrayList<String> arr = new ArrayList<String>();
+										for(MyComment mc : list) 
+										{
+											arr.add(mc.getBeesName());
+										}
+										TreeSet<String> arr2 = new TreeSet<String>(arr);
+										ArrayList<String> arr3 = new ArrayList<String>(arr2);
+										
+										for(String beesName : arr3){ %>
+											<option value="<%=beesName%>"><%=beesName%></option>
+										<%}
+										
+									} %>
+					<%-- <option value="<%=mc.getBeesName()%>"><%=mc.getBeesName() %></option> --%>				
 									<!-- 가입한 비즈 목록 불러오기 -->
 								</select>
 							</th>
@@ -284,7 +295,9 @@
 								<td colspan="2"><%=mc.getCommentCont() %></td>
 							</tr>
 							<tr class="mycomments mycomments3">
+							  <%if(mc.getBoardCont()!=null){ %>
 								<td colspan="2"><%=mc.getBoardCont() %></td>
+							  <%} %>
 							</tr>
 							<tr class="mycomments mycomments4">
 								<td colspan="2">
