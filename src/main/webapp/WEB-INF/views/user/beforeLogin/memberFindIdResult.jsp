@@ -68,7 +68,7 @@
 	<% } else { %>
 		<script>
 			alert("찾으시는 정보의 회원이 없거나 잘못된 정보입니다.");
-			location.replace("/main.jsp");
+			location.replace("/memberFindIdPage.do");
 		</script>
 	<% } %>
 </body>

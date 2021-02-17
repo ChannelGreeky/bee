@@ -75,7 +75,7 @@
 						                            <a href="/adminNoticeBoard.do">공지사항</a>
 						                        </li>
 						                        <li>
-						                        	<a href="/main.jsp">로그아웃</a>
+						                        	<a href="/memberLogout.do">로그아웃</a>
 						                        </li>
 						                     </ul>
 					                      

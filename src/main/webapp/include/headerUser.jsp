@@ -17,7 +17,7 @@
        	<div class="row h-100 w-100 p-0 m-0" >
            <div class="col-8 col-md-9 p-0">
            <span class="beeLogo">
-            <a href="#" >
+            <a href="/myBeesPage.do" >
 	       		<img src="resources/image/beeLogo.png" alt="로고이미지"/>	
  	  		</a>
             </span>
