@@ -13,7 +13,7 @@
 <style>
 .menu-sub{     
 	z-index : 9;
-	background-color: #fefefe;
+	background-color: #FEE6B1;
 	box-shadow:0.2em 0.2em 5px lightgray;
 	top:20px;    
 	position:absolute;
@@ -35,9 +35,9 @@
 	transform:translateX(-50%);
 	height:0;
 	width:0;
-	border-width:0px;
+	border-width:10px;
 	border-style:solid;
-	border-color:transparent transparent #F7D078 transparent;
+	border-color:transparent transparent #FEE6B1 transparent;
 }
 
 </style>

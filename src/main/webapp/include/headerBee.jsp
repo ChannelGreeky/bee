@@ -36,9 +36,9 @@
 	transform:translateX(-50%);
 	height:0;
 	width:0;
-	border-width:0px;
+	border-width:10px;
 	border-style:solid;
-	border-color:transparent transparent #F7D078 transparent;
+	border-color:transparent transparent #fefefe transparent;
 }
 
 </style>
