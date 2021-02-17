@@ -81,10 +81,14 @@ margin-right:3px;
 border:none;
 color:#50401B;
 font-size:1rem;
+
 }
+
 #write_btn:focus{
-outline:none;
+outline:0 !important;
+border:0;
 }
+
 .admin_header{
 width:100%;
 

@@ -106,14 +106,22 @@
 		outline: none;
 	}
 	.pagination{
-	width:50%;
-	margin:20px auto;
-	padding-left:
-	}
-	
-	.pagination a{
-	color:#50401B;
+	text-align:center;
+	width:100px;
 	margin:0 auto;
+	padding:0;
+	
+	}
+	.pagination li{
+	margin-left:10px;
+	}
+	.pagination a{
+	color: #50401B;
+	font-size: 1.2rem;
+	
+	}
+	.navi{
+	margin-top:20px;
 	}
 	
 </style>

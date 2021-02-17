@@ -121,6 +121,16 @@
 	
 	
 	}
+	.btn-secondary{
+	border-radius: 25px;
+		width: 80px;
+		height: 27px;
+		font-weight: 500;
+		font-size: 0.85rem;
+		line-height: 15px;
+		border: 0;
+	
+	}
 	.btn-modify{
 	color: #50401B;
 		background-color: #F7D078;
@@ -134,7 +144,28 @@
 	
 	
 	}
-
+	#modify_category{
+	border:none;
+	text-align:center;
+	}
+	.pagination{
+	text-align:center;
+	width:100px;
+	margin:0 auto;
+	padding:0;
+	
+	}
+	.pagination li{
+	margin-left:10px;
+	}
+	.pagination a{
+	color: #50401B;
+	font-size: 1.2rem;
+	
+	}
+	.navi{
+	margin-top:20px;
+	}
 	
 </style>
 
@@ -207,7 +238,7 @@
 			$(".btn-modify").click(function(){
 				 var num = $(this).parents('tr').children().first().text(); 
 				
-				alert(num);
+				
 				var $ctnObject = $(this);
 				$.ajax({
 					url:"/modifyChange.do",
