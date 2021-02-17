@@ -196,20 +196,33 @@
 					url : "/myPageBeesComment.do",
 					data : {"beesName" : myBeesName}, //key:value
 					type : "post",
-					success: function(mc){
-						$.each(mc, function(){
-							alert(mc[0].val(beesName));
+					success: function(data){
+						$(".myhistroy_div").css('margin-bottom','200px');
+						$(".myhistroy_comment_table").remove();
+						$.each(data, function(index, value){
 							$(".myhistroy_div").append('<table class="myhistroy_comment_table">'+
-															'<tr class="myhistroy_beesName">'+
-															'<td colspan="2"><a href="#">'+beesName+'</a></td>');
+																'<tr class="myhistroy_beesName">'+
+																	'<td colspan="2"><a href="/beesSelectOne.do?beesNo='+value.beesNo+'&memberNo='+value.memberNo+'">'+value.beesName+'</a></td>'+ 
+																'</tr>'+
+																'<tr class="mycomments mycomments1">'+	
+																'<td colspan="2">'+value.userName+'<span>댓글</span></td>'+
+																'</tr>'+
+																'<tr class="mycomments mycomments2">'+
+																	'<td colspan="2">'+value.commentCont+'</td>'+
+																'</tr>'+
+																'<tr class="mycomments mycomments3">'+
+																	'<td colspan="2">'+value.boardCont+'</td>'+
+																'</tr>'+
+																'<tr class="mycomments mycomments4">'+
+																	'<td colspan="2">'+value.commentDate +'</td>'+
+																'</tr>'+
+															'<table>');
 						});
-					},
-					error : function(data){
-						alert("실패");
+						
 					}
-				}); 
 			});
 			
+			});
 			
 			
 		});
