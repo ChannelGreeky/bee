@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    <%@page import="com.fourmeeting.bee.member.model.vo.Member"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -39,7 +40,10 @@
 }
 
 </style>
+<%
+Member member3=(Member)session.getAttribute("member");
 
+%>
 
 	<div class="container-fluid p-0">
 	<div class="container">
@@ -68,7 +72,16 @@
 			            <ul class="top_right-menu">
 			            	<li class="menu-item">
 			            		<button type="button" class="top_right_btn" id="set_btn" >
-			            			<img src="/resources/image/profile.png" style="border-radius:30px;">
+			            		
+			            		
+			            		<% if(member3.getProfileImg() != null){ %>
+			            		
+			            			<img src="/resources/image/profile/<%=member3.getProfileImg() %>" style="border-radius:30px;">
+			            			
+			            			<%}else{ %>
+			            			
+			            			<img src="/resources/image/profile/profile.png" style="border-radius:30px;">
+			            			<%} %>
 			            		</button>
 
 									<ul class="menu-sub">
