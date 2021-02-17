@@ -90,28 +90,19 @@
 						}else{
 							beesName=feed.getBeesName();
 						}
+						String maintext="";
+						if(feed.getBoardCont()==null){
+						maintext="";
+						}else{
+							if(feed.getBoardCont().length()>150){
+							maintext = feed.getBoardCont().substring(0,150)+"...";	
+							}else{
+							maintext = feed.getBoardCont();
+							}
+						}
+						
 					%>
 					
-					<script>
-					$(function(){
-					
-					/*인기 비즈 카테고리 */
-					
-					var maintext = "";
-					<%if(feed.getBoardCont()==null){%>
-					<%}else{%>
-					maintext = '<%=feed.getBoardCont() %>';
-					<%}%>
-					
-					if(maintext>150){
-					maintext = maintext.substring(0, 150);
-					$('.best-feed-maintext').html(maintext + "...");
-					}else{
-					$('.best-feed-maintext').html(maintext);	
-					}
-					});
-					
-					</script>
 					
 					<div class="best-feed" id="<%=feed.getBoardNo() %>">
 						<div class="best-feed-cont">
@@ -119,7 +110,7 @@
 								<a class="best-feed-bees-name" href="/beesSelectOne.do?beesNo=<%=feed.getBeesNo() %>&memberNo=<%=feed.getMemberNo() %>"><%=beesName %></a> <i class="fas fa-angle-left"></i> <span class="best-feed-writer"><%=feed.getUserName() %></span> <span class="best-feed-date"><%=dateFormat.format(feed.getBoardDate()) %></span>
 							</div>
 							<div class="best-feed-main">
-								<p class="best-feed-maintext"></p>
+								<p class="best-feed-maintext"><%=maintext %></p>
 							</div>
 							<div class="best-feed-footer">
 								<span class="best-feed-like-btn" style="line-height: 20px; font-weight: 600; padding-left: 20px;"> 

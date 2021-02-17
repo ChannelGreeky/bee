@@ -73,6 +73,13 @@ for(var i=start-1;i<end;i++){
 	
 });
 
+$(function(){
+	var height = $('.myBeesFeed').height();
+	if(height<800){
+	$('.myBeesFeed').css('height',(Number($(document).height())-220)+"px");
+	}
+});
+
 $(window).scroll(function(){
 if($(window).scrollTop()==($(document).height()-$(window).height())){
 		       /*스크롤 끝까지 오면 이벤트*/
@@ -146,7 +153,7 @@ if($(window).scrollTop()==($(document).height()-$(window).height())){
 				</div>
 				
 			</div>
-			<div class="col-7 p-0 m-0">
+			<div class="col-7 p-0 m-0" id="myBeesFeed">
 						<span id="main-content-title">내 비즈 소식</span>
 					<%
 			if(!(feedList.isEmpty())){

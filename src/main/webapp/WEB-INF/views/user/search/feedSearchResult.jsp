@@ -53,13 +53,14 @@ for(var i=start-1;i<end;i++){
 	$('.search-feed').eq(i).css('display','block');
 			
 }
-
-//footer위치조절
-var higth = $("body").height();
-if(higth<754){
-   $("#footer").css('position','absolute').css('bottom','0');
-}
 	
+});
+
+$(function(){
+	var height = $('#main-container').height();
+	if(height<800){
+	$('#main-container').css('height',(Number($(document).height())-220)+"px");
+	}
 });
 
 $(window).scroll(function(){
@@ -132,7 +133,7 @@ if($(window).scrollTop()==($(document).height()-$(window).height())){
 				</div>
 				
 			</div>
-			<div class="col-7 p-0">
+			<div class="col-7 p-0" id="main-container">
 			<div id="main-content" class="container m-0 p-0">
 			<div class="row mt-2 m-0">
 						<div class="col-12">
@@ -147,43 +148,34 @@ if($(window).scrollTop()==($(document).height()-$(window).height())){
 					for(int i=0; i<feedList.size(); i++){ 
 							
 						Feed feed = feedList.get(i);
-							
+						
+						String beesName = null;
+						if(feed.getBeesName().length()>15){
+							beesName=feed.getBeesName().substring(0,15);
+						}else{
+							beesName=feed.getBeesName();
+						}
+						String maintext="";
+						if(feed.getBoardCont()==null){
+						maintext="";
+						}else{
+							if(feed.getBoardCont().length()>150){
+							maintext = feed.getBoardCont().substring(0,150)+"...";	
+							}else{
+							maintext = feed.getBoardCont();
+							}
+						}
+						
 					%>
-					<script>
-					$(function(){
-					<%
-					String beesName = null;
-					if(feed.getBeesName().length()>15){
-						beesName=feed.getBeesName().substring(0,15);
-					}else{
-						beesName=feed.getBeesName();
-					}
 					
-					%>
 					
-					/*인기 비즈 카테고리 */
-					
-					var maintext = "";
-					<%if(feed.getBoardCont()==null){%>
-					<%}else{%>
-					maintext = '<%=feed.getBoardCont() %>';
-					<%}%>
-					
-					if(maintext>150){
-					maintext = maintext.substring(0, 150);
-					$('.search-feed-maintext').html(maintext + "...");
-					}else{
-					$('.search-feed-maintext').html(maintext);	
-					}
-					});
-					</script>
 					<div class="search-feed" id="<%=feed.getBoardNo() %>">
 						<div class="search-feed-cont">
 							<div class="search-feed-title">
 								<a class="search-feed-bees-name"  href="/beesSelectOne.do?beesNo=<%=feed.getBeesNo() %>&memberNo=<%=feed.getMemberNo() %>"><%=beesName %></a> <i class="fas fa-angle-left"></i> <span class="search-feed-writer"><%=feed.getUserName() %></span> <span class="search-feed-date"><%=dateFormat.format(feed.getBoardDate()) %></span>
 							</div>
 							<div class="search-feed-main">
-								<p class="search-feed-maintext"></p>
+								<p class="search-feed-maintext"><%=maintext %></p>
 							</div>
 							<div class="search-feed-footer">
 								<span class="search-feed-like-btn" style="line-height: 20px; font-weight: 600; padding-left: 20px;"> 

@@ -106,6 +106,16 @@ for(var i=start-1;i<end;i++){
 	
 });
 
+
+
+//footer위치조절
+$(function(){
+	var height = $('#bees-contents').height();
+	if(height<800){
+	$('#bees-contents').css('height',(Number($(document).height())-220)+"px");
+	}
+});
+
 $(window).scroll(function(){
 if($(window).scrollTop()==($(document).height()-$(window).height())){
 		       /*스크롤 끝까지 오면 이벤트*/
@@ -396,7 +406,7 @@ if($(window).scrollTop()==($(document).height()-$(window).height())){
 					})
 					</script>
 					<%
-					if(bees.getBeesPublicYN()!='Y' && user!=null){
+					if(bees.getBeesPublicYN()!='N' && user!=null){
 						if(!(feedList.isEmpty())){
 						for (int i = 0; i < feedList.size(); i++) {
 							Feed feed = feedList.get(i);

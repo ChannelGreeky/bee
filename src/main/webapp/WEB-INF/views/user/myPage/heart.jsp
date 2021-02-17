@@ -78,6 +78,13 @@ for(var i=start-1;i<end;i++){
 	
 });
 
+$(function(){
+	var height = $('.myhistroy_div').height();
+	if(height<800){
+	$('.myhistroy_div').css('height',(Number($(document).height())-220)+"px");
+	}
+});
+
 $(window).scroll(function(){
 if($(window).scrollTop()==($(document).height()-$(window).height())){
 		       /*스크롤 끝까지 오면 이벤트*/
