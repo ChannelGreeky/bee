@@ -48,8 +48,18 @@ public class BeesUserController {
 	
 	/*------------solm----------*/
 	@RequestMapping(value="/inviteMember.do")
-	public String selectMemberInvite() {
-		return "bees/beesInvite";
+	public ModelAndView selectMemberInvite(HttpSession session ) {
+		Member m = (Member)session.getAttribute("member");
+		int memberNo = m.getMemberNo();
+		
+		int beesNo = (int)session.getAttribute("beesNo");
+		
+		ModelAndView mav = new ModelAndView();
+		mav.addObject("memberNo", memberNo);
+		mav.addObject("beesNo", beesNo);
+		mav.setViewName("bees/beesInvite");
+		
+		return mav;
 	}
 	
 	@RequestMapping(value="/beesMember.do")

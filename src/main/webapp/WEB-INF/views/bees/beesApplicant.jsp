@@ -68,7 +68,13 @@ background-color : #50401B;
 color : white;
 font-size : 0.9rem;
 }
-
+.memberListImg {
+	width: 30px;
+	height: 30px;
+	background-color: #ffd6e1;
+	border-radius: 999px;
+	float: left;
+}
 </style>
 	<div>
 		<%@include file="/include/headerBee.jsp" %>
@@ -137,7 +143,7 @@ font-size : 0.9rem;
 						<div class="row" >
 						
 						<div class="col-md-6" id="memberListPd1">
-						<img src="/resources/image/p6.png" class="memberListImg"/>
+						<img src="/resources/image/profile/<%= BUList.getProfileImg() %>" class="memberListImg"/>
 						<span id="userId"><%=BUList.getUserName()%></span> <span id="askDate"><%= BUList.getUserAskDate() %> 신청</span>
 						</div>
 						

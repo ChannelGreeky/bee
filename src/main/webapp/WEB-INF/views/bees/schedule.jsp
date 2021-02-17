@@ -561,6 +561,7 @@ margin-left : 35%;
 margin-top : 3%;
 }
 
+
 </style>
 
 <link rel="stylesheet" type="text/css" href="resources/css/beesSchedule.css">

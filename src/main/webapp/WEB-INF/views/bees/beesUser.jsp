@@ -80,7 +80,9 @@ padding-left : 1%;
 padding-right : 1%;
 border-radius: 25px;
 }
-
+#memberList-outline{
+width : 100%;
+}
 </style>
 
 	<div>

@@ -27,6 +27,14 @@ return false;
 
 <link rel="stylesheet" type="text/css" href="resources/css/beesInvite.css">
 
+<%
+	int beesNo = (int)request.getAttribute("beesNo");
+	int memberNo = (int)request.getAttribute("memberNo");
+	
+	System.out.println("초대 페이지 beesNo 확인: " + beesNo);
+	System.out.println("초대 페이지 memberNo 확인: " + memberNo);
+%>
+
 	<div>
 		<%@include file="/include/headerBee.jsp" %>
 	</div>	
@@ -128,7 +136,7 @@ return false;
 		});
 		
 		$(function(){
-			var newURL = window.location.protocol + "//" + window.location.host + "/" + window.location.pathname;
+			var newURL = window.location.protocol + "//" + window.location.host + "/" + "beesSelectOne.do?beesNo=" + <%=beesNo%> + "&memberNo="+<%= memberNo%>;
 			$('#copy-input').val(newURL);
 			
 			
