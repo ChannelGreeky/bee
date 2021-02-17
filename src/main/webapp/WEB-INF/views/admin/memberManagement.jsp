@@ -278,6 +278,10 @@
 				
 			</div>
 		</div>
+		<div><%@include file="/common/footer.jsp" %></div>
+		
+		
+		
 <script type="text/javascript">
 	$(document)
 			.ready(

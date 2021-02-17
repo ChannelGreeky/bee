@@ -56,7 +56,6 @@
             			<img src="/resources/image/profile.png" style="border-radius:30px;">
             		</button>
             		
-            		<ul class="menu-sub">
 	                        <ul class="menu-sub">
 								<li><a href="/myPageInfo.do">내 정보</a></li>
 								<li><a href="/myPageBoard.do">내가 쓴 글</a></li>
