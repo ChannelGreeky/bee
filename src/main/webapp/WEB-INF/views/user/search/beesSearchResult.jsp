@@ -94,11 +94,20 @@
 						<!-- 반복 -->
 						<%if(!resultBees.isEmpty()) {
 							if(resultBees.size() < endNo-10) {
-								for(BeesUserCount b : resultBees) {%>
+								for(BeesUserCount b : resultBees) {
+									String coverPath = b.getBeesCover();	
+									String beesCover = null;
+					    			if(coverPath.endsWith("_bee")){
+					    			beesCover = "/resources/image/beeCreateProfile/"+coverPath;
+					    			}else{
+					    			beesCover = coverPath;
+					    			}
+								
+								%>
 									<div class="d-none d-md-block col-md-2 p-1 py-3">
 										<a href="/beesSelectOne.do?beesNo=<%=b.getBeesNo() %>&memberNo=<%=m.getMemberNo()%>">
 											<div class="m-auto beesImage" style="width:60px; height:60px;
-											background: url('<%=b.getBeesCover() %>') no-repeat;
+											background: url('<%=beesCover%>') no-repeat;
 											background-size: cover;">
 											</div>
 										</a>
@@ -114,11 +123,18 @@
 							} else {
 								for(int i=0; i < endNo-10; i++) {
 									BeesUserCount b = resultBees.get(i);
+									String coverPath = b.getBeesCover();	
+									String beesCover = null;
+					    			if(coverPath.endsWith("_bee")){
+					    			beesCover = "/resources/image/beeCreateProfile/"+coverPath;
+					    			}else{
+					    			beesCover = coverPath;
+					    			}
 							%>
 									<div class="d-none d-md-block col-md-2 p-1 py-3">
 										<a href="/beesSelectOne.do?beesNo=<%=b.getBeesNo() %>&memberNo=<%=m.getMemberNo()%>">
 											<div class="m-auto beesImage" style="width:60px; height:60px;
-											background: url('<%=b.getBeesCover() %>') no-repeat;
+											background: url('<%=beesCover %>') no-repeat;
 											background-size: cover;">
 											</div>
 										</a>
