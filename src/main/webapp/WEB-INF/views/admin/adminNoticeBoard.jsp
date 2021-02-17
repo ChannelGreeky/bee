@@ -281,7 +281,7 @@
 	</script>
 <%
 		
-	//	if (mNo < 1000) {
+if (mNo < 1000) {
 	%>
 	
 <div class="container pt-3">
@@ -536,11 +536,11 @@ $(document).ready(function(){
 
 
 
-<%//}else{ %>
+<%}else{ %>
 		
-<!--  	<script>location.href ="/index.jsp";</script>-->
+	<script>location.href ="/index.jsp";</script>
 						
-<%//} %>
+<%} %>
 											
 
 

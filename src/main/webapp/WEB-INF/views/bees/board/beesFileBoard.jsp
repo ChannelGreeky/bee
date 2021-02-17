@@ -205,6 +205,8 @@ height:30px;
  // System.out.println(memberCount);
 // System.out.println(bees.getBeesCover());
  //  System.out.println(bees.getBeesName());
+ 
+  Member member = (Member)session.getAttribute("member");
    %>
  <script>
  $(document).ready(function() {
@@ -295,7 +297,7 @@ height:30px;
 
 <!-- 내 코드 -->
 
- 	
+ 	<%if(member !=null){ %>
 		<div class="head" >첨부 모아보기</div>
 	
 		<div class="main_head" style="height:135px"> 
@@ -336,7 +338,9 @@ height:30px;
 
 </div><!-- container pt-3 -->
 
-
+<%}else{ %>
+<script>location.href ="/index.jsp";</script>
+<%} %>
       <script>
       $(document).ready(function() {
     	  
