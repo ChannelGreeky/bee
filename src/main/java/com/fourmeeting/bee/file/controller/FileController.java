@@ -16,6 +16,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
@@ -148,15 +150,18 @@ public class FileController {
 	}
 	
 	@RequestMapping(value="/fileList.do")
-	@ResponseBody
-	public HashMap<String, ArrayList<BeesFile>> fileList(@RequestParam int beesNo){
-		HashMap<String,ArrayList<BeesFile>> map = new HashMap<>();
+	 @ResponseBody
+	public ArrayList<BeesFile> fileList(@RequestParam int beesNo){
+		//HashMap<String,ArrayList<BeesFile>> map = new HashMap<>(); 
 		
 		System.out.println(beesNo);
 		
 		ArrayList<BeesFile> fileList = fileService.fileSelectAll(beesNo);
 		System.out.println(fileList);
 		
+	/*	for(BeesFile b : fileList){
+			b.getOriginalFileName()
+		}
 			map.put("fileList", fileList);
 			
 		
@@ -170,10 +175,11 @@ public class FileController {
 
 		}*/
 
-
+		
+	 
 
 		
-			return map;
+			return fileList;
 	}
 	      
 }

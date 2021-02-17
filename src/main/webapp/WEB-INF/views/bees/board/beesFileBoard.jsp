@@ -363,11 +363,14 @@ height:30px;
 		            				data : {"beesNo":beesNo},
 		            				dataType: "json",
 		            				success:function(data){
+		            					console.log("성공");
+		            					
 		            					 var str="";
 		            					$.each(data, function(idx, n) {
-		            						
+		            						console.log(n.originalFileName);
+		            						console.log(idx);
 		            						str += "<li>";
-		            						str += "<img src='/resources/image/bees/icon/file-icon.jpg'>" +n+
+		            						str += "<img src='/resources/image/bees/icon/file-icon.jpg'>" +n.originalFileName+
 		            						str + "</li>"
 		            					});
 		            					$("#fileCont").html(str);
@@ -399,8 +402,14 @@ height:30px;
         	       					$.each(data, function(idx, n) {
         	       						console.log(n);
         	       						console.log(n.voteEndYN);
+        	       						if(n.voteEndYN == 'Y'){
+        	       							n.voteEndYN = "종료";
+        	       						}else if(n.voteEndYN == 'N'){
+        	       							n.voteEndYN = "진행중";
+        	       						}
+        	       						
         	       						str += "<li>";
-        	       						str += "<img src='/resources/image/bees/icon/vote-icon.jpg'>" + n.voteTitle + 
+        	       						str += "<img src='/resources/image/bees/icon/vote-icon.jpg'>" + n.voteTitle + "<br><small>" +   n.voteEndYN +"</small><br><br>"
         	       						
         	       						str + "</li>"
         	       					});
