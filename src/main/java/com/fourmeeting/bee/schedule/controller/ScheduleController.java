@@ -12,12 +12,16 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.fourmeeting.bee.bees.model.service.BeesService;
 import com.fourmeeting.bee.bees.model.vo.Bees;
+import com.fourmeeting.bee.bees.model.vo.Setting;
 import com.fourmeeting.bee.beesuser.model.service.BeesUserService;
 import com.fourmeeting.bee.beesuser.model.vo.BeesUser;
 import com.fourmeeting.bee.member.model.vo.Member;
@@ -37,8 +41,36 @@ public class ScheduleController {
 	@Resource(name="BeesUserService")
 	private BeesUserService userService;
 	
+	@Autowired
+	@Qualifier(value = "beesService")
+	private BeesService bService;
+	
 	@RequestMapping("/scheduleSelectOne.do")
-	private void scheduleSelectOne(@RequestParam int scheduleNo, HttpServletRequest request, HttpServletResponse response) throws Exception {
+	private void scheduleSelectOne(HttpSession session, @RequestParam int scheduleNo, HttpServletRequest request, HttpServletResponse response) throws Exception {
+		
+		/*
+		int beesNo = (int)session.getAttribute("beesNo");
+		
+		//서브바 필요정보들 // 
+		Member member = (Member)session.getAttribute("member");
+		int memberNo = member.getMemberNo();
+				
+		Bees bees = bService.beesSelectOne(beesNo);
+		request.setAttribute("bees", bees);
+		int userCount = userService.userCount(beesNo);
+		request.setAttribute("userCount", userCount);
+		//유저 정보 불러오기
+		BeesUser user = userService.userSelectOne(memberNo, beesNo);
+		request.setAttribute("user", user);
+				
+		//세팅 정보 불러오기
+		Setting setting = bService.selectBeesSetting(beesNo);
+		request.setAttribute("setting", setting);
+		*/		
+				
+		
+		
+		
 		SimpleDateFormat scheFormat = new SimpleDateFormat("yyyy년 MM월 dd일 (E)", Locale.KOREA);
 		ScheduleDetail sche = scheduleService.scheduleSelectOne(scheduleNo);
 		sche.setTransStartDate(String.valueOf(scheFormat.format(sche.getScheduleStartDate())));
@@ -185,15 +217,19 @@ public class ScheduleController {
 	@RequestMapping(value="/scheDel.do")
 	public void deleteBeesSchedule(@RequestParam int scheduleNo, HttpServletResponse response ) throws Exception {
 		//System.out.println("돌다리도 두들기고..:" + scheduleNo);
-		int result = scheduleService.deleteBeesSchedule(scheduleNo);
+		int[] result = scheduleService.deleteBeesSchedule(scheduleNo);
 		
-		if(result>0) {
+		int realResult = result[0]+result[1];
+		System.out.println("realResult: " + realResult);
+
+		if(realResult>0) {
 			System.out.println("삭제완료요");
 			response.getWriter().print(true);
 		}else {
 			System.out.println("삭제안됐음!!!");
 			response.getWriter().print(false);
 		}
+		
 	}
 	
 	@RequestMapping(value="/scheduleModify.do")

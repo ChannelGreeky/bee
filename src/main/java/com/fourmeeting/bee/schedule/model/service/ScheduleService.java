@@ -91,8 +91,13 @@ public class ScheduleService {
 	}
 
 
-	public int deleteBeesSchedule(int scheduleNo) {
-		int result = scheduleDAO.deleteBeesSchedule(sqlSession, scheduleNo);
+	public int[] deleteBeesSchedule(int scheduleNo) {
+		int deleteResult = scheduleDAO.deleteBeesSchedule(sqlSession, scheduleNo);
+		int updateResult = scheduleDAO.updateBeesBoard(sqlSession, scheduleNo);
+		 
+		int [] result = new int [2];
+		result[0]=deleteResult;
+		result[1]=updateResult;
 		return result;
 		
 	}

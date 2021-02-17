@@ -382,11 +382,18 @@ where bees_no = #{bees_no} and bees_del_yn='N'
 
 	<delete id="deleteBeesSchedule">
 		delete from schedule where schedule_no=#{scheduleNo}
+		
 	</delete>
+		
+	<update id="updateBeesBoard">
+		update board set board_del_yn='Y' where schedule_no=#{scheduleNo}
+	</update>
 	
 	<update id="updateScheduleCont"  parameterType="ScheduleDetail">
 		update schedule set schedule_cont=#{scheduleCont} where schedule_no=#{scheduleNo}
 	</update>
+	
+	
 	
 	<select id="selectBeesUserInfo" parameterType="BeesUser" resultType="BeesUser">
 			select

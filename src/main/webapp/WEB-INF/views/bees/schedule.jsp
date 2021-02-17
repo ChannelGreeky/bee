@@ -3,6 +3,8 @@
 <%@ page import="com.fourmeeting.bee.schedule.model.vo.ScheduleDetail" %>
 <%@ page import="com.fourmeeting.bee.beesuser.model.vo.BeesUser" %>
 <%@ page import="com.fourmeeting.bee.bees.model.vo.Bees" %>
+<%@page import="com.fourmeeting.bee.member.model.vo.Member"%>
+<%@page import="com.fourmeeting.bee.bees.model.vo.Setting"%>
 <%@ page import="java.util.ArrayList" %>
 
 <!DOCTYPE html>
@@ -60,11 +62,10 @@ return false;
 
 </script>
 <%
+
 	ArrayList<ScheduleList> list = (ArrayList<ScheduleList>)request.getAttribute("list");
 	BeesUser beesUser = (BeesUser)request.getAttribute("Buser");
-	//int beesNo = Integer.parseInt(request.getParameter("beesNo"));
-	//System.out.println("BeesNo 확인 : "+ beesNo );
-	//System.out.println("스케줄 리스트 확인요 : "+ list);
+	
 %>
 
 <!-- background-event.html 파일 default 설정 -->
@@ -571,6 +572,7 @@ margin-top : 3%;
 		<div class="row">
 			<div class="col-1"></div>
 			<div class="col-3 p-0">
+				
 				<div id="bees-side" class="container m-0 p-2">
 					<div id="bees-side-profile">
 						<table>
@@ -617,7 +619,20 @@ margin-top : 3%;
         </table>
     </div>
 				</div>
+				
 			</div>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
 			<div class="col-7 p-0">
 				<div id="bees-contents" class="container m-0 p-2">
 				
@@ -792,10 +807,20 @@ margin-top : 3%;
 
 				})
 				
+				
+				
 				<%-- 일정 삭제하기 눌렀을 때 --%>
 				$('#scheduleDelete').click(function(){
+					
+					var userNo = $('#userNo').text();
+					var LoginUserNo = <%= beesUser.getUserNo() %>
 					var scheduleNo = $('#sche-detail-modal-footer').text();
 					
+					
+					if(userNo!=LoginUserNo){
+						alert("호스트와 작성자만 삭제할 수 있습니다.");
+					}else{
+
 					
 					$.ajax({
 						url: "/scheDel.do",
@@ -803,7 +828,6 @@ margin-top : 3%;
 						data:{"scheduleNo":scheduleNo},
 						success: function(result){
 							if(result=="true"){
-								alert("일정 삭제가 완료되었습니다.");
 								location.reload();
 							}
 						},
@@ -811,6 +835,10 @@ margin-top : 3%;
 							alert("ajax 통신 실패");
 						}
 					})
+					
+					}
+					
+					
 				})
 				
 				

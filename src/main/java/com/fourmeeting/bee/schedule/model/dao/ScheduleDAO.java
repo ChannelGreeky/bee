@@ -83,6 +83,12 @@ public class ScheduleDAO {
 		return result;
 		
 	}
+	
+	public int updateBeesBoard(SqlSessionTemplate sqlSession, int scheduleNo) {
+		int result = sqlSession.update("bees.updateBeesBoard", scheduleNo);
+		return result ;
+		
+	}
 
 	public int updateScheduleCont(SqlSessionTemplate sqlSession, ScheduleDetail scheDetail) {
 		System.out.println("[updateScheduleCont-DAO] 확인");
@@ -95,4 +101,6 @@ public class ScheduleDAO {
 		BeesUser Buser = sqlSession.selectOne("bees.selectBeesUserInfo", beesUser);
 		return Buser;
 	}
+
+	
 }
