@@ -149,20 +149,30 @@ public class FileController {
 	
 	@RequestMapping(value="/fileList.do")
 	@ResponseBody
-	public HashMap<Integer, String> fileList(@RequestParam int beesNo){
-		HashMap<Integer,String> map = new HashMap<>();
+	public HashMap<String, ArrayList<BeesFile>> fileList(@RequestParam int beesNo){
+		HashMap<String,ArrayList<BeesFile>> map = new HashMap<>();
 		
 		System.out.println(beesNo);
 		
 		ArrayList<BeesFile> fileList = fileService.fileSelectAll(beesNo);
 		System.out.println(fileList);
-		int i=1;
-		for(BeesFile f : fileList){
-			System.out.println(f.getOriginalFileName());
-			map.put(i, f.getOriginalFileName());
-			i++;
-		}
+		
+			map.put("fileList", fileList);
 			
+		
+		/*for(int i=0; i < fileList.size(); i++)
+
+		{
+
+			map.put(i, value)list.get(i);
+
+		System.out.println("index >>" + i);
+
+		}*/
+
+
+
+		
 			return map;
 	}
 	      
