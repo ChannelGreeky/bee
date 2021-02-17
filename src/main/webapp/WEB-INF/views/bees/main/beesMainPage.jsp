@@ -44,30 +44,28 @@
 <body>
 
 <%
+	//비즈 공통 정보 (서브바 필요정보)
 	Member member = (Member)session.getAttribute("member");
-
 	Bees bees = (Bees)request.getAttribute("bees");
-	//모든 페이지에 추가해주세요.
-	session.setAttribute("beesNo",bees.getBeesNo());	
 	
+	session.setAttribute("beesNo",bees.getBeesNo());//비즈 메인으로 접근할때마다 갱신
 	
 	Setting setting = (Setting)request.getAttribute("setting");
 	int userCount = (int)request.getAttribute("userCount");
-	
 	String beesName = bees.getBeesName();
 	if(bees.getBeesName().length()>=5){
 	beesName = bees.getBeesName().substring(0,5)+"..";
 	}
-	
 	BeesUser user = (BeesUser)request.getAttribute("user");
 	String userAuth = null;
-	
 	if(user!=null){
 		if(user.getUserAuthYN()=='W'){
 			user = null;
 			userAuth = "W";
 		}
 	}
+	
+	//피드 필요정보
 	
 	SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy년 MM월 dd일 a KK시 mm분", Locale.KOREA);
 	SimpleDateFormat scheFormat = new SimpleDateFormat("yyyy년 MM월 dd일 (E)", Locale.KOREA);
@@ -152,6 +150,8 @@ if($(window).scrollTop()==($(document).height()-$(window).height())){
 		<div class="row">
 			<div class="col-1"></div>
 			<div class="col-3 p-0">
+			
+			<!-- 비즈 사이드 정보 -->
 				<div id="bees-side" class="container m-0 p-2">
 					<div id="bees-side-profile">
 					<% 
@@ -246,6 +246,7 @@ if($(window).scrollTop()==($(document).height()-$(window).height())){
                             </form>
 								</td>
 							</tr>
+							<!-- 비즈 메인페이지 외에는 삭제해주세요! -->
 							<%} 
 							}
 							%>
@@ -269,6 +270,7 @@ if($(window).scrollTop()==($(document).height()-$(window).height())){
 							}else{
 							} 
 							%>
+							<!-- 여기까지 삭제해주세요 -->
 						</table>
 					</div>
 					<%
@@ -318,7 +320,10 @@ if($(window).scrollTop()==($(document).height()-$(window).height())){
 					<%}else{ 
 					}%>
 				</div>
+				<!-- 여기까지 복사 붙여넣기 -->
+				
 			</div>
+			
 			<div class="col-7 p-0">
 				<div id="bees-contents" class="container m-0 p-2">
 				<form action="/beesSearchOne.do?" method="get">

@@ -105,17 +105,25 @@ public class BeesController {
 	@RequestMapping(value="/beesSelectOne.do")
 	private String beesSelectOne(@RequestParam int beesNo, HttpServletRequest request, HttpSession session) throws Exception {
 		
+		//서브바 필요정보들 // 
 		Member member = (Member)session.getAttribute("member");
 		int memberNo = member.getMemberNo();
 		
 		Bees bees = bService.beesSelectOne(beesNo);
 		request.setAttribute("bees", bees);
-		System.out.println(bees);
 		int userCount = userService.userCount(beesNo);
 		request.setAttribute("userCount", userCount);
 		//유저 정보 불러오기
 		BeesUser user = userService.userSelectOne(memberNo, beesNo);
 		request.setAttribute("user", user);
+		
+		//세팅 정보 불러오기
+		Setting setting = bService.selectBeesSetting(beesNo);
+		request.setAttribute("setting", setting);
+		
+		
+		
+		//
 		
 		ArrayList<Feed> feedList = boardService.boardSelectAll(beesNo);
 		request.setAttribute("feedList", feedList);
@@ -228,9 +236,7 @@ public class BeesController {
 		}
 		request.setAttribute("likeMap", myLikeMap);
 		
-		//세팅 정보 불러오기
-		Setting setting = bService.selectBeesSetting(beesNo);
-		request.setAttribute("setting", setting);
+		
 		
 		return "/bees/main/beesMainPage";
 		
