@@ -8,6 +8,40 @@
 </head>
 <body>
 <link rel="stylesheet" type="text/css" href="resources/css/headerUser.css">
+
+<style>
+.menu-sub{     
+	z-index : 9;
+	background-color: #fefefe;
+	box-shadow:0.2em 0.2em 5px lightgray;
+	top:20px;    
+	position:absolute;
+	right:0;
+	white-space:nowrap;
+	transform:translate(7%, 1.3em);
+	display:none;
+	transition: all .8s;
+	width: 170px;
+	border: 1px solid lightgray;
+}
+
+
+.menu-sub:after{
+	content:' ';
+	position:absolute;
+	top:-20px;
+	left:85%;
+	transform:translateX(-50%);
+	height:0;
+	width:0;
+	border-width:0px;
+	border-style:solid;
+	border-color:transparent transparent #F7D078 transparent;
+}
+
+</style>
+
+
 	<div class="container-fluid p-0">
 	<div class="container">
    <div class="row header" >
