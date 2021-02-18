@@ -231,7 +231,7 @@
 				#{interest}
 		</foreach>
 	AND B.BEES_NO NOT IN (SELECT BEES_NO FROM BEES_USER WHERE MEMBER_NO = #{sessionMemberNo})
-	AND B.BEES_PUBLIC_YN = 'Y'
+	AND B.BEES_PUBLIC_YN = 'Y' AND BEES_DEL_YN = 'N'
 	</select>
 	
 	<select id="selectMyBees" parameterType="Member" resultType="bees">
@@ -281,7 +281,7 @@
 	ON B.BEES_NO = BU.BEES_NO
 	WHERE B.BEES_CATEGORY = #{category}
 	AND B.BEES_NO NOT IN (SELECT BEES_NO FROM BEES_USER WHERE MEMBER_NO = #{sessionMemberNo})
-	AND B.BEES_PUBLIC_YN = 'Y'
+	AND B.BEES_PUBLIC_YN = 'Y' AND BEES_DEL_YN = 'N'
 	</select>
 	
 	<select id="selectBeesSearchResult" resultType="beesUserCount">
@@ -307,7 +307,7 @@
     GROUP BY BEES_NO ORDER BY COUNT(*) DESC) BU
 	ON B.BEES_NO = BU.BEES_NO
 	WHERE B.BEES_NAME like ('%'||#{searchData}||'%')
-	AND B.BEES_PUBLIC_YN = 'Y'
+	AND B.BEES_PUBLIC_YN = 'Y' AND BEES_DEL_YN = 'N'
 	</select>
 	
 	<select id="beesSelectOne" resultType="Bees">
