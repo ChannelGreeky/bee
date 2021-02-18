@@ -306,7 +306,7 @@
 								</select>
 							</td>
 							<td class="search_bar">
-								<input type="text" style="width: 90%;" name="search">
+								<input type="text" style="width: 90%;" autocomplete="off" name="search">
 							</td>
 							<td class="search_bar">
 								<button type="submit" id="search_btn">
