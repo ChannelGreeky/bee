@@ -30,6 +30,7 @@ public class ImageService2 {
 		public int insertOnlyImage(Map<String, Object> map) {
 			System.out.println("왔냐?");
 			int result = iDAO2.insertOnlyImage(map, sqlSession);
+			System.out.println(result);
 			return result;
 			
 		}

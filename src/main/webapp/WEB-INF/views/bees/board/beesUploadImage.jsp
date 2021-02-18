@@ -13,10 +13,10 @@
 <style>
 .uploadResult {
 width: 100%;
-margin-top:70px;
-background-color: white;
-height:70%;
- overflow:scroll;
+margin-top:40px;
+
+height:80%;
+overflow:scroll;
 }
 
 .uploadResult ul {
@@ -25,13 +25,16 @@ flex-flow: row;
 justify-content: center;
 align-items: center;
 padding:0;
+width:100px;
+height:100px;
+}
+.uploadResult a{
+width:300px;
+height:300px;
+
 }
 
-.uploadResult ul li {
-list-style: none;
-padding: 10px;
 
-}
 
 .uploadResult img {
 width: 80%;
@@ -60,16 +63,17 @@ white-space:pre;
 
 .uploadResult div{
  display:flex;
- width:500px;
- height:150px;
+ width:400px;
+ height:300px;
 width:33%;
-min-width:190px;
+min-width:300px;
  white-space:pre;
+ display:block;
 }
 .modal-content{
 height:500px;
 }
-#Btn{
+#uploadBtn{
 float:right;
 background-image:url('/resources/image/header/plus.png'); 
 background-repeat: no-repeat;
@@ -77,11 +81,23 @@ background-repeat: no-repeat;
         width: 32px;
         height: 32px;
         cursor: pointer;
+        margin-right:20px;
 }
 .img_body{
-height:500px;
+height:1200px;
 
 }
+.view{
+margin-left:80px;
+float:left;
+padding:20px;
+margin-top:15px;
+}
+.view img{
+width:100%;
+height:100%;
+}
+
 </style>
 </head>
 <body>
@@ -167,15 +183,15 @@ height:500px;
    <%
 	ArrayList<AttachFileDTO> list=(ArrayList<AttachFileDTO>)request.getAttribute("list");
 
-                  Member member = (Member)session.getAttribute("member");
-              	System.out.println(member.getMemberNo());	
+  //                Member member = (Member)session.getAttribute("member");
+   //           	System.out.println(member.getMemberNo());	
               	
 %>
 	
 
 <%
 		
-		if (member != null) {
+	//	if (member != null) {
 	%>
 
                            
@@ -184,6 +200,14 @@ height:500px;
             <!--      <input type="file" id="upImgFiles" onChange="uploadImgs();" name='uploadFile' accept="image/*" multiple >  <!-- name="subImg" -->
                <div class="img_body">
                   <span>전체사진</span> 
+                        
+                       <div class='uploadDiv'>    
+                         <input type='file' name='uploadFile' multiple id="btn-upload" style="border:none;margin-right:70px; width:100px;">
+						</div>
+                  
+		  <div class='uploadBtn'>
+				 <button type="button" id='uploadBtn' class="btn btn-modifys" style="margin:0 auto;width:80px; background-color:#FFF3D8;color:#50401B;border:none;">업로드</button>
+			</div>
                                                                                   
               
                <div class='bigPictureWrapper'>
@@ -192,43 +216,30 @@ height:500px;
 			</div> 
               
                          
-                      
-                         <div class='uploadDiv'>    
-                         <input type='file' name='uploadFile' multiple id="btn-upload">
-						</div>
-                   			 
+              			 
                      
                      <div class='uploadResult'>  <!--  업로드 된 파일 목록으로 보여주기-->
-					<ul > 
-					    <%for(AttachFileDTO af : list){%>
-						<%System.out.println("/resources/file/"+af.getChangeFileName());%>
-						<div ><img src="<%="/resources/file/"+af.getChangeFileName()%>" width='150px' height='150px'>
-						<span data-file=\'"+fileCallPath+"\' data-type='image' data-name=\'"+fileName+"\'><img src='/resources/image/admin/error.png' style='width:20px; height:20px;'></span></div>
-						<%} %>
+				
+					
+			<%for(AttachFileDTO a : list){ %>
+			<%System.out.println(a.getChangeFileName()); %>
 			
-								
-					</ul>
-				</div>
+			<div class="view"><span><small><%=a.getFileName() %></small></span><br><img src="/resources/file/<%=a.getChangeFileName() %>" style="border-radius:30px;"></div>
+			<% 	}%>
+				
+				
+			
                      
-                        <div class="row" id="spaceImage">
-                              <div class="col-md-12"> 
-                              <div id="imageviews"></div>
-                              </div>
-                          </div>
+           
+                      
             
                </div> <!-- img_body -->
             <!-- 여기부터 실험 -->
             
-            
+           
             
           
            
-
-		  <div class='uploadBtn'>
-				 <button type="button" id='uploadBtn' class="btn btn-modifys" style="margin:0 auto;width:80px; background-color:#FFF3D8;color:#50401B;border:none;border-radius:10px;">업로드</button>
-			</div>
-
-
 
 
 
@@ -249,7 +260,7 @@ height:500px;
 
 	
 	
-	<%} %>		  
+	<%//} %>		  
 	
      
       
@@ -310,7 +321,7 @@ height:500px;
  <script>
 
  $(document).ready(function(){
-	 
+	
       
 	 $('#uploadBtn').click(function(e){
 		 e.preventDefault();
@@ -322,21 +333,15 @@ height:500px;
 		 dataType:'json',
 		 success: function(result){
 			 console.log("re"+result);
-			 
+			 alert("성공");
 			 var str="";
 			 $(result).each(function(i, attachFileDTO){
 			 var fileCallPath = encodeURIComponent( attachFileDTO.uploadPath);
 				
-			 str += "<li><div>";
-			 str += "<li><a href=\"javascript:showImage(\'"+originPath+"\')\">"+
-		        "<img src='/display.do?fileName="+fileCallPath+"'></a>"+
-		        "<span data-file=\'"+fileCallPath+"\' data-type='image' data-name=\'"+fileName+"\'><img src='/resources/image/admin/error.png' style='width:20px; height:20px;'></span></li>";
-			 str += "</div>";
-			 str +"</li>";
-			 });
-			 $(".uploadResult ul").append(str);
+			 
+			
 		
-		 }
+		
 		 });   //$.ajax
 	 });
 	 
@@ -344,7 +349,7 @@ height:500px;
 	 
 	 var cloneObj = $(".uploadDiv").clone();
 	 $('#uploadBtn').on("click", function(e){
-		 
+		 $('.view').empty();
 		 var regex = new RegExp("(.*?)\.(jpe?g|png|gif)$");
 			var maxSize = 5242880; //5MB
 
@@ -362,7 +367,8 @@ height:500px;
 				return true;
 			}
 		 var formData = new FormData();
-			
+		var beesNo = ${param.beesNo};
+		 formData.append('beesNo',beesNo);
 		 var inputFile = $("input[name='uploadFile']");
 		
 		 var files = inputFile[0].files;
@@ -387,7 +393,9 @@ height:500px;
  			 type: 'POST',
  			 dataType:'json',
  			 success: function(result){
- 			 alert("파일등록 성공!");
+ 			 
+ 				 $('uploadResult').val().remove();
+ 				 alert("파일등록 성공!");
  			 console.log(result);
  			 showUploadedFile(result);
  			$(".uploadDiv").html(cloneObj.html());
@@ -396,7 +404,7 @@ height:500px;
  			
  			 
 	 });
-	 var uploadResult = $(".uploadResult ul");
+	 var uploadResult = $(".uploadResult div");
 	 
 	 function showUploadedFile(uploadResultArr){
 		    
@@ -404,11 +412,14 @@ height:500px;
 		    
 		    $(uploadResultArr).each(function(i, obj){
 		      
-		      
-		        
-		        var fileCallPath =  encodeURIComponent( obj.thumbnailFileName);
+		      if(true){
+		    	  
+		    	str += "<li>" + obj.fileName + "</li>"
+		      }
+		    	var fileName = obj.uuid +"_"+obj.fileName;
+		        var fileCallPath =  encodeURIComponent( fileName);
 		        var originPath = obj.uploadPath;
-		        var fileName = obj.uuid +"_"+obj.fileName;
+		        
 		        
 		        originPath = originPath.replace(new RegExp(/\\/g),"/");
 		        str += "<div><a href=\"javascript:showImage(\'"+originPath+"\')\">"+
@@ -422,13 +433,13 @@ height:500px;
 		    uploadResult.append(str);
 		  }
  });
- 
- /*     $(document).ready(function(){
+ </script>
+<!--    $(document).ready(function(){
                                  $('#uploadBtn').click(function(e){
                                     e.preventDefault();
-                                    $('#upImgFiles').click();
+                                    $('#btn-upload').click();
                                  });
-                                 
+                               
                                  
                               });
                               
@@ -465,8 +476,8 @@ height:500px;
                                    [].forEach.call( fileList, readAndPreview );
                                 }
                                }  
-                           */
+                        -->
                              
-                             </script>
+                            
 </body>
 </html>

@@ -14,7 +14,9 @@ import com.fourmeeting.bee.image.model.vo.AttachFileDTO;
 public class ImageDAO2 {
 
 	public int insertOnlyImage(Map<String, Object> map, SqlSessionTemplate sqlSession) {
+		System.out.println("왔냐?");
 		int result = sqlSession.insert("notice.insertOnlyImage", map);
+		System.out.println(result);
 		return result;
 		
 	}

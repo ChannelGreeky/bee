@@ -48,6 +48,7 @@ import com.fourmeeting.bee.member.model.vo.Member;
 import com.google.gson.JsonIOException;
 
 import net.coobird.thumbnailator.Thumbnailator;
+import net.coobird.thumbnailator.Thumbnails;
 
 @Controller
 public class ImageController2 {
@@ -68,14 +69,14 @@ public class ImageController2 {
          System.out.println(beesNo);	
 			int memberNo = m.getMemberNo();
 			System.out.println(memberNo);
-		//	BeesUser b = new BeesUser();
-		//	b.setBeesNo(beesNo);
-		//	b.setMemberNo(memberNo);
-	//		ArrayList<AttachFileDTO> list = iService2.selectAllImage(b);
-//	System.out.println("cont list"+list);
+			BeesUser b = new BeesUser();
+			b.setBeesNo(beesNo);
+			b.setMemberNo(memberNo);
+		ArrayList<AttachFileDTO> list = iService2.selectAllImage(b);
+System.out.println("cont list"+list);
 			ModelAndView mav = new ModelAndView();
 			
-		mav.addObject("a", memberNo);
+		mav.addObject("list", list);
 		mav.setViewName("bees/board/beesUploadImage"); 	
 			return mav;
 			
@@ -111,82 +112,94 @@ public void uploadFormPost(MultipartFile[] uploadFile, Model model) {
 
 
 
-private boolean checkImageType(File file) {
-
-	try {
-		String contentType = Files.probeContentType(file.toPath());
-
-		return contentType.startsWith("image");
-
-	} catch (IOException e) {
-		// TODO Auto-generated catch block
-		e.printStackTrace();
-	}
-
-	return false;
-}
-
-
 @PostMapping(value = "/uploadAjaxAction", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
 @ResponseBody
-public ResponseEntity<List<AttachFileDTO>> uploadAjaxPost(MultipartFile[] uploadFile) {
+public ResponseEntity<List<AttachFileDTO>> uploadAjaxPost(MultipartFile[] uploadFile, HttpServletRequest request,@RequestParam int beesNo) {
 
 	List<AttachFileDTO> list = new ArrayList<>();
-	String uploadFolder = "C:\\upload";
+	 Map<String, Object> map = new HashMap<String, Object>();
 
-	String uploadFolderPath ="/resources/file/"; 
-	// make folder --------
-	File uploadPath = new File(uploadFolder, uploadFolderPath);
-
-	if (uploadPath.exists() == false) {
-		uploadPath.mkdirs();
-	}
-	// make yyyy/MM/dd folder
+	 String uploadPath="/resources/file/";          //Wepapp이하 부터 파일명 앞까지 실제 경로
+	 String realUploadPath = context.getRealPath(uploadPath);
+		System.out.println("1.IMG real path: " + realUploadPath);     //파일명 전까지 전체 경로
+	 
+		 HttpSession session = request.getSession();
+           Member m = (Member)session.getAttribute("member");
+           
+           int fileUser = m.getMemberNo();  //userId가 업로드 유저 (fileUser)
+           
+           
+           AttachFileDTO attachDTO = new AttachFileDTO();
+     		
+     		
 
 	for (MultipartFile multipartFile : uploadFile) {
 
-		AttachFileDTO attachDTO = new AttachFileDTO();
+		System.out.println("2.Original File Name: " + multipartFile.getOriginalFilename());		//실제 파일명
+  		System.out.println("3.IMG Size: " + multipartFile.getSize());							//파일 사이즈
+  		
+  		
+  		 String uploadFileName = multipartFile.getOriginalFilename();  //실제 파일명.
 
-		String uploadFileName = multipartFile.getOriginalFilename();
-
-		// IE has file path
-		uploadFileName = uploadFileName.substring(uploadFileName.lastIndexOf("\\") + 1);
-		System.out.println("only file name: " + uploadFileName);
-		attachDTO.setFileName(uploadFileName);
-
-		UUID uuid = UUID.randomUUID();
-
-		uploadFileName = uuid.toString() + "_" + uploadFileName;
+  	// // IE has file path
+   		uploadFileName = uploadFileName.substring(uploadFileName.lastIndexOf("\\") + 1);	//IE는 전체 파일 경로가 전송되므로 마지막 \를 기준으로 잘라낸게 실제 파일이름임.
+   		System.out.println("only file name: " + uploadFileName);
+   		attachDTO.setFileName(uploadFileName);       //filename= 진짜 파일명
+   		//
+   		 UUID uuid = UUID.randomUUID();      //동일한 파일명이 업로드 되면 기존에 등록된게 지워지므로 이름이 같으면 안됨. 따라서 랜덤문자열을 생성하여 유니크 이름 지정
+ 		 
+ 		 uploadFileName = uuid.toString() + "_" + uploadFileName;  //파일 이름 바꾸기   ,  랜덤문자열_실제이름
 
 		try {
-			File saveFile = new File(uploadPath, uploadFileName);
-			multipartFile.transferTo(saveFile);
+			
 
-			attachDTO.setUuid(uuid.toString());
-			attachDTO.setUploadPath(uploadFolderPath);
-
-			// check image type file
-			if (checkImageType(saveFile)) {
-
-				
-				
-
-				FileOutputStream thumbnail = new FileOutputStream(new File(uploadPath, "s_" + uploadFileName));
-
-				Thumbnailator.createThumbnail(multipartFile.getInputStream(), thumbnail, 100, 100);
-
-				thumbnail.close();
-			}
-
-			// add to List
-			list.add(attachDTO);
-
-		} catch (Exception e) {
+			 File saveFile = new File(realUploadPath, uploadFileName);  		//file객체 생성
+			 saveFile.getParentFile().mkdirs();
+    		 multipartFile.transferTo(saveFile);		//saveFile 지정한 저장 위치에 저장하기
+    		 System.out.println("실험"+saveFile.getPath());
+    		 attachDTO.setUuid(uuid.toString());          //uuid에 랜덤 문자열 저장
+    			attachDTO.setUploadPath(saveFile.getPath());    //
+    		 
+    			attachDTO.setChangeFileName(saveFile.getName());
+    			attachDTO.setMemberNo(fileUser);
+    			attachDTO.setImgSIze(multipartFile.getSize());
+    			
+    			attachDTO.setImgDelYN('N');
+    			File thumbnailFileName = new File(realUploadPath, "s_" + uploadFileName);
+    			attachDTO.setThumbnailFileName(thumbnailFileName.getPath());
+    			//FileOutputStream thumbnail = new FileOutputStream(thumbnailFileName);
+    		
+    			// //  Thumbnailator.createThumbnail(multipartFile.getInputStream(), thumbnail, 500, 500);
+    		 
+    		// thumbnail.close();
+    			
+    			//Thumbnails.of(thumbnailFileName).size(100,100).outputFormat("png").toOutputStream(out);
+    			//byte[] buffer = new byte[1024*8];
+    		//out.write(buffer);
+    		 list.add(attachDTO);
+    		 System.out.println("1" + attachDTO.getFileName());  //beeLogo.png
+    		 System.out.println("2" + attachDTO.getUploadPath()); //C:\java_all\springWorkSpace\bee3\src\main\webapp\resources\file\
+    		System.out.println("3" + attachDTO.getChangeFileName()); 
+    		System.out.println("4" + attachDTO.getMemberNo());
+    		System.out.println("5" + attachDTO.getImgSIze()); 
+    		System.out.println("6" + attachDTO.getBoardNo()); 
+    		System.out.println("7" + attachDTO.getImgDelYN()); 
+    		System.out.println("8" + attachDTO.getThumbnailFileName()); 
+    		System.out.println("beesNo" + beesNo);
+    		} catch (Exception e) {
 			e.printStackTrace();
 		}
-
-	} // end for
-	return new ResponseEntity<>(list, HttpStatus.OK);
+	}	map.put("list", list);
+  		int result = iService2.insertOnlyImage( map);
+ 
+  	if(result > 0){
+ 			System.out.println("이미지 등록 성공");
+  		}else{
+  			attachDTO.setImgDelYN('Y');
+  			iService2.updateDeleteImage(attachDTO);
+  	}
+	
+ return new ResponseEntity<>(list, HttpStatus.OK);
 }
 
 @GetMapping("/display")
@@ -195,8 +208,8 @@ public ResponseEntity<byte[]> getFile(String fileName) {
 
 	System.out.println("fileName: " + fileName);
 
-	File file = new File("c:\\upload\\" + fileName);
-
+	File file = new File( fileName);
+	file.getParentFile().mkdirs();
 	System.out.println("file: " + file);
 
 	ResponseEntity<byte[]> result = null;
