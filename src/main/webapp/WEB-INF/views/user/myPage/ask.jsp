@@ -258,6 +258,9 @@
 			}
 		});
 		
+		$("#ask_submit_btn").click(function(){
+			alert("등록되었습니다.");
+		});		
 			
 		});
 	

@@ -96,19 +96,21 @@ body {
 }
 
 .myhistroy_joinQnas_div {
-	height: 350px; /*//////////////////////////////////////////////////*/
+	height: auto; /*//////////////////////////////////////////////////*/
 	border-left: 1px solid #ededed;
 	border-right: 1px solid #ededed;
+	padding-bottom: 20px;
 }
 
 .joinQnas_history_div {
 	border-bottom: 1px solid #ededed;
+	height: auto;
 }
 
 .joinQnas_title {
 	color: #50401B;
 	font-weight: 600;
-	padding: 45px 35px 10px 35px;
+	padding: 20px 35px 10px 35px;
 }
 
 .myhistroy_joinQnas_table {
