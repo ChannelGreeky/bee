@@ -92,11 +92,12 @@
         <li class="sSettingItem">
             <div class="itemContent">
                 <span class="label">가입 조건 설정</span>
-                <%if(beeResult.getBeesGender()==0&&beeResult.getBeesMinBirth()==0) {%> 
+                <% char memberGenderNo ='N';
+                if(beeResult.getBeesGender()==memberGenderNo&&beeResult.getBeesMinBirth()==0) {%> 
                  <span class="subTxt">성별 제한없음, 나이 제한없음</span>
-                <%}else if(beeResult.getBeesGender()==0&&beeResult.getBeesMinBirth()!=0){ %>
+                <%}else if(beeResult.getBeesGender()==memberGenderNo&&beeResult.getBeesMinBirth()!=0){ %>
                  <span class="subTxt">성별 제한없음, 나이 제한있음</span>
-                <%}else if(beeResult.getBeesGender()!=0&&beeResult.getBeesMinBirth()==0){ %>
+                <%}else if(beeResult.getBeesGender()!=memberGenderNo&&beeResult.getBeesMinBirth()==0){ %>
                  <span class="subTxt">성별 제한있음, 나이 제한없음</span>
                 <%}else{ %>
                  <span class="subTxt">성별 제한있음, 나이 제한있음</span>
