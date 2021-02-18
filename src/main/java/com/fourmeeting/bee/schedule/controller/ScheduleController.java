@@ -108,14 +108,31 @@ public class ScheduleController {
 	/*-------------------solm---------------------------*/
 	@RequestMapping(value="/beesSchedule.do")
 	public ModelAndView selectBeesSchedule(HttpSession session, HttpServletRequest request) throws Exception {
-		
 		int beesNo = (int)session.getAttribute("beesNo");
+		
+		//서브바 필요정보들 // 
+		Member member = (Member)session.getAttribute("member");
+		int memberNo = member.getMemberNo();
+		
+		Bees bees = bService.beesSelectOne(beesNo);
+		request.setAttribute("bees", bees);
+		int userCount = userService.userCount(beesNo);
+		request.setAttribute("userCount", userCount);
+		//유저 정보 불러오기
+		BeesUser user = userService.userSelectOne(memberNo, beesNo);
+		request.setAttribute("user", user);
+		
+		//세팅 정보 불러오기
+		Setting setting = bService.selectBeesSetting(beesNo);
+		request.setAttribute("setting", setting);
+
+		
+		
+		
 		
 		System.out.println("넘어오면 좋겠다: "+ beesNo);
 		
 		ArrayList<ScheduleList> list = scheduleService.selectBeesSchedule(beesNo);
-		Member m = (Member)session.getAttribute("member");
-		int memberNo = m.getMemberNo();
 	
 		/*수정할 때 필요한 userNo 구하는 로직*/
 		
