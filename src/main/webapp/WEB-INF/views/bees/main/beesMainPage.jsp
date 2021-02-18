@@ -19,7 +19,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+
 <%@ include file="/common/cdnLib.jsp"%>
 	<!--비즈 전체페이지 + 사이드 프로필 + 메인 컨텐츠 크기-->
 	<link rel="stylesheet" type="text/css" href="/resources/css/beesForm.css">
@@ -40,6 +40,7 @@
 	<link rel="stylesheet" type="text/css" href="/resources/css/beesJoinModal.css">
 	<link rel="stylesheet" type="text/css" href="/common/common.css">
 	<script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
+<title>${requestScope.bees.beesName} | bee</title>
 </head>
 <body>
 
@@ -428,9 +429,9 @@ if($(window).scrollTop()==($(document).height()-$(window).height())){
 							<tr>
 								<td class="feed-writer-info" rowspan="2">
 									<%if(feed.getProfileImg()==null){%>
-									<div class="feed-writer-profile" style="background-color:#f7d078;"></div>
+									<div class="feed-writer-profile" style="background-image:url('/resources/image/user/profile_none.png')"></div>
 									<%}else{ %>
-									<div class="feed-writer-profile" style="background-image:url('/resources/image/profile/<%=feed.getProfileImg() %>')"></div><%} %>
+									<div class="feed-writer-profile" style="background-image:url('/resources/image/profile/<%=feed.getProfileImg() %>')" onError="javascript:this.src='/resources/image/user/profile_none.png'"></div><%} %>
 								</td>
 								<td class="feed-writer-name"><%=feed.getUserName() %></td>
 								<td class="feed-setting" rowspan="2">
@@ -686,9 +687,9 @@ if($(window).scrollTop()==($(document).height()-$(window).height())){
 							<td rowspan="3" class="comment-writer">
 							<%if(comment.getProfileImg()==null){
 							%>
-								<div class="comment-writer-profile" style="background-color:#f7d078; background-image:url()"></div>
+								<div class="comment-writer-profile" style="background-image:url('/resources/image/user/profile_none.png')"></div>
 							<%}else{ %>
-								<div class="comment-writer-profile" style="background-image:url('/resources/image/profile/<%=comment.getProfileImg() %>')"></div>
+								<div class="comment-writer-profile" style="background-image:url('/resources/image/profile/<%=feed.getProfileImg() %>')" onError="javascript:this.src='/resources/image/user/profile_none.png'"></div>
 								<%} %>
 							</td>
 							<td class="comment-writer-name"><%=comment.getUserName() %></td>
@@ -733,7 +734,7 @@ if($(window).scrollTop()==($(document).height()-$(window).height())){
 							<%}else{%>
 							<tr>
 							<td rowspan="3" class="comment-writer">
-									<div class="comment-writer-profile" style="background-color:#6D6042; background-image:url()"></div>
+									<div class="comment-writer-profile" style="background-image:url('/resources/image/user/profile_none.png')"></div>
 								</td>
 							
 							<td class="comment-writer-name"></td>

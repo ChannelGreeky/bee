@@ -12,7 +12,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>${requestScope.keyword} 검색결과 | bees</title>
 </head>
 <body>
 	<%@ include file="/common/cdnLib.jsp"%>
