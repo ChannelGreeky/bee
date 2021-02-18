@@ -539,7 +539,7 @@ div {
 							%>
 								<div class="comment-writer-profile" style="background-image:url('/resources/image/user/profile_none.png')"></div>
 							<%}else{ %>
-								<div class="comment-writer-profile" style="background-image:url('/resources/image/profile/<%=feed.getProfileImg() %>')" onError="javascript:this.src='/resources/image/user/profile_none.png'"></div>
+								<div class="comment-writer-profile" style="background-image:url('/resources/image/profile/<%=comment.getProfileImg() %>')" onError="javascript:this.src='/resources/image/user/profile_none.png'"></div>
 								<%} %>
 							</td>
 							

@@ -225,7 +225,20 @@ public class BoardController {
 		
 		if(delFunction>0||delImage!=null) { //수정시 기능 삭제
 			
-			board.setBoardCont(boardCont);
+			String boardContent = boardCont;
+			int number = boardCont.indexOf("div class");
+			if(number!=-1) {
+			boardContent = boardCont.substring(0, number-1);
+			}else {
+				number = boardCont.indexOf("div style");
+				if(number!=-1) {
+					boardContent = boardCont.substring(0, number-1);
+				}else {
+				boardContent = boardCont;
+				}
+			}
+			
+			board.setBoardCont(boardContent);
 			
 			if(board.getVoteNo()>0) {
 				int voteResult = voteService.deleteVote(board.getVoteNo());
@@ -234,9 +247,6 @@ public class BoardController {
 				int scheResult = scheduleService.deleteSchedule(board.getScheduleNo());
 				if(scheResult>0) {board.setScheduleNo(0);}
 				}else if(!(board.getImgNo().equals("0"))) {
-				int number = boardCont.indexOf("<div style");
-				String boardContent = boardCont.substring(0, number);
-				board.setBoardCont(boardContent);
 				StringTokenizer st = new StringTokenizer(delImage,",");
 				String imageList = board.getImgNo();
 				while(st.hasMoreTokens()) {
@@ -244,7 +254,7 @@ public class BoardController {
 					int imageResult = imageService.deleteImageSeparate(imgNo);
 					imageList = delImage.replace((imgNo+","),"");
 				}
-				if(imageList==null) {
+				if(imageList.length()==0) {
 					board.setImgNo("0");
 				}else {
 					board.setImgNo(imageList.substring(0,imageList.length()-1));
@@ -254,9 +264,6 @@ public class BoardController {
 				int fileResult = fileService.deleteFile(boardNo);
 				if(fileResult>0) {board.setFileNo(0);}	
 				}
-			
-			
-			board.setBoardNo(boardNo);
 			
 			
 		}else {//글 내용만 수정 //boardCont<div>앞으로 자르기

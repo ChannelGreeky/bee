@@ -142,8 +142,9 @@ if($(window).scrollTop()==($(document).height()-$(window).height())){
 						</div>
 					</div>
 				</div>
-				
 			</div>
+			
+			
 			<div class="col-7 p-0" id="main-container">
 			<div id="main-content" class="container m-0 p-0">
 			<div class="row mt-2 m-0">
@@ -152,7 +153,6 @@ if($(window).scrollTop()==($(document).height()-$(window).height())){
 							<a class="categoryBtn btn ml-3" href="/beesSearchResult.do?searchData=<%=keyword %>&endNo=10">비즈 검색</a>
 							<a class="categoryBtn btn" href="/feedSearchResult.do?keyword=<%=keyword %>">게시글 검색</a>
 						</div>
-					</div>
 					</div>
 					<%
 					if(!(feedList.isEmpty())){
@@ -171,15 +171,14 @@ if($(window).scrollTop()==($(document).height()-$(window).height())){
 						maintext="";
 						}else{
 							if(feed.getBoardCont().length()>150){
-							maintext = feed.getBoardCont().substring(0,150)+"...";	
+							//maintext = feed.getBoardCont().substring(0,150)+"...";
+							maintext = feed.getBoardCont();
 							}else{
 							maintext = feed.getBoardCont();
 							}
 						}
 						
 					%>
-					
-					
 					<div class="search-feed" id="<%=feed.getBoardNo() %>">
 						<div class="search-feed-cont">
 							<div class="search-feed-title">
@@ -210,7 +209,7 @@ if($(window).scrollTop()==($(document).height()-$(window).height())){
 										Image image = imageList.get(0);
 							%>
 								<center>
-								<img src="/resources/image/bees/feedImage/<%=image.getChangeImageName() %>" style="margin:10px; max-width:80%;">
+								<img src="/resources/image/bees/feedImage/<%=image.getChangeImageName() %>" style="max-width:80%; max-height:80%; padding:5px;">
 								</center><% 
 							}%>
 						</div>
@@ -222,7 +221,20 @@ if($(window).scrollTop()==($(document).height()-$(window).height())){
 					<%= member.getMemberName() %>님, <%=keyword %>에 관련된 글을 작성해보세요!<br>
 					</div>
 					<%}%>
-				<script>
+					</div>
+				</div>
+			
+		<div class="col-1"></div>
+	</div>
+</div>
+</div>
+</div>
+		
+	<div id="footer">
+	<%@include file="/common/footer.jsp"%>
+	</div>
+	
+	<script>
 				$('.none-like-btn').click(function(){
 					alert("해당 비즈의 가입회원이 아닙니다.");
 				});
@@ -286,13 +298,5 @@ if($(window).scrollTop()==($(document).height()-$(window).height())){
 				
 				});
 				</script>
-				</div>
-			</div>
-			<div class="col-1"></div>
-		</div>
-	</div>
-	<div id="footer">
-	<%@include file="/common/footer.jsp"%>
-	</div>
 </body>
 </html>

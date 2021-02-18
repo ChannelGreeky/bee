@@ -324,7 +324,7 @@ if($(window).scrollTop()==($(document).height()-$(window).height())){
 				<input type="hidden" name="beesNo" value="<%=bees.getBeesNo() %>"/>
 				<input type="hidden" name="memberNo" value="1"/>
 				<div id="bees-search-bar">
-						<input type="text" name="keyword" placeholder="<%=keyword%> 검색결과 (<%=feedList.size() %>)">
+						<input type="text" name="keyword" placeholder="<%=keyword%> 검색결과 (<%=feedList.size() %>)" autocomplete="off">
 						<button type="submit">
 							<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="dimgray" class="bi bi-search" viewBox="0 0 16 18">
         <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z" />
@@ -667,11 +667,12 @@ if($(window).scrollTop()==($(document).height()-$(window).height())){
 							for(FeedComment comment : commentList){
 							if(comment.getCommentDelYN()=='N'){%>
 							<tr>
+							<td rowspan="3" class="comment-writer">
 							<%if(comment.getProfileImg()==null){
 							%>
 								<div class="comment-writer-profile" style="background-image:url('/resources/image/user/profile_none.png')"></div>
 							<%}else{ %>
-								<div class="comment-writer-profile" style="background-image:url('/resources/image/profile/<%=feed.getProfileImg() %>')" onError="javascript:this.src='/resources/image/user/profile_none.png'"></div>
+								<div class="comment-writer-profile" style="background-image:url('/resources/image/profile/<%=comment.getProfileImg() %>')" onError="javascript:this.src='/resources/image/user/profile_none.png'"></div>
 								<%} %>
 							</td>
 							<td class="comment-writer-name"><%=comment.getUserName() %></td>

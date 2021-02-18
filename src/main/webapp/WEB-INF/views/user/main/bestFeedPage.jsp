@@ -118,7 +118,7 @@ $(function(){
 						maintext="";
 						}else{
 							if(feed.getBoardCont().length()>150){
-							maintext = feed.getBoardCont().substring(0,150)+"...";	
+							maintext = feed.getBoardCont();
 							}else{
 							maintext = feed.getBoardCont();
 							}
@@ -158,7 +158,7 @@ $(function(){
 										Image image = imageList.get(0);
 									%>
 								<center>
-								<img src="/resources/image/bees/feedImage/<%=image.getChangeImageName() %>" style="max-width:80%; max-height:80%;">
+								<img src="/resources/image/bees/feedImage/<%=image.getChangeImageName() %>" style="max-width:80%; max-height:80%; padding:5px;">
 								</center><% 
 							}%>
 						</div>
@@ -167,7 +167,15 @@ $(function(){
 					}else{%>
 					<div style="width:100%; height:720px"></div>
 					<%} %>
-				<script>
+				
+				</div>
+			</div>
+			<div class="col-1"></div>
+		</div>
+	<div>
+	<%@include file="/common/footer.jsp"%>
+	</div>
+	<script>
 				$('.none-like-btn').click(function(){
 					alert("해당 비즈의 가입회원이 아닙니다.");
 				});
@@ -231,12 +239,5 @@ $(function(){
 				
 				});
 				</script>
-				</div>
-			</div>
-			<div class="col-1"></div>
-		</div>
-	<div>
-	<%@include file="/common/footer.jsp"%>
-	</div>
 </body>
 </html>

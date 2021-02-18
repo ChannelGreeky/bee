@@ -339,7 +339,7 @@ if($(window).scrollTop()==($(document).height()-$(window).height())){
         <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z" />
     </svg></button>
 					<% }else{%>
-						<input type="text" name="keyword" placeholder="글 내용, @작성자 검색">
+						<input type="text" name="keyword" placeholder="글 내용, @작성자 검색" autocomplete="off">
 						<button type="submit">
 							<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="dimgray" class="bi bi-search" viewBox="0 0 16 18">
         <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z" />
@@ -1002,6 +1002,7 @@ if($(window).scrollTop()==($(document).height()-$(window).height())){
 				$(selector).prev().css('display','none');
 				$(selector).css('display','none');
 				$(selector).parent().html('<center>종료된 투표입니다.</center>');
+				location.reload();
 			}else{
 			}
 		},
@@ -1591,11 +1592,10 @@ if($(window).scrollTop()==($(document).height()-$(window).height())){
 			
 		})
 		
-		console.log(delImage);
-		
 		$.ajax({
 			url:"/updateBoard.do",
 			data:{"boardCont":boardCont,"boardNo":boardNo,"delFunction":delFunction,"delImage":delImage},
+			type:"POST",
 			success:function(data){
 				if(data>0){
 					alert("피드 수정이 완료되었습니다.");
@@ -1656,9 +1656,9 @@ if($(window).scrollTop()==($(document).height()-$(window).height())){
             </button>
         </div>
         <div id="join-modal-cont" style="text-align: center;">
-        	<p style="color: #6d6042;font-size: 1rem;font-weight: 500; margin-top:20px; height:auto;"><%=bees.getBeesName() %></p>
+        	<p style="color: #6d6042;font-size: 1rem;font-weight: 500; margin-top:20px; height:auto;" ><%=bees.getBeesName() %></p>
         	<p style="color: #6d6042;font-size: 0.9rem;font-weight: 300; margin-top:-10px; padding:0px;">이 비즈에서 사용할 이름을 입력해주세요</p>
-            <input id="join-modal-name" type="text" placeholder="이름을 입력해주세요" maxlength="10"><br>
+            <input id="join-modal-name" type="text" placeholder="이름을 입력해주세요" maxlength="10" autocomplete="off"><br>
         </div>
         <div id="join-modal-footer">
             <button id="join-modal-submit" type="button">비즈 가입하기</button>
