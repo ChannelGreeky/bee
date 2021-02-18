@@ -168,7 +168,13 @@
 	margin-top:20px;
 	margin:0 auto;
 	}
-	
+	#recipient-name{
+	outline:none;
+	border:none;
+	}
+	#myInput{
+	outline:none;
+	}
 </style>
 
 	
@@ -324,6 +330,8 @@ if (mNo < 1000) {
 								<input type="button" class="btn btn-modify" data-toggle="modal" data-target="#modifyModal" value="보기"
 								id="mBtn" >
 								<%} %>
+							<%}else{ %>
+								--
 							<%} %>
 							<input type="hidden" id="<%= n.getMemberNo()%>" class="hiddenCont">
 							<%if(n.getNoticeDelYN()=='N'){ %>
@@ -332,6 +340,8 @@ if (mNo < 1000) {
 							<td><input type="button" value="복구" name="restoreBtn" id="<%=n.getNoticeNo() %>" class="qna_del_yn_btn" 
 							style="background-color:#50401B; color:white;"></td>
 							<%} %>
+						
+						
 						
 						</tr>
 						<%} %> 

@@ -85,36 +85,41 @@ public class ImageController2 {
 	 
 	 @PostMapping(value = "/uploadAjaxAction.do", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
 		@ResponseBody
-		public ResponseEntity<List<AttachFileDTO>> uploadAjaxPost(MultipartFile[] uploadFile, HttpServletRequest request) {
+		public ResponseEntity<List<AttachFileDTO>> uploadAjaxPost(MultipartFile[] uploadFile, HttpServletRequest request) {  //파일 업로드 하기
+		 
 		 List<AttachFileDTO> list = new ArrayList<>();
 		 Map<String, Object> map = new HashMap<String, Object>();
-		 String uploadPath="/resources/file/";
+		 
+		 
+		 String uploadPath="/resources/file/";          //Wepapp이하 부터 파일명 앞까지 실제 경로
 		 String realUploadPath = context.getRealPath(uploadPath);
 			System.out.println("1.IMG real path: " + realUploadPath);
 		 
 			 HttpSession session = request.getSession();
 	           Member m = (Member)session.getAttribute("member");
+	           
 	           int fileUser = m.getMemberNo();  //userId가 업로드 유저 (fileUser)
+	           
 	           AttachFileDTO attachDTO = new AttachFileDTO();
 	      		// // make yyyy/MM/dd folder
 	      		
-	      		 for (MultipartFile multipartFile : uploadFile) {
+	      		 for (MultipartFile multipartFile : uploadFile) {		//스프링에서 제공해주는 multipartfile
 	      		
 	      			
-	      		System.out.println("2.Original File Name: " + multipartFile.getOriginalFilename());
-	      		System.out.println("3.IMG Size: " + multipartFile.getSize());
+	      		System.out.println("2.Original File Name: " + multipartFile.getOriginalFilename());		//실제 파일명
+	      		System.out.println("3.IMG Size: " + multipartFile.getSize());							//파일 사이즈
 	      		
 	      		
 	      		 String uploadFileName = multipartFile.getOriginalFilename();  //실제 파일명.
 	      		
 	      		// // IE has file path
-	      		uploadFileName = uploadFileName.substring(uploadFileName.lastIndexOf("\\") + 1);
+	      		uploadFileName = uploadFileName.substring(uploadFileName.lastIndexOf("\\") + 1);	//IE는 전체 파일 경로가 전송되므로 마지막 \를 기준으로 잘라낸게 실제 파일이름임.
 	      		System.out.println("only file name: " + uploadFileName);
 	      		attachDTO.setFileName(uploadFileName);
 	      		//
-	      		 UUID uuid = UUID.randomUUID();
+	      		 UUID uuid = UUID.randomUUID();      //동일한 파일명이 업로드 되면 기존에 등록된게 지워지므로 이름이 같으면 안됨. 따라서 랜덤문자열을 생성하여 유니크 이름 지정
 	    		 
-	    		 uploadFileName = uuid.toString() + "_" + uploadFileName;  //파일 이름 바꾸기
+	    		 uploadFileName = uuid.toString() + "_" + uploadFileName;  //파일 이름 바꾸기   ,  랜덤문자열_실제이름
 	    		  
 	    		
 	    		 try {

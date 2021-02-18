@@ -88,6 +88,7 @@
 		font-size: 0.85rem;
 		line-height: 15px;
 		border: 0;
+		outline:none;
 	}
 	
 	/* 복구버튼  */
@@ -320,5 +321,6 @@
 <script>location.href ="/index.jsp";</script>
 						
 <%} %>
+<jsp:include page="/common/footer.jsp" flush="true"/>
 </body>
 </html>
