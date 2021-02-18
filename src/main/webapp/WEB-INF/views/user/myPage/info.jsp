@@ -122,7 +122,7 @@
 									+82 <%=phone.substring(1,3) %> - <%=phone.substring(3,5) %>** - <%=phone.substring(7,9) %>**
 								</div>
 								<div style="display:none;">
-									<input type="text" id="memberPoneM" name="memberPone" placeholder="휴대폰 번호 입력">
+									<input type="text" id="memberPoneM" autocomplete="off" name="memberPone" placeholder="휴대폰 번호 입력">
 								</div>
 							</td>
 							<td>
@@ -152,7 +152,7 @@
 									
 								</div>
 								<div style="display:none;">
-									<input type="text" id="memberEmailInput" name="memberEmail" placeholder="이메일 입력">
+									<input type="text" id="memberEmailInput" autocomplete="off" name="memberEmail" placeholder="이메일 입력">
 								</div>
 							</td>
 							<!-- <td>kh****@naver.com</td> -->
@@ -213,7 +213,7 @@
 						</th>
 					</tr>
 					<tr>
-						<td><input id="member_profile_modal_name" name="newMemberName" type="text" placeholder="멤버이름"></td>
+						<td><input id="member_profile_modal_name" autocomplete="off" name="newMemberName" type="text" placeholder="멤버이름"></td>
 					</tr>
 				</table>
 			</div>
