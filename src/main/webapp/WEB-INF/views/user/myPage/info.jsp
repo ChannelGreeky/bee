@@ -59,7 +59,11 @@
 						<tr class="border_Y">
 							<td><b>사용중인 프로필</b></td>
 							<td colspan="2">
+							<%if(m.getProfileImg()==null){ %>
+								<div id="member_profile" style="background-image : url(/resources/image/user/profile_none.png"></div>
+							<%}else{ %>
 								<div id="member_profile" style="background-image : url(/resources/image/profile/<%=m.getProfileImg()%>"></div>
+							<%} %>
 								<div id="member_name"><%=m.getMemberName() %></div>
 							</td>
 							<td>
