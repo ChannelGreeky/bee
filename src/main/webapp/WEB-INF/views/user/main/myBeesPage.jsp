@@ -17,7 +17,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>내 비즈 소식 | bee</title>
 </head>
 <body>
 
@@ -180,9 +180,9 @@ if($(window).scrollTop()==($(document).height()-$(window).height())){
 							<tr>
 								<td class="feed-writer-info" rowspan="2">
 									<%if(feed.getProfileImg()==null){%>
-									<div class="feed-writer-profile" style="background-color:#f7d078;"></div>
+									<div class="feed-writer-profile" style="background-image:url('/resources/image/user/profile_none.png')"></div>
 									<%}else{ %>
-									<div class="feed-writer-profile" style="background-image:url('/resources/image/profile/<%=feed.getProfileImg() %>')"></div><%} %>
+									<div class="feed-writer-profile" style="background-image:url('/resources/image/profile/<%=feed.getProfileImg() %>')" onError="javascript:this.src='/resources/image/user/profile_none.png'"></div><%} %>
 								</td>
 								<td class="feed-writer-name"><%=feed.getUserName() %> <i class="fas fa-angle-right"></i> <a class="feed-bees-name" href="/beesSelectOne.do?beesNo=<%=feed.getBeesNo() %>&memberNo=<%=member.getMemberNo() %>"><%=feed.getBeesName() %></a> </td>
 								<td class="feed-setting" rowspan="2">
@@ -425,12 +425,13 @@ if($(window).scrollTop()==($(document).height()-$(window).height())){
 							if(comment.getCommentDelYN()=='N'){%>
 							<tr>
 							<td rowspan="3" class="comment-writer">
-									<%if(comment.getProfileImg()==null){%>
-									<div class="comment-writer-profile" style="background-color:#f7d078"></div>
-							<%}else{%>
-									<div class="comment-writer-profile" style="background-image:url('/resources/image/profile/<%=comment.getProfileImg() %>')"></div>
+									<%if(comment.getProfileImg()==null){
+							%>
+								<div class="comment-writer-profile" style="background-image:url('/resources/image/user/profile_none.png')"></div>
+							<%}else{ %>
+								<div class="comment-writer-profile" style="background-image:url('/resources/image/profile/<%=feed.getProfileImg() %>')" onError="javascript:this.src='/resources/image/user/profile_none.png'"></div>
 								<%} %>
-								</td>
+							</td>
 							
 							<td class="comment-writer-name"><%=comment.getUserName() %></td>
 							</tr>
@@ -474,7 +475,7 @@ if($(window).scrollTop()==($(document).height()-$(window).height())){
 							<%}else{%>
 							<tr>
 							<td rowspan="3" class="comment-writer">
-									<div class="comment-writer-profile" style="background-color:#6D6042; background-image:url()"></div>
+									<div class="comment-writer-profile" style="background-image:url('/resources/image/user/profile_none.png')"></div>
 								</td>
 							
 							<td class="comment-writer-name"></td>

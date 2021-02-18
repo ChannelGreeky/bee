@@ -113,107 +113,104 @@ if($(window).scrollTop()==($(document).height()-$(window).height())){
 	
 	
 	<style>
-		
-		
-		/*커서 없애버려...*/
-		
-		body{
-			font-family: 'Noto Sans KR', sans-serif;
-			background-color: #f9f9f9;
-		}
-		
-		div{
-		 /* border: 1px black solid; */
-		}
-		
-		.container{
-			width: 100%;
-			height: 100%;
-		}
-		
-		/* 내 정보 네비바 */
-		.mypage_navi_div{
-			padding: 0;
-		}
-		
-		#mypage_navi_ul{
-			width: 75%;
-			height: 300px;
-			list-style-type: none;
-			margin: 20px auto;
-			padding: 0px;
-		}
-		
-		#mypage_navi_ul a{
- 			text-decoration: none;
-			color : #50401B;
-			display: block; /*a태그를 li영역 전체로 잡기 위함*/
-			position: relative;
-		}
-		
-		#mypage_navi_ul li{
-		 	border: 1px solid #ededed;
-		 	padding: 10px;
-		 	background-color: white;
-		}
-		
-		#mypage_navi_ul li i{
-			color : #50401B;
-			position: absolute;
-			left: 95%;
-			top: 20%;
-		}
-		
-		
-		/* 내가 쓴 글 피드 */
-		.myhistroy_div{
-			width: 100%;
-			height: auto;
-			margin: 20px 0px;
-		}
-		
-		.myhistroy_table {
-			width: 100%;
-			color : #50401B;
-			border: 1px solid #ededed;
-			background-color: white;
-		}
-		
-		.myhistroy_board_table {
-			margin: 10px auto;
-		}
-		
-		.myhistroy_table tr th{
-			padding: 10px 20px;
-			background-color: #dedede;
-		}
-		
-		.myhistroy_beesName a{
-			text-decoration: none;
-			color : #50401B;
-			display: block; /*a태그를 영역 전체로 잡기 위함*/
-		}
-		
-		.myhistroy_beesName{
-			border: 1px solid #ededed;
-		}
-		
-		.myhistroy_beesName td{
-			padding: 5px 20px;
-		}
-		
-		.myhistroy_heart_table{
-			width: 100%;
-			color : #50401B;
-			border: 1px solid #ededed;
-			background-color: white;
-			margin: 10px auto;
-		}
-		
-		
+input {
+	outline: none;
+}
 
-		
-	</style>
+/*커서 없애버려...*/
+body {
+	font-family: 'Noto Sans KR', sans-serif;
+	background-color: #f9f9f9;
+}
+
+div {
+	/* border: 1px black solid; */
+	
+}
+
+.container {
+	width: 100%;
+	height: 100%;
+}
+
+/* 내 정보 네비바 */
+.mypage_navi_div {
+	padding: 0;
+}
+
+#mypage_navi_ul {
+	width: 75%;
+	height: 300px;
+	list-style-type: none;
+	margin: 20px auto;
+	padding: 0px;
+}
+
+#mypage_navi_ul a {
+	text-decoration: none;
+	color: #50401B;
+	display: block; /*a태그를 li영역 전체로 잡기 위함*/
+	position: relative;
+}
+
+#mypage_navi_ul li {
+	border: 1px solid #ededed;
+	padding: 10px;
+	background-color: white;
+}
+
+#mypage_navi_ul li i {
+	color: #50401B;
+	position: absolute;
+	left: 95%;
+	top: 20%;
+}
+
+/* 내가 쓴 글 피드 */
+.myhistroy_div {
+	width: 100%;
+	height: auto;
+	margin: 20px 0px;
+}
+
+.myhistroy_table {
+	width: 100%;
+	color: #50401B;
+	border: 1px solid #ededed;
+	background-color: white;
+}
+
+.myhistroy_board_table {
+	margin: 10px auto;
+}
+
+.myhistroy_table tr th {
+	padding: 10px 20px;
+	background-color: #dedede;
+}
+
+.myhistroy_beesName a {
+	text-decoration: none;
+	color: #50401B;
+	display: block; /*a태그를 영역 전체로 잡기 위함*/
+}
+
+.myhistroy_beesName {
+	border: 1px solid #ededed;
+}
+
+.myhistroy_beesName td {
+	padding: 5px 20px;
+}
+
+.myhistroy_heart_table {
+	width: 100%;
+	color: #50401B;
+	border: 1px solid #ededed;
+	background-color: white;
+	margin: 10px auto;
+}
+</style>
 	
 	<script>
 	
@@ -289,9 +286,9 @@ if($(window).scrollTop()==($(document).height()-$(window).height())){
 							<tr>
 								<td class="feed-writer-info" rowspan="2">
 									<%if(feed.getProfileImg()==null){%>
-									<div class="feed-writer-profile" style="background-color:#f7d078;"></div>
+									<div class="feed-writer-profile" style="background-image:url('/resources/image/user/profile_none.png')"></div>
 									<%}else{ %>
-									<div class="feed-writer-profile" style="background-image:url('/resources/image/profile/<%=feed.getProfileImg() %>')"></div><%} %>
+									<div class="feed-writer-profile" style="background-image:url('/resources/image/profile/<%=feed.getProfileImg() %>')" onError="javascript:this.src='/resources/image/user/profile_none.png'"></div><%} %>
 								</td>
 								<td class="feed-writer-name"><%=feed.getUserName() %></td>
 								<td class="feed-setting" rowspan="2">
@@ -538,12 +535,13 @@ if($(window).scrollTop()==($(document).height()-$(window).height())){
 							if(comment.getCommentDelYN()=='N'){%>
 							<tr>
 							<td rowspan="3" class="comment-writer">
-									<%if(comment.getProfileImg()==null){%>
-								<div class="comment-writer-profile" style="background-color:#f7d078"></div>
+									<%if(comment.getProfileImg()==null){
+							%>
+								<div class="comment-writer-profile" style="background-image:url('/resources/image/user/profile_none.png')"></div>
 							<%}else{ %>
-									<div class="comment-writer-profile" style="background-image:url('/resources/image/profile/<%=comment.getProfileImg() %>')"></div>
+								<div class="comment-writer-profile" style="background-image:url('/resources/image/profile/<%=feed.getProfileImg() %>')" onError="javascript:this.src='/resources/image/user/profile_none.png'"></div>
 								<%} %>
-								</td>
+							</td>
 							
 							<td class="comment-writer-name"><%=comment.getUserName() %></td>
 							</tr>
@@ -587,7 +585,7 @@ if($(window).scrollTop()==($(document).height()-$(window).height())){
 							<%}else{%>
 							<tr>
 							<td rowspan="3" class="comment-writer">
-									<div class="comment-writer-profile" style="background-color:#6D6042; background-image:url()"></div>
+									<div class="comment-writer-profile" style="background-image:url('/resources/image/user/profile_none.png')"></div>
 								</td>
 							
 							<td class="comment-writer-name"></td>
