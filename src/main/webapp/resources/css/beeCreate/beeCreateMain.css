@@ -134,6 +134,7 @@ li {
     height: 100%;
     padding-bottom: 21px;
     line-height: 1.29;
+    text-decoration: none;
 }
 a {
     color: #222;
@@ -162,6 +163,7 @@ em {
     font-style: normal;
     color: #50401B;
     font-weight: 600;
+    text-decoration: none;
 }
 body {
     background: #eef0f3;
