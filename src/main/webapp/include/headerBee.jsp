@@ -80,11 +80,7 @@ Member member2=(Member)session.getAttribute("member");
 				  				 <button type="button" class="top_right_btn">  
 				  					<i class="far fa-comment-dots top_right_img"></i>
 			                    </button>
-					            	<ul class="menu-sub">
-						                        <li>
-						                        	채팅목록
-						                        </li>
-						             </ul>
+					            	
 					         </li>
 					           		 <li class="menu-item">
 					            		<button type="button" class="top_right_btn" id="set_btn">
