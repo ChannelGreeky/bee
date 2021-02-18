@@ -102,20 +102,21 @@ if (feedTotalCount % recordCountPerPage > 0) {
 $(function(){
 for(var i=start-1;i<end;i++){
 			
-	$('.bees-feed').eq(i).css('display','block');
-			
-}
+	$('.bees-feed').eq(i).css('display','block'); }
 	
-});
-
-
-
-//footer위치조절
-$(function(){
+	
 	var height = $('#bees-contents').height();
 	if(height<800){
 	$('#bees-contents').css('height',(Number($(document).height())-220)+"px");
 	}
+	
+	if('${requestScope.user}'!=null){
+		if('${requestScope.user.userBlockYN}'=='Y'){
+			alert("차단된 회원입니다.");
+			history.back(-1);
+		}
+	}
+	
 });
 
 $(window).scroll(function(){
