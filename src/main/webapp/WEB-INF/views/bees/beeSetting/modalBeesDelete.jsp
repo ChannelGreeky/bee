@@ -16,7 +16,7 @@
 	crossorigin="anonymous"></script>	
 <link rel="preconnect" href="https://fonts.gstatic.com">
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap" rel="stylesheet"> 
-<title>Insert title here</title>
+<title>비즈 설정</title>
 </head>
 <body>
 <script src="https://code.jquery.com/jquery-3.5.1.js" integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" crossorigin="anonymous"></script>
@@ -26,7 +26,7 @@
 * {
 	box-sizing: border-box;
 }
-
+button:focus { outline:none; }
 #myModalLabel {
     font-size: 19px;
     color: #6D6042;

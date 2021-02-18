@@ -6,7 +6,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <link rel="stylesheet" type="text/css" href="/resources/css/beeSetting/beeSettingSubType.css">
-<title>Insert title here</title>
+<title>비즈 설정</title>
 </head>
 <body>
 <%

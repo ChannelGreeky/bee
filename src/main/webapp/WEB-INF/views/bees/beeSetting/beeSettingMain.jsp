@@ -6,7 +6,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Insert title here</title>
+<title>비즈 설정</title>
 </head>
 <body>
 <%
@@ -54,7 +54,7 @@
     <li class="sSettingItem" style="">
         <div class="itemContent">
             <span class="label">비즈 소개</span>
-            <span class="subTxt">비즈 주소, 키워드, 소개글을 관리하세요.</span>
+            <span class="subTxt">비즈 소개글을 관리하세요.</span>
         </div>
         <div class="itemSide"> 
         <form id="beeSettingSubIntro" action="/beeSettingSubIntro.do" method="post">

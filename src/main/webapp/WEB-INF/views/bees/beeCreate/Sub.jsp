@@ -3,7 +3,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>Bee 비즈 만들기</title></title>
 </head>
 <body>
 	<%@ include file="/common/cdnLib.jsp"%>

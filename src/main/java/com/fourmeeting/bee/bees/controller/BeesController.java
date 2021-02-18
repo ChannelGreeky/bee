@@ -1235,7 +1235,7 @@ public class BeesController {
 		} else {
 			model.addAttribute("msg", "비즈 탈퇴가 실패하였습니다. 지속적으로 실패 시 관리자에게 문의하세요.");
 		}
-		model.addAttribute("location", "/beeSettingMain.do?beesNo="+beeUser.getBeesNo());
+		model.addAttribute("location", "/beeSettingSubJoinManager.do?beesNo="+beeUser.getBeesNo());
 
 	
 		return "bees/beeCreate/beeResult";			
@@ -1254,7 +1254,7 @@ public class BeesController {
 		} else {
 			model.addAttribute("msg", "매니저로 변경이 실패하였습니다. 지속적으로 실패 시 관리자에게 문의하세요.");
 		}
-		model.addAttribute("location", "/beeSettingMain.do?beesNo="+beeUser.getBeesNo());
+		model.addAttribute("location", "/beeSettingSubJoinManager.do?beesNo="+beeUser.getBeesNo());
 
 		return "bees/beeCreate/beeResult";			
 	}
@@ -1302,7 +1302,7 @@ public class BeesController {
 				+setting.getSetContDel()+"/"+setting.getSetUserBlock());
 		int settingResult = bService.updateBeeMemberPermissionSet(setting);
 		if (settingResult > 0) {
-			model.addAttribute("msg", "성공적으로 비즈설정이 변경되었습니다.");
+			model.addAttribute("msg", "성공적으로 멤버 권한 설정이 변경되었습니다.");
 		} else {
 			model.addAttribute("msg", "비즈 설정 변경이 실패하였습니다. 지속적으로 실패 시 관리자에게 문의하세요.");
 		}
@@ -1343,7 +1343,7 @@ public class BeesController {
 		} else {
 			model.addAttribute("msg", "회원 탈퇴가 실패하였습니다. 지속적으로 실패 시 관리자에게 문의하세요.");
 		}
-		model.addAttribute("location", "/beeSettingMain.do?beesNo="+beeUser.getBeesNo());
+		model.addAttribute("location", "/beeSettingSubMemberWithdraw.do?beesNo="+beeUser.getBeesNo());
 
 	
 		return "bees/beeCreate/beeResult";			
@@ -1363,7 +1363,7 @@ public class BeesController {
 		} else {
 			model.addAttribute("msg", "회원 차단이 실패하였습니다. 지속적으로 실패 시 관리자에게 문의하세요.");
 		}
-		model.addAttribute("location", "/beeSettingMain.do?beesNo="+beeUser.getBeesNo());
+		model.addAttribute("location", "/beeSettingSubMemberWithdraw.do?beesNo="+beeUser.getBeesNo());
 
 	
 		return "bees/beeCreate/beeResult";			
@@ -1404,7 +1404,7 @@ public class BeesController {
 		} else {
 			model.addAttribute("msg", "회원 차단해제가 실패하였습니다. 지속적으로 실패 시 관리자에게 문의하세요.");
 		}
-		model.addAttribute("location", "/beeSettingMain.do?beesNo="+beeUser.getBeesNo());
+		model.addAttribute("location", "/beeSettingSubMemberWithdrawDo.do?beesNo="+beeUser.getBeesNo());
 
 	
 		return "bees/beeCreate/beeResult";			

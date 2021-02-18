@@ -6,6 +6,7 @@
     flex: 0 0 auto;
     width: 100%;
 }
+button:focus{outline : none}
 #content {
     -webkit-box-flex: 1;
     -ms-flex: 1 1 auto;

@@ -14,6 +14,7 @@
 figcaption, figure, main {
     display: block;
 }
+button:focus { outline:none; }
 *, :after, :before {
     -webkit-box-sizing: border-box;
     box-sizing: border-box;

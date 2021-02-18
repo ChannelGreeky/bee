@@ -8,6 +8,7 @@
 .navi {
     display: none;
 }
+button:focus{outline : none}
 body {
     background: #eef0f3;
     line-height: 1.43;
@@ -45,7 +46,7 @@ main {
 .bandMake {
     width: 840px;
     margin: 0 auto;
-    padding-top: 58px;
+    padding-top: 35px;
 }
 article, aside, footer, header, nav, section {
     display: block;
