@@ -338,7 +338,7 @@ height:30px;
 
 </div><!-- container pt-3 -->
 
-<%}else{ %>
+<%}else{ %>     div 밑에 자식이 0번쨰1번째?인거용
 <script>location.href ="/index.jsp";</script>
 <%} %>
       <script>
@@ -348,42 +348,53 @@ height:30px;
         	  $(".tab_title div").click(function() {
         	    var idx = $(this).index();
         	    $(".tab_title div").removeClass("on");
+        	   
+        	    console.log(idx);
         	    
-        	    
+        	  
         	    if(idx ==0){
 		        	    $(".tab_title div").eq(0).addClass("on");
 		        	    $(".tab_cont > div").hide();
 		        	    $(".tab_cont > div").eq(0).show();
 		        	    
-		        	    $('#fileClick').click(function(){
+		        	   // $('#fileClick').click(function(){
+		        	 
 		          		  var beesNo = ${param.beesNo };
 		                	
 		                
-		                	
 		      			
 		      					$.ajax({
 		            				url:"/fileList.do",
 		            				type:"post",
 		            				data : {"beesNo":beesNo},
+		            				async : false,
 		            				dataType: "json",
 		            				success:function(data){
 		            					console.log("성공");
 		            					
 		            					 var str="";
-		            					$.each(data, function(idx, n) {
-		            						console.log(n.originalFileName);
-		            						console.log(idx);
+		            					 $("#fileCont").html(str);
+		            					 console.log(data);
+		            					$.each(data, function(index, n) {
+		            						$("#fileCont").append("<li><img src='/resources/image/bees/icon/file-icon.jpg'>"+n.originalFileName+"</li>");
+		            						
+		            						/*console.log(n.originalFileName);
+		            						console.log(index);
 		            						str += "<li>";
 		            						str += "<img src='/resources/image/bees/icon/file-icon.jpg'>" +n.originalFileName+
 		            						str + "</li>"
+		            						console.log(str);
+		            						*/
 		            					});
-		            					$("#fileCont").html(str);
+		            					
+		            					//$("#fileCont").html(str);
 		            				},
 		            				error:function(data){
 		            					console.log("error");
 		            				}
 		              			}); 	
-		          	    });
+		        	
+		        	  //});
             	 
           	  
         	    }else if(idx == 1){
@@ -391,7 +402,7 @@ height:30px;
             	    $(".tab_cont > div").hide();
             	    $(".tab_cont > div").eq(1).show();
             	    
-        	    	  $("#voteClick").click(function(){
+        	    	  //$("#voteClick").click(function(){
         	      		  var beesNo = ${param.beesNo };
         	      		 
         	      		  $.ajax({
@@ -423,7 +434,7 @@ height:30px;
         	       					console.log("error");
         	       				}
         	         			}); 	
-        	    	  });
+        	    	 // });
         	    	  
         	    }
         	    
