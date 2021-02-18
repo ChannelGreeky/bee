@@ -151,7 +151,7 @@ public class FileController {
 	
 	@RequestMapping(value="/fileList.do")
 	 @ResponseBody
-	public ArrayList<BeesFile> fileList(@RequestParam int beesNo){
+	public ArrayList<BeesFile> fileList(@RequestParam int beesNo,HttpServletRequest request, HttpServletResponse response){
 		//HashMap<String,ArrayList<BeesFile>> map = new HashMap<>(); 
 		
 		System.out.println(beesNo);
@@ -159,6 +159,8 @@ public class FileController {
 		ArrayList<BeesFile> fileList = fileService.fileSelectAll(beesNo);
 		System.out.println(fileList);
 		
+		
+		response.setHeader("Cache-Control", "no-cache");
 	/*	for(BeesFile b : fileList){
 			b.getOriginalFileName()
 		}
@@ -176,7 +178,7 @@ public class FileController {
 		}*/
 
 		
-	 
+		
 
 		
 			return fileList;

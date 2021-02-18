@@ -7,6 +7,7 @@
 .navi {
     display: none;
 }
+button:focus{outline : none}
 body {
     background: #eef0f3;
     line-height: 1.43;
