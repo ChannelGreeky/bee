@@ -428,7 +428,7 @@ public class MemberController {
 		int result = mService.memberBirthModify(m);
 		
 		
-		Member member = mService.selectLoginMember(m);
+		Member member = mService.selectLoginMemberNo(m);
 
 		if (member != null) {
 			HttpSession session = request.getSession();
@@ -459,7 +459,7 @@ public class MemberController {
 		int result = mService.memberGenderModify(m);
 		
 		
-		Member member = mService.selectLoginMember(m);
+		Member member = mService.selectLoginMemberNo(m);
 
 		if (member != null) {
 			HttpSession session = request.getSession();
@@ -504,7 +504,7 @@ public class MemberController {
 		
 		int result = mService.memberPhoneModify(m);
 		
-		Member member = mService.selectLoginMember(m);
+		Member member = mService.selectLoginMemberNo(m);
 		
 		if(result>0){
 			HttpSession session = request.getSession();
@@ -533,7 +533,7 @@ public class MemberController {
 		int result = mService.memberEmailModify(m);
 		
 		
-		Member member = mService.selectLoginMember(m);
+		Member member = mService.selectLoginMemberNo(m);
 
 		if (member != null) {
 			HttpSession session = request.getSession();

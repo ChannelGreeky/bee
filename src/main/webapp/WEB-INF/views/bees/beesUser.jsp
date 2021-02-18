@@ -106,7 +106,7 @@ height : 10%;
 }
 
 #all{
-padding-bottom : 10%;
+padding-bottom : 12%;
 height : 100%;
 }
 #bees-contents{

@@ -10,9 +10,9 @@ public class MemberDAO {
 	public Member selectLoginMember(SqlSessionTemplate sqlSession, Member m) {
 		// TODO Auto-generated method stub
 		
+		System.out.println(m.getMemberPw());
 		Member member = sqlSession.selectOne("member.selectLoginMember", m);
-		
-		System.out.println(member.getMemberNo());
+		System.out.println(member.getMemberPw());
 		
 		return member;
 	}

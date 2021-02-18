@@ -21,6 +21,8 @@ public class MemberService {
 	
 	public Member selectLoginMember(Member m) {
 		
+		
+		System.out.println(m.getMemberPw());
 		Member member = mDAO.selectLoginMember(sqlSession, m);
 		
 		return member;
