@@ -247,7 +247,7 @@ NVL(like_count,0) as likeCount,
 NVL(comment_count,0) as commentCount,
 bees_name as beesName
 from (select row_number() over (order by like_Count desc) as row_num, bees_feed.* from bees_feed where like_count is not null and board_del_yn = 'N') 
-where row_num between 1 and 20
+where row_num between 1 and 10
 </select>
 <select id="selectSerachAllFeed" resultType="feed">
 select 

@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
+import com.fourmeeting.bee.beesuser.model.vo.BeesUser;
 import com.fourmeeting.bee.image.model.dao.ImageDAO;
 import com.fourmeeting.bee.image.model.dao.ImageDAO2;
 import com.fourmeeting.bee.image.model.vo.AttachFileDTO;
@@ -40,8 +41,8 @@ public class ImageService2 {
 			return result;
 		}
 
-		public ArrayList<AttachFileDTO> selectAllImage(int memberNo) {
-			ArrayList<AttachFileDTO> list = iDAO2.selectAllImage(sqlSession,memberNo);
+		public ArrayList<AttachFileDTO> selectAllImage(BeesUser b) {
+			ArrayList<AttachFileDTO> list = iDAO2.selectAllImage(sqlSession,b);
 			return list;
 			
 		}

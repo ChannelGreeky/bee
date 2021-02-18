@@ -103,27 +103,31 @@ width:100%;
 							</div>
 						</div>
 						<div class="row w-100">
-						<form method="" >
+						
+						<form method="get" action="searchbar.do" id='searchForm'>
 							<div class="col-md-2 w-100 search_bar">
-								<input type="date" >
+								<input type="date" name="startDate" id="startDate" value='<c:out value="${param.startDate }"/>' >
 								</div>
 								<div class="col-md-2 w-100 search_bar">
-								 <input type="date"> 
+								 <input type="date" name="endDate" id="endDate" value='<c:out value="${param.endDate }"/>'> 
 								 </div>
 								<div class="col-md-2 w-100 search_bar"> 
 								<select name="category">
-									<optgroup label="카테고리">
-									<option value="idMember">아이디</option>
-									<option value="nameMember">이름</option>
-									<option value="withdrawalMember">탈퇴고객</option>
-									<option value="joinMember">가입고객</option>	
-									</optgroup>  
+									<option value=""<c:out value="${param.category == null ? 'selected': '' }"/>>선택</option>
+									
+									<option value="idMember"<c:out value="${param.category eq 'idMember' ? 'selected': '' }"/> >아이디</option>
+									<option value="nameMember"<c:out value="${param.category eq 'nameMember' ? 'selected': '' }"/> >이름</option>
+									<option value="withdrawalMember"<c:out value="${param.category eq 'withdrawalMember' ? 'selected': '' }"/> >탈퇴고객</option>
+									<option value="joinMember"<c:out value="${param.category eq 'joinMember' ? 'selected': '' }"/> >가입고객</option>	
+									
 								</select>
 							</div>	
 					
 							<div class="col-md-6 w-100 search_bar">
-								<input type="text" style="width:77%; right:10px;">
-								<button type="submit" id="search_btn" ><img src="resources/image/search.png"/></button>
+								<input type="text" style="width:77%; right:10px;" name="keyword" value='<c:out value="${param.keyword }"/>'>
+								<input type='hidden' name='pageNum' value='${pageMaker.cri.pageNum}'>
+								<input type='hidden' name='amount' value='${pageMaker.cri.amount }'>
+								<button id="search_btn" ><img src="resources/image/search.png"/></button>
 							</div>
 						</form>
 						
@@ -133,7 +137,103 @@ width:100%;
 			<div class="col-1 p-0"></div>
 		</div>
 
+<script>
+$(document).ready(function(){
 
+	
+	$("#searchForm button").on("click",function(e){
+		var searchForm = $("#searchForm");
+		var sDate = $("#startDate").val();
+		var eDate = $("#endDate").val();
+		var today = new Date();
+		
+		sDate = new Date(sDate);
+		var fromYear = sDate.getFullYear();
+		var fromMonth = sDate.getMonth() + 1;
+		var fromDay = sDate.getDate();
+		
+		
+		sDate = fromYear + fromMonth +fromDay;
+		
+		
+		eDate = new Date(eDate);
+		var toYear = eDate.getFullYear();
+		var toMonth = eDate.getMonth() + 1;
+		var toDay = eDate.getDate();
+		
+		
+		
+		eDate = toYear + toMonth +  toDay;
+		
+		
+		var todayYear = today.getFullYear();
+		var todayMonth = today.getMonth() + 1;
+		var todayDay = today.getDate();
+		today = todayYear + todayMonth + todayDay;
+		console.log(sDate);
+		console.log(today);
+		console.log(eDate);
+		if(sDate > today ){
+			console.log(sDate);
+			console.log(today);
+			alert("검색시작 날짜는 오늘 날짜보다 클 수는 없습니다.");
+			
+			return false;
+		}else if(eDate < sDate){
+			console.log(eDate);
+			console.log(today);
+			alert("검색종료날짜는 검색 시작 날짜보다 커야 합니다.");
+			
+			return false;
+		}
+		
+		
+		if (!searchForm.find("option:selected").val()) {
+			alert("검색종류를 선택하세요");
+			return false;
+		}
+
+		if (!searchForm.find(
+				"input[name='keyword']").val()) {
+			alert("키워드를 입력하세요");
+			return false;
+		}
+		if(!searchForm.find(
+				"input[name='startDate']").val()) {
+			alert("검색 시작 기간을 선택하세요");
+			return false;
+		}
+		if(!searchForm.find(
+		"input[name='endDate']").val()) {
+		alert("검색 종료 기간을 선택하세요");
+		return false;
+		}
+/*		if(isNaN(fromYear) || isNaN(fromMonth) || isNaN(fromDay)){
+			fromYear = 0;
+			fromMonth = 0;
+			fromDay = 0;
+		}
+	*/	
+		
+		searchForm.find("input[name='pageNum']").val("1");
+		e.preventDefault();
+
+		searchForm.submit();
+	});
+	
+	
+	
+
+     
+     
+    
+ 	
+});
+
+
+
+
+</script>
 
 
 </div> <!-- container -->

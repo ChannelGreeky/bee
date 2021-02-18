@@ -15,6 +15,19 @@ where bees_no=#{beesNo}
 and img_del_yn = 'N'
 order by img_no asc
 </select>
+<select id="imageSelectAllBees" resultType="image">
+select
+img_no as imgNo,
+board_no as boardNo,
+original_img_name as originalImageName,
+change_img_name as changeImageName,
+img_path as imgPath,
+img_size as imgSize,
+img_del_yn as imgDelYN
+from feed_image
+where img_del_yn = 'N'
+order by img_no asc
+</select>
 <select id="imageSelectAllMyBees" resultType="image">
 select
 img_no as imgNo,

@@ -53,4 +53,9 @@ public class ImageDAO {
 		return (ArrayList<Image>)imageList;
 	}
 
+	public ArrayList<Image> imageSelectAllBees(SqlSessionTemplate sqlSession) {
+		List imageList = sqlSession.selectList("image.imageSelectAllBees");
+		return (ArrayList<Image>)imageList;
+	}
+
 }

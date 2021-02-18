@@ -809,7 +809,7 @@ public class BeesController {
 		request.setAttribute("feedList", feedList);
 		
 		//이미지보여주기
-		ArrayList<Image> imageList = imageService.imageSelectAllMyBees(beesNo);
+		ArrayList<Image> imageList = imageService.imageSelectAllBees();
 		HashMap<Integer, ArrayList<Image>> imageMap = new HashMap<Integer, ArrayList<Image>>();
 		for(Image image : imageList) {
 			if(imageMap.get(image.getBoardNo())==null) {	
@@ -858,7 +858,7 @@ public class BeesController {
 		request.setAttribute("feedList", feedList);
 		
 		//이미지보여주기
-		ArrayList<Image> imageList = imageService.imageSelectAllMyBees(beesNo);
+		ArrayList<Image> imageList = imageService.imageSelectAllBees();
 		HashMap<Integer, ArrayList<Image>> imageMap = new HashMap<Integer, ArrayList<Image>>();
 		for(Image image : imageList) {
 			if(imageMap.get(image.getBoardNo())==null) {	

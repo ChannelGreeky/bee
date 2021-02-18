@@ -63,5 +63,10 @@ public class ImageService {
 		return imageList;
 	}
 
+	public ArrayList<Image> imageSelectAllBees() {
+		ArrayList<Image> imageList = imageDAO.imageSelectAllBees(sqlSession);
+		return imageList;
+	}
+
 	
 }

@@ -600,7 +600,7 @@ if($(window).scrollTop()==($(document).height()-$(window).height())){
 												투표 권한이 없습니다.
 												<%}else{%>
 												종료된 투표입니다.
-												<%}} %>
+												<%}}else{ %>
 												<%if(member.getMemberNo()!=vote.getMemberNo()){
 													if(vote.getVoteEndYN()=='N'){%>
 													<button class="vote-reset" type="reset">취소하기</button>
@@ -613,6 +613,7 @@ if($(window).scrollTop()==($(document).height()-$(window).height())){
 													<button class="vote-submit" type="submit">투표하기</button><%
 													}else{
 													%>종료된 투표입니다.<%
+													}
 													}
 													}%>
 												</center>

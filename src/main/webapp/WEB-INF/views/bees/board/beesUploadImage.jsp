@@ -201,8 +201,8 @@ height:500px;
                      <div class='uploadResult'>  <!--  업로드 된 파일 목록으로 보여주기-->
 					<ul > 
 					    <%for(AttachFileDTO af : list){%>
-						<%System.out.println("/resources/file/"+af.getChangeFileName());%>
-						<div ><img src="<%="/resources/file/"+af.getChangeFileName()%>" width='150px' height='150px'>
+						<%System.out.println("/resources/file/"+af.getFileName());%>
+						<div ><img src="<%="/resources/file/"+af.getFileName()%>" width='150px' height='150px'>
 						<span data-file=\'"+fileCallPath+"\' data-type='image' data-name=\'"+fileName+"\'><img src='/resources/image/admin/error.png' style='width:20px; height:20px;'></span></div>
 						<%} %>
 			
@@ -311,16 +311,18 @@ height:500px;
 
  $(document).ready(function(){
 	 
-      
+      var beesNo = ${param.beesNo};
 	 $('#uploadBtn').click(function(e){
 		 e.preventDefault();
 	 $.ajax({
 		 url: '/selectAllImage.do',
 		 processData: false,
 		 contentType: false,
+		 data : {beesNo : beesNo},
 		 type: 'POST',
 		 dataType:'json',
 		 success: function(result){
+			 console.log("result"+result.fileName);
 			 console.log("re"+result);
 			 
 			 var str="";

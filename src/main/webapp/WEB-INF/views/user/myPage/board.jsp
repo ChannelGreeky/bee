@@ -569,7 +569,7 @@ select:focus {
 									<%if(comment.getProfileImg()==null){%>
 								<div class="comment-writer-profile" style="background-color:#f7d078"></div>
 							<%}else{ %>
-									<div class="comment-writer-profile" style="background-image:url('/resources/image/profile/<%=comment.getProfileImg() %>')"></div>
+								<div class="comment-writer-profile" style="background-image:url('/resources/image/profile/<%=comment.getProfileImg() %>')"></div>
 								<%} %>
 								</td>
 							

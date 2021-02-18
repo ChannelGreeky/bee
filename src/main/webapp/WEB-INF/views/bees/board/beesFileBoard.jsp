@@ -7,6 +7,7 @@
 <%@page import="com.fourmeeting.bee.beesuser.model.vo.BeesUser"%>
 <%@page import="com.fourmeeting.bee.admin.model.vo.Search" %>
 <%@page import="java.util.ArrayList"%>
+<%@page import="com.fourmeeting.bee.bees.model.vo.Setting"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -192,34 +193,65 @@ height:30px;
 <link rel="stylesheet" type="text/css" href="/resources/css/adminNoticeBoard.css">
 
 
-<!-- <%@ include file="/common/cdnLib.jsp"%> -->
+<%@ include file="/common/cdnLib.jsp"%> 
 	<!--비즈 전체페이지 + 사이드 프로필 + 메인 컨텐츠 크기-->
 	<link rel="stylesheet" type="text/css" href="/resources/css/beesForm.css">
 	<script type="text/javascript" src="/resources/js/beesForm.js"></script>
    <!--  <link rel="stylesheet" type="text/css" href="/resources/css/beesFileBoard.css"> -->
    
- <%
- //request.getAttribute(beesNo);
- 	//Bees bees = (Bees)request.getAttribute("bees");
- //	BeesUser user = (BeesUser)request.getAttribute("user");
- 	
- 	//System.out.println(bees.getBeesNo());
- 	
- %>  
+   <%
+// int memberCount = (int)request.getAttribute("memberCount");
+ //  Bees bees = (Bees)request.getAttribute("beeInfo");
+ // System.out.println(memberCount);
+// System.out.println(bees.getBeesCover());
+ //  System.out.println(bees.getBeesName());
+ 
+  Member member = (Member)session.getAttribute("member");
+   %>
+ <script>
+ $(document).ready(function() {
+	 
+	 var beesNo = ${param.beesNo};
+	 console.log(beesNo);
+	 $.ajax({
+			url:"/sideInfo.do",
+			type:"POST",
+			data : {"beesNo":beesNo},
+			success:function(data){
+				console.log("h");
+				 
+				
+			},
+			error:function(data){
+				console.log("error");
+			}
+		}); 	
+});
+
+ 
+ 
+ </script>
 	<div class="container pt-3">
 		<div class="row">
 			<div class="col-1"></div>
 			<div class="col-3 p-0">
+				
+							
 				<div id="bees-side" class="container m-0 p-2">
 					<div id="bees-side-profile">
+					
+					
+					  
 						<table>
-            <tr>
-                <td id="bees-cover" colspan="2" style="background-image:url('/resources/image/image.jpg')"></td>
-            </tr>
-            <tr>
-                <td id="bees-name" colspan="2">비즈이름</td>
-            </tr>
-            <tr id="bees-mid"><td id="bees-member-count">멤버<b> 6 </b></td>
+							<tr>
+							
+								
+								<td id="bees-cover" colspan="2" style="background-image:url('')"></td>
+							</tr>
+							<tr>
+								<td id="bees-name" colspan="2"></td>
+							</tr>
+            <tr id="bees-mid"><td id="bees-member-count">멤버<b></b></td>
                 <td id="bees-invite">
                     <a href=""><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="currentColor" class="bi bi-plus-circle" viewBox="0 0 16 19">
                 <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
@@ -265,7 +297,7 @@ height:30px;
 
 <!-- 내 코드 -->
 
- 	
+ 	<%if(member !=null){ %>
 		<div class="head" >첨부 모아보기</div>
 	
 		<div class="main_head" style="height:135px"> 
@@ -306,7 +338,9 @@ height:30px;
 
 </div><!-- container pt-3 -->
 
-
+<%}else{ %>
+<script>location.href ="/index.jsp";</script>
+<%} %>
       <script>
       $(document).ready(function() {
     	  
@@ -317,36 +351,39 @@ height:30px;
         	    
         	    
         	    if(idx ==0){
-        	    $(".tab_title div").eq(0).addClass("on");
-        	    $(".tab_cont > div").hide();
-        	    $(".tab_cont > div").eq(0).show();
-        	    
-        	    $('#fileClick').click(function(){
-          		  var beesNo = ${param.beesNo };
-                	
-                
-                	
-      			
-      					$.ajax({
-            				url:"/fileList.do",
-            				type:"post",
-            				data : {"beesNo":beesNo},
-            				dataType: "json",
-            				success:function(data){
-            					 var str="";
-            					$.each(data, function(idx, n) {
-            						
-            						str += "<li>";
-            						str += "<img src='/resources/image/bees/icon/file-icon.jpg'>" +n+
-            						str + "</li>"
-            					});
-            					$("#fileCont").html(str);
-            				},
-            				error:function(data){
-            					console.log("error");
-            				}
-              			}); 	
-          	  });
+		        	    $(".tab_title div").eq(0).addClass("on");
+		        	    $(".tab_cont > div").hide();
+		        	    $(".tab_cont > div").eq(0).show();
+		        	    
+		        	    $('#fileClick').click(function(){
+		          		  var beesNo = ${param.beesNo };
+		                	
+		                
+		                	
+		      			
+		      					$.ajax({
+		            				url:"/fileList.do",
+		            				type:"post",
+		            				data : {"beesNo":beesNo},
+		            				dataType: "json",
+		            				success:function(data){
+		            					console.log("성공");
+		            					
+		            					 var str="";
+		            					$.each(data, function(idx, n) {
+		            						console.log(n.originalFileName);
+		            						console.log(idx);
+		            						str += "<li>";
+		            						str += "<img src='/resources/image/bees/icon/file-icon.jpg'>" +n.originalFileName+
+		            						str + "</li>"
+		            					});
+		            					$("#fileCont").html(str);
+		            				},
+		            				error:function(data){
+		            					console.log("error");
+		            				}
+		              			}); 	
+		          	    });
             	 
           	  
         	    }else if(idx == 1){
@@ -369,8 +406,14 @@ height:30px;
         	       					$.each(data, function(idx, n) {
         	       						console.log(n);
         	       						console.log(n.voteEndYN);
+        	       						if(n.voteEndYN == 'Y'){
+        	       							n.voteEndYN = "종료";
+        	       						}else if(n.voteEndYN == 'N'){
+        	       							n.voteEndYN = "진행중";
+        	       						}
+        	       						
         	       						str += "<li>";
-        	       						str += "<img src='/resources/image/bees/icon/vote-icon.jpg'>" + n.voteTitle + 
+        	       						str += "<img src='/resources/image/bees/icon/vote-icon.jpg'>" + n.voteTitle + "<br><small>" +   n.voteEndYN +"</small><br><br>"
         	       						
         	       						str + "</li>"
         	       					});

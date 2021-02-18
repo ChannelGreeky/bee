@@ -3,6 +3,8 @@ package com.fourmeeting.bee.admin.controller;
 import java.io.IOException;
 import java.util.ArrayList;
 
+import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
@@ -17,6 +19,10 @@ import org.springframework.web.servlet.ModelAndView;
 import com.fourmeeting.bee.admin.model.service.AdminBoardService;
 import com.fourmeeting.bee.admin.model.vo.Criteria;
 import com.fourmeeting.bee.admin.model.vo.PageDTO;
+import com.fourmeeting.bee.bees.model.service.BeesService;
+import com.fourmeeting.bee.bees.model.vo.Bees;
+import com.fourmeeting.bee.beesuser.model.service.BeesUserService;
+import com.fourmeeting.bee.beesuser.model.vo.BeesUser;
 import com.fourmeeting.bee.member.model.vo.Member;
 import com.fourmeeting.bee.notice.model.vo.Notice;
 
@@ -29,15 +35,36 @@ public class AdminBoardController {
 	@Qualifier(value="adminBoardService")
 	private AdminBoardService anService;
 	
+	@Resource(name="BeesUserService")
+	private BeesUserService userService;
 	
-	
+	@Resource(name= "beesService")
+	private BeesService bService;
 	
 	@RequestMapping(value="/beesUploadFile.do")
 	public String uploadFile(){
 		return "bees/board/beesFileBoard";
 	}
 	
-
+	@RequestMapping(value="/sideInfo.do")
+	public String sideInfo(@RequestParam int beesNo,HttpSession session,HttpServletRequest request){
+		int memberCount = userService.userCount(beesNo);
+		request.setAttribute("memberCount",memberCount);
+		System.out.println(memberCount);
+		Member member = (Member)session.getAttribute("member");
+		int memberNo = member.getMemberNo();
+		System.out.println(memberNo);
+		
+		BeesUser user = userService.userSelectOne(memberNo, beesNo);
+		request.setAttribute("user", user);
+		
+		
+		Bees beeInfo = bService.beesSelectOne(beesNo);
+		request.setAttribute("beeInfo", beeInfo);
+		System.out.println(beeInfo);
+		
+		return "/bees/board/beesFileBoard";
+	}
 
 	
 	///////////////////////////////////////////////////////////

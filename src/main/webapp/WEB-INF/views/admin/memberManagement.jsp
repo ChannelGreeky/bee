@@ -64,6 +64,7 @@
 		border: 1px solid #ededed;
 		text-align: center;
 		color: #50401B;
+		
 	}
 	
 	.memberManagement_table tr th{
@@ -122,8 +123,11 @@
 	}
 	.navi{
 	margin-top:20px;
+	margin:0 auto;
 	}
-	
+	.memberManagement_div {
+	min-height:440px;
+	}
 </style>
 
 	<script>
@@ -174,6 +178,7 @@
   <%
 	ArrayList<Member> list=(ArrayList<Member>)request.getAttribute("list");
 	Member sessionMember = (Member)session.getAttribute("member");
+	int memberNo = sessionMember.getMemberNo();
 	
 %>
 		<div class="container pt-3">
@@ -196,7 +201,7 @@
 						</tr>
 		<%
 		
-		if (sessionMember != null) {
+		if (memberNo < 1000) {
 	%>
 						
 				<%for(Member ml: list){ %>
@@ -231,7 +236,7 @@
 					</table>
 					
 					
-					
+				</div>	 <!-- class="memberManagement_div -->
 					<div class='navi'>
 					<ul class="pagination">
 
@@ -256,13 +261,17 @@
 
 
 					</ul>
-				</div>
+				</div>  <!-- navi -->
 				<!--  end Pagination -->
-			</div>
+			
 					
 			<form id='actionForm' action="/memberManagement.do" method='get'>
 				<input type='hidden' name='pageNum' value='${pageMaker.cri.pageNum}'>
 				<input type='hidden' name='amount' value='${pageMaker.cri.amount}'>
+				<input type="hidden" name="startDate" value='<c:out value="${param.startDate }"/>'>
+				<input type="hidden" name="endDate" value='<c:out value="${param.endDate }"/>'> 
+				<input type="hidden" name="keyword" value='<c:out value="${param.keyword }"/>'>
+				<input type="hidden" name="category" value='<c:out value="${param.category }"/>'>
 
 				
 
@@ -271,14 +280,12 @@
 					
 					
 					
-				</div>
+				</div> <!-- class="row" -->
 				
 				<!-- 여백 -->
 				<div class="col-1"></div>
 				
-			</div>
-		</div>
-		<div><%@include file="/common/footer.jsp" %></div>
+			</div> <!-- class="container pt-3" -->
 		
 		
 		
@@ -286,33 +293,6 @@
 	$(document)
 			.ready(
 					function() {
-
-						var result = '<c:out value="${result}"/>';
-
-						checkModal(result);
-
-						history.replaceState({}, null, null);
-
-						function checkModal(result) {
-
-							if (result === '' || history.state) {
-								return;
-							}
-
-							if (parseInt(result) > 0) {
-								$(".modal-body").html(
-										"게시글 " + parseInt(result)
-												+ " 번이 등록되었습니다.");
-							}
-
-							$("#myModal").modal("show");
-						}
-
-						$("#regBtn").on("click", function() {
-
-							self.location = "/board/register";
-
-						});
 
 						var actionForm = $("#actionForm");
 
@@ -332,12 +312,12 @@
 						
 
 					});
-	
-	
 </script>
+
+
 <%}else{ %>
 		
-	<script>location.href ="/index.jsp";</script>
+<script>location.href ="/index.jsp";</script>
 						
 <%} %>
 </body>

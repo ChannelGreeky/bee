@@ -81,14 +81,10 @@ margin-right:3px;
 border:none;
 color:#50401B;
 font-size:1rem;
-
 }
-
 #write_btn:focus{
-outline:0 !important;
-border:0;
+outline:none;
 }
-
 .admin_header{
 width:100%;
 
@@ -117,25 +113,37 @@ width:100%;
 							</div>
 						</div>
 						<div class="row w-100">
-						<form method="" >
+						<form method="get" action="searchbarBtn.do" id="searchForm">
 							<div class="col-md-2 w-100 search_bar">
-								<input type="date" >
+							
+								<input type="date" name="btnStartDate" id="startDate" value='<c:out value="${param.btnStartDate }"/>'>
+								
 								</div>
 								<div class="col-md-2 w-100 search_bar">
-								 <input type="date"> 
+								
+								 <input type="date" name="btnEndDate" id="endDate" value='<c:out value="${param.btnEndDate }"/>'> 
 								 </div>
+								 
 								<div class="col-md-2 w-100 search_bar"> 
-								<select name="category">
-									<optgroup label="카테고리">
-									<option value="noticeWrite">공지사항</option>
-									<option value="faqWrite">FAQ</option>	
-									</optgroup>  
+								
+								<select name="btnCategory">
+									<option value=""<c:out value="${param.btnCategory == null ? 'selected': '' }"/>>선택</option>
+									<option value="notice"<c:out value="${param.btnCategory eq 'notice' ? 'selected': '' }"/> >공지사항</option>
+									<option value="faq"<c:out value="${param.btnCategory eq 'faq' ? 'selected': '' }"/> >FAQ</option>	
+									
 								</select>
-							</div>	
+							
+								
+								
+									</div>	
 					
 							<div class="col-md-6 w-100 search_bar">
-								<input type="text" style="width:77%; right:10px;">
-								<button type="submit" id="search_btn" ><img src="resources/image/search.png"/></button>
+								<input type="text" style="width:77%; right:10px;" name="btnKeyword" id="keyword"
+								placeholder="제목,내용에 해당하는 검색어를 입력해주세요" value='<c:out value="${param.btnKeyword }"/>'>
+								<input type='hidden' name='pageNum' value='${pageMaker.cri.pageNum}'>
+								<input type='hidden' name='amount' value='${pageMaker.cri.amount }'>
+								
+								<button id="search_btn" ><img src="resources/image/search.png"/></button>
 							</div>
 						</form>
 						
@@ -144,13 +152,108 @@ width:100%;
 			</div>
 			<div class="col-1 p-0"></div>
 		</div>
-
-
+							
 
 
 </div> <!-- container -->
 
+<script>
+$(document).ready(function(){
 
+	
+	$("#searchForm button").on("click",function(e){
+		var searchForm = $("#searchForm");
+		var sDate = $("#startDate").val();
+		var eDate = $("#endDate").val();
+		var today = new Date();
+		
+		sDate = new Date(sDate);
+		var fromYear = sDate.getFullYear();
+		var fromMonth = sDate.getMonth() + 1;
+		var fromDay = sDate.getDate();
+		
+		
+		sDate = fromYear + fromMonth +fromDay;
+		
+		
+		eDate = new Date(eDate);
+		var toYear = eDate.getFullYear();
+		var toMonth = eDate.getMonth() + 1;
+		var toDay = eDate.getDate();
+		
+		
+		
+		eDate = toYear + toMonth +  toDay;
+		
+		
+		var todayYear = today.getFullYear();
+		var todayMonth = today.getMonth() + 1;
+		var todayDay = today.getDate();
+		today = todayYear + todayMonth + todayDay;
+		console.log(sDate);
+		console.log(today);
+		console.log(eDate);
+		if(sDate > today ){
+			console.log(sDate);
+			console.log(today);
+			alert("검색시작 날짜는 오늘 날짜보다 클 수는 없습니다.");
+			
+			return false;
+		}else if(eDate < sDate){
+			console.log(eDate);
+			console.log(today);
+			alert("검색종료날짜는 검색 시작 날짜보다 커야 합니다.");
+			
+			return false;
+		}
+		
+		
+		if (!searchForm.find("option:selected").val()) {
+			alert("검색종류를 선택하세요");
+			return false;
+		}
+
+		if (!searchForm.find(
+				"input[id='keyword']").val()) {
+			alert("키워드를 입력하세요");
+			return false;
+		}
+		if(!searchForm.find(
+				"input[id='startDate']").val()) {
+			alert("검색 시작 기간을 선택하세요");
+			return false;
+		}
+		if(!searchForm.find(
+		"input[id='endDate']").val()) {
+		alert("검색 종료 기간을 선택하세요");
+		return false;
+		}
+/*		if(isNaN(fromYear) || isNaN(fromMonth) || isNaN(fromDay)){
+			fromYear = 0;
+			fromMonth = 0;
+			fromDay = 0;
+		}
+	*/	
+		
+		searchForm.find("input[name='pageNum']").val("1");
+		e.preventDefault();
+
+		searchForm.submit();
+	});
+	
+	
+	
+
+     
+     
+    
+ 	
+});
+
+
+
+
+</script>
 
 
 

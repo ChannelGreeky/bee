@@ -58,7 +58,7 @@
 	}
 	
 	.question_div {
-		min-height:500px;
+		min-height:440px;
 	}
 	
 	.question_table{
@@ -66,6 +66,7 @@
 		border: 1px solid #ededed;
 		text-align: center;
 		color: #50401B;
+		
 		
 	}
 	
@@ -165,6 +166,7 @@
 	}
 	.navi{
 	margin-top:20px;
+	margin:0 auto;
 	}
 	
 </style>
@@ -175,7 +177,7 @@
 	ArrayList<Notice> list=(ArrayList<Notice>)request.getAttribute("list");
 
 	Member member = (Member)session.getAttribute("member");
-	
+	int mNo = member.getMemberNo();
 %>
 <script>
 		
@@ -279,7 +281,7 @@
 	</script>
 <%
 		
-		if (member != null) {
+if (mNo < 1000) {
 	%>
 	
 <div class="container pt-3">
@@ -334,7 +336,7 @@
 						</tr>
 						<%} %> 
 					</table>
-					
+				</div>	
 					<div class='navi'>
 					<ul class="pagination">
 
@@ -361,12 +363,16 @@
 					</ul>
 				</div>
 				<!--  end Pagination -->
-				</div>
+				
 					
 			<form id='actionForm' action="/adminNoticeBoard.do" method='get'>
 				<input type='hidden' name='pageNum' value='${pageMaker.cri.pageNum}'>
 				<input type='hidden' name='amount' value='${pageMaker.cri.amount}'>
-
+				<input type="hidden" name="btnStartDate" value='<c:out value="${param.btnStartDate }"/>'>
+				<input type="hidden" name="btnEndDate" value='<c:out value="${param.btnEndDate }"/>'> 
+				<input type="hidden" name="btnKeyword" value='<c:out value="${param.btnKeyword }"/>'>
+				<input type="hidden" name="btnCategory" value='<c:out value="${param.btnCategory }"/>'>
+								
 				
 
 			</form>
@@ -386,33 +392,6 @@
 	$(document)
 			.ready(
 					function() {
-
-						var result = '<c:out value="${result}"/>';
-
-						checkModal(result);
-
-						history.replaceState({}, null, null);
-
-						function checkModal(result) {
-
-							if (result === '' || history.state) {
-								return;
-							}
-
-							if (parseInt(result) > 0) {
-								$(".modal-body").html(
-										"게시글 " + parseInt(result)
-												+ " 번이 등록되었습니다.");
-							}
-
-							$("#myModal").modal("show");
-						}
-
-						$("#regBtn").on("click", function() {
-
-							self.location = "/board/register";
-
-						});
 
 						var actionForm = $("#actionForm");
 
@@ -492,6 +471,7 @@
       <div class="modal-header">
         <h5 class="modal-title" id="staticBackdropLabel" >
         	<select name="noticeCategory">
+        		<option value="" selected disabled hidden>카테고리선택</option>
         		<option value="noticeModal"> 공지사항 작성</option>
         		<option value="faqModal">FAQ</option>
         	</select>
@@ -515,7 +495,7 @@
       <div class="modal-footer" style="height:10%; width:100%;padding-right:15px;">
       <hr class="line">
         <button type="button" class="btn btn-secondary" data-dismiss="modal" style="float:right;background-color:#E4E4E4;color:#50401B;border:none;border-radius:10px;">취소</button>
-        <button type="submit" class="btn btn-primary" style="float:right; background-color:#FFF3D8;color:#50401B;border:none;border-radius:10px;">작성완료</button>
+        <button id="writeSubmit" class="btn btn-primary" style="float:right; background-color:#FFF3D8;color:#50401B;border:none;border-radius:10px;">작성완료</button>
       </div>
      
         </div> <!-- modal-content -->
@@ -525,7 +505,32 @@
 
 
 								
+<script>
+$(document).ready(function(){
 
+	
+	$("#writeSubmit").on("click",function(e){
+		var writeSubmit =  $("#writeSubmit");
+	 // var category = $("#startDate").val();
+		  if (!writeSubmit.find("input[id='myInput']").val()) {
+			alert("제목을 입력해 주세요");
+			return false;
+		}
+		  if (!writeSubmit.find(
+			"textarea[id='recipient-name']").val()) {
+		alert("내용을 입력해 주세요");
+		return false;
+	}
+		  
+		 
+		  e.preventDefault();
+
+		  writeSubmit.submit();
+	});
+
+});      
+
+</script>
 
 
 

@@ -2,7 +2,9 @@ package com.fourmeeting.bee.image.controller;
 
 import java.io.File;
 import java.io.FileOutputStream;
+import java.io.IOException;
 import java.io.PrintWriter;
+import java.io.UnsupportedEncodingException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -41,20 +43,16 @@ public class ImageController {
 	
 	@RequestMapping(value="/uploadBeesImages.do", method=RequestMethod.POST)
 	@ResponseBody
-	public void multipartUpload(MultipartHttpServletRequest request, HttpSession session) throws Exception { 
+	public void multipartUpload(MultipartHttpServletRequest request, HttpSession session) throws IOException, UnsupportedEncodingException { 
 		
 		
 		Gson gson = new Gson();
 		List<MultipartFile> fileList = request.getFiles("image[]"); 
 		
 		System.out.println(fileList.size());
-		String path = session.getServletContext().getRealPath("/resources/image/bees/feedImage");
+		String path = context.getRealPath("/resources/image/bees/feedImage/");
 		System.out.println(path);
 		File fileDir = new File(path); 
-		System.out.println(fileDir);
-		if (!fileDir.exists()) { 
-			fileDir.mkdirs(); 	
-		} 
 		long time = System.currentTimeMillis(); 
 		String imageNoList = request.getParameter("imageList");
 		StringTokenizer st = new StringTokenizer(imageNoList,",");
@@ -74,7 +72,15 @@ public class ImageController {
 			
 			File serverFile = new File(path+File.separator+changeImageName);
 			
-			mf.transferTo(serverFile); 
+			try {
+				mf.transferTo(serverFile); 
+	        } catch (IllegalStateException e) {
+	            // TODO Auto-generated catch block
+	            e.printStackTrace();
+	        } catch (IOException e) {
+	            // TODO Auto-generated catch block
+	            e.printStackTrace();
+	        }
 			
 			
 			Image image =  new Image();

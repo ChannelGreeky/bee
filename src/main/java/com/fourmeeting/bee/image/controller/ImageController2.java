@@ -32,11 +32,13 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttribute;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.fourmeeting.bee.beesuser.model.vo.BeesUser;
 import com.fourmeeting.bee.image.model.service.ImageService;
 import com.fourmeeting.bee.image.model.service.ImageService2;
 import com.fourmeeting.bee.image.model.vo.AttachFileDTO;
@@ -60,13 +62,17 @@ public class ImageController2 {
 	 
 @RequestMapping(value="/selectAllImage.do",produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
 		@ResponseBody
-		public ModelAndView selectAllImage(@SessionAttribute("member") Member m, HttpServletResponse response) throws JsonIOException, IOException{
+		public ModelAndView selectAllImage(@SessionAttribute("member") Member m, HttpServletResponse response,@RequestParam int beesNo) throws JsonIOException, IOException{
+            System.out.println(beesNo);	
 			int memberNo = m.getMemberNo();
 			System.out.println(memberNo);
-			ArrayList<AttachFileDTO> list = iService2.selectAllImage(memberNo);
+			BeesUser b = new BeesUser();
+			b.setBeesNo(beesNo);
+			b.setMemberNo(memberNo);
+			ArrayList<AttachFileDTO> list = iService2.selectAllImage(b);
 	
 			ModelAndView mav = new ModelAndView();
-			
+			System.out.println("list"+ list );
 			mav.addObject("list", list);
 			mav.setViewName("bees/board/beesUploadImage"); 	
 			return mav;

@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    <%@page import="com.fourmeeting.bee.member.model.vo.Member"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -12,7 +13,7 @@
 <style>
 .menu-sub{     
 	z-index : 9;
-	background-color: #fefefe;
+	background-color: #FEE6B1;
 	box-shadow:0.2em 0.2em 5px lightgray;
 	top:20px;    
 	position:absolute;
@@ -34,13 +35,16 @@
 	transform:translateX(-50%);
 	height:0;
 	width:0;
-	border-width:0px;
+	border-width:10px;
 	border-style:solid;
-	border-color:transparent transparent #F7D078 transparent;
+	border-color:transparent transparent #FEE6B1 transparent;
 }
 
 </style>
+<%
+Member member1=(Member)session.getAttribute("member");
 
+%>
 
 	<div class="container-fluid p-0">
 	<div class="container">
@@ -61,7 +65,14 @@
                       <input type="text" id="input_searchBox" name="searchData" autocomplete="off">
                       <input type="hidden" name="endNo" value=10 />
                       <button type="submit" id="btn_search">
+                      
+                      
+                      
                       <img src="/resources/image/search.png" style="width:20px; height:20px"/>
+                      
+                      
+                      
+                      
                       </button>
                     </div>
                </fieldset>
@@ -87,7 +98,17 @@
             	</li>
             	<li class="menu-item">
             		<button type="button" class="top_right_btn" id="set_btn">
-            			<img src="/resources/image/profile.png" style="border-radius:30px;">
+            		
+            		
+            			<% if(member1.getProfileImg() == null){ %>
+			            		<img src="/resources/image/admin/profile.png" style="border-radius:30px;">
+			            			
+			            			
+			            			<%}else{ %>
+			            			<img src="/resources/image/profile/<%=member1.getProfileImg() %>" style="border-radius:30px;">
+			            			
+			            			<%} %>
+            			
             		</button>
             		
 	                        <ul class="menu-sub">
