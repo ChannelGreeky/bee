@@ -62,6 +62,19 @@ return false;
 	System.out.println("초대 페이지 memberNo 확인: " + memberNo);
 %>
 
+<style>
+#all{
+padding-bottom : 10%;
+height : 100%;
+}
+
+#bees-cont {
+	padding: 0 5px 5px 5px;
+	font-size: 0.8rem;
+	font-weight: 100;
+}
+
+</style>
 	<div>
 		<%@include file="/include/headerBee.jsp" %>
 	</div>	

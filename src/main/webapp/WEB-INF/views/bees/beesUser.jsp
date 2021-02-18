@@ -106,14 +106,11 @@ height : 10%;
 }
 
 #all{
+padding-bottom : 10%;
 height : 100%;
 }
 #bees-contents{
 padding-bottom : 100px;
-}
-
-body{
-height : 100%;
 }
 
 
@@ -470,12 +467,8 @@ height : 100%;
 		</div>	
 		
 	</div>	
-
 			
-	<div id="footer">
-	<%@include file="/common/footer.jsp"%>
-	</div>
-	<script>
+		<script>
 			$(function(){
 				//footer위치조절
 				var higth = $("body").height();
@@ -483,7 +476,11 @@ height : 100%;
 				   $("#footer").css('position','absolute').css('bottom','0');
 				}
 			})
-			</script>
+		</script>
+	<div id="footer">
+	<%@include file="/common/footer.jsp"%>
+	</div>
+
 	
 </body>
 </html>

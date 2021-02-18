@@ -111,6 +111,20 @@ margin-top : 10%;
 margin-left : 34%;
 margin-bottom : 12%;
 }
+
+#all{
+padding-bottom : 10%;
+height : 100%;
+}
+
+#bees-cont {
+	padding: 0 5px 5px 5px;
+	font-size: 0.8rem;
+	font-weight: 100;
+}
+
+
+
 </style>
 	<div>
 		<%@include file="/include/headerBee.jsp" %>
@@ -379,6 +393,17 @@ margin-bottom : 12%;
 		</div>	
 	</div>			
 </div>
+<script>
+			$(function(){
+				//footer위치조절
+				var higth = $("body").height();
+				if(higth<754){
+				   $("#footer").css('position','absolute').css('bottom','0');
+				}
+			})
+		</script>
+
+
 	<div id="footer">
 	<%@include file="/common/footer.jsp"%>
 	</div>
