@@ -61,7 +61,7 @@
 <li data-viewname="DBandCoLeaderItemView" class="uFlexItem"><a href="#" role="button" class="uProfile -size50 _btnProfileImage">
     <span class="profileInner ">
         <img src="<%=bu.getProfileImg() %>" width="50" height="50" 
-         onError="javascript:this.src='https://ssl.pstatic.net/cmstatic/webclient/dres/20210105172030/images/template/profile_120x120.png'">
+         onError="javascript:this.src='/resources/image/user/profile_none.png'">
     </span>
 </a>
 
