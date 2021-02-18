@@ -8,6 +8,7 @@ import javax.annotation.Resource;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Service;
 
+import com.fourmeeting.bee.admin.model.vo.Search;
 import com.fourmeeting.bee.file.model.dao.FileDAO;
 import com.fourmeeting.bee.file.model.vo.BeesFile;
 
@@ -60,5 +61,8 @@ public class FileService {
 		ArrayList<BeesFile> fileList = fileDAO.fileSelectAllMyBees(sqlSession, beesNo);
 		return fileList;
 	}
+
+
+	
 
 }

@@ -200,15 +200,16 @@ height:100%;
             <!--      <input type="file" id="upImgFiles" onChange="uploadImgs();" name='uploadFile' accept="image/*" multiple >  <!-- name="subImg" -->
                <div class="img_body">
                   <span>전체사진</span> 
-                        
+                   <form action="" method="post" enctype="multipart/form-data">
                        <div class='uploadDiv'>    
-                         <input type='file' name='uploadFile' multiple id="btn-upload" style="border:none;margin-right:70px; width:100px;">
+                         <input type='file' name='uploadFile' multiple id="btn-upload" style="border:none;margin-right:200px; width:85px;">
+                         <input type="hidden" name='beesNo' value=''${param.beesNo} >
 						</div>
                   
 		  <div class='uploadBtn'>
-				 <button type="button" id='uploadBtn' class="btn btn-modifys" style="margin:0 auto;width:80px; background-color:#FFF3D8;color:#50401B;border:none;">업로드</button>
+				 <button type="submit" id='uploadBtn' class="btn btn-modifys" style="width:80px; background-color:#FFF3D8;color:#50401B;border:none;">업로드</button>
 			</div>
-                                                                                  
+                    </form>                                                                   
               
                <div class='bigPictureWrapper'>
 				  <div class='bigPicture'>
@@ -224,7 +225,15 @@ height:100%;
 			<%for(AttachFileDTO a : list){ %>
 			<%System.out.println(a.getChangeFileName()); %>
 			
-			<div class="view"><span><small><%=a.getFileName() %></small></span><br><img src="/resources/file/<%=a.getChangeFileName() %>" style="border-radius:30px;"></div>
+			<div class="view"><span><small><%=a.getFileName() %></small></span><br><img src="/resources/file/<%=a.getChangeFileName() %>" style="border-radius:30px;">
+			
+			
+			
+			
+			
+			
+			
+			</div>
 			<% 	}%>
 				
 				
@@ -288,15 +297,16 @@ height:100%;
 	$(".bigPictureWrapper").on("click", function(e){
 	  $(".bigPicture").animate({width:'0%', height: '0%'}, 1000);
 	  setTimeout(() => {
-		    $(this).hide();
+		    $(this).remove();
 		  }, 1000);
 	});
 	
 
 
 	
-	$(".uploadResult").on("click","span", function(e){
-	   
+	$(".uploadResult img").on("click", function(e){
+		 $(this).parent().hide();
+		 $(this).prev().hide();
 	  var targetFile = $(this).data("file");
 	  var type = $(this).data("type");
  	  var name = $(this).data("name");	
@@ -344,7 +354,7 @@ height:100%;
 		
 		 });   //$.ajax
 	 });
-	 
+	 }); 
 	/*업로드*/	
 	 
 	 var cloneObj = $(".uploadDiv").clone();

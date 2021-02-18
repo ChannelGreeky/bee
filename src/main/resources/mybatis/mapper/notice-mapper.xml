@@ -283,7 +283,20 @@
 		 WHERE num BETWEEN (#{pageNum}-1) * #{amount} AND #{pageNum} * #{amount}
 	</select>
 	
-	
+		<select id= "minisearch" >
+			  select 
+			  original_file_name, 
+			  member_name 
+			  from bees_file 
+			  left join 
+			  board 
+			  using(board_no)
+			  left join 
+			  member 
+			  using(member_no) 
+			  where file_del_yn = 'N'
+		
+		</select>
 	<!-- 정평주 -->
 	<select id="myNoticeList" resultType="notice">
   		select 
@@ -296,5 +309,7 @@
 			notice_del_yn as noticeDelYN
   		from notice where notice_del_yn='N' order by notice_date desc
   	</select>
+  	
+  
 	
 </mapper>

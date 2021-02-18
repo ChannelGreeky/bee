@@ -515,32 +515,7 @@ if (mNo < 1000) {
 
 
 								
-<script>
-$(document).ready(function(){
 
-	
-	$("#writeSubmit").on("click",function(e){
-		var writeSubmit =  $("#writeSubmit");
-	 // var category = $("#startDate").val();
-		  if (!writeSubmit.find("input[id='myInput']").val()) {
-			alert("제목을 입력해 주세요");
-			return false;
-		}
-		  if (!writeSubmit.find(
-			"textarea[id='recipient-name']").val()) {
-		alert("내용을 입력해 주세요");
-		return false;
-	}
-		  
-		 
-		  e.preventDefault();
-
-		  writeSubmit.submit();
-	});
-
-});      
-
-</script>
 
 
 

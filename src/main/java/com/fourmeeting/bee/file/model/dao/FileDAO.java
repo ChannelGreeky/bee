@@ -6,6 +6,7 @@ import java.util.List;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
+import com.fourmeeting.bee.admin.model.vo.Search;
 import com.fourmeeting.bee.file.model.vo.BeesFile;
 
 @Repository("FileDAO")
@@ -45,5 +46,7 @@ public class FileDAO {
 		BeesFile file = sqlSession.selectOne("file.fileSelectForDown", fileNo);
 		return file;
 	}
+
+	
 
 }

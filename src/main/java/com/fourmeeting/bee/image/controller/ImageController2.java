@@ -112,7 +112,7 @@ public void uploadFormPost(MultipartFile[] uploadFile, Model model) {
 
 
 
-@PostMapping(value = "/uploadAjaxAction", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+@PostMapping(value = "/uploadAjaxAction.do", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
 @ResponseBody
 public ResponseEntity<List<AttachFileDTO>> uploadAjaxPost(MultipartFile[] uploadFile, HttpServletRequest request,@RequestParam int beesNo) {
 

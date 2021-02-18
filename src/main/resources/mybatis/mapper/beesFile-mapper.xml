@@ -62,4 +62,8 @@ update bees_file set file_del_yn='Y' where board_no = #{boardNo}
 <insert id="insertFile" parameterType="beesFile">
 insert into bees_file values(#{fileNo}, #{boardNo}, #{originalFileName}, #{changeFileName}, #{filePath}, #{fileSize}, default)
 </insert>
+
+
+
+
 </mapper>
