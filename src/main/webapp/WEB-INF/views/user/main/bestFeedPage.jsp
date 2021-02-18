@@ -107,6 +107,7 @@ $(function(){
 							
 						Feed feed = feedList.get(i);
 						
+						
 						String beesName = null;
 						if(feed.getBeesName().length()>15){
 							beesName=feed.getBeesName().substring(0,15);
