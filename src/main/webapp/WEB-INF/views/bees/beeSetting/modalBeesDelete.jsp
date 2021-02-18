@@ -134,6 +134,7 @@ text-align: inherit;
          <button type="button" onclick="location.href='/beeSettingMain.do?beesNo=<%=beeResult.getBeesNo()%>'" class="uButton -sizeS -confirm2 beesModalCancle">아니오 </button> 
          <form action="/beeSettingSubOneDelete.do" method="post">
          <input type="hidden" id="beesNo" name="beesNo" value="<%=beeResult.getBeesNo()%>"/>
+         <input type="hidden" id="memberNo" name="memberNo" value="<%=sessionMember.getMemberNo()%>"/>
          <button type="submit" class="uButton -sizeS -confirm2 beesModalDo">예</button>
          </form>
       </div> 

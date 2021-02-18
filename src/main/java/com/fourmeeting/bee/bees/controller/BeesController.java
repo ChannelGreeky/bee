@@ -1433,6 +1433,7 @@ public class BeesController {
 	public String beeSettingSubOneDelete(Model model, HttpServletRequest request) throws UnsupportedEncodingException {	
 		Bees bee = new Bees(); 
 		bee.setBeesNo(Integer.parseInt(request.getParameter("beesNo")));
+		bee.setBeesHostNo(Integer.parseInt(request.getParameter("memberNo")));
 		System.out.println("비즈삭제 설정: "+bee.getBeesNo());
 		int beeResult = bService.updateBeeOneDelete(bee);
 		
@@ -1441,7 +1442,7 @@ public class BeesController {
 		} else {
 			model.addAttribute("msg", "비즈 삭제가 실패하였습니다. 지속적으로 실패 시 관리자에게 문의하세요.");
 		}
-		model.addAttribute("location", "/beeSettingMain.do?beesNo="+bee.getBeesNo());
+		model.addAttribute("location", "/myBeesPage.do?memberNo="+bee.getBeesHostNo());
 
 	
 		return "bees/beeCreate/beeResult";	
