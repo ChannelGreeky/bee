@@ -33,6 +33,7 @@ public class ImageDAO2 {
 
 	public ArrayList<AttachFileDTO> selectAllImage(SqlSessionTemplate sqlSession, BeesUser b) {
 		List list = sqlSession.selectList("notice.selectAllImage", b);
+		System.out.println("listdao"+ list);
 		return (ArrayList<AttachFileDTO>)list;
 		
 	}

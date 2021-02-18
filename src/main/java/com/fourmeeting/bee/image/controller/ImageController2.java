@@ -7,6 +7,7 @@ import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
 import java.net.URLEncoder;
 import java.nio.file.Files;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -27,6 +28,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.util.FileCopyUtils;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -60,198 +62,205 @@ public class ImageController2 {
 	private ImageService2 iService2;
 	 
 	 
-@RequestMapping(value="/selectAllImage.do",produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+	 @RequestMapping(value="/selectAllImage.do")
 		@ResponseBody
-		public ModelAndView selectAllImage(@SessionAttribute("member") Member m, HttpServletResponse response,@RequestParam int beesNo) throws JsonIOException, IOException{
-            System.out.println(beesNo);	
+		public ModelAndView selectAllImage(@SessionAttribute("member") Member m, HttpServletResponse response,@RequestParam int beesNo) {
+         System.out.println(beesNo);	
 			int memberNo = m.getMemberNo();
 			System.out.println(memberNo);
-			BeesUser b = new BeesUser();
-			b.setBeesNo(beesNo);
-			b.setMemberNo(memberNo);
-			ArrayList<AttachFileDTO> list = iService2.selectAllImage(b);
-	
+		//	BeesUser b = new BeesUser();
+		//	b.setBeesNo(beesNo);
+		//	b.setMemberNo(memberNo);
+	//		ArrayList<AttachFileDTO> list = iService2.selectAllImage(b);
+//	System.out.println("cont list"+list);
 			ModelAndView mav = new ModelAndView();
-			System.out.println("list"+ list );
-			mav.addObject("list", list);
-			mav.setViewName("bees/board/beesUploadImage"); 	
+			
+		mav.addObject("a", memberNo);
+		mav.setViewName("bees/board/beesUploadImage"); 	
 			return mav;
-			/*return ;  */
-
+			
 			
 		}
-
-	
-	 
-	 @PostMapping(value = "/uploadAjaxAction.do", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-		@ResponseBody
-		public ResponseEntity<List<AttachFileDTO>> uploadAjaxPost(MultipartFile[] uploadFile, HttpServletRequest request) {  //파일 업로드 하기
-		 
-		 List<AttachFileDTO> list = new ArrayList<>();
-		 Map<String, Object> map = new HashMap<String, Object>();
-		 
-		 
-		 String uploadPath="/resources/file/";          //Wepapp이하 부터 파일명 앞까지 실제 경로
-		 String realUploadPath = context.getRealPath(uploadPath);
-			System.out.println("1.IMG real path: " + realUploadPath);
-		 
-			 HttpSession session = request.getSession();
-	           Member m = (Member)session.getAttribute("member");
-	           
-	           int fileUser = m.getMemberNo();  //userId가 업로드 유저 (fileUser)
-	           
-	           AttachFileDTO attachDTO = new AttachFileDTO();
-	      		// // make yyyy/MM/dd folder
-	      		
-	      		 for (MultipartFile multipartFile : uploadFile) {		//스프링에서 제공해주는 multipartfile
-	      		
-	      			
-	      		System.out.println("2.Original File Name: " + multipartFile.getOriginalFilename());		//실제 파일명
-	      		System.out.println("3.IMG Size: " + multipartFile.getSize());							//파일 사이즈
-	      		
-	      		
-	      		 String uploadFileName = multipartFile.getOriginalFilename();  //실제 파일명.
-	      		
-	      		// // IE has file path
-	      		uploadFileName = uploadFileName.substring(uploadFileName.lastIndexOf("\\") + 1);	//IE는 전체 파일 경로가 전송되므로 마지막 \를 기준으로 잘라낸게 실제 파일이름임.
-	      		System.out.println("only file name: " + uploadFileName);
-	      		attachDTO.setFileName(uploadFileName);
-	      		//
-	      		 UUID uuid = UUID.randomUUID();      //동일한 파일명이 업로드 되면 기존에 등록된게 지워지므로 이름이 같으면 안됨. 따라서 랜덤문자열을 생성하여 유니크 이름 지정
-	    		 
-	    		 uploadFileName = uuid.toString() + "_" + uploadFileName;  //파일 이름 바꾸기   ,  랜덤문자열_실제이름
-	    		  
-	    		
-	    		 try {
-	    			 File saveFile = new File(realUploadPath, uploadFileName);  		
-	    		 multipartFile.transferTo(saveFile);
-	    		 System.out.println("실험"+saveFile.getPath());
-	    		 attachDTO.setUuid(uuid.toString());
-	    			attachDTO.setUploadPath(saveFile.getPath());
-	    		 
-	    			attachDTO.setChangeFileName(saveFile.getName());
-	    			attachDTO.setMemberNo(fileUser);
-	    			attachDTO.setImgSIze(multipartFile.getSize());
-	    			
-	    			attachDTO.setImgDelYN('N');
-	    			File thumbnailFileName = new File(realUploadPath, "s_" + uploadFileName);
-	    			attachDTO.setThumbnailFileName(thumbnailFileName.getPath());
-	    			FileOutputStream thumbnail = new FileOutputStream(thumbnailFileName);
-	    		 
-	    		 Thumbnailator.createThumbnail(multipartFile.getInputStream(), thumbnail, 500, 500);
-	    		 
-	    		 thumbnail.close();
-	    		 list.add(attachDTO);
-	    		 
-	    		 System.out.println("1" + attachDTO.getFileName());  //beeLogo.png
-	    		 System.out.println("2" + attachDTO.getUploadPath()); //C:\java_all\springWorkSpace\bee3\src\main\webapp\resources\file\
-	    		System.out.println("3" + attachDTO.getChangeFileName()); 
-	    		System.out.println("4" + attachDTO.getMemberNo());
-	    		System.out.println("5" + attachDTO.getImgSIze()); 
-	    		System.out.println("6" + attachDTO.getBoardNo()); 
-	    		System.out.println("7" + attachDTO.getImgDelYN()); 
-	    		System.out.println("8" + attachDTO.getThumbnailFileName()); 
-	    		
-	    		
-	    		 } catch (Exception e) {
-	    		 e.printStackTrace();
-	    		} // end catch
-	    		
-	    		} // end for
-	      		 map.put("list", list);
-	      		 
-	      		int result = iService2.insertOnlyImage(map);
-	      		
-	      		if(result > 0){
-	      			System.out.println("이미지 등록 성공");
-	      		}else{
-	      			attachDTO.setImgDelYN('Y');
-	      			iService2.updateDeleteImage(attachDTO);
-	      		}
-		 return new ResponseEntity<>(list, HttpStatus.OK);
-	 }
-	
-	
-	
-	
-	 @GetMapping("/display.do")
-		@ResponseBody
-		public ResponseEntity<byte[]> getFile(String fileName) {
-
-			System.out.println("fileName: " + fileName);
-
-			File file = new File(fileName);
-
-			System.out.println("file: " + file);
-
-			ResponseEntity<byte[]> result = null;
-
-			try {
-				HttpHeaders header = new HttpHeaders();
-
-				header.add("Content-Type", Files.probeContentType(file.toPath()));
-				result = new ResponseEntity<>(FileCopyUtils.copyToByteArray(file), header, HttpStatus.OK);
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			return result;
-		}
+			
 		
-		@GetMapping(value = "/download.do", produces =MediaType.APPLICATION_OCTET_STREAM_VALUE)
-				@ResponseBody
-			 public ResponseEntity<Resource> downloadFile(@RequestHeader("User-Agent")String userAgent, String fileName) {
-				
-			Resource resource = new FileSystemResource(fileName);
-			System.out.println("resource: " + resource);
-			 if(resource.exists() == false) {
-			 return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-			 }
-			
-			String resourceName = resource.getFilename();
-			
-			 HttpHeaders headers = new HttpHeaders();
-			 try {
-			
-					boolean checkIE = (userAgent.indexOf("MSIE") > -1 ||
-					 userAgent.indexOf("Trident") > -1);
-					
-					 String downloadName = null;
-					
-					if (checkIE) {
-					 downloadName = URLEncoder.encode(resourceName, "UTF8").replaceAll("\\+", "");
-					 } else {
-					 downloadName = new String(resourceName.getBytes("UTF-8"), "ISO-8859-1");
-					}
-					
-					 headers.add("Content-Disposition", "attachment; filename=" + downloadName);
-			
-			 } catch (UnsupportedEncodingException e) {
-			 e.printStackTrace();
-			 }
-			
-			 	return new ResponseEntity<Resource>(resource, headers, HttpStatus.OK);
-			 }
-				
-		
+// /////////////////////////////////////////////////////////////////// 
+
+
+@PostMapping("/uploadFormAction")
+public void uploadFormPost(MultipartFile[] uploadFile, Model model) {
+
+	String uploadFolder = "C:\\upload";
+
+	for (MultipartFile multipartFile : uploadFile) {
 
 		
-	
-@PostMapping("/deleteFile.do")
+		System.out.println("Upload File Name: " + multipartFile.getOriginalFilename());
+		System.out.println("Upload File Size: " + multipartFile.getSize());
+
+		File saveFile = new File(uploadFolder, multipartFile.getOriginalFilename());
+
+		try {
+			multipartFile.transferTo(saveFile);
+		} catch (Exception e) {
+			
+		} // end catch
+	} // end for
+
+}
+
+
+
+
+private boolean checkImageType(File file) {
+
+	try {
+		String contentType = Files.probeContentType(file.toPath());
+
+		return contentType.startsWith("image");
+
+	} catch (IOException e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();
+	}
+
+	return false;
+}
+
+
+@PostMapping(value = "/uploadAjaxAction", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
 @ResponseBody
-public ResponseEntity<String> deleteFile(String filePath, String type,String name,HttpServletRequest request) {
+public ResponseEntity<List<AttachFileDTO>> uploadAjaxPost(MultipartFile[] uploadFile) {
 
-	System.out.println("deleteFile: " + filePath);
-	System.out.println("originName: " + name);
-	HttpSession session = request.getSession();
-    Member m = (Member)session.getAttribute("member");
-    int memberNo= m.getMemberNo();
-    AttachFileDTO aDTO = new AttachFileDTO();
-    
+	List<AttachFileDTO> list = new ArrayList<>();
+	String uploadFolder = "C:\\upload";
+
+	String uploadFolderPath ="/resources/file/"; 
+	// make folder --------
+	File uploadPath = new File(uploadFolder, uploadFolderPath);
+
+	if (uploadPath.exists() == false) {
+		uploadPath.mkdirs();
+	}
+	// make yyyy/MM/dd folder
+
+	for (MultipartFile multipartFile : uploadFile) {
+
+		AttachFileDTO attachDTO = new AttachFileDTO();
+
+		String uploadFileName = multipartFile.getOriginalFilename();
+
+		// IE has file path
+		uploadFileName = uploadFileName.substring(uploadFileName.lastIndexOf("\\") + 1);
+		System.out.println("only file name: " + uploadFileName);
+		attachDTO.setFileName(uploadFileName);
+
+		UUID uuid = UUID.randomUUID();
+
+		uploadFileName = uuid.toString() + "_" + uploadFileName;
+
+		try {
+			File saveFile = new File(uploadPath, uploadFileName);
+			multipartFile.transferTo(saveFile);
+
+			attachDTO.setUuid(uuid.toString());
+			attachDTO.setUploadPath(uploadFolderPath);
+
+			// check image type file
+			if (checkImageType(saveFile)) {
+
+				
+				
+
+				FileOutputStream thumbnail = new FileOutputStream(new File(uploadPath, "s_" + uploadFileName));
+
+				Thumbnailator.createThumbnail(multipartFile.getInputStream(), thumbnail, 100, 100);
+
+				thumbnail.close();
+			}
+
+			// add to List
+			list.add(attachDTO);
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+	} // end for
+	return new ResponseEntity<>(list, HttpStatus.OK);
+}
+
+@GetMapping("/display")
+@ResponseBody
+public ResponseEntity<byte[]> getFile(String fileName) {
+
+	System.out.println("fileName: " + fileName);
+
+	File file = new File("c:\\upload\\" + fileName);
+
+	System.out.println("file: " + file);
+
+	ResponseEntity<byte[]> result = null;
+
+	try {
+		HttpHeaders header = new HttpHeaders();
+
+		header.add("Content-Type", Files.probeContentType(file.toPath()));
+		result = new ResponseEntity<>(FileCopyUtils.copyToByteArray(file), header, HttpStatus.OK);
+	} catch (IOException e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();
+	}
+	return result;
+}
+
+@GetMapping(value = "/download", produces = MediaType.APPLICATION_OCTET_STREAM_VALUE)
+@ResponseBody
+public ResponseEntity<Resource> downloadFile(@RequestHeader("User-Agent") String userAgent, String fileName) {
+
+	Resource resource = new FileSystemResource("c:\\upload\\" + fileName);
+
+	if (resource.exists() == false) {
+		return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+	}
+
+	String resourceName = resource.getFilename();
+
+	// remove UUID
+	String resourceOriginalName = resourceName.substring(resourceName.indexOf("_") + 1);
+
+	HttpHeaders headers = new HttpHeaders();
+	try {
+
+		boolean checkIE = (userAgent.indexOf("MSIE") > -1 || userAgent.indexOf("Trident") > -1);
+
+		String downloadName = null;
+
+		if (checkIE) {
+			downloadName = URLEncoder.encode(resourceOriginalName, "UTF8").replaceAll("\\+", " ");
+		} else {
+			downloadName = new String(resourceOriginalName.getBytes("UTF-8"), "ISO-8859-1");
+		}
+
+		headers.add("Content-Disposition", "attachment; filename=" + downloadName);
+
+	} catch (UnsupportedEncodingException e) {
+		e.printStackTrace();
+	}
+
+	return new ResponseEntity<Resource>(resource, headers, HttpStatus.OK);
+}
+
+
+@PostMapping("/deleteFile")
+@ResponseBody
+public ResponseEntity<String> deleteFile(String fileName, String type) {
+
+	System.out.println("deleteFile: " + fileName);
+
 	File file;
 
 	try {
-		file = new File(URLDecoder.decode(filePath, "UTF-8"));
+		file = new File("c:\\upload\\" + URLDecoder.decode(fileName, "UTF-8"));
 
 		file.delete();
 
@@ -262,18 +271,8 @@ public ResponseEntity<String> deleteFile(String filePath, String type,String nam
 			System.out.println("largeFileName: " + largeFileName);
 
 			file = new File(largeFileName);
-			System.out.println("largeFileName"+largeFileName);
+
 			file.delete();
-			aDTO.setMemberNo(memberNo);
-			aDTO.setChangeFileName(name);
-		    aDTO.setImgDelYN('Y');
-			int result = iService2.updateDeleteImage(aDTO);
-			if(result>0){
-				System.out.println("정상적으로 삭제");
-			}else{
-				System.out.println("삭제취소");
-			}
-			System.out.println("삭제하고왔다. 컨트롤러");
 		}
 
 	} catch (UnsupportedEncodingException e) {
@@ -284,6 +283,4 @@ public ResponseEntity<String> deleteFile(String filePath, String type,String nam
 	return new ResponseEntity<String>("deleted", HttpStatus.OK);
 
 }
-		
-}				
-		
+}

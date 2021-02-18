@@ -13,7 +13,7 @@
 <style>
 .uploadResult {
 width: 100%;
-margin-top:20px;
+margin-top:70px;
 background-color: white;
 height:70%;
  overflow:scroll;
@@ -81,15 +81,6 @@ background-repeat: no-repeat;
 .img_body{
 height:500px;
 
-}
-.allImg{
-padding-left:10px;
-margin-right:10px;
-}
-
-#spaceImage{
-height:200px;
-width:100%;
 }
 </style>
 </head>
@@ -195,48 +186,48 @@ width:100%;
                   <span>전체사진</span> 
                                                                                   
               
-               <div class='bigPictureWrapper'>  <!-- 확대 이미지 보여주는 곳 -->
+               <div class='bigPictureWrapper'>
 				  <div class='bigPicture'>
 				  </div>
 			</div> 
-     
-                     <div class='uploadResult' style="background-color:pink; height:180px;" >  <!--  전체 파일 목록으로 보여주기-->
-					<div class="ImgView">  <!-- 파일 리스트 그림 보여주는 곳 -->
+              
+                         
+                      
+                         <div class='uploadDiv'>    
+                         <input type='file' name='uploadFile' multiple id="btn-upload">
+						</div>
+                   			 
+                     
+                     <div class='uploadResult'>  <!--  업로드 된 파일 목록으로 보여주기-->
+					<ul > 
 					    <%for(AttachFileDTO af : list){%>
-						<%System.out.println("/resources/file/"+af.getFileName());%>
-						<div class="allImg"><img src="<%="/resources/file/"+af.getFileName()%>" width='150px' height='90%' >
-						<span data-file=\'"+fileCallPath+"\' data-type='image' data-name=\'"+fileName+"\'><img src='/resources/image/admin/error.png' style='width:20px; height:20px;'></span>
-						</div> <!--   <여기 아래 빈 공간은 파일 이름 보여주는 곳, jquery로 추가할 것.   -->
-						   
-						   
-						   
-						   
-						<%} %>		
-					</div>
-					
+						<%System.out.println("/resources/file/"+af.getChangeFileName());%>
+						<div ><img src="<%="/resources/file/"+af.getChangeFileName()%>" width='150px' height='150px'>
+						<span data-file=\'"+fileCallPath+"\' data-type='image' data-name=\'"+fileName+"\'><img src='/resources/image/admin/error.png' style='width:20px; height:20px;'></span></div>
+						<%} %>
+			
+								
+					</ul>
 				</div>
-                   
-                   			    
-                        <div class="row" id="spaceImage" style="background-color:yellow;">  <!-- 미리보기 하는 곳(썸네일) -->
+                     
+                        <div class="row" id="spaceImage">
                               <div class="col-md-12"> 
-                             		 <div id="imageviews"></div>
+                              <div id="imageviews"></div>
                               </div>
                           </div>
             
-            
                </div> <!-- img_body -->
-           
+            <!-- 여기부터 실험 -->
+            
             
             
           
            
 
-		  <div class='uploadBtn'>    <!--  업로드 버튼을 구현하는것 -->
+		  <div class='uploadBtn'>
 				 <button type="button" id='uploadBtn' class="btn btn-modifys" style="margin:0 auto;width:80px; background-color:#FFF3D8;color:#50401B;border:none;border-radius:10px;">업로드</button>
 			</div>
- 				<div class='uploadDiv'>    
-                         <input type='file' name='uploadFile' multiple id="btn-upload">  
-						</div>
+
 
 
 
@@ -320,19 +311,16 @@ width:100%;
 
  $(document).ready(function(){
 	 
-      var beesNo = ${param.beesNo};
-	 $('#uploadBtn').click(function(e){       
-		 e.preventDefault();      /*예기치 못한 이벤트 차단 */
-		 
+      
+	 $('#uploadBtn').click(function(e){
+		 e.preventDefault();
 	 $.ajax({
 		 url: '/selectAllImage.do',
 		 processData: false,
 		 contentType: false,
-		 data : {beesNo : beesNo},
 		 type: 'POST',
 		 dataType:'json',
 		 success: function(result){
-			 console.log("result"+result.fileName);
 			 console.log("re"+result);
 			 
 			 var str="";
@@ -355,12 +343,12 @@ width:100%;
 	/*업로드*/	
 	 
 	 var cloneObj = $(".uploadDiv").clone();
-	 $('#uploadBtn').on("click", function(e){        /* 업로드 버튼을 클릭하면*/
+	 $('#uploadBtn').on("click", function(e){
 		 
-		 var regex = new RegExp("(.*?)\.(jpe?g|png|gif)$");		//업로드시 확장자가 이런 형태만 선택해서 받겠다는 정규표현식임...exe같은거 잘못 받아서 해킹 당하지 않으려고..보안문제
+		 var regex = new RegExp("(.*?)\.(jpe?g|png|gif)$");
 			var maxSize = 5242880; //5MB
 
-			function checkExtension(fileName, fileSize) {		//파일 이름이랑 사이즈가 적합한지 검사
+			function checkExtension(fileName, fileSize) {
 
 				if (fileSize >= maxSize) {
 					alert("파일 사이즈 초과(파일은 최대 5MB까지만 가능합니다.)");
@@ -373,29 +361,29 @@ width:100%;
 				}
 				return true;
 			}
-		 var formData = new FormData();		//formData 객체 생성
+		 var formData = new FormData();
 			
-		 var inputFile = $("input[name='uploadFile']");      //input의 name=uploadFile
+		 var inputFile = $("input[name='uploadFile']");
 		
 		 var files = inputFile[0].files;
  		
- 		console.log(files);    //뭐나옴?
+ 		console.log(files);
  		
  		for(var i = 0; i < files.length; i++){
  			if (!checkExtension(files[i].name, files[i].size)) {
 				return false;
 			}
 
- 			 formData.append("uploadFile", files[i]);    //formData에 filedate를 추가 (여러개 등록 가능하게 for문 사용)
+ 			 formData.append("uploadFile", files[i]);
  			
  		}
 			
  		
  		 $.ajax({
  			 url: '/uploadAjaxAction.do',
- 			 processData: false,		//반드시 false여야 전송됨
- 			 contentType: false,		//반드시 false여야 전송됨
- 			 data: formData,		//formData에 파일 데이터 추가해서 formData자체를 전송
+ 			 processData: false,
+ 			 contentType: false,
+ 			 data: formData,
  			 type: 'POST',
  			 dataType:'json',
  			 success: function(result){
@@ -408,13 +396,13 @@ width:100%;
  			
  			 
 	 });
-	 var imgView = $(".ImgView");
+	 var uploadResult = $(".uploadResult ul");
 	 
-	 function showUploadedFile(imgViewArr){
+	 function showUploadedFile(uploadResultArr){
 		    
 		    var str = "";
 		    
-		    $(imgViewArr).each(function(i, obj){
+		    $(uploadResultArr).each(function(i, obj){
 		      
 		      
 		        
@@ -427,11 +415,11 @@ width:100%;
 		        "<img src='/display.do?fileName="+fileCallPath+"'></a>"+
 		        "<span data-file=\'"+fileCallPath+"\' data-type='image' data-name=\'"+fileName+"\'><img src='/resources/image/admin/error.png' style='width:20px; height:20px;'></span></div>";
 		        
-		        str += "<li>" + obj.fileName + "</li>";
+		        
 		      
 		    });
 		    
-		    imgView.append(str);
+		    uploadResult.append(str);
 		  }
  });
  
