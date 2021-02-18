@@ -894,22 +894,16 @@ public class BeesController {
         String uploadPath = "/resources/image/beeCreateProfile/";
         String encType="UTF-8";
 	    String realUploadPath = beeCreateContext.getRealPath(uploadPath);
-
         String path = realUploadPath;
         System.out.println("path : " + path);
-
         String originFileName = mf.getOriginalFilename(); // 원본 파일 명
         long fileSize = mf.getSize(); // 파일 사이즈
-
         System.out.println("originFileName : " + originFileName);
         System.out.println("fileSize : " + fileSize);
-
         String safeFile = path + System.currentTimeMillis() + originFileName+"_bee";
         System.out.println("safeFile : " + safeFile);
         String beeCreateProfile = System.currentTimeMillis() + originFileName+"_bee";
-        System.out.println("beeCreateProfile : " + beeCreateProfile);
-
-        
+        System.out.println("beeCreateProfile : " + beeCreateProfile);     
         System.out.println("safeFile : " + safeFile);
         try {
             mf.transferTo(new File(safeFile));
@@ -932,8 +926,7 @@ public class BeesController {
 		}else{
 		bee.setBeesCover(beeCreateProfile);
 		System.out.println("파일명 미리보기:"+bee.getBeesCover());	
-		}
-	
+		}	
 		bee.setBeesCategory(mtfRequest.getParameter("category"));	
 		bee.setBeesHost(mtfRequest.getParameter("beesHost"));
 		bee.setBeesHostNo(Integer.parseInt(mtfRequest.getParameter("beesHostNo")));
@@ -947,21 +940,17 @@ public class BeesController {
 		bee.setBeesHostName(bee.getBeesName());
 		System.out.println("비즈 카테고리 미리보기:"+bee.getBeesCategory());
 		System.out.println("비즈 개설자:"+bee.getBeesHost());
-		System.out.println("비즈 공개 비공개:"+bee.getBeesPublicYN());
-		
+		System.out.println("비즈 공개 비공개:"+bee.getBeesPublicYN());		
 		int beeResult = bService.insertBee(bee);
 		int beehostResult = bService.insertHostBeeUser(bee);
-		int beeSetting = bService.insertSetting(bee);
-		
+		int beeSetting = bService.insertSetting(bee);		
 		if (beeResult > 0 && beeSetting >0 && beehostResult >0) {
 			model.addAttribute("msg", "비즈가 성공적으로 만들어졌습니다");
 		} else {
 			model.addAttribute("msg", "비즈 생성이 실패하였습니다. 지속적으로 실패 시 관리자에게 문의하세요.");
 		}
-		model.addAttribute("location", "/myBeesPage.do?memberNo="+bee.getBeesHostNo());
-	
-		return "/bees/beeCreate/beeResult";
-       /* return "redirect:/";*/
+		model.addAttribute("location", "/myBeesPage.do?memberNo="+bee.getBeesHostNo());	
+		return "/bees/beeCreate/beeResult";      
     }
 	
 	@RequestMapping(value="/coverUpdateSet.do")

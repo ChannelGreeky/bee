@@ -7,6 +7,7 @@ import java.util.Map;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
+import com.fourmeeting.bee.beesuser.model.vo.BeesUser;
 import com.fourmeeting.bee.image.model.vo.AttachFileDTO;
 
 @Repository("imageDAO2")
@@ -30,8 +31,8 @@ public class ImageDAO2 {
 		return result;
 	}
 
-	public ArrayList<AttachFileDTO> selectAllImage(SqlSessionTemplate sqlSession, int memberNo) {
-		List list = sqlSession.selectList("notice.selectAllImage", memberNo);
+	public ArrayList<AttachFileDTO> selectAllImage(SqlSessionTemplate sqlSession, BeesUser b) {
+		List list = sqlSession.selectList("notice.selectAllImage", b);
 		return (ArrayList<AttachFileDTO>)list;
 		
 	}

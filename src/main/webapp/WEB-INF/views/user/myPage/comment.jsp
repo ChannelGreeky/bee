@@ -209,6 +209,10 @@
 								bCont = " ";
 							}
 							
+							var myDate = new Date(value.commentDate);
+							cDate = myDate.getFullYear(value.commentDate)+'년 '+(myDate.getMonth(value.commentDate)+1) + '월 ' + (myDate.getDate(value.commentDate)) + '일 ';
+
+							
 							$(".myhistroy_div").append('<table class="myhistroy_comment_table">'+
 																'<tr class="myhistroy_beesName">'+
 																	'<td colspan="2"><a href="/beesSelectOne.do?beesNo='+value.beesNo+'&memberNo='+value.memberNo+'">'+value.beesName+'</a></td>'+ 
@@ -223,7 +227,7 @@
 																	'<td colspan="2">'+bCont+'</td>'+
 																'</tr>'+
 																'<tr class="mycomments mycomments4">'+
-																	'<td colspan="2">'+value.commentDate +'</td>'+
+																	'<td colspan="2">'+cDate +'</td>'+
 																'</tr>'+
 															'<table>');
 						});
