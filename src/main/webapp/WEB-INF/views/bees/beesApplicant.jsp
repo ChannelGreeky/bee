@@ -113,7 +113,7 @@ margin-bottom : 12%;
 }
 
 #all{
-padding-bottom : 10%;
+padding-bottom : 12%;
 height : 100%;
 }
 
@@ -343,7 +343,7 @@ height : 100%;
 									//alert(userName);
 									
 									$.ajax({
-										url : "BeesUserRefusal.do",
+										url : "/BeesUserRefusal.do",
 										type : "post",
 										data : {"userName" : userName},
 										success : function(result){
