@@ -1829,6 +1829,8 @@ $('#join-modal-submit').click(function(){
 		}
 	}
 });
+
+
 </script>
 </body>
 </html>

@@ -29,6 +29,18 @@
 	HashMap<Integer, ArrayList<Image>> imageMap = (HashMap<Integer, ArrayList<Image>>)request.getAttribute("imageMap");
 	
 %>
+
+<script>
+
+
+$(function(){
+	var height = $('#bestFeedAll').height();
+	if(height<800){
+	$('#bestFeedAll').css('height',(Number($(document).height())-220)+"px");
+	}
+});
+
+</script>
 	<div>
 	<%@include file="/include/headerUser.jsp" %>
 	</div>
@@ -87,7 +99,7 @@
 				</div>
 				
 			</div>
-			<div class="col-7 p-0">
+			<div class="col-7 p-0" id="bestFeedAll">
 						<span id="main-content-title">인기글</span>
 					<%
 					if(!(feedList.isEmpty())){

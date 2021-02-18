@@ -74,9 +74,9 @@ for(var i=start-1;i<end;i++){
 });
 
 $(function(){
-	var height = $('.myBeesFeed').height();
+	var height = $('#myBeesFeed').height();
 	if(height<800){
-	$('.myBeesFeed').css('height',(Number($(document).height())-220)+"px");
+	$('#myBeesFeed').css('height',(Number($(document).height())-220)+"px");
 	}
 });
 

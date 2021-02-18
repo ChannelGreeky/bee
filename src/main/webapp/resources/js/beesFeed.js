@@ -252,10 +252,11 @@ $(function() {
 	})
 
 	
+
 $('.sche-box').find('p').click(
 		function() {
 			
-			var scheduleNo = $('.sche-cont-box').attr('id');
+			var scheduleNo = $(this).closest('.sche-cont-box').attr('id');
 			
 			$.ajax({
 				url : '/scheduleSelectOne.do',
