@@ -4,7 +4,8 @@
 
 	
 	<select id="selectBeesUser" parameterType="beesUserList" resultType="beesUserList">
-		select
+		
+	select
 		BEES_USER.USER_NO as userNo,
 		BEES_USER.BEES_NO as beesNo,
 		BEES_USER.MEMBER_NO as memberNo,
@@ -18,10 +19,32 @@
 		MEMBER.MEMBER_ID as memberId,
 		MEMBER.PROFILE_IMG as profileImg
 		from Bees_User left join member On bees_user.member_no=member.member_no
-		where bees_user.BEES_NO=#{beeNo} and bees_user.user_del_yn='N' and bees_user.user_auth_yn='Y' order by bees_user.user_name ASC
-		
+		where bees_user.BEES_NO=#{beesNo} and bees_user.user_del_yn='N' and bees_user.user_auth_yn='Y' order by bees_user.user_name ASC
+	
 	
 		
+	
+		<!-- SELECT ROWNUM, tbl.* 
+			FROM        
+			(SELECT 
+		            ROW_NUMBER() OVER(ORDER BY bees_user.user_name ASC) AS num,
+		   			BEES_USER.USER_NO as userNo,
+		BEES_USER.BEES_NO as beesNo,
+		BEES_USER.MEMBER_NO as memberNo,
+		BEES_USER.USER_NAME as userName,
+		BEES_USER.USER_CLASS as userClass,
+		BEES_USER.USER_BLOCK_YN as userBlockYN,
+		BEES_USER.USER_DEL_YN as userDelYN,
+		BEES_USER.USER_AUTH_YN as userAuthYN,
+		BEES_USER.USER_ASK_DATE as userAskDate,
+        BEES_USER.USER_AUTH_DATE as userAuthDate,
+		MEMBER.MEMBER_ID as memberId
+		from bees_user left join member on bees_user.member_no=member.member_no where bees_user.bees_no=#{beesNo}
+		<![CDATA[where MEMBER.member_no >=1000)tbl]]>
+       		 WHERE num BETWEEN (#{pageNum}-1) * #{amount} AND #{pageNum} * #{amount}
+	
+	 -->
+	
 		<!--  
 		<choose>
 			<when test="#mainpage_option.equals('user_name')">

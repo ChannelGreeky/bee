@@ -8,7 +8,6 @@ import javax.annotation.Resource;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Service;
 
-import com.fourmeeting.bee.bees.model.vo.Bees;
 import com.fourmeeting.bee.beesuser.model.dao.BeesUserDAO;
 import com.fourmeeting.bee.beesuser.model.vo.BeesUser;
 import com.fourmeeting.bee.beesuser.model.vo.BeesUserList;

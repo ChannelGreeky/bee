@@ -143,7 +143,7 @@ font-size : 0.9rem;
 						<div class="row" >
 						
 						<div class="col-md-6" id="memberListPd1">
-						<img src="/resources/image/profile/<%= BUList.getProfileImg() %>" class="memberListImg"/>
+						<img onError="this.src='/resources/image/profile/p1.jpg'" src="/resources/image/profile/<%= BUList.getProfileImg() %>" class="memberListImg"/>
 						<span id="userId"><%=BUList.getUserName()%></span> <span id="askDate"><%= BUList.getUserAskDate() %> 신청</span>
 						</div>
 						

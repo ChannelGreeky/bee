@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttribute;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.fourmeeting.bee.admin.model.vo.PageDTO;
 import com.fourmeeting.bee.beesuser.model.service.BeesUserService;
 import com.fourmeeting.bee.beesuser.model.vo.BeesUser;
 import com.fourmeeting.bee.beesuser.model.vo.BeesUserList;
@@ -49,6 +50,7 @@ public class BeesUserController {
 	/*------------solm----------*/
 	@RequestMapping(value="/inviteMember.do")
 	public ModelAndView selectMemberInvite(HttpSession session ) {
+		
 		Member m = (Member)session.getAttribute("member");
 		int memberNo = m.getMemberNo();
 		
@@ -63,6 +65,7 @@ public class BeesUserController {
 	}
 	
 	@RequestMapping(value="/beesMember.do")
+	
 	public ModelAndView selectBeesUser(HttpSession session, HttpServletRequest request) {
 		
 		    //BeesNo Session에서 가져오기
@@ -92,7 +95,7 @@ public class BeesUserController {
 		
 		//첫 페이지에서 보이는 BeesUser List 받아오는 코드
 		ArrayList<BeesUserList> list = userService.selectBeesUser(beesNo);
-		
+
 		//가입신청자 몇명 있는지 받아오는 코드
 		ArrayList<BeesUserList> WaitersList = userService.selectBeesUserWaiters(beesNo);
 		System.out.println("null확인 : "+ beesNo);

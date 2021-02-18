@@ -7,7 +7,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
 import com.fourmeeting.bee.PagingVO;
-import com.fourmeeting.bee.bees.model.vo.Bees;
+import com.fourmeeting.bee.admin.model.vo.Criteria;
 import com.fourmeeting.bee.beesuser.model.vo.BeesUser;
 import com.fourmeeting.bee.beesuser.model.vo.BeesUserList;
 import com.fourmeeting.bee.beesuser.model.vo.BeesUserSelect;
@@ -53,14 +53,17 @@ public class BeesUserDAO {
 public ArrayList<BeesUserList> selectBeesUser(SqlSessionTemplate splSession, int beesNo) {
 		
 		System.out.println("[BeesUser-DAO] 호출");
+		
 		List list = splSession.selectList("beesUserList.selectBeesUser", beesNo);
 		
+		/*
 		System.out.println("----------------------------------------------");
 		for(BeesUserList b : (ArrayList<BeesUserList>)list)
 		{
 			System.out.println(b.getUserName() + " / " + b.getUserAuthDate());
 		}
 		System.out.println("----------------------------------------------");
+		*/
 		
 		return (ArrayList<BeesUserList>)list;
 		

@@ -666,7 +666,7 @@ margin-top : 3%;
             <div id="sche-detail-writer-info">
             <%--style="background-image:url('/resources/image/profile/<%=bees.getBeesCover() %>')" 
             	 onerror="this.style.display='none'"--%>
-                <img id="sche-detail-writer-profile"/>
+                <img id="sche-detail-writer-profile" onError="this.src='/resources/image/profile/p1.jpg'"/>
                 <span id="sche-detail-userName"></span><a href="" id="scheduleModify">수정하기</a> <a href="" id="scheduleDelete">삭제하기</a>
                
           </div>

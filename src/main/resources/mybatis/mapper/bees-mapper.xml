@@ -356,7 +356,7 @@
 	<insert id="insertScheDate"
 		parameterType="com.fourmeeting.bee.schedule.model.vo.ScheduleInsert">
 		insert ALL
-		into board values(board_no_seq.nextval, #{memberNo}, #{beesNo}, systimestamp, '', '', schedule_seq.nextval, '', '', '','N','N')
+		into board values(board_no_seq.nextval, #{memberNo}, #{beesNo}, systimestamp, '0', '', schedule_seq.nextval, '0', '0', '','N','N')
 		into schedule values(schedule_seq.currval, #{userNo}, #{beesNo}, #{scheduleTitle}, #{scheduleCont}, #{scheduleStartDate},
 		#{scheduleEndDate}, BOARD_NO_SEQ.currval)
 		select * from DUAL

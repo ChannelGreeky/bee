@@ -82,7 +82,19 @@ border-radius: 25px;
 }
 #memberList-outline{
 width : 100%;
+overflow:scroll;
 }
+.memberList{
+height : 10%;
+}
+
+#all{
+height : 100%;
+}
+#bees-contents{
+padding-bottom : 100px;
+}
+
 </style>
 
 	<div>
@@ -265,7 +277,8 @@ width : 100%;
 						
 						<!-- memberPage 열렸을 때 보이는 memberList -->
 						<%for(BeesUserList BUList : list){ %>
-							<div class="col-md-12 p-0, memberList" ><img src="/resources/image/profile/<%= BUList.getProfileImg() %>" class="memberListImg"/><%= BUList.getUserName() %> <span> <%= BUList.getMemberId() %></span>
+							<div class="col-md-12 p-0, memberList" >
+							<img onError="this.src='/resources/image/profile/p1.jpg'" src="/resources/image/profile/<%= BUList.getProfileImg() %>" class="memberListImg"/><%= BUList.getUserName() %> <span> <%= BUList.getMemberId() %></span>
 							
 							<% if(BUList.getUserClass().equals("host") ){%>
 								<span id="host">호스트 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person-fill" viewBox="0 0 16 16">
@@ -317,9 +330,21 @@ width : 100%;
 		
 	</div>	
 
+			<script>
+			$(function(){
+				//footer위치조절
+				var higth = $("body").height();
+				if(higth<700){
+				   $("#footer").css('position','absolute').css('bottom','0');
+				}
+			})
+			</script>
+			
 	<div id="footer">
 	<%@include file="/common/footer.jsp"%>
 	</div>
+	
+	
 </body>
 </html>
 
