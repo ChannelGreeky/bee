@@ -173,22 +173,31 @@
 	
 	</select>
 	
-	<select id="selectAllImage" parameterType="int" resultType="AttachFileDTO">
+	<select id="selectAllImage" parameterType="BeesUser" resultType="AttachFileDTO">
 		SELECT 
 			img_no as imgNo, 
-			board_no as boardNo, 
+			bees_no as beesNo, 
 			original_img_name as fileName, 
 			change_img_name as changeFileName, 
 			img_path as uploadPath, 
 			img_size as imgSIze, 
 			img_del_yn as imgDelYN, 
 			member_no as memberNo
-		FROM image
+			
+		FROM image 
+		LEFT JOIN member	
+		USING(member_no)	
+		LEFT JOIN bees_user
+		USING(member_no)
 		WHERE 
 			member_no = #{memberNo}
+		AND
+			bees_no = #{beesNo}
 	
 	</select>
 	
+        
+       
 	
 	<select id="searchBtn" parameterType="Criteria" resultType="Notice">
 		SELECT ROWNUM, tbl.* 
