@@ -8,7 +8,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>비즈 설정</title>>
+<title>비즈 설정</title>
 </head>
 <!--구글 노토 산스 -->
 <link rel="preconnect" href="https://fonts.gstatic.com">
