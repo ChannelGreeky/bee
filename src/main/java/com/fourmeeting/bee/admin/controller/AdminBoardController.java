@@ -21,8 +21,11 @@ import com.fourmeeting.bee.admin.model.vo.Criteria;
 import com.fourmeeting.bee.admin.model.vo.PageDTO;
 import com.fourmeeting.bee.bees.model.service.BeesService;
 import com.fourmeeting.bee.bees.model.vo.Bees;
+import com.fourmeeting.bee.bees.model.vo.Setting;
 import com.fourmeeting.bee.beesuser.model.service.BeesUserService;
 import com.fourmeeting.bee.beesuser.model.vo.BeesUser;
+import com.fourmeeting.bee.board.model.service.BoardService;
+import com.fourmeeting.bee.board.model.vo.Feed;
 import com.fourmeeting.bee.member.model.vo.Member;
 import com.fourmeeting.bee.notice.model.vo.Notice;
 
@@ -38,13 +41,47 @@ public class AdminBoardController {
 	@Resource(name="BeesUserService")
 	private BeesUserService userService;
 	
+	@Resource(name="BoardService")
+	private BoardService boardService;
+	
+	
 	@Resource(name= "beesService")
 	private BeesService bService;
 	
 	@RequestMapping(value="/beesUploadFile.do")
-	public String uploadFile(){
+	public String uploadFile(@RequestParam int beesNo, HttpServletRequest request, HttpSession session) throws Exception {
+		
+		//서브바 필요정보들 // 
+				Member member = (Member)session.getAttribute("member");
+				int memberNo = member.getMemberNo();
+				
+				Bees bees = bService.beesSelectOne(beesNo);
+				request.setAttribute("bees", bees);
+				int userCount = userService.userCount(beesNo);
+				request.setAttribute("userCount", userCount);
+				//유저 정보 불러오기
+				BeesUser user = userService.userSelectOne(memberNo, beesNo);
+				request.setAttribute("user", user);
+				
+				//세팅 정보 불러오기
+				Setting setting = bService.selectBeesSetting(beesNo);
+				request.setAttribute("setting", setting);
+				
+				
+				
+				//
+				
+				ArrayList<Feed> feedList = boardService.boardSelectAll(beesNo);
+				request.setAttribute("feedList", feedList);
 		return "bees/board/beesFileBoard";
 	}
+	
+	@RequestMapping(value="/image.do")
+	public String image(){
+		
+		return "bees/board/uploadForm";
+	}
+	
 	
 	@RequestMapping(value="/sideInfo.do")
 	public String sideInfo(@RequestParam int beesNo,HttpSession session,HttpServletRequest request){
@@ -57,6 +94,25 @@ public class AdminBoardController {
 		
 		BeesUser user = userService.userSelectOne(memberNo, beesNo);
 		request.setAttribute("user", user);
+		//서브바 필요정보들 // 
+		
+		
+		Bees bees = bService.beesSelectOne(beesNo);
+		request.setAttribute("bees", bees);
+		int userCount = userService.userCount(beesNo);
+		request.setAttribute("userCount", userCount);
+		//유저 정보 불러오기
+		
+		//세팅 정보 불러오기
+		Setting setting = bService.selectBeesSetting(beesNo);
+		request.setAttribute("setting", setting);
+		
+		
+		
+		//
+		
+		ArrayList<Feed> feedList = boardService.boardSelectAll(beesNo);
+		request.setAttribute("feedList", feedList);
 		
 		
 		Bees beeInfo = bService.beesSelectOne(beesNo);

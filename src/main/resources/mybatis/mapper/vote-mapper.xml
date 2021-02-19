@@ -89,4 +89,13 @@ from Vote
 where bees_no = #{beesNo}
 </select>
 
+
+
+<select id="selectAllSearch" parameterType="Search" resultType="Vote">
+
+ select * from vote where bees_no= #{beesNo} and vote_title like '%'||#{keyword}||'%'
+</select>
+
+
+
 </mapper>

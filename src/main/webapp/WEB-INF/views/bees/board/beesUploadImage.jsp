@@ -182,16 +182,15 @@ height:100%;
                   <H3>사진첩</H3>
    <%
 	ArrayList<AttachFileDTO> list=(ArrayList<AttachFileDTO>)request.getAttribute("list");
-
-  //                Member member = (Member)session.getAttribute("member");
-   //           	System.out.println(member.getMemberNo());	
+                Member member = (Member)session.getAttribute("member");
+             	System.out.println(member.getMemberNo());	
               	
 %>
 	
 
 <%
 		
-	//	if (member != null) {
+		if (member != null) {
 	%>
 
                            
@@ -251,7 +250,7 @@ height:100%;
            
 
 
-
+<a href="/image.do">djqfhem</a>
    
             
             <!-- 여기까지 실험 -->
@@ -269,7 +268,7 @@ height:100%;
 
 	
 	
-	<%//} %>		  
+	<%} %>		  
 	
      
       

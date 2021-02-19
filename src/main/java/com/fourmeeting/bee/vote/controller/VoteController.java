@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-
+import com.fourmeeting.bee.admin.model.vo.Search;
 import com.fourmeeting.bee.bees.model.service.BeesService;
 import com.fourmeeting.bee.beesuser.model.service.BeesUserService;
 import com.fourmeeting.bee.beesuser.model.vo.BeesUser;
@@ -101,5 +101,20 @@ public class VoteController {
 			
 			return list;
 	}
+	
+	@RequestMapping("/searchInfo.do" )
+	public void searchMini(@RequestParam int beesNo, @RequestParam String keyword){
+		
+		Search s = new Search();
+		s.setBeesNo(beesNo);
+		s.setKeyword(keyword);
+		System.out.println(beesNo);
+		System.out.println(keyword);
+		 voteService.selectAllSearch(s);
+		//System.out.println(list);
+		//return ;
+		
+	}
+	
 	
 }
