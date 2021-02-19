@@ -427,7 +427,7 @@ if(user!=null){
            
 
 
-<a href="/image.do">djqfhem</a>
+<a href="/image.do" style="color:black">uploadForm</a>
    
             
             <!-- 여기까지 실험 -->

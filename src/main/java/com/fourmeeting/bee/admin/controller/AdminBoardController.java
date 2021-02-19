@@ -19,6 +19,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.fourmeeting.bee.admin.model.service.AdminBoardService;
 import com.fourmeeting.bee.admin.model.vo.Criteria;
 import com.fourmeeting.bee.admin.model.vo.PageDTO;
+import com.fourmeeting.bee.admin.model.vo.Search;
 import com.fourmeeting.bee.bees.model.service.BeesService;
 import com.fourmeeting.bee.bees.model.vo.Bees;
 import com.fourmeeting.bee.bees.model.vo.Setting;
@@ -26,6 +27,7 @@ import com.fourmeeting.bee.beesuser.model.service.BeesUserService;
 import com.fourmeeting.bee.beesuser.model.vo.BeesUser;
 import com.fourmeeting.bee.board.model.service.BoardService;
 import com.fourmeeting.bee.board.model.vo.Feed;
+import com.fourmeeting.bee.file.model.vo.BeesFile;
 import com.fourmeeting.bee.member.model.vo.Member;
 import com.fourmeeting.bee.notice.model.vo.Notice;
 
@@ -221,5 +223,23 @@ public class AdminBoardController {
 		return mav; 
 	}
 	
+
 	
+	@RequestMapping("/searchInfo.do" )
+	public ModelAndView searchMini(@RequestParam int beesNo, @RequestParam String keyword){
+		 String originalFileName;
+		Search s = new Search();
+		s.setBeesNo(beesNo);
+		s.setKeyword(keyword);
+		System.out.println(beesNo);
+		System.out.println(keyword);
+		 ArrayList<Search> list= anService.searchMini(s);
+		System.out.println(list);
+		ModelAndView mav = new ModelAndView();  
+		mav.addObject("list",list);
+		mav.setViewName("bees/board/beesFileBoard");  
+		
+		return mav; 
+		
+	}
 }

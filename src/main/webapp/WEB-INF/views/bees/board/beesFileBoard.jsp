@@ -248,7 +248,7 @@ if(user!=null){
 	}
 }
 
-
+ArrayList<Search> list=(ArrayList<Search>)request.getAttribute("search");
 Vote v = (Vote)request.getAttribute("vote");
 %>
   
@@ -577,9 +577,6 @@ Vote v = (Vote)request.getAttribute("vote");
         	
      
     	
-    	  
-    	
-    	  
     	  
     	  
     	  

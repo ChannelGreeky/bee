@@ -9,6 +9,8 @@ import org.springframework.stereotype.Service;
 
 import com.fourmeeting.bee.admin.model.dao.AdminBoardDAO;
 import com.fourmeeting.bee.admin.model.vo.Criteria;
+import com.fourmeeting.bee.admin.model.vo.Search;
+import com.fourmeeting.bee.file.model.vo.BeesFile;
 import com.fourmeeting.bee.member.model.vo.Member;
 import com.fourmeeting.bee.notice.model.vo.Notice;
 
@@ -50,6 +52,12 @@ public class AdminBoardService {
 	public ArrayList<Notice> searchbar(Criteria cri) {
 		ArrayList<Notice> list = abDAO.searchbar(cri, sqlSession);
 		return list;
+	}
+
+
+	public ArrayList<Search> searchMini(Search s) {
+		 ArrayList<Search> list= abDAO.searchMini(s, sqlSession);
+	 return list;
 	}
 
 

@@ -310,6 +310,21 @@
   		from notice where notice_del_yn='N' order by notice_date desc
   	</select>
   	
+  <select id="selectListMini" parameterType="Search" resultType="Search">
+  select member_name, 
+  original_file_name 
+  from ( 
+  select
+   * from bees_file
+    left join 
+    board using 
+    (board_no)
+     where bees_no =#{beesNo}
+     )left join
+      member 
+      using(member_no)
+     where member_name  
+     like '%'||#{keyword}||'%'
   
-	
+  </select>	
 </mapper>

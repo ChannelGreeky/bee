@@ -102,19 +102,7 @@ public class VoteController {
 			return list;
 	}
 	
-	@RequestMapping("/searchInfo.do" )
-	public void searchMini(@RequestParam int beesNo, @RequestParam String keyword){
-		
-		Search s = new Search();
-		s.setBeesNo(beesNo);
-		s.setKeyword(keyword);
-		System.out.println(beesNo);
-		System.out.println(keyword);
-		 voteService.selectAllSearch(s);
-		//System.out.println(list);
-		//return ;
-		
-	}
+	
 	
 	
 }

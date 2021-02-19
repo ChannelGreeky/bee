@@ -159,11 +159,12 @@ public void uploadFormPost(MultipartFile[] uploadFile, Model model) {
 
 }
 
-@PostMapping("/enroll.do")
-public void enroll(MultipartFile[] uploadFile,@RequestParam int beesNo){
+@PostMapping("/image.do")
+public String enroll(MultipartFile[] uploadFile,@RequestParam int beesNo){
 	 System.out.println(beesNo);
    System.out.println(uploadFile);
 	
+   return "bees/board/uploadForm";
 	
 }
 

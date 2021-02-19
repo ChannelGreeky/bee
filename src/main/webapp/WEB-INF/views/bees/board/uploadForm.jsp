@@ -13,7 +13,7 @@
 .uploadResult {
 width: 100%;
 margin-top:70px;
-background-color: yellow;
+background-color: white;
 height:70%;
  overflow:scroll;
 }
@@ -80,6 +80,11 @@ background-repeat: no-repeat;
 .img_body{
 height:500px;
 
+}
+
+#uploadBtn{
+height:30px;
+margin-left:50px;
 }
 </style>
 </head>
@@ -164,7 +169,7 @@ height:500px;
                <div class="img_head">
                   <H3>사진첩</H3>
    <%
-	ArrayList<AttachFileDTO> list=(ArrayList<AttachFileDTO>)request.getAttribute("list");
+//	ArrayList<AttachFileDTO> list=(ArrayList<AttachFileDTO>)request.getAttribute("list");
 
 	
 	
@@ -183,22 +188,28 @@ height:500px;
 				  <div class='bigPicture'>
 				  </div>
 			</div> 
+                <div class='uploadBtn'>
+				
+			</div>
               
-                         
+                    <table style="margin-left:5px; margin-top:20px;">
+                    <tr>
+                    <td> <button type="button" id='uploadBtn' class="btn btn-modifys" style="margin:0 auto;width:80px; background-color:#FFF3D8;color:#50401B;border:none;border-radius:10px;">업로드</button>
+					 </td>
+                    <td><input type='file' name='uploadFile' multiple id="btn-upload"></td>
+                    
+                    </tr>
+                    
+                    </table>     
                       
                          <div class='uploadDiv'>    
-                         <input type='file' name='uploadFile' multiple id="btn-upload">
+                        
 						</div>
                    			 
                      
                      <div class='uploadResult'>  <!--  업로드 된 파일 목록으로 보여주기-->
 					<ul > 
-					    <%for(AttachFileDTO af : list){%>
-						<%System.out.println("/resources/file/"+af.getChangeFileName());%>
-						<div ><img src="<%="/resources/file/"+af.getChangeFileName()%>" width='150px' height='150px'>
-						<span data-file=\'"+fileCallPath+"\' data-type='image' data-name=\'"+fileName+"\'><img src='/resources/image/admin/error.png' style='width:20px; height:20px;'></span></div>
-						<%} %>
-			
+				<!-- 
 								
 					</ul>
 				</div>
@@ -217,10 +228,7 @@ height:500px;
           
            
 
-		  <div class='uploadBtn'>
-				 <button type="button" id='uploadBtn' class="btn btn-modifys" style="margin:0 auto;width:80px; background-color:#FFF3D8;color:#50401B;border:none;border-radius:10px;">업로드</button>
-			</div>
-
+		
 
 
 
@@ -298,7 +306,7 @@ height:500px;
  $(document).ready(function(){
 	 
       
-	 $('#uploadBtn').click(function(e){
+	 $('#btn-upload').click(function(e){
 		 e.preventDefault();
 	 $.ajax({
 		 url: '/selectAllImage.do',
@@ -328,8 +336,8 @@ height:500px;
 	 
 	/*업로드*/	
 	 
-	 var cloneObj = $(".uploadDiv").clone();
-	 $('#uploadBtn').on("click", function(e){
+	 var cloneObj = $(".btn-upload").clone();
+	 $('#btn-upload').on("click", function(e){
 		 
 		 var regex = new RegExp("(.*?)\.(jpe?g|png|gif)$");
 			var maxSize = 5242880; //5MB

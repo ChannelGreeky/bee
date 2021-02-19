@@ -7,6 +7,8 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
 import com.fourmeeting.bee.admin.model.vo.Criteria;
+import com.fourmeeting.bee.admin.model.vo.Search;
+import com.fourmeeting.bee.file.model.vo.BeesFile;
 import com.fourmeeting.bee.member.model.vo.Member;
 import com.fourmeeting.bee.notice.model.vo.Notice;
 
@@ -41,6 +43,11 @@ public class AdminBoardDAO {
 	public ArrayList<Notice> searchbar(Criteria cri, SqlSessionTemplate sqlSession) {
 		List list =sqlSession.selectList("notice.searchbar", cri);
 		return (ArrayList<Notice>)list;
+	}
+
+	public  ArrayList<Search> searchMini(Search s,SqlSessionTemplate sqlSession) {
+		List list =sqlSession.selectList("notice.selectListMini",s);
+		return (ArrayList<Search>)list;
 	}
 
 	
