@@ -1,5 +1,5 @@
 package com.fourmeeting.bee.image.controller;
-
+import org.springframework.core.io.FileSystemResource;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -13,16 +13,17 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
-
+import javax.annotation.Resource;
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.apache.log4j.net.SyslogAppender;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.core.io.FileSystemResource;
-import org.springframework.core.io.Resource;
+
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -40,7 +41,13 @@ import org.springframework.web.bind.annotation.SessionAttribute;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.fourmeeting.bee.bees.model.service.BeesService;
+import com.fourmeeting.bee.bees.model.vo.Bees;
+import com.fourmeeting.bee.bees.model.vo.Setting;
+import com.fourmeeting.bee.beesuser.model.service.BeesUserService;
 import com.fourmeeting.bee.beesuser.model.vo.BeesUser;
+import com.fourmeeting.bee.board.model.service.BoardService;
+import com.fourmeeting.bee.board.model.vo.Feed;
 import com.fourmeeting.bee.image.model.service.ImageService;
 import com.fourmeeting.bee.image.model.service.ImageService2;
 import com.fourmeeting.bee.image.model.vo.AttachFileDTO;
@@ -62,16 +69,59 @@ public class ImageController2 {
 	@Qualifier(value="imageService2")
 	private ImageService2 iService2;
 	 
+	
+		
+		@Resource(name="BeesUserService")
+		private BeesUserService userService;
+		
+		@Resource(name="BoardService")
+		private BoardService boardService;
+		
+		
+		@Resource(name= "beesService")
+		private BeesService bService;
+	 
+	 
+	 
 	 
 	 @RequestMapping(value="/selectAllImage.do")
 		@ResponseBody
-		public ModelAndView selectAllImage(@SessionAttribute("member") Member m, HttpServletResponse response,@RequestParam int beesNo) {
-         System.out.println(beesNo);	
+		public ModelAndView selectAllImage(@SessionAttribute("member") Member m, HttpServletRequest request, HttpSession session, HttpServletResponse response,@RequestParam int beesNo) throws Exception {
+        
+		 
+				
+		 
+		 System.out.println(beesNo);	
 			int memberNo = m.getMemberNo();
 			System.out.println(memberNo);
 			BeesUser b = new BeesUser();
 			b.setBeesNo(beesNo);
 			b.setMemberNo(memberNo);
+			
+			//서브바 필요정보들 // 
+			Member member = (Member)session.getAttribute("member");
+			int memberNo2 = member.getMemberNo();
+			
+			Bees bees = bService.beesSelectOne(beesNo);
+			request.setAttribute("bees", bees);
+			int userCount = userService.userCount(beesNo);
+			request.setAttribute("userCount", userCount);
+			//유저 정보 불러오기
+			BeesUser user = userService.userSelectOne(memberNo2, beesNo);
+			request.setAttribute("user", user);
+			
+			//세팅 정보 불러오기
+			Setting setting = bService.selectBeesSetting(beesNo);
+			request.setAttribute("setting", setting);
+			
+			
+			
+			//
+			
+			ArrayList<Feed> feedList = boardService.boardSelectAll(beesNo);
+			request.setAttribute("feedList", feedList);
+			
+			
 		ArrayList<AttachFileDTO> list = iService2.selectAllImage(b);
 System.out.println("cont list"+list);
 			ModelAndView mav = new ModelAndView();
@@ -109,7 +159,13 @@ public void uploadFormPost(MultipartFile[] uploadFile, Model model) {
 
 }
 
-
+@PostMapping("/enroll.do")
+public void enroll(MultipartFile[] uploadFile,@RequestParam int beesNo){
+	 System.out.println(beesNo);
+   System.out.println(uploadFile);
+	
+	
+}
 
 
 @PostMapping(value = "/uploadAjaxAction.do", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
@@ -226,42 +282,6 @@ public ResponseEntity<byte[]> getFile(String fileName) {
 	return result;
 }
 
-@GetMapping(value = "/download", produces = MediaType.APPLICATION_OCTET_STREAM_VALUE)
-@ResponseBody
-public ResponseEntity<Resource> downloadFile(@RequestHeader("User-Agent") String userAgent, String fileName) {
-
-	Resource resource = new FileSystemResource("c:\\upload\\" + fileName);
-
-	if (resource.exists() == false) {
-		return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-	}
-
-	String resourceName = resource.getFilename();
-
-	// remove UUID
-	String resourceOriginalName = resourceName.substring(resourceName.indexOf("_") + 1);
-
-	HttpHeaders headers = new HttpHeaders();
-	try {
-
-		boolean checkIE = (userAgent.indexOf("MSIE") > -1 || userAgent.indexOf("Trident") > -1);
-
-		String downloadName = null;
-
-		if (checkIE) {
-			downloadName = URLEncoder.encode(resourceOriginalName, "UTF8").replaceAll("\\+", " ");
-		} else {
-			downloadName = new String(resourceOriginalName.getBytes("UTF-8"), "ISO-8859-1");
-		}
-
-		headers.add("Content-Disposition", "attachment; filename=" + downloadName);
-
-	} catch (UnsupportedEncodingException e) {
-		e.printStackTrace();
-	}
-
-	return new ResponseEntity<Resource>(resource, headers, HttpStatus.OK);
-}
 
 
 @PostMapping("/deleteFile")

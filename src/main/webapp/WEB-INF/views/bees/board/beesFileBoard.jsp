@@ -357,6 +357,9 @@ Vote v = (Vote)request.getAttribute("vote");
 							}
 							%>
 						
+						
+						
+						
 						</table>
 					</div>
 					<%
@@ -455,12 +458,7 @@ Vote v = (Vote)request.getAttribute("vote");
 		    </div>
 		    <div >
 		      <ul id="voteCont">
-				for(Vote v : list){
-				<%=v.getVoteTitle()%>
-				
-				
-				<%=  v.getVoteEndYN() %>
-				}	
+		
 			  </ul>
 		    </div>
   		</div>

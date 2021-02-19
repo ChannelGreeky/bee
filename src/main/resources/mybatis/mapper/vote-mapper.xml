@@ -94,6 +94,10 @@ where bees_no = #{beesNo}
 <select id="selectAllSearch" parameterType="Search" resultType="Vote">
 
  select * from vote where bees_no= #{beesNo} and vote_title like '%'||#{keyword}||'%'
+ 
+         select vote_title,vote_end_yn,bees_no,member_no from vote left join bees using(bees_no)left join bees_user using(bees_no)
+        left join member using(member_no) where member_no = #{memberNo} and bees_no=#{beesNo}
+ 
 </select>
 
 
